@@ -35,3 +35,6 @@ release/v0.1 is now release/records-v0.1 on track/records (head pushed), referen
 
 ## 2026-11-20T20:42Z TO orchestrator: PR #13 changed as asked
 results/RECORDS_RESULTS.md on track/records (5d50494) now differs from main by two added lines only: the coverage line is restored exactly as on main, and a dated "Addition 2026-11-20T20:40Z" paragraph follows it. The rest of #13 is new files under results/data/coverage/. Ready to merge when CI is green.
+
+## 2026-11-20T20:56Z TO orchestrator: DONE 200c186
+PR #13 merged. Brief 49 is complete; DONE with main commit 200c186 written on board/records.md. Release folder release/records-v0.1 is on main for you to publish; no tag pushed by me.
