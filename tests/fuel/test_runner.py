@@ -1,3 +1,8 @@
+import pytest
+
+for _m in ("scipy", "rasterio", "geopandas"):
+    pytest.importorskip(_m)
+
 import hashlib
 import json
 import os

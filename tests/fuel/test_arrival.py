@@ -1,6 +1,9 @@
-import sys
+import pytest
 
-sys.path.insert(0, "/home/user/wildfireguardiandata")
+for _m in ("scipy", "rasterio", "geopandas"):
+    pytest.importorskip(_m)
+
+import sys
 
 import numpy as np
 

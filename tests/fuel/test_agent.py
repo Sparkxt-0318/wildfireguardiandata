@@ -1,3 +1,8 @@
+import pytest
+
+for _m in ("scipy", "rasterio", "geopandas"):
+    pytest.importorskip(_m)
+
 import ast
 from pathlib import Path
 
