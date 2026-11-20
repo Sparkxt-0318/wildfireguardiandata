@@ -1,6 +1,6 @@
 """firewitness core: shared building blocks for all tracks. Standard library only."""
 from .config import load_region
-from .evidence import Verdict, Witness, combine, fit_witnesses
+from .evidence import Verdict, Witness, combine, fit_witnesses, fit_witnesses_grouped
 from .hashing import canonical_json, hash_inputs, hash_obj, sha256_bytes, sha256_file
 from .keys import MissingKey, get_key, load_keys, redact, require_key
 from .patch import (Patch, PatchConflict, PatchSet, apply_patches, missing, revert_file, revert_patches,
