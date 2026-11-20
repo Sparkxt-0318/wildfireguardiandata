@@ -1,0 +1,30 @@
+{
+ "sample": 200,
+ "status": {
+  "scar": 127,
+  "no_clear_look": 36,
+  "no_scar_clear": 31,
+  "rejected": 6
+ },
+ "scar": 127,
+ "consistent": 35,
+ "disagreeing": 92,
+ "disagreeing_scar_smaller_than_0.2x": 92,
+ "disagreeing_scar_larger_than_5x": 0,
+ "median_ratio_scar": 0.005485731000000001,
+ "population_large_fires_without_perimeter_2016_2023": 677,
+ "intervals": {
+  "scar": [
+   0.5663157405897017,
+   0.6985958378123517
+  ],
+  "consistent": [
+   0.12860441174608936,
+   0.23364549210081922
+  ],
+  "disagreeing": [
+   0.3923293114096125,
+   0.5291783690638533
+  ]
+ }
+}
