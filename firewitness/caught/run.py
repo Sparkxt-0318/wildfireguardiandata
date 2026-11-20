@@ -270,6 +270,10 @@ def build_items(w, pts, polys, scar, src: Sources) -> list:
             dd = date.fromisoformat(h["date"])
             items.append(E.Item(wit, unary_union(gs), dd, dd, {"item": h["item"], "n_pixels": h["n_pixels"]}))
     # an item only counts if it meets the disc (point sources were matched on the disc already)
+    from shapely import make_valid
+    for it in items:
+        if not it.geom.is_valid:
+            it.geom = make_valid(it.geom)
     disc = Point(0, 0).buffer(w.r_m, 64)
     return [it for it in items if it.geom.intersects(disc)]
 
@@ -286,7 +290,10 @@ def label_row(w, items, scar, perimeter_on=True) -> dict:
     if not pix and t != "record-only":
         pix = [it.geom for it in items if it.kind == "PERIMETER"]
     if pix:
-        geom = unary_union(pix).intersection(disc)
+        try:
+            geom = unary_union(pix).intersection(disc)
+        except Exception:  # GEOS topology error on unusual inputs: union after a zero buffer
+            geom = unary_union([g.buffer(0) for g in pix]).intersection(disc)
         pixel_label = True
     else:
         geom = disc
