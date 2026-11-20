@@ -109,3 +109,7 @@ After the first version passes S1 to S5 on dev, at most 12 rounds: run on dev, l
 ## 8. Not claimed
 
 No claim that the opacity map equals physical optical depth, that the smoke endmember is recovered when the background is uniform sky, or that the classes beyond smoke are validated (no independent class truth exists in these sequences). No claim that this is the first opacity or matting formulation for smoke; see `docs/PRIOR_ART_SMOKE.md`.
+
+## 9. Amendment A1 (2026-11-20, before any result): human labels found
+
+The label search found official HPWREN bounding boxes (CSV, `cdn.hpwren.ucsd.edu/HPWREN-FIgLib-Data/Miscellaneous/Labels/HPWREN-BB/CSV/`): 9 fires, 309 frame rows, Filename = FIgLib path, no stated licence. Four of the 9 are in the pool of section 3. The other five (20160604_FIRE_rm-n-mobo-c, 20160619_FIRE_lp-e-iqeye, 20160619_FIRE_om-e-mobo-c, 20160619_FIRE_pi-s-mobo-c, 20160718_FIRE_mw-e-mobo-c) are downloaded and used for S4 only; they are in neither dev nor sealed, are never used to change a rule, and their S4 numbers are reported separately. The AI For Mankind boxes (CC BY-NC-SA 4.0, 640x480, opaque file names) cannot be mapped to FIgLib frames by name and are not used. No openly downloadable contour masks were found; "masks" for FIgLib are therefore not available and S4 for HPWREN is boxes only. The SmokeyNet `night_fires.txt` and `mislabeled_fires.txt` lists are read only to report overlap with the scope exclusions; they never select sequences.
