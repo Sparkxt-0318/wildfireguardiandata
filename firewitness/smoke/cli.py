@@ -72,6 +72,43 @@ def _eval(args):
     return 0
 
 
+def _s4(args):
+    import os
+    from concurrent.futures import ProcessPoolExecutor
+    from . import s4, pipeline, seq
+    from .params import get as get_params
+    boxes = s4.load_hpwren_boxes(args.boxes)
+    out = {"hpwren": {}, "pyro": None}
+    names = sorted(boxes)
+    with ProcessPoolExecutor(4) as ex:
+        res = list(ex.map(_s4_one, [(n, args.raw, boxes[n]) for n in names]))
+    rows = [r for rr in res for r in rr["rows"]]
+    out["hpwren"] = dict(rows=rows, summary=s4.summarise(rows),
+                         per_sequence={r["name"]: s4.summarise(r["rows"]) for r in res}, excluded=[(r["name"], r["excluded"]) for r in res if r["excluded"]])
+    if not args.no_pyro:
+        from . import s4_pyro
+        prow, skipped, nev = s4_pyro.run_all()
+        out["pyro"] = dict(rows=prow, summary=s4.summarise(prow), skipped=skipped, n_events_usable=nev)
+    with open(args.out, "w") as f:
+        json.dump(out, f, indent=1, default=str)
+    print("wrote", args.out)
+    return 0
+
+
+def _s4_one(a):
+    import os
+    from . import s4, pipeline, seq
+    from .params import get as get_params
+    name, raw, bx = a
+    d = os.path.join(raw, name)
+    if not os.path.isdir(d):
+        return dict(name=name, rows=[], excluded="sequence not downloaded")
+    r = pipeline.label_sequence(seq.load_sequence(d, "/home/user/cache"), get_params())
+    if r["excluded"]:
+        return dict(name=name, rows=[], excluded=r["excluded"])
+    return dict(name=name, rows=s4.s4_sequence(r, bx), excluded=None)
+
+
 def register(parser):
     sub = parser.add_subparsers(dest="cmd")
     sp = sub.add_parser("label", help="label one FIgLib sequence directory: opacity map, edges, vector classes, first smoke")
@@ -86,3 +123,8 @@ def register(parser):
     ev.add_argument("--full", action="store_true", help="full S1 grid (default: lite)")
     ev.add_argument("--out", required=True)
     ev.set_defaults(func=_eval)
+    s4p = sub.add_parser("s4", help="test S4: human boxes (HPWREN-BB, Pyro-SDIS) on the opacity scale")
+    s4p.add_argument("--boxes", default=os.path.join(os.path.dirname(__file__), "data", "hpwren_bb"))
+    s4p.add_argument("--raw", default="/home/user/wildfire 3 (1)/firewitness_raw/figlib/")
+    s4p.add_argument("--no-pyro", action="store_true"); s4p.add_argument("--out", required=True)
+    s4p.set_defaults(func=_s4)

@@ -30,11 +30,11 @@ def _rings(geom):
         geom = geom.__geo_interface__
     if geom is None:
         return []
-    t, c = geom["type"], geom["coordinates"]
+    t = geom["type"]
     if t == "Polygon":
-        return [c]
+        return [geom["coordinates"]]
     if t == "MultiPolygon":
-        return list(c)
+        return list(geom["coordinates"])
     if t == "GeometryCollection":
         out = []
         for g in geom["geometries"]:
@@ -79,7 +79,7 @@ def _in_ring(ring, lat, lon):
     return inside
 
 
-def build_scene(fid: str, regions: list, geom_box, cell_km: float | None = None, max_cells: int = 200,
+def build_scene(fid: str, regions: list, geom_box, cell_km: float | None = None, max_cells: int = 200, min_cell_km: float = 0.0,
                 static_extra: dict | None = None, meta: dict | None = None, pad_km: float = 0.2) -> Scene | None:
     """regions: dicts {state, t0, t1, geometry|mask, floor_m2 (no_fire only)}; geom_box = (lon0, lat0, lon1, lat1)."""
     lon0, lat0, lon1, lat1 = geom_box
@@ -88,6 +88,7 @@ def build_scene(fid: str, regions: list, geom_box, cell_km: float | None = None,
     h_km, w_km = (lat1 - lat0) * kmlat + 2 * pad_km, (lon1 - lon0) * kmlon + 2 * pad_km
     if cell_km is None:
         cell_km = max(0.02, max(h_km, w_km) / max_cells)
+    cell_km = max(cell_km, min_cell_km)
     H, W = max(1, int(np.ceil(h_km / cell_km))), max(1, int(np.ceil(w_km / cell_km)))
     days0 = min(to_ordinal(r["t0"]) for r in regions)
     days1 = min(max(to_ordinal(r["t1"]) for r in regions), days0 + MAX_DAYS - 1)

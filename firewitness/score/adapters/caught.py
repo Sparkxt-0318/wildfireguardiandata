@@ -2,7 +2,7 @@
 
 One row per (window, state): rid, state in {fire, no_fire, unknown}, geometry (the three partition the record's disc),
 t0/t1 (interval the state holds), floor_m2 (no_fire: smallest burned area the look would have seen), tier, std_label.
-Each rid becomes one Scene on a local grid. no_fire cells carry `static['floor_m2']`; the negatives sampler only
+Each rid becomes one Scene on a local grid whose cell is at least as large as the largest finite look floor (`cell_from_floor`). no_fire cells carry `static['floor_m2']`; the negatives sampler only
 accepts a no_fire cell whose floor is no larger than the cell area (a look that could not see a burn that small does
 not verify "no fire" at that cell).
 No weather or fuel layers exist in this table: danger class and land cover are unavailable, so negatives are matched
@@ -14,7 +14,7 @@ from ..dataset import Dataset
 from .states import bbox, build_scene
 
 
-def from_rows(rows, cell_km: float | None = None, max_cells: int = 200) -> Dataset:
+def from_rows(rows, cell_km: float | None = None, max_cells: int = 200, cell_from_floor: bool = True) -> Dataset:
     by = {}
     for r in rows:
         by.setdefault(r["rid"], []).append(r)
@@ -25,7 +25,11 @@ def from_rows(rows, cell_km: float | None = None, max_cells: int = 200) -> Datas
         if box is None:
             continue
         tier = next((r.get("tier") for r in regs if r.get("tier")), None)
-        s = build_scene(str(rid), regs, box, cell_km, max_cells, meta={"source": "caught_states_v0.1", "tier": tier})
+        floors = [float(r["floor_m2"]) for r in regs if r["state"] == "no_fire" and r.get("floor_m2") is not None
+                  and float(r["floor_m2"]) < 1e11]
+        # a cell can only be called verified no fire if the look could see a burn as small as the cell: size cells to the look floor
+        min_cell = (max(floors) ** 0.5) / 1000.0 if (floors and cell_from_floor) else 0.0
+        s = build_scene(str(rid), regs, box, cell_km, max_cells, min_cell_km=min_cell, meta={"source": "caught_states_v0.1", "tier": tier})
         if s is not None:
             scenes[s.fire_id] = s
     return Dataset("caught_states_v0.1", scenes, 0.0, {"source": "track 50 three-state table",

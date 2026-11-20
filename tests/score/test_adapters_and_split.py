@@ -26,7 +26,7 @@ def _caught_rows(n=6):
 
 
 def test_caught_adapter_three_states_and_floor_rule():
-    ds = caught.from_rows(_caught_rows(), cell_km=0.05)
+    ds = caught.from_rows(_caught_rows(), cell_km=0.05, cell_from_floor=False)
     assert len(ds.scenes) == 6
     s = ds.scenes["FOD0"]
     assert (s.state == FIRE).any() and (s.state == NO_FIRE).any()
@@ -74,3 +74,11 @@ def test_space_time_split_is_blocked_in_space_and_time_and_by_fire(ds):
     assert not (blks("train") & blks("test")) and not (yrs("train") & yrs("test"))
     assert not (blks("train") & blks("val")) and not (yrs("train") & yrs("val"))
     assert any(d["reason"].startswith("cross") for d in sp["dropped"])
+
+
+def test_caught_cell_is_sized_to_the_look_floor():
+    ds = caught.from_rows(_caught_rows(), max_cells=400)
+    s = ds.scenes["FOD0"]
+    assert s.cell_km >= (90000.0 ** 0.5) / 1000.0 - 1e-9          # largest finite floor sets the minimum cell
+    f = s.static["floor_m2"]
+    assert ((s.state == NO_FIRE).any(0) <= (f <= (s.cell_km * 1000) ** 2)).all()
