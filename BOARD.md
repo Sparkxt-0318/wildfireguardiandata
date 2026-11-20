@@ -1,22 +1,22 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-20T20:22Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-20T20:39Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 48 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 9 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 10 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 16 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 17 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 34 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 15 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 26 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 6 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 7 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 16 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 51 min |
 
 ## records
-- state: WORKING
-- last heartbeat (UTC): 2026-11-20T19:34Z
-- current step: PR #10 CI green, waiting for merge; 100-perimeter coverage job running; then tag v0.1 and DONE
+- state: WORKING (all items done; #10 merged, #13 follow-up open)
+- last heartbeat (UTC): 2026-11-20T20:24Z
+- current step: waiting for PR #13 merge, then DONE
 - blockers: none
-- PRs open: #10
+- PRs open: #13
 - session: session_017vgyRSUvuSFwAJ6G5Pon4W
 
 ## caught
@@ -30,26 +30,26 @@ Assembled by the orchestrator at 2026-11-20T20:22Z from board/*.md. Builders are
 
 ## live
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T20:12Z
-- current step: Live log 19 records 18:36-20:06Z, no gaps (1 unsigned). Dev extraction 101/120. Part A preview on ~50 dev: E1 passes (false onset ~1%), onset in 10-17% of fires
+- last heartbeat (UTC): 2026-11-20T20:33Z
+- current step: Dev extraction 119/120; Part A variants A0-A2 on all dev queued to start at 120; live log continuous since 18:36Z
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
 
 ## smoke
 - state: RUNNING (Sonnet, high effort)
-- last heartbeat (UTC): 2026-11-20T20:05:36Z
-- current step: improvement loop on dev, rounds R1-R8 done (accepted: R2 horizon seam, R3 confirm area, R7 sky-core veil; rejected: R1 R4 R5 R6 R8). Dev now: S2 99/1122 false pre frames, S1-lite detect 78%, MAE 0.129. R9 running. Video tool done for all layouts (sequence a-d, known truth, satellite, scars, collapse). Next: finish loop, S4, S5, sealed run once, clips, release/smoke-v0.1.
+- last heartbeat (UTC): 2026-11-20T20:32:14Z
+- current step: loop R1-R11 done (accepted R2 R3 R7 R10; rejected R1 R4 R5 R6 R8 R9 R11), R12 running. Dev: S2 80/1122 false pre frames (7.1%, gate 1% not met), S1-lite detect 76%. Next: freeze config, final runs (dev full S1, sealed once, S4, S5), clips, results doc, release/smoke-v0.1.
 - blockers: none
-- PRs open: none (PR #8 merged)
-- branch: track/smoke (100277a)
+- PRs open: none
+- branch: track/smoke (f461ab9)
 
 ## fuel
-- state: WORKING (PR #7 merged at 6a2aeb0; follow-up PR #12 with release files open)
-- last heartbeat (UTC): 2026-11-20T20:05Z
-- current step: all brief items done; waiting for CI/merge of PR #12, then DONE with hash
+- state: DONE 8dcb76d253a3ae25fa4174eadb1e0c77a72aebe8
+- last heartbeat (UTC): 2026-11-20T20:23Z
+- current step: all steps, gates and deliverables merged to main (PR #7 at 6a2aeb0, PR #12 release files; main at 8dcb76d253a3ae25fa4174eadb1e0c77a72aebe8). Sealed result: F1 7.91 [6.36,10.03], F2 0.92 %, F3 pass; stretch on 29 fires: no improvement; loop deviation (D-011) stated in results/FUEL_RESULTS.md
 - blockers: none
-- PRs open: #12
+- PRs open: none
 - session: track 53, branch track/fuel
 
 ## score
