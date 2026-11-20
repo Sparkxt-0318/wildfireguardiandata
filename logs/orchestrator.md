@@ -40,3 +40,4 @@
 - 22:39Z merged records PR #18 (7b1711e; dated addition only; prereg 9a1391a precedes result). Records: smoke extra in pyproject left, then DONE. Smoke DONE 1ca4396 claimed; depth check running (Sonnet subagent). Release smoke-v0.1 exists (6 assets).
 2026-11-20T22:56Z pass: routed 4 item(s)
 - 22:57Z merged #19 (records extra, 6e4de95) and #21 (smoke D-012 addendum, d840bab). Records DONE accepted 6e4de95; smoke DONE accepted d840bab; smoke-v0.1 re-dispatched. PROGRESS.md in my PR #20.
+2026-11-20T23:13Z pass: routed 2 item(s)
