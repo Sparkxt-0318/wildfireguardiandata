@@ -1,0 +1,137 @@
+{
+ "schema": "firewitness.live.record/1",
+ "cycle_scan_start": "2026-11-20T21:46:18Z",
+ "processed_at": "2026-11-20T21:50:26Z",
+ "region": "us",
+ "detector": {
+  "config": {
+   "ukey": "dT_c4",
+   "cap": 8.0,
+   "k": 0.5,
+   "rho": 1.5,
+   "m": 1.0,
+   "vis_weight": 0.0,
+   "decay": 1.0
+  },
+  "h": 160.0,
+  "sha256": "7129781b35163eae6d751315cf4920ba153eb35df5c0f9facafb90ef4b3fab72",
+  "frozen": false,
+  "note": "PROVISIONAL settings used to start the live service while Part B is fitted on dev fires. Replaced by the frozen Part B settings when fitted; every record carries the SHA-256 of this file's content."
+ },
+ "code_commit": "f5bf891888939e5bcaec1e69d506ca3ba97141d7",
+ "inputs": [
+  {
+   "sat": "G19",
+   "product": "C07",
+   "key": "ABI-L1b-RadC/2026/324/21/OR_ABI-L1b-RadC-M6C07_G19_s20263242146182_e20263242148566_c20263242149009.nc",
+   "scan_start": "2026-11-20T21:46:18Z",
+   "s3_last_modified": "2026-11-20T21:49:06Z",
+   "sha256": "80a83b72f5f7de9a1b0a5a56acf5ff330be6f464e631ae0243781374f111faab"
+  },
+  {
+   "sat": "G19",
+   "product": "C14",
+   "key": "ABI-L1b-RadC/2026/324/21/OR_ABI-L1b-RadC-M6C14_G19_s20263242146182_e20263242148555_c20263242149030.nc",
+   "scan_start": "2026-11-20T21:46:18Z",
+   "s3_last_modified": "2026-11-20T21:49:22Z",
+   "sha256": "849c1114be3f3c51d07ab97d93a4fbffef17694bb67c5aaf2423363988e25f86"
+  },
+  {
+   "sat": "G19",
+   "product": "ACM",
+   "key": "ABI-L2-ACMC/2026/324/21/OR_ABI-L2-ACMC-M6_G19_s20263242146182_e20263242148555_c20263242149322.nc",
+   "scan_start": "2026-11-20T21:46:18Z",
+   "s3_last_modified": "2026-11-20T21:49:44Z",
+   "sha256": "0d410028dd88d4a15589ac119788a464eadb3821c739d0ef80ee55960303a843"
+  },
+  {
+   "sat": "G18",
+   "product": "C07",
+   "key": "ABI-L1b-RadC/2026/324/21/OR_ABI-L1b-RadC-M6C07_G18_s20263242146189_e20263242148573_c20263242149037.nc",
+   "scan_start": "2026-11-20T21:46:18Z",
+   "s3_last_modified": "2026-11-20T21:49:21Z",
+   "sha256": "99f1a117e964012515fb4795dfa6ef47a580b97010b86eb2b2d6404d075ed67c"
+  },
+  {
+   "sat": "G18",
+   "product": "C14",
+   "key": "ABI-L1b-RadC/2026/324/21/OR_ABI-L1b-RadC-M6C14_G18_s20263242146189_e20263242148562_c20263242149020.nc",
+   "scan_start": "2026-11-20T21:46:18Z",
+   "s3_last_modified": "2026-11-20T21:49:22Z",
+   "sha256": "13ac0b64b9a8c84ae71a9f4b9c82d9304621eab9eba5204817eda597aa51e698"
+  },
+  {
+   "sat": "G18",
+   "product": "ACM",
+   "key": "ABI-L2-ACMC/2026/324/21/OR_ABI-L2-ACMC-M6_G18_s20263242146189_e20263242148562_c20263242149310.nc",
+   "scan_start": "2026-11-20T21:46:18Z",
+   "s3_last_modified": "2026-11-20T21:49:44Z",
+   "sha256": "2da4d45e3126e5962253f4e8026fad31dbe7d04b35c43d21b2ca51aeaf293360"
+  }
+ ],
+ "satellites": {
+  "G19": {
+   "status": "ok",
+   "history_frames": 21,
+   "clear_fraction": 0.3239398172442763,
+   "avail_latest": 1795211384.0
+  },
+  "G18": {
+   "status": "ok",
+   "history_frames": 21,
+   "clear_fraction": 0.27982621588153417,
+   "avail_latest": 1795211384.0
+  }
+ },
+ "candidates": [
+  {
+   "lat": 30.9493,
+   "lon": -115.1653,
+   "n_pixels": 2,
+   "G": 160.78,
+   "S_east": 160.78,
+   "S_west": 0.0,
+   "witnesses": [
+    "G19"
+   ],
+   "pixel_rc_east": [
+    760,
+    160
+   ],
+   "kind": "grows",
+   "id": "L20261120T2131Z-002",
+   "first_alert_scan": "2026-11-20T21:31:18Z"
+  }
+ ],
+ "notes": [],
+ "firms_nrt": {
+  "VIIRS_NOAA20": {
+   "ok": true,
+   "n": 11559,
+   "sha256": "19e0921db8aaf798d40fbf53a7245d2812bc0f9a101fa40c63d1976d48807a24"
+  },
+  "VIIRS_NOAA21": {
+   "ok": true,
+   "n": 11075,
+   "sha256": "8654f36efaab63927099095a2c04704ae9d2c2115c3367f3ccd466e2fd093797"
+  },
+  "VIIRS_SNPP": {
+   "ok": true,
+   "n": 0,
+   "sha256": "fe0401e40606fd90dd4cf24dff508a93539089a4aecf701e2a3c85851fe9bf40"
+  },
+  "MODIS": {
+   "ok": true,
+   "n": 1623,
+   "sha256": "af2f8f1981b3c8cd64e2fb5a8681091bad97c890c6d5c9e8593fd923627072c2"
+  }
+ },
+ "masked_recent_fire_pixels": 102705,
+ "evaluated_pixels": 2029485,
+ "processing_s": 48.7,
+ "published_at": "2026-11-20T21:50:26Z",
+ "run": {
+  "trigger": "manual",
+  "run_id": "44794730046"
+ }
+}
