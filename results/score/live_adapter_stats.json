@@ -1,0 +1,56 @@
+{
+ "dataset": {
+  "cell_days": 2760506,
+  "fire": 1072048,
+  "fires": 240,
+  "no_fire": 536024,
+  "unknown": 1152434
+ },
+ "negatives": {
+  "by_danger": {
+   "0": {
+    "neg": 190036,
+    "pos": 760144
+   },
+   "1": {
+    "neg": 0,
+    "pos": 0
+   },
+   "2": {
+    "neg": 0,
+    "pos": 0
+   },
+   "3": {
+    "neg": 0,
+    "pos": 0
+   },
+   "4": {
+    "neg": 0,
+    "pos": 0
+   }
+  },
+  "eligible_negative_candidates": 190036,
+  "hard_share_of_negatives": 0.0005,
+  "match_level_share": {
+   "exact (danger, land cover, region, month)": 0.2131,
+   "same danger, any land cover/region/month": 0.7869
+  },
+  "matched": true,
+  "negatives": 190036,
+  "positives": 760144,
+  "source": {
+   "floor_m2_rule": false,
+   "match_keys_unavailable": [
+    "danger",
+    "landcover"
+   ],
+   "negative_state": "verified no fire (three-state labels)"
+  }
+ },
+ "note": "Onset labels from protocol/live_fires.csv anchors (record-only: onset interval = discovery day). No model predictions exist for these scenes, so no card was run; the adapter, splits and negatives were.",
+ "split_space": {
+  "test": 48,
+  "train": 147,
+  "val": 36
+ }
+}

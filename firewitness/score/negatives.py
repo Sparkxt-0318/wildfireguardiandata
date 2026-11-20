@@ -32,8 +32,12 @@ def _cells(ds: Dataset, ids, buffer_cells: int, hard_km: float):
     for fi, fid in enumerate(ids):
         s = ds.scenes[fid]
         reg = hash_str(s.region) % R_MOD
-        lcg = lc_group(s.static["landcover"])
-        lc = s.static["landcover"].astype(np.int16)
+        lcv = s.static.get("landcover", np.zeros(s.state.shape[1:], np.float32))
+        lcg = lc_group(lcv)
+        lc = lcv.astype(np.int16)
+        floor_ok = None
+        if "floor_m2" in s.static:      # caught labels: a no_fire cell counts only if the look could see a burn this small
+            floor_ok = s.static["floor_m2"] <= (s.cell_km * 1000.0) ** 2
         for t in s.valid_targets():
             st = s.state[t]
             fire = st == FIRE
@@ -41,6 +45,8 @@ def _cells(ds: Dataset, ids, buffer_cells: int, hard_km: float):
             mon = s.month(int(t))
             near = dilate_space(fire, buffer_cells) if buffer_cells else fire
             neg = (st == NO_FIRE) & ~near
+            if floor_ok is not None:
+                neg &= floor_ok
             hm = hard_mask(s, int(t), hard_km=hard_km) if neg.any() else None
             for mask, store in ((fire, P), (neg, C)):
                 yy, xx = np.nonzero(mask)
@@ -147,6 +153,10 @@ def sample(ds: Dataset, ids, k: int = 3, seed: int = 54, buffer_cells: int = 1, 
         "month": np.concatenate([pm[po], cm[sel_idx]]).astype(np.int8),
     }
     stats = balance(table, ids, matched, npos, ncand)
+    stats["source"] = {"floor_m2_rule": any("floor_m2" in ds.scenes[f].static for f in ids),
+                       "match_keys_unavailable": [k for k, ok in (("danger", all("erc" in ds.scenes[f].dyn for f in ids)),
+                                                                  ("landcover", all("landcover" in ds.scenes[f].static for f in ids))) if not ok],
+                       "negative_state": "verified no fire (three-state labels)"}
     return {"fires": ids, "table": table, "stats": stats}
 
 
