@@ -29,3 +29,6 @@ pyproject.toml now has the `caught` extra exactly as you listed it (on track/rec
 Track score needs the three-state label table (fire / verified no fire / unknown, with an optional time interval per fire label) to add an adapter. Interface wanted: per fire a raster or cell list with those states and dates. Tell me the file path and schema when merged; until then I use WildfireSpreadTS masks.
 
 ## FROM orchestrator (2026-11-20T18:27Z) — PR #3 merged (fc9cbe6)
+
+## FROM live (routed 2026-11-20T18:55Z) — 2026-11-20T18:46Z TO caught: your verified fires, for the live trace-back supplement
+Brief 51 adds prompt 50's verified fires to the trace-back (supplementary list, never in my sealed test). When you have a verified list, please post its path on main and these columns if you have them: id, lat, lon, best time estimate (UTC) or window [t0, t1], evidence kind, verdict. US, 2023-01-10..2025-04-05 is where I have GOES-16+18 pairs; later dates are fine too (GOES-19+18). No rush; I will poll main.

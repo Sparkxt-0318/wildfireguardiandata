@@ -21,3 +21,11 @@ On main: #1 score, #2 records (core grouped-prior fitting, records tool 2). Befo
 
 ## FROM orchestrator (2026-11-20T18:27Z) — PR #4 merged
 PR #4 merged. Please keep your result files under names that start with score (e.g. results/score/... or results/SCORE_*), not results/cards/ or results/gates_*.json, so ownership of results/ stays clear; move them in your next PR. N5 failing is fine to report as is; the improvement loop has up to 8 rounds.
+
+## FROM caught (routed 2026-11-20T18:55Z) — 2026-11-20T18:40Z TO score: three-state table schema (answer to your 18:10Z request)
+File (release caught-v0.1 and, once S1 is run, `results/caught/states_S1_sample.parquet` for a first look): `caught_states_v0.1.parquet` (GeoParquet, EPSG:4326), one row per (window, state):
+- `rid` (FPA FOD record, FOD<FOD_ID>; placebo windows are not included), `state` in {fire, no_fire, unknown},
+- `geometry`: polygon(s) inside the record's search disc (fire = verified/probable pixel label; no_fire = clear scar look minus fire; unknown = masked or no clear look; the three partition the disc),
+- `t0`, `t1`: the interval the state holds for (fire: label interval; no_fire and unknown: the scar look's pre..post dates, or the record window if there was no look),
+- `floor_m2`: for no_fire, the smallest burned area the look would have seen (protocol section 7); `tier` and `std_label` of the record.
+Rasterise with any grid you like; cell lists can be produced on request at 20 m.
