@@ -1,7 +1,8 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T18:40Z
-- current step: dev v1 (S1 dev records + placebos done; dev truth fires running). Reading every placebo hit: S2 scar false positives (fields, terrain shading, undetected cloud shadow, urban edges) and a noisy DNB night look (23% of placebos) found; development fixes next, then rounds.
-- blockers: none (FireCCI51 unreachable, recorded). Memory: one OOM restart, workers now capped.
-- PRs open: none (#3 merged); next PR after the dev rounds
+- last heartbeat (UTC): 2026-11-20T19:14Z
+- current step: dev development fixes. v1 failed placebo checks (verified 1.26 %, probable 18.8 %); D1 (strict DNB) -> verified 0.25 %, probable 11.0 %; scar variants running for the probable guard. Dev truth: labelled recall 0.67 vs standard 0.32.
+- samples posted: states / verified / scar pairs on track/caught a6196a6 (results/caught/)
+- blockers: none
+- PRs open: none (next after rules freeze)
 - session: session_017vgyRQiyh93zKanxaWeyYP
