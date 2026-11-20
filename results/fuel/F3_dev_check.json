@@ -1,0 +1,38 @@
+{
+ "T012_030": {
+  "inputs_files": 27,
+  "inputs_hash_before_equals_after": true,
+  "rerun_identical": true,
+  "overlay_sha256": {
+   "verdict.tif": "6936a4072380f2d83e2504dfadf75f2f29986b1efadcd650aa84d32d1eac3c08",
+   "rules.tif": "fea43b1bdd3170991c1c92517f0c980de34b801aec86250a11afc13e0c0f914c",
+   "suggest.tif": "97c9e875b5a45fd33f43e954ee2f50a97952b1948e023df0345b70cfc8feceaf",
+   "overlay.json": "6aa3d51b4990c0a1c631389687777f9bedb02b47528eb3e7b9ff3fa6ee9efa07",
+   "cards.npy.gz": "3e35aa1a07ddf59e139a2f80c0ce2331fafd6c79cf6bc7310c7f7e2d64d5805a"
+  }
+ },
+ "T008_029": {
+  "inputs_files": 26,
+  "inputs_hash_before_equals_after": true,
+  "rerun_identical": true,
+  "overlay_sha256": {
+   "verdict.tif": "5b5135abce8fa339c82753d1727787e1b931a47301bf3142f00fc73642878950",
+   "rules.tif": "9fd1d31400e1271f35d8b263f96c7a46fd92e5b047ce4e420b53bc577560445c",
+   "suggest.tif": "95832b22c0f70e902680350d838b655ec38d5816e728c9321d28bd0b9eff9687",
+   "overlay.json": "adca245becdcc63d40ee432da634ef7da8293a9247c06127df349eb63cf4714f",
+   "cards.npy.gz": "57f2f56bb626055acf9b3a445ee317c8b12e8518daf864b68c72118d33a9e97f"
+  }
+ },
+ "T016_033": {
+  "inputs_files": 34,
+  "inputs_hash_before_equals_after": true,
+  "rerun_identical": true,
+  "overlay_sha256": {
+   "verdict.tif": "047c40d6c0d45af7661df0d2bf2d9ccc5d262d3479f0f3c7eb55bf01d6ff4107",
+   "rules.tif": "dec4cec48c38828a21c407d61c837266367232f001ba1aa69c0d3050fbb40fc4",
+   "suggest.tif": "375573b1c61b51b488f84537cbc802c63563a965d99c3f48cb6a839946ed7352",
+   "overlay.json": "a3d2915fbf66da5fb0d582815597892398908c500a8a367ba5ad7678adadc8ae",
+   "cards.npy.gz": "da272f8cd90ed89fdfd00dd64935db53652eb90fb9f2d50b238a6900bba320f2"
+  }
+ }
+}

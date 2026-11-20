@@ -1,0 +1,143 @@
+{
+ "label": "v1",
+ "n_plots": 1935,
+ "verdict_counts": {
+  "consistent": 1461,
+  "stale": 246,
+  "unknown": 180,
+  "contradicted": 48
+ },
+ "disagree_overall": 0.10749354005167959,
+ "F1": {
+  "n_a": 48,
+  "dis_a": 31,
+  "n_b": 1461,
+  "dis_b": 101,
+  "clusters": 311,
+  "rate_a": 0.6458333333333334,
+  "rate_b": 0.06913073237508556,
+  "ratio": 9.34220297029703,
+  "lo": 6.663812470532768,
+  "hi": 12.744240338957036,
+  "boot_valid": 2000,
+  "evaluable": true,
+  "passed": true
+ },
+ "F2": {
+  "n_agree": 1727,
+  "k_contradicted": 17,
+  "share": 0.009843659525188187,
+  "wilson_lo": 0.006154956069410037,
+  "wilson_hi": 0.015708085566855292,
+  "limit": 0.1,
+  "boot_lo": 0.0054507563930934495,
+  "boot_hi": 0.014663384745707955,
+  "passed": true
+ },
+ "F1_stale": {
+  "n_a": 246,
+  "dis_a": 54,
+  "n_b": 1461,
+  "dis_b": 101,
+  "clusters": 328,
+  "rate_a": 0.21951219512195122,
+  "rate_b": 0.06913073237508556,
+  "ratio": 3.175319971021492,
+  "lo": 1.9756771771632669,
+  "hi": 4.653637011571356,
+  "boot_valid": 2000,
+  "evaluable": true,
+  "passed": true
+ },
+ "per_rule": {
+  "R1.1": {
+   "n_plots": 10,
+   "disagree": 0.8
+  },
+  "R1.7": {
+   "n_plots": 4,
+   "disagree": 0.75
+  },
+  "R1.9": {
+   "n_plots": 64,
+   "disagree": 0.75
+  },
+  "S1": {
+   "n_plots": 244,
+   "disagree": 0.21721311475409835
+  },
+  "S2": {
+   "n_plots": 2,
+   "disagree": 0.5
+  }
+ },
+ "per_tile": {
+  "T008_029": {
+   "n": 111,
+   "contradicted": 6,
+   "consistent": 98
+  },
+  "T010_033": {
+   "n": 217,
+   "contradicted": 5,
+   "consistent": 75
+  },
+  "T012_030": {
+   "n": 181,
+   "contradicted": 7,
+   "consistent": 156
+  },
+  "T012_036": {
+   "n": 107,
+   "contradicted": 8,
+   "consistent": 91
+  },
+  "T015_024": {
+   "n": 298,
+   "contradicted": 4,
+   "consistent": 217
+  },
+  "T016_026": {
+   "n": 183,
+   "contradicted": 1,
+   "consistent": 159
+  },
+  "T016_033": {
+   "n": 175,
+   "contradicted": 6,
+   "consistent": 125
+  },
+  "T016_037": {
+   "n": 232,
+   "contradicted": 1,
+   "consistent": 229
+  },
+  "T021_025": {
+   "n": 194,
+   "contradicted": 1,
+   "consistent": 152
+  },
+  "T021_028": {
+   "n": 237,
+   "contradicted": 9,
+   "consistent": 159
+  }
+ },
+ "F2b_spatial_placebo": {
+  "n_a": 77,
+  "dis_a": 13,
+  "n_b": 1461,
+  "dis_b": 148,
+  "clusters": 332,
+  "rate_a": 0.16883116883116883,
+  "rate_b": 0.10130047912388775,
+  "ratio": 1.6666374166374167,
+  "lo": 0.8249808442840499,
+  "hi": 2.7484804444875763,
+  "boot_valid": 2000,
+  "evaluable": true,
+  "passed": false
+ },
+ "code_hash": "90abbfcabc1b63ce6f6c63cb5dd14a1f80e420b820f8141f91b6c6c6055e5f55",
+ "map": "M16"
+}
