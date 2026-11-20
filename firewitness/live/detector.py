@@ -99,10 +99,13 @@ def ensure_base(fid: str, firms: FirmsClean) -> dict | None:
     d = fire_dir(fid)
     f = d / "base.npz"
     if f.is_file():
-        z = np.load(f, allow_pickle=True)
-        out = {k: z[k] for k in z.files}
-        out["info"] = json.loads(str(out["info"]))
-        return out
+        try:
+            z = np.load(f, allow_pickle=True)
+            out = {k: z[k] for k in z.files}
+            out["info"] = json.loads(str(out["info"]))
+            return out
+        except Exception:  # noqa: BLE001 — truncated by a container restart: rebuild
+            f.unlink(missing_ok=True)
     meta = series_meta(fid)
     if meta is None:
         return None
@@ -126,7 +129,8 @@ def ensure_base(fid: str, firms: FirmsClean) -> dict | None:
             "discovery_t": meta["discovery_t"], "polar_first_t": meta["polar_first_t"]}
     out["info"] = np.array(json.dumps(info))
     d.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(f, **out)
+    from .goes import atomic_savez
+    atomic_savez(f, **out)
     out["info"] = info
     return out
 
@@ -154,18 +158,23 @@ def ensure_u(fid: str, ukey: str, base: dict) -> tuple[np.ndarray, np.ndarray | 
     fe, fw = d / f"uE_{ukey}.npy", d / f"uW_{ukey}.npy"
     info = base["info"]
     if fe.is_file() and (info["other"] is None or fw.is_file() or ukey.startswith("vis")):
-        uE = np.load(fe)
-        uW = np.load(fw) if fw.is_file() else None
-        return uE, uW
+        try:
+            uE = np.load(fe)
+            uW = np.load(fw) if fw.is_file() else None
+            return uE, uW
+        except (ValueError, OSError, EOFError):
+            fe.unlink(missing_ok=True)
+            fw.unlink(missing_ok=True)
     sR = load_series(fid, info["ref"])
     uE = compute_u(sR, ukey).astype(np.float16)
-    np.save(fe, uE)
+    from .goes import atomic_np_save
+    atomic_np_save(fe, uE)
     uW = None
     if info["other"] and not ukey.startswith("vis"):
         sO = load_series(fid, info["other"])
         uo = compute_u(sO, ukey)
         uW = uo[:, :, base["mapW_i"], base["mapW_j"]].astype(np.float16)
-        np.save(fw, uW)
+        atomic_np_save(fw, uW)
     return uE, uW
 
 

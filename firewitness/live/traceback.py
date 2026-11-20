@@ -162,11 +162,15 @@ def run_fire(fid: str, firms: FirmsClean, out_dir: Path = None, force=False, var
     for sat in meta["sats"]:
         f = out_dir / f"{fid}_{sat}.pkl"
         if f.is_file() and not force:
-            recs[sat] = pickle.loads(f.read_bytes())
-            continue
+            try:
+                recs[sat] = pickle.loads(f.read_bytes())
+                continue
+            except Exception:  # noqa: BLE001
+                f.unlink(missing_ok=True)
         rec = process_fire_sat(meta, sat, firms, variant=variant)
         rec["meta"] = {k: v for k, v in meta.items() if k != "sats"}
-        f.write_bytes(pickle.dumps(rec))
+        from .goes import atomic_write_bytes
+        atomic_write_bytes(f, pickle.dumps(rec))
         recs[sat] = rec
     return recs
 

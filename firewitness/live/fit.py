@@ -33,7 +33,10 @@ def cfg_hash(cfg: dt.Config) -> str:
 def fire_cached(fid, cfg, firms):
     p = CACHE / cfg_hash(cfg) / f"{fid}.pkl"
     if p.is_file():
-        return pickle.loads(p.read_bytes())
+        try:
+            return pickle.loads(p.read_bytes())
+        except Exception:  # noqa: BLE001
+            p.unlink(missing_ok=True)
     e = dt.fire_eval(fid, cfg, firms, need_placebo=False)
     if e is None:
         return None
@@ -42,7 +45,8 @@ def fire_cached(fid, cfg, firms):
     e["site_days"] = sd
     e["placebo_runmax"] = np.concatenate([d[3] for d in days]) if days else np.zeros(0, np.float32)
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_bytes(pickle.dumps(e))
+    from .goes import atomic_write_bytes
+    atomic_write_bytes(p, pickle.dumps(e))
     return e
 
 

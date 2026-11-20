@@ -53,6 +53,28 @@ def utc(x) -> datetime:
     return datetime.fromisoformat(str(x).replace("Z", "+00:00")).astimezone(timezone.utc)
 
 
+# ---------------------------------------------------------------- atomic files (containers can be reclaimed mid-write)
+def atomic_write_bytes(path, data: bytes):
+    path = Path(path)
+    tmp = path.with_name(path.name + f".{os.getpid()}.tmp")
+    tmp.write_bytes(data)
+    os.replace(tmp, path)
+
+
+def atomic_np_save(path, arr):
+    import io as _io
+    b = _io.BytesIO()
+    np.save(b, arr)
+    atomic_write_bytes(path, b.getvalue())
+
+
+def atomic_savez(path, **arrays):
+    import io as _io
+    b = _io.BytesIO()
+    np.savez_compressed(b, **arrays)
+    atomic_write_bytes(path, b.getvalue())
+
+
 # ---------------------------------------------------------------- HTTP
 _tl = threading.local()
 
