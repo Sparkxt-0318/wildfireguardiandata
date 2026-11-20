@@ -102,7 +102,7 @@ def check(L: Layers, cfg: dict, arrival=None) -> Result:
     f17 = fire("R1.7", np.isin(cls, [91, 93, 99]) & np.isin(lc, nl["natural_veg"]) & wcv & (nat >= r["wc_natural"])
                & (wc[50] <= r["wc_built_max"]) & (wc[40] <= r["wc_crop_max"]))
     r = R["R1_9"]
-    f19a = (grp == 2) & (lc == 52) & wcv & (wc[20] >= r["wc_lifeform"]) & (tcc < r["tcc_lt"])
+    f19a = (grp == 2) & (lc == 52) & wcv & (wc[20] >= r["wc_lifeform"]) & (tcc < r["tcc_lt"]) & bool(r.get("grass_to_shrub", True))
     f19b = (grp == 4) & (lc == 71) & wcv & (wc[30] >= r["wc_lifeform"]) & (tcc < r["tcc_lt"])
     f19 = fire("R1.9", f19a | f19b)
     # --- family 2 (A1): perimeter-year and Hansen loss since the map year

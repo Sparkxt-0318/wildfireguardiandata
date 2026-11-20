@@ -1,7 +1,7 @@
 """Download Landscape Data Commons plot tables (BLM AIM and partner projects) to the raw folder.
 
 Public API, no key. geoIndicators: one row per plot visit (cover by group, heights, coordinates).
-geoSpecies filtered to trees: species-level tree cover per plot visit.
+geoSpecies is queried per plot visit by plots.fetch_tree_cover (the whole tree table is ~7.7 M rows).
 """
 from __future__ import annotations
 import json
@@ -53,4 +53,4 @@ def fetch(table: str, outname: str, params: dict | None = None) -> Path:
 
 if __name__ == "__main__":
     fetch("geoIndicators", "geoIndicators.jsonl")
-    fetch("geoSpecies", "geoSpecies_tree.jsonl", {"GrowthHabitSub": "Tree"})
+    # tree cover is fetched per plot later (plots.fetch_tree_cover): the whole tree table is ~7.7 M rows
