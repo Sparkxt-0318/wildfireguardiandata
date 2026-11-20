@@ -20,3 +20,9 @@ Cheat `models.halo`: persistence thickened by 2 cells, to profit from tolerant m
 
 ## Round 4: training on test fires
 Cheat: a model fitted on every fire, test included. The card cannot see this from the predictions alone, so a model may declare `trained_on_fires` in the predictions meta; overlap with the test fold now fails the card and prints a warning. A model that does not declare it gets "not declared". Limit: a dishonest declaration is not caught (docs say so). Kept as test.
+
+## Round 5: silent on fire-free days
+Cheat `models.abstain_cheat`: persistence, but silent on days it secretly knows no fire burns. Result on the 12-fire early subset: +0.014 strict F1 over persistence (CI excludes zero); on synthetic no difference. **Not caught**: it changes which days are scored, not cell scores, and no screen on cell scores or declared dates can see it. No contract change possible without labels from the future; documented as a limit in docs/SCORING.md and SCORE_RESULTS.md.
+
+## Round 6: N5 on the full 168-fire subset
+Re-ran all gates on 168 fires. N5 still fails the pre-registered limit (matched 10.7x vs random 7.1x at the validation threshold). Decision: no change to the limit or the model after seeing it; the result is reported as a FAIL with the raw-probability reading (6.8x vs 53.7x) alongside. The loop is stopped here: rounds 7-8 were not needed because no further cheat I could construct from the declared interfaces was found that the contract could still catch (the remaining ones need information the scorer does not have). Total rounds used: 6 of 8.

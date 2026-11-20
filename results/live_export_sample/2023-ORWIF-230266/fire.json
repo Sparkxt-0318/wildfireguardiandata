@@ -1,0 +1,45 @@
+{
+ "fire_id": "2023-ORWIF-230266",
+ "name": "Bedrock",
+ "final_acres": 31590.0,
+ "state": "OR",
+ "lat": 43.9734,
+ "lon": -122.5494,
+ "discovery_utc": "2023-07-23T00:01:00Z",
+ "T0_utc": "2023-07-23T01:36:17Z",
+ "T0_source": "fdc",
+ "satellites": {
+  "G16": {
+   "role": "east",
+   "pixel_rc_2km": [
+    284,
+    272
+   ],
+   "box_origin_2km": [
+    264,
+    252
+   ],
+   "box_origin_1km": [
+    548,
+    525
+   ],
+   "box_size": 40
+  },
+  "G18": {
+   "role": "west",
+   "pixel_rc_2km": [
+    213,
+    1789
+   ],
+   "box_origin_2km": [
+    193,
+    1769
+   ],
+   "box_origin_1km": [
+    406,
+    3558
+   ],
+   "box_size": 40
+  }
+ }
+}
