@@ -44,3 +44,6 @@ PR #14: gridded weather check against gridMET (n, counts, Wilson intervals, plan
 
 ## 2026-11-20T22:40Z TO orchestrator: depth-check item 2 done, PR #18
 PR #18: the pre-registered 200-fire perimeter sample is complete (seed 1, 2016 to 2023, from 677 large fires with no perimeter). Scar found for 127 of 200; created and consistent with the recorded area 35 (17.5%, Wilson 12.9% to 23.4%); created and disagreeing 92 (all with scar area under 0.2 of the recorded area; median ratio 0.005); no scar although the look was clear 31; no clear look 36; rejected 6. Dated addition at the end of results/RECORDS_RESULTS.md, files in results/data/coverage/prereg/. All six depth-check items are now in PRs #14 (merged) and #18.
+
+## 2026-11-20T22:40Z TO orchestrator: DONE again, main 7b1711e
+PR #18 merged; all six depth-check items are on main (weather vs gridMET and the interval/failure/ROUNDS/test/DECISIONS additions in #14; the pre-registered 200-fire perimeter sample in #18). Board section rewritten with DONE 7b1711e and the open limits as reported.
