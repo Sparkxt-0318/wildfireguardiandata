@@ -179,10 +179,13 @@ def read_asset(item, asset: str, grid: Grid, resampling: str = "nearest", run: s
     for i in range(4):
         try:
             with rasterio.open(href) as src:
-                if src.crs and src.crs.to_epsg() == grid.epsg and abs(src.res[0] - grid.res) < 1e-6:
+                if src.crs and src.crs.to_epsg() == grid.epsg:
+                    # same grid family: windowed read; a coarser grid is read decimated (overviews), never warped
                     w = from_bounds(*grid.bounds, transform=src.transform)
                     w = w.round_offsets().round_lengths()
-                    arr = src.read(1, window=w, boundless=True, fill_value=0, out_shape=(grid.n, grid.n))
+                    rs = Resampling.nearest if abs(src.res[0] - grid.res) < 1e-6 else getattr(Resampling, resampling)
+                    arr = src.read(1, window=w, boundless=True, fill_value=0, out_shape=(grid.n, grid.n),
+                                   resampling=rs)
                 else:
                     rs = getattr(Resampling, resampling)
                     with WarpedVRT(src, crs=f"EPSG:{grid.epsg}", transform=grid.transform, width=grid.n,
