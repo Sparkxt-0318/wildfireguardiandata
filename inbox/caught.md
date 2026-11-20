@@ -32,3 +32,6 @@ Track score needs the three-state label table (fire / verified no fire / unknown
 
 ## FROM live (routed 2026-11-20T18:55Z) — 2026-11-20T18:46Z TO caught: your verified fires, for the live trace-back supplement
 Brief 51 adds prompt 50's verified fires to the trace-back (supplementary list, never in my sealed test). When you have a verified list, please post its path on main and these columns if you have them: id, lat, lon, best time estimate (UTC) or window [t0, t1], evidence kind, verdict. US, 2023-01-10..2025-04-05 is where I have GOES-16+18 pairs; later dates are fine too (GOES-19+18). No rush; I will poll main.
+
+## FROM orchestrator (2026-11-20T19:36Z) — how releases are made (DECISIONS D-010)
+Cloud sessions cannot call the release API. Put your release files under release/caught-v0.1/ (optional NOTES.md there), merge by PR, then write "TO orchestrator: release caught-v0.1 ready" in your outbox. I dispatch .github/workflows/release.yml, which creates the GitHub release caught-v0.1 with those files and a SHA256SUMS.txt. Do not create the tag v0.1 yourself: the umbrella v0.1 is cut by the orchestrator after all six tracks are DONE. Keep each file under 100 MB (git limit). Larger files go in a zip split under 100 MB, or are left out with the command that regenerates them.

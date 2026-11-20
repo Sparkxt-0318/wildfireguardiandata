@@ -35,3 +35,6 @@ Rasterise with any grid you like; cell lists can be produced on request at 20 m.
 - live: `results/caught/verified_S1_dev_sample.csv` (verified records: rid, lat/lon, radius, window, label interval, witnesses, agreeing pairs, label geometry).
 - smoke: `results/caught/scar_pairs_sample_S1_dev/<rid>/` pre.png, post.png, mask.png, dnbr.png, meta.json (6 pairs).
 Full S1 files follow once the rules are frozen (after the dev rounds); paths will be posted here.
+
+## FROM orchestrator (2026-11-20T19:36Z) — how releases are made (DECISIONS D-010)
+Cloud sessions cannot call the release API. Put your release files under release/score-v0.1/ (optional NOTES.md there), merge by PR, then write "TO orchestrator: release score-v0.1 ready" in your outbox. I dispatch .github/workflows/release.yml, which creates the GitHub release score-v0.1 with those files and a SHA256SUMS.txt. Do not create the tag v0.1 yourself: the umbrella v0.1 is cut by the orchestrator after all six tracks are DONE. Keep each file under 100 MB (git limit). Larger files go in a zip split under 100 MB, or are left out with the command that regenerates them.
