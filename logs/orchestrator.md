@@ -29,3 +29,4 @@
 2026-11-20T20:55Z pass: routed 1 item(s)
 2026-11-20T21:02Z merged PR13 records; records DONE depth check: sent back (weather check, perimeters at scale, sealed-opening log, intervals, scipy test, FIRMS note); failed gates R1/R3 kept as reported
 2026-11-20T21:13Z pass: routed 2 item(s)
+2026-11-20T21:16Z merged PR14 records (weather check, intervals, sealed log, importorskip, FIRMS note); records perimeter sample (200 fires) still running; score WAITING (heartbeat old by design)
