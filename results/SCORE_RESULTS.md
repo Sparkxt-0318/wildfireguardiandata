@@ -39,3 +39,11 @@ Dataset `wildfirespreadts-750m`: 168 fires, 68,872,831 cell-days, fire 115,550 (
 ## Not done / limits
 - Adapter for firewitness labels (tracks 50 and 51): their label format is not on main yet; the adapter interface is `firewitness/score/adapters/` (build a `Dataset` of `Scene` objects with three-state `state`). Revisit when merged.
 - One benchmark with one label source; 168 fires; 750 m cells; hard-negative catalogue coordinates approximate.
+
+
+---
+## Addition 2026-11-20 (after the orchestrator depth check; earlier lines unchanged)
+**Combined split.** `space_time` holds fires out in space and time at once (see docs/SCORING.md); 14 test, 10 validation, 32 train fires, 112 dropped. Gates re-run on it: `results/score/gates_wildfirespreadts_space_time.json`. N1-N4 PASS, N5 FAIL again (weather-only matched 54.1x vs random 73.5x at the validation threshold, 17.9x vs 33.3x at raw probability 0.5; with proximity 0.82 vs 0.83 and 3.8x vs 6.1x). Honest model strict F1 0.580 vs persistence 0.611 (lift -0.031, CI -0.114 to -0.013), so under the strictest split the persistence baseline is beaten by nothing tested. The memoriser scores 0.006 strict F1 (random-rows inflation 29x).
+
+**Label adapters.** `adapters/caught.py` (schema `caught_states_v0.1.parquet`, rows -> scenes, floor_m2 rule in the negatives sampler) and `adapters/live.py` (track 51 onset labels from `protocol/live_fires.csv`) are written and tested on small fixtures (`tests/score/test_adapters_and_split.py`). Negatives from caught labels use only `no_fire` cells whose look floor is no larger than the cell; WildfireSpreadTS masks stay the fallback, shown in a test. On the 240 live fires: 760,144 fire cell-days, 190,036 matched negatives (matched on region and season only, danger class and land cover unavailable), space split 147/36/48 with 9 dropped (`results/score/live_adapter_stats.json`). These pre-ignition negatives are not satellite verified. No model predictions exist for either label set, so no card was run on them.
+**Not yet run:** the card on the real `caught_states_v0.1.parquet` (the file is not on main or in a release yet); it will be added here as a dated addition.

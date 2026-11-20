@@ -9,7 +9,7 @@ import numpy as np
 
 from .dataset import Dataset
 
-SCHEMES = ("space", "time", "random_fire", "random_rows")
+SCHEMES = ("space_time", "space", "time", "random_fire", "random_rows")
 VERSION = 1
 
 
@@ -55,7 +55,8 @@ def _assign_groups(groups, order, n, test_frac, val_frac):
 
 
 def make(ds: Dataset, scheme: str = "space", seed: int = 54, test_frac: float = 0.2, val_frac: float = 0.15,
-         block_km: float = 100.0, buffer_km: float = 50.0, buffer_days: int = 30) -> dict:
+         block_km: float = 100.0, buffer_km: float = 50.0, buffer_days: int = 30,
+         test_block_frac: float = 0.35, val_block_frac: float = 0.25) -> dict:
     if scheme not in SCHEMES:
         raise ValueError(f"scheme must be one of {SCHEMES}")
     ids = ds.ids()
@@ -67,6 +68,37 @@ def make(ds: Dataset, scheme: str = "space", seed: int = 54, test_frac: float = 
     elif scheme == "random_fire":
         order = sorted(ids, key=lambda f: _h(seed, "fire", f))
         fold_of = _assign_groups({f: [f] for f in order}, order, n, test_frac, val_frac)
+    elif scheme == "space_time":
+        # Held out in space AND time at once: test = test blocks x test year, val = val blocks x val year, train = blocks
+        # outside both AND years outside both. Fires in a held-out block but a training year (or the reverse) are dropped.
+        years = sorted({desc[f]["year"] for f in ids})
+        if len(years) < 3:
+            raise ValueError("space_time needs at least three calendar years")
+        test_y, val_y = years[-1], years[-2]
+        groups = {}
+        for f in ids:
+            x, y = _xy_km(desc[f]["lat"], desc[f]["lon"])
+            groups.setdefault((int(x // block_km), int(y // block_km)), []).append(f)
+        order = sorted(groups, key=lambda b: _h(seed, "block", *b))
+        tb, vb, cnt = set(), set(), 0
+        for b in order:
+            if cnt < test_block_frac * n:
+                tb.add(b)
+            elif len(vb) == 0 or sum(len(groups[x]) for x in vb) < val_block_frac * n:
+                vb.add(b)
+            cnt += len(groups[b])
+        for b in order:
+            for f in groups[b]:
+                y = desc[f]["year"]
+                if b in tb and y == test_y:
+                    fold_of[f] = "test"
+                elif b in vb and y == val_y:
+                    fold_of[f] = "val"
+                elif b not in tb and b not in vb and y not in (test_y, val_y):
+                    fold_of[f] = "train"
+                else:
+                    fold_of[f] = "drop"
+            blocks[f"{b[0]}_{b[1]}"] = "test" if b in tb else "val" if b in vb else "train"
     elif scheme == "space":
         groups = {}
         for f in ids:
@@ -80,11 +112,15 @@ def make(ds: Dataset, scheme: str = "space", seed: int = 54, test_frac: float = 
         test_y = years[-1]
         val_y = years[-2] if len(years) > 2 else None
         fold_of = {f: ("test" if desc[f]["year"] == test_y else "val" if desc[f]["year"] == val_y else "train") for f in ids}
-    dropped = []
+    dropped = [{"fire": f, "fold": "-", "near": "", "reason": "cross (block and year disagree)"} for f in ids if fold_of.get(f) == "drop"]
     if scheme != "random_rows":
         rank = {"train": 0, "val": 1, "test": 2}
         for f in ids:
+            if fold_of[f] == "drop":
+                continue
             for g in ids:
+                if fold_of[g] == "drop":
+                    continue
                 if rank[fold_of[g]] > rank[fold_of[f]] and _gap_km(desc[f], desc[g]) < buffer_km \
                         and _gap_days(desc[f], desc[g]) < buffer_days:
                     dropped.append({"fire": f, "fold": fold_of[f], "near": g, "reason": "buffer"})
