@@ -1,0 +1,94 @@
+{
+ "example_id": "ex010",
+ "cluster_id": "FW-20190916-13120628-01",
+ "members": [
+  {
+   "source": "fpa_fod",
+   "record_id": "400510587",
+   "name": "KELLY",
+   "date": "2019-09-16",
+   "lat": 41.2497,
+   "lon": -117.1347,
+   "acres": 1492.6,
+   "state": "NV",
+   "cluster_id": "FW-20190916-13120628-01"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2019_10720760_KELLY",
+   "name": "Kelly",
+   "date": "2019-09-16",
+   "lat": 41.249717,
+   "lon": -117.1346,
+   "acres": 1493.0,
+   "state": "NV",
+   "cluster_id": "FW-20190916-13120628-01"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "NV4125011713520190916",
+   "name": "KELLY",
+   "date": "2019-09-16",
+   "lat": 41.24712556082589,
+   "lon": -117.11173217202273,
+   "acres": 1505.0,
+   "state": "NV",
+   "cluster_id": "FW-20190916-13120628-01"
+  }
+ ],
+ "pairs": [
+  {
+   "a": "400510587",
+   "b": "2019_10720760_KELLY",
+   "probability": 0.9999997297432657,
+   "outcome": "link"
+  },
+  {
+   "a": "400510587",
+   "b": "NV4125011713520190916",
+   "probability": 0.9999998840113905,
+   "outcome": "link"
+  }
+ ],
+ "merged": {
+  "name": "KELLY",
+  "date": "2019-09-16",
+  "lat": 41.24712556082589,
+  "lon": -117.11173217202273,
+  "acres": 1505.0,
+  "state": "NV",
+  "n_sources": 3
+ },
+ "raw_kept": [
+  {
+   "source": "fpa_fod",
+   "record_id": "400510587",
+   "name": "KELLY",
+   "date": "2019-09-16",
+   "lat": 41.2497,
+   "lon": -117.1347,
+   "acres": 1492.6,
+   "state": "NV"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2019_10720760_KELLY",
+   "name": "Kelly",
+   "date": "2019-09-16",
+   "lat": 41.249717,
+   "lon": -117.1346,
+   "acres": 1493.0,
+   "state": "NV"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "NV4125011713520190916",
+   "name": "KELLY",
+   "date": "2019-09-16",
+   "lat": 41.24712556082589,
+   "lon": -117.11173217202273,
+   "acres": 1505.0,
+   "state": "NV"
+  }
+ ]
+}
