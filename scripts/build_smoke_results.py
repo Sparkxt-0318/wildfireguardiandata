@@ -98,7 +98,40 @@ def s4_table(d):
     return "\n".join(out)
 
 
+def summary(dev, sealed, s4):
+    rows = []
+    def add(q, d, tgt, src, note):
+        rows.append(f"| {q} | {d} | {tgt} | {src} | {note} |")
+    for nm, d in (("dev", dev), ("sealed", sealed)):
+        if not d:
+            continue
+        a = d["s2_s3"]; s1 = d["s1"]; s5 = d["s5"]
+        ok = a["n_sequences"] - a["n_excluded"]
+        add(f"S2 false pre-ignition frames, {nm}", f"{100 * a['placebo_rate']:.1f}% ({a['placebo_false_frames']} of {a['placebo_frames']}); interval {ci(a['placebo_rate_pooled_ci'], pct=True)}; n = {ok} sequences", "<= 1% (gate)", f"{nm}_final.json s2_s3",
+            "frames inside one sequence are correlated; sequences with another fire's smoke or a sunrise in the pre window count as false")
+        if a.get("s3_median_s") is not None:
+            q = a["s3_q"]
+            add(f"S3 method minus human first-smoke, {nm}", f"median {q[2]:+.0f} s, quartiles {q[1]:+.0f} to {q[3]:+.0f}; {a['detected']} of {ok} detected", "report; detected >= 80%", f"{nm}_final.json s2_s3",
+                "which of the two is closer to the physical ignition is not known; the human offset is the first visible plume in 1-minute frames")
+        add(f"S1 opacity MAE, {nm}", ci(s1["mae"]) + f"; n = {s1['n_cases']} composites", "<= 0.10", f"{nm}_final.json s1", "composites follow the same mixing law as the method and rise by construction")
+        add(f"S1 opacity bias, {nm}", ci(s1["bias"]), "abs <= 0.05", f"{nm}_final.json s1", "bias is -0.12 for true opacity 0.7 to 1.0")
+        add(f"S1 edge error at 0.20, {nm}", f"median {s1['edge_0.20_median']:.1f} px; n = {s1['edge_0.20_n']}", "<= 4 px", f"{nm}_final.json s1", "window around the planted plume only; false regions elsewhere are counted separately")
+        add(f"S1 detection, alpha_max >= 0.6, {nm}", ci(s1["detect_amax>=0.6"], pct=True), ">= 90%", f"{nm}_final.json s1", "dark smoke (0.30) is detected least")
+        add(f"S5 re-run identity, {nm}", f"{s5['identical']} of {s5['n_identity']}", "all (gate)", f"{nm}_final.json s5", "same machine and library versions")
+    if s4:
+        h = s4["hpwren"]["summary"]; p = s4["pyro"]["summary"] if s4.get("pyro") else None
+        add("S4 HPWREN-BB best IoU between box and opacity region", f"median {h['best_iou_median']:.2f}, quartiles {h['best_iou_quartiles'][0]:.2f} to {h['best_iou_quartiles'][1]:.2f}; n = {h['n']} boxes, 6 fires", "report", "s4_final.json",
+            "boxes are carried unchanged across many frames while the plume grows; no frame has two annotators")
+        if p:
+            add("S4 Pyro-SDIS best IoU", f"median {p['best_iou_median']:.2f}; n = {p['n']} boxes, 10 events; no region for {p['no_region']}", "report", "s4_final.json", "background from other days: opacity is not reliable here")
+    head = "| quantity | value (95% interval where stated) | target | source file (results/smoke/) | what it does not show |\n|---|---|---|---|---|\n"
+    return head + "\n".join(rows)
+
+
 if __name__ == "__main__":
+    if "--summary" in sys.argv:
+        print(summary(load("dev_final.json"), load("sealed_final.json"), load("s4_final.json")))
+        sys.exit(0)
     for name in ("dev", "sealed"):
         d = load(f"{name}_final.json")
         if not d:
