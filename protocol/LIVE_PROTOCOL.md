@@ -160,7 +160,7 @@ own S was seen while choosing; it is a dev fire and is reported with the others.
 (GUIDs are case-insensitive): the repository's key scan matched upper-case GUIDs as a key shape. No fire, split or other
 value changed. New SHA-256 of `live_fires.csv`: `7cfa4e88d62388e4933061b2433cb133671ffbeb2367dd318f0b5f5c1b27234d` (was a2c7fa01…).
 
-**Amendment 3 — 2026-11-20T18:14Z, before any Part B result (only one dev fire's placebo series examined).**
+**Amendment 3 — 2026-11-20T18:05Z, before any Part B result (only one dev fire's placebo series examined).**
 Changes to §6:
 1. *Two-witness rule, one parameter:* per site G = max(S_E, S_W, [S_E ≥ m and S_W ≥ m]·(S_E + S_W)/ρ); alert when
    G ≥ h. ρ (≥ 1, or ∞ for no pair rule) replaces the pair (h1, h2); ρ is a candidate setting chosen on dev.
