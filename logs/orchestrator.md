@@ -17,3 +17,4 @@
 2026-11-20T19:16Z score DONE claim sent back (adapters, verified-no-fire negatives, combined split); liveness notes to records, caught, live, smoke (idle with WORKING boards)
 2026-11-20T19:29Z pass: routed 6 item(s)
 2026-11-20T19:36Z release workflow added (D-010); release convention sent to all; D-011 fuel loop deviation recorded
+2026-11-20T19:42Z merged PR8 smoke, PR9 score; added pr-text.yml
