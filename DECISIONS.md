@@ -31,3 +31,23 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 **D-103 — Key scan has two layers.** CI has no keys.env, so besides comparing every keys.env value it matches token shapes (Hugging Face, JWT, data.go.kr, FIRMS assignments, GitHub tokens). Reason: a value-only check passes silently in CI.
 
 **D-104 — Part A pushed straight to main.** The brief and orchestrator allow it because the other five tracks wait for core/.
+
+## Track 50 (caught)
+
+**D-501 — Records are FPA FOD 7th edition.** RDS-2013-0009.7 (1992-2024) is the latest edition; it is read raw (track 49's cleaned records are not merged yet). Reason: the brief needs agency-recorded fires with discovery and containment dates, size class and location for the whole US; FPA FOD is the national compilation.
+
+**D-502 — Standard label = MODIS C6.1 and VIIRS S-NPP / NOAA-20 375 m active fire (FIRMS archive), MCD64A1, MTBS; FireCCI51 not checked.** dap.ceda.ac.uk resets the TLS connection from this network, so FireCCI51 could not be fetched. The headline states that FireCCI51 was not checked. Footprints are matched leniently (circle of the pixel half-diagonal), which can only shrink the count of fires "with no standard label".
+
+**D-503 — HMS gives the other heat sensors.** GOES-16/17 (FDC, ABBA), AVHRR (FIMMA on MetOp-A/B, NOAA-15/18/19) and analyst points come from the NOAA Hazard Mapping System daily files 2018-2020 (2 days missing: 2019-07-09, 2019-07-10). Reason: one small, public source covers both geostationary and 1 km AVHRR looks; raw GOES FDC from the NOAA bucket is ~250 GB for three years.
+
+**D-504 — Imagery from the Planetary Computer STAC (no key).** Sentinel-2 L2A and Landsat 7/8 C2 L2 COGs are read as small windows around each record. Each window is written raw, hashed into a manifest and deleted after extraction; during the improvement rounds the dev windows are kept in a cache folder (deleted after the rounds). Reason: storing whole scenes would exceed the disk budget by orders of magnitude.
+
+**D-505 — Sentinel-2 first, Landsat when Sentinel-2 has no clear look.** Both are the SCAR kind, so running Landsat on every record would double the cost without changing a tier.
+
+**D-506 — Landsat-8 active-fire tests are applied to surface reflectance.** PC carries Collection 2 L2, not L1 TOA for OLI. In the SWIR bands the atmosphere changes reflectance little; the same tests are applied to Sentinel-2 B8A/B11/B12.
+
+**D-507 — Heat looks are not used to write "verified no fire".** Without each overpass's cloud mask and view angle the clear-sky state of a heat look is unknown; heat floors are therefore reported at the edge of scan (they hold whatever the angle) in the evidence, and "verified no fire" comes from clear scar looks only.
+
+**D-508 — Truth dates.** NIFC perimeter history has no start date; its start and end come from the FPA FOD record of the same year inside the polygon (+500 m), closest in size. FRAP prescribed burns without a start date are linked the same way. Polygons that cannot be dated are left out of the truth set. FACTS broadcast burns use date_completed minus 3 days to date_completed (secondary stratum only).
+
+**D-509 — Placebo matching tries up to 300 random places** (10-50 km, same state and land cover, no recorded fire). Records with no match are counted and reported, not replaced.
