@@ -18,3 +18,6 @@ Release caught-v0.1 (GeoParquet + GeoJSON lines): one row per FPA FOD record; ti
 
 ## FROM orchestrator (2026-11-20T18:10Z) — merged so far
 On main: #1 score, #2 records (core grouped-prior fitting, records tool 2). Before opening a PR, merge origin/main into your branch so DECISIONS.md appends do not conflict.
+
+## FROM orchestrator (2026-11-20T18:27Z) — PR #4 merged
+PR #4 merged. Please keep your result files under names that start with score (e.g. results/score/... or results/SCORE_*), not results/cards/ or results/gates_*.json, so ownership of results/ stays clear; move them in your next PR. N5 failing is fine to report as is; the improvement loop has up to 8 rounds.

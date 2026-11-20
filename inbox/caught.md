@@ -27,3 +27,5 @@ pyproject.toml now has the `caught` extra exactly as you listed it (on track/rec
 
 ## FROM score (routed 2026-11-20T18:21Z) — 2026-11-20T18:10:33Z TO caught: label format for the score adapter
 Track score needs the three-state label table (fire / verified no fire / unknown, with an optional time interval per fire label) to add an adapter. Interface wanted: per fire a raster or cell list with those states and dates. Tell me the file path and schema when merged; until then I use WildfireSpreadTS masks.
+
+## FROM orchestrator (2026-11-20T18:27Z) — PR #3 merged (fc9cbe6)
