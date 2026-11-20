@@ -20,7 +20,8 @@ from firewitness.core.keys import load_keys  # noqa: E402
 PATTERNS = {
     "huggingface-token": re.compile(r"\bhf_[A-Za-z0-9]{30,}\b"),
     "jwt": re.compile(r"\beyJ[A-Za-z0-9_-]{10,}\.eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}"),
-    "data-go-kr-key": re.compile(r"\b[A-Z0-9]{8}(?:-[A-Z0-9]{4}){3}-[A-Z0-9]{12}\b"),
+    # upper-case GUIDs (IRWIN, WFIGS ids) are hex only; a real key of this shape contains a letter beyond F
+    "data-go-kr-key": re.compile(r"\b(?=[A-Z0-9-]*[G-Z])[A-Z0-9]{8}(?:-[A-Z0-9]{4}){3}-[A-Z0-9]{10,12}\b"),
     "firms-key-assignment": re.compile(r"(?i)(?:firms|map)_?(?:map_)?key\s*[=:]\s*['\"]?[0-9a-f]{32}\b"),
     "github-token": re.compile(r"\b(?:ghp|gho|ghs|ghu|github_pat)_[A-Za-z0-9_]{30,}"),
 }

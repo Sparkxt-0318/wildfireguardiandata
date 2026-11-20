@@ -1,0 +1,12 @@
+{
+ "large_fires": 16766,
+ "covered_by_mtbs_link": 12331,
+ "covered_by_wfigs": 1191,
+ "covered_any": 12491,
+ "uncovered": 4275,
+ "flag_counts": {
+  "ok": 2156,
+  "no_perimeters": 369,
+  "low": 160
+ }
+}

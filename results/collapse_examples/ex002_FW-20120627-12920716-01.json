@@ -1,0 +1,94 @@
+{
+ "example_id": "ex002",
+ "cluster_id": "FW-20120627-12920716-01",
+ "members": [
+  {
+   "source": "fpa_fod",
+   "record_id": "201502188",
+   "name": "PINE RIDGE",
+   "date": "2012-06-27",
+   "lat": 39.2358,
+   "lon": -108.388,
+   "acres": 13920.0,
+   "state": "CO",
+   "cluster_id": "FW-20120627-12920716-01"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2012_CO-GRD-000275_PINE RIDGE",
+   "name": "PINE RIDGE",
+   "date": "2012-06-27",
+   "lat": 39.235833,
+   "lon": -108.388056,
+   "acres": 13920.0,
+   "state": "CO",
+   "cluster_id": "FW-20120627-12920716-01"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "CO3923610838820120627",
+   "name": "PINE RIDGE",
+   "date": "2012-06-27",
+   "lat": 39.25374086644873,
+   "lon": -108.3143872549198,
+   "acres": 13879.0,
+   "state": "CO",
+   "cluster_id": "FW-20120627-12920716-01"
+  }
+ ],
+ "pairs": [
+  {
+   "a": "201502188",
+   "b": "2012_CO-GRD-000275_PINE RIDGE",
+   "probability": 0.9999997297432657,
+   "outcome": "link"
+  },
+  {
+   "a": "201502188",
+   "b": "CO3923610838820120627",
+   "probability": 0.9999921853211097,
+   "outcome": "link"
+  }
+ ],
+ "merged": {
+  "name": "PINE RIDGE",
+  "date": "2012-06-27",
+  "lat": 39.2358,
+  "lon": -108.388,
+  "acres": 13920.0,
+  "state": "CO",
+  "n_sources": 3
+ },
+ "raw_kept": [
+  {
+   "source": "fpa_fod",
+   "record_id": "201502188",
+   "name": "PINE RIDGE",
+   "date": "2012-06-27",
+   "lat": 39.2358,
+   "lon": -108.388,
+   "acres": 13920.0,
+   "state": "CO"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2012_CO-GRD-000275_PINE RIDGE",
+   "name": "PINE RIDGE",
+   "date": "2012-06-27",
+   "lat": 39.235833,
+   "lon": -108.388056,
+   "acres": 13920.0,
+   "state": "CO"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "CO3923610838820120627",
+   "name": "PINE RIDGE",
+   "date": "2012-06-27",
+   "lat": 39.25374086644873,
+   "lon": -108.3143872549198,
+   "acres": 13879.0,
+   "state": "CO"
+  }
+ ]
+}

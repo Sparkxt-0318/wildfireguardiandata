@@ -1,0 +1,12 @@
+{
+ "attempted": 31,
+ "status": {
+  "scar": 17,
+  "no_scar_clear": 9,
+  "no_clear_look": 4,
+  "rejected": 1
+ },
+ "scar_found": 17,
+ "consistent_with_recorded_size_0.2_to_5x": 4,
+ "median_scar_over_recorded_area": 0.010378410000000001
+}
