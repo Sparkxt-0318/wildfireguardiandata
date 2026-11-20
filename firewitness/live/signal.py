@@ -33,6 +33,21 @@ def shift2(a, i, j, fill=np.nan):
     return out
 
 
+def nanmedian0(st: np.ndarray):
+    """Median over axis 0 ignoring NaN (same values as np.nanmedian), plus the count of finite values.
+
+    Sort-based: NaN sorts last, so the median of the n finite values sits at positions (n-1)//2 and n//2."""
+    srt = np.sort(st, axis=0)
+    n = np.isfinite(st).sum(0)
+    lo = np.clip((n - 1) // 2, 0, st.shape[0] - 1)
+    hi = np.clip(n // 2, 0, st.shape[0] - 1)
+    a = np.take_along_axis(srt, lo[None], 0)[0]
+    b = np.take_along_axis(srt, hi[None], 0)[0]
+    med = (a + b) / 2
+    med = np.where(n > 0, med, np.nan)
+    return med.astype(st.dtype), n
+
+
 def clear_mask(acm, cloudy_min=2, buf=None):
     """Clear = ACM below cloudy_min (255 missing counts as not clear) and no cloudy pixel within buf pixels."""
     buf = CLOUD_BUF if buf is None else buf
@@ -87,12 +102,7 @@ def residual(f: np.ndarray) -> np.ndarray:
     for s in range(0, flat.shape[0], step):
         blk = flat[s:s + step]
         st = np.stack([shift2(blk, i, j) for i, j in offs], 0)
-        cnt = np.isfinite(st).sum(0)
-        with np.errstate(all="ignore"):
-            import warnings
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore", RuntimeWarning)
-                med = np.nanmedian(st, 0)
+        med, cnt = nanmedian0(st)
         med[cnt < MIN_ANN] = np.nan
         of[s:s + step] = blk - med
     return out.reshape(lead + f.shape[-2:])
@@ -111,12 +121,8 @@ def history_stats(r: np.ndarray, days, slot_halfwidth: int = 1):
                 x[-dk:] = r[d, :T + dk]
             samples.append(x)
     st = np.stack(samples, 0)
-    import warnings
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore", RuntimeWarning)
-        cnt = np.isfinite(st).sum(0)
-        med = np.nanmedian(st, 0)
-        mad = np.nanmedian(np.abs(st - med), 0)
+    med, cnt = nanmedian0(st)
+    mad, _ = nanmedian0(np.abs(st - med))
     sc = np.maximum(S_FLOOR, 1.4826 * mad)
     med[cnt < MIN_HIST] = np.nan
     return med, sc

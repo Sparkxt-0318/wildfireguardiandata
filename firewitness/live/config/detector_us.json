@@ -1,0 +1,7 @@
+{
+  "frozen": false,
+  "note": "PROVISIONAL settings used to start the live service while Part B is fitted on dev fires. Replaced by the frozen Part B settings when fitted; every record carries the SHA-256 of this file's content.",
+  "config": {"ukey": "dT_c4", "cap": 8.0, "k": 0.5, "rho": 1.5, "m": 1.0, "vis_weight": 0.0, "decay": 1.0},
+  "h": 160.0,
+  "budget_per_pixel_site_day": 0.0001
+}

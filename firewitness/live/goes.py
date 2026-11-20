@@ -88,7 +88,7 @@ def http_get(url, headers=None, tries=5, timeout=60):
 class RangeFile(io.RawIOBase):
     """Read-only file object backed by HTTP range requests with a block cache."""
 
-    B = 128 * 1024
+    B = 32 * 1024
 
     def __init__(self, url):
         self.url, self.pos, self.cache, self.nreq, self.nbytes = url, 0, {}, 0, 0
