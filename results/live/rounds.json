@@ -269,6 +269,53 @@
     "sites_per_day_median": 2.0
    },
    "time": "2026-11-20T23:51Z"
+  },
+  {
+   "round": 7,
+   "cause": "false alerts recur at the same pixels on several days (static or intermittent industrial heat; e.g. 33.695 N 116.567 W on two days, 34.85 N 118.675 W for 12 h)",
+   "change": "no alert where G reached 40 within 1 px on any of the 7 previous days",
+   "before": {
+    "ukey": "bt7_c4_w6",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2,
+    "recur": 0.0
+   },
+   "after": {
+    "ukey": "bt7_c4_w6",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2,
+    "recur": 40.0
+   },
+   "score_before": -39.59826388888889,
+   "score_after": -42.77239583333334,
+   "h_before": 67.05959375,
+   "h_after": 65.8369375,
+   "earlier_before": 16,
+   "earlier_after": 15,
+   "n": 96,
+   "no_alert_before": 47,
+   "no_alert_after": 48,
+   "false_rate_after": 9.883676619027591e-05,
+   "kept": false,
+   "false_alerts_after": {
+    "n_days_with_false": 40,
+    "kinds": {
+     "previous days": 35,
+     "day0 (fire day, far sites)": 5
+    },
+    "sites_per_day_median": 3.5
+   },
+   "time": "2026-11-20T23:51Z"
   }
  ],
  "final_config": {
@@ -279,6 +326,7 @@
   "m": 1.0,
   "vis_weight": 0.0,
   "decay": 0.9,
-  "site_r": 2
+  "site_r": 2,
+  "recur": 0.0
  }
 }
