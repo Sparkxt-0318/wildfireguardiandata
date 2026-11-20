@@ -107,3 +107,16 @@ def report_md(name: str, map_key: str, manifest: dict, examples: list[str]) -> s
         lines += ["```", e, "```", ""]
     lines += ["A verdict is a statement about agreement between the map and independent public layers, not a field measurement."]
     return "\n".join(lines) + "\n"
+
+
+def write_report(name: str, map_key: str, cfg: dict, manifest: dict, out: Path):
+    """Map PNG + Markdown report with evidence-card examples for one run. Recomputes verdicts from the layers (deterministic)."""
+    from .areas import area_dir
+    from .layers import load
+    L = load(area_dir(name), map_key, cfg)
+    res = agent.check(L, cfg)
+    map_png(res, Path(out) / "map.png", f"{name} {map_key}")
+    rows, cols = np.nonzero(res.verdict == agent.CONTRADICTED)
+    pick = np.linspace(0, len(rows) - 1, min(5, len(rows))).astype(int) if len(rows) else []
+    examples = [card_text(card(L, res, int(rows[i]), int(cols[i]), cfg)) for i in pick]
+    (Path(out) / "report.md").write_text(report_md(name, map_key, manifest, examples))

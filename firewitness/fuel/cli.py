@@ -43,16 +43,7 @@ def run_check(args) -> int:
     man = runner.run_area(name, args.map, cfg, out_root=Path(args.out) if args.out else None)
     out = Path(args.out) if args.out else runner.OUT_ROOT
     out = out / args.map / name
-    L = load(d, args.map, cfg)
-    import numpy as np
-    from .grid import read_tif
-    verdict, _ = read_tif(out / "verdict.tif")
-    res = agent.check(L, cfg)
-    report.map_png(res, out / "map.png", f"{name} {args.map}")
-    rows, cols = np.nonzero(res.verdict == agent.CONTRADICTED)
-    pick = np.linspace(0, len(rows) - 1, min(5, len(rows))).astype(int) if len(rows) else []
-    examples = [report.card_text(report.card(L, res, int(rows[i]), int(cols[i]), cfg)) for i in pick]
-    (out / "report.md").write_text(report.report_md(name, args.map, man, examples))
+    report.write_report(name, args.map, cfg, man, out)
     print(json.dumps({"area": name, "map": args.map, "counts": man["counts"], "out": str(out)}))
     return 0
 
