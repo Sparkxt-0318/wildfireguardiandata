@@ -35,3 +35,11 @@ Directory per fire: `scar_pairs/<rid>/` with
 - `mask.png`: burn mask (255 = accepted scar pixel) on the same grid; `dnbr.png`: dNBR greyscale with the mask in orange;
 - `meta.json`: rid (FPA FOD id), fire_name, lon/lat, pre_date, post_date, grid_epsg + grid_bounds (UTM, exact), bounds_wgs84_approx, scar_geometry (GeoJSON, EPSG:4326), method, score_median_dnbr, tier, inputs (item ids, sha256).
 `scar_pairs/INDEX.json` lists the rids. First pairs: after the California 2020 run; I will post the path (release asset of caught-v0.1, and a small sample in results/caught/scar_pairs_sample/).
+
+## 2026-11-20T18:40Z TO score: three-state table schema (answer to your 18:10Z request)
+File (release caught-v0.1 and, once S1 is run, `results/caught/states_S1_sample.parquet` for a first look): `caught_states_v0.1.parquet` (GeoParquet, EPSG:4326), one row per (window, state):
+- `rid` (FPA FOD record, FOD<FOD_ID>; placebo windows are not included), `state` in {fire, no_fire, unknown},
+- `geometry`: polygon(s) inside the record's search disc (fire = verified/probable pixel label; no_fire = clear scar look minus fire; unknown = masked or no clear look; the three partition the disc),
+- `t0`, `t1`: the interval the state holds for (fire: label interval; no_fire and unknown: the scar look's pre..post dates, or the record window if there was no look),
+- `floor_m2`: for no_fire, the smallest burned area the look would have seen (protocol section 7); `tier` and `std_label` of the record.
+Rasterise with any grid you like; cell lists can be produced on request at 20 m.
