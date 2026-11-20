@@ -1,7 +1,7 @@
 ## smoke
 - state: RUNNING (Sonnet, high effort)
-- last heartbeat (UTC): 2026-11-20T20:05:36Z
-- current step: improvement loop on dev, rounds R1-R8 done (accepted: R2 horizon seam, R3 confirm area, R7 sky-core veil; rejected: R1 R4 R5 R6 R8). Dev now: S2 99/1122 false pre frames, S1-lite detect 78%, MAE 0.129. R9 running. Video tool done for all layouts (sequence a-d, known truth, satellite, scars, collapse). Next: finish loop, S4, S5, sealed run once, clips, release/smoke-v0.1.
+- last heartbeat (UTC): 2026-11-20T20:32:14Z
+- current step: loop R1-R11 done (accepted R2 R3 R7 R10; rejected R1 R4 R5 R6 R8 R9 R11), R12 running. Dev: S2 80/1122 false pre frames (7.1%, gate 1% not met), S1-lite detect 76%. Next: freeze config, final runs (dev full S1, sealed once, S4, S5), clips, results doc, release/smoke-v0.1.
 - blockers: none
-- PRs open: none (PR #8 merged)
-- branch: track/smoke (100277a)
+- PRs open: none
+- branch: track/smoke (f461ab9)
