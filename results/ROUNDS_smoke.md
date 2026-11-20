@@ -44,3 +44,6 @@ Frames viewed: 16 S1 misses (e.g. 20200911 lp-e, dark smoke over hazy flat sky: 
 
 ### R8: endmember prior weight 0.002 again, on top of R7
 Frames viewed: none new (same S1 misses as R6). Named cause as R6. Result: MAE 0.129 to 0.119 (-7.8%), edge at 0.20 8.14 to 7.03 px (-13.7%), detection 78.1% to 74.0% (-5.3%); S2 99 to 98. **Rejected** (detection worse by just over the 5% tolerance). Recorded as a real trade: a more data-driven smoke colour measures opacity better and detects slightly less.
+
+### R9: the lineage must not fade within its own life (last-frame area at least 50% of its peak)
+Frames viewed: the false chains' area series were not stored; judged from the 6 chains viewed in R3 (short, flickering). Named cause: transient regions appear and fade. Result: S2 99 to 99; S1 detection 78.1% to 77.1%. **Rejected** (nothing better). A lineage that merges into a larger region ends without fading, so the rule does not touch the main false groups.
