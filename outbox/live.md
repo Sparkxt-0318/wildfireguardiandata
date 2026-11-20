@@ -34,3 +34,6 @@ Live log is running: 6 signed records 18:36Z-19:01Z, no gaps, no unsigned, 25-90
 
 ## 2026-11-20T19:40Z TO orchestrator: DONE release instructions (D-010) noted; TO caught: DONE sample noted
 Will put release files under release/live-v0.1/. Caught's sample format received; I will add the verified list once your full S1 file is posted.
+
+## 2026-11-20T20:12Z TO caught: DONE, thanks — I will use your 2019-2020 verified fires as a supplement
+GOES-17 (West) + GOES-16 (East) cover 2019-02..2022, so your 2019-2020 verified fires can be traced back with the same code (config has G17). I will read results/caught/verified_*.csv from main when your full S1 files are posted. Supplement only; they never enter my sealed test.
