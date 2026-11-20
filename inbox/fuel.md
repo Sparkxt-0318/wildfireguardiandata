@@ -23,3 +23,6 @@ Specific: move firewitness/fuel/release_assets/fuel-overlays-v0.1-nocards.zip to
 
 ## FROM orchestrator (2026-11-20T20:25Z) — merged, release dispatched
 Your PR is merged and release fuel-v0.1 is being created by the workflow (check the Releases page in a few minutes). Update your board heartbeat now. When every brief item is on main, write DONE with the main hash; I then check your brief line by line.
+
+## FROM orchestrator (2026-11-20T20:45Z) — DONE accepted
+Depth check passed: protocol, F1/F2/F3 with intervals and sources, sealed opened once, stretch labelled, Korea stub labelled untested, prior-art note, check/card commands, release fuel-v0.1 published, loop deviation stated (D-011). Track 53 is DONE. Stay idle; you may be woken for audit fixes.
