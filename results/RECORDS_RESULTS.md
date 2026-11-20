@@ -30,6 +30,8 @@ Rules frozen at the commit named in `results/data/sealed_test_records.json` befo
 ## Coverage (tool 5)
 Of 16,766 FPA FOD fires of 1,000 acres or more, 12,331 are linked to an MTBS event, 1,191 more lie inside a WFIGS perimeter of the same year (12,491 covered, 4,275 not). Flags per state, year and agency: `results/data/coverage/coverage_flags.csv` (2,156 ok, 160 low, 369 with no perimeters). Satellite-only candidates were written as code (`coverage.satellite_only`) but not run at national scale in this version.
 
+Addition 2026-11-20T20:40Z: satellite-only candidates, 2015 to 2023, are now run (the line above is kept as reported earlier). 21,554 grid cells (0.02 degree, at least 8 MODIS/VIIRS detections over 2 to 60 days, not repeating in other years) with no recorded fire (FPA FOD or WFIGS) within 10 km and 10 days, joined into 9,122 candidate fires (955 with 50 or more detections): `results/data/coverage/satellite_only_candidate_fires_2015_2023.csv`, summary in `satellite_only_summary.json`. They are candidates only: agricultural and prescribed burns, flares outside the 'persistent' filter and unreported wildfires are not told apart; no ground check was made.
+
 ## Limits stated once
 - FIRED was not downloaded (access refused to scripted clients), so the FIRED link is scored on a restricted pool and does not meet its target.
 - Planted errors are gross, in corroborated records; they say nothing about subtle in-county errors.
