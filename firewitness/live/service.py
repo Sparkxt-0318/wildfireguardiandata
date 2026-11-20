@@ -27,7 +27,9 @@ def sign(path: Path) -> bool:
 
 
 def commit(repo: Path, paths, msg):
-    sh(["git", "add", "--"] + [str(p) for p in paths], cwd=repo)
+    """git add/commit/push inside the live-log checkout. Paths may be given relative to the caller's cwd."""
+    rel = [str(Path(p).resolve().relative_to(Path(repo).resolve())) for p in paths if Path(p).exists()]
+    sh(["git", "add", "--"] + rel, cwd=repo)
     if sh(["git", "diff", "--cached", "--quiet"], cwd=repo, check=False).returncode == 0:
         return
     sh(["git", "commit", "-q", "-m", msg], cwd=repo)
@@ -50,6 +52,7 @@ def run(log_repo: Path, until: float, publish: bool, cache: Path, region="us", m
     print(f"live: resumed={resumed} first slot {iso(start)} until {iso(until)}", flush=True)
     t = start
     n = 0
+    pending = []
     while t < until:
         due = t + LATENCY_S
         if time.time() < due:
@@ -80,7 +83,12 @@ def run(log_repo: Path, until: float, publish: bool, cache: Path, region="us", m
         if publish:
             if n % 6 == 0:
                 paths.append(state_f)
-            commit(log_repo, paths, f"live record {p.name} ({len(rec.get('candidates', []))} candidates)")
+            try:
+                commit(log_repo, pending + paths, f"live record {p.name} ({len(rec.get('candidates', []))} candidates)")
+                pending = []
+            except Exception as e:  # noqa: BLE001 — never lose the loop; the files are committed with the next cycle
+                pending += paths
+                print("commit failed (retried next cycle):", str(e)[:300], flush=True)
         if publish and n % 12 == 1:
             try:
                 from .reconcile import reconcile
@@ -94,5 +102,8 @@ def run(log_repo: Path, until: float, publish: bool, cache: Path, region="us", m
         t += 300
     svc.save_state(state_f)
     if publish:
-        commit(log_repo, [state_f], "live state handoff")
+        try:
+            commit(log_repo, pending + [state_f], "live state handoff")
+        except Exception as e:  # noqa: BLE001
+            print("final commit failed:", str(e)[:300], flush=True)
     return n

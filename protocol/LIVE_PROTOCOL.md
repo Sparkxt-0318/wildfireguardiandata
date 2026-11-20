@@ -184,3 +184,14 @@ anomalies. Once at least 60 dev fires are extracted, three Part A variants are r
 (z discarded where more than 4 pixels of the 9 × 9 window outside the central 3 × 3 exceed z = 3). Each has its own
 placebo h_A. The variant used for the labels is the one with the highest dev onset rate among those passing E1 on dev
 (cross-validated); ties → A0. A0 is reported regardless. The test fires are run once with the chosen variant.
+
+**Amendment 5 — 2026-11-20T18:29Z, cloud rule (all parts), found on dev fires.** Reading the dev fires that the detector
+never caught showed that the ABI clear-sky mask labels fires as cloud: the Eaton fire's first hot pixel (BT7 379 K,
+saturated) and a 330 K pixel of another fire are ACM "cloudy", and with the 2-pixel buffer the fire's whole site was
+masked. New rule: a pixel flagged probably-cloudy/cloudy (or missing) by ACM is cloud only if its BT14 is more than 3 K
+colder than the mean BT14 of the ACM-clear pixels in its 33 × 33 window (at least 20 such pixels; otherwise it stays
+cloud). Clouds are cold at 11 µm; fires and smoke are not. The 2-pixel buffer applies to this effective cloud. A
+history-based reference (the pixel's own clear BT14 at the same clock time) gave nearly identical scores on six fires and
+also recovers frames where ACM is missing, but cannot be reproduced exactly in the live service, so the spatial rule is
+used everywhere. Disclosure: chosen after looking at dev fires' outcomes; dev results are therefore development results,
+and the sealed test, untouched, carries the confirmatory numbers. Part A thresholds and all Part B fits are recomputed.

@@ -75,7 +75,8 @@ def vis_u(series: dict) -> np.ndarray:
     """Visible (band 1, 1 km) smoke score aggregated to the 2 km grid: max over the 2x2 1-km pixels' z."""
     ref = series["REF1"]
     # cloud: no ACM at 1 km; use the 2 km ACM (with buffer) upsampled
-    clear2 = sg.clear_mask(series["ACM"])
+    ref = sg.bt14_spatial_ref(series["BT14"], series["ACM"])
+    clear2 = sg.clear_from_cloud(sg.effective_cloud(series["ACM"], series["BT14"], ref))
     clear1 = np.repeat(np.repeat(clear2, 2, -2), 2, -1)[..., :BOX, :BOX]
     # the 1 km box covers only the central 20x20 2-km pixels
     f = np.where(clear1, ref, np.nan)
