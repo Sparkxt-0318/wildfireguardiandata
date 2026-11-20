@@ -143,4 +143,19 @@ opened for a round.
 
 ## Amendments
 
-(none)
+**Amendment 1 — 2026-11-20T18:25Z, before any trace-back or replay result.** Two additions to §3, both applied in
+Parts A, B and C:
+1. *Cloud-edge buffer:* a pixel is clear only if no ACM-cloudy (or missing) pixel lies within 2 pixels (5 × 5 window).
+2. *Scene filter:* z is discarded where more than 5 % of the clear pixels in the 33 × 33 window around the pixel have
+   z > 3 at that frame (unmasked cloud, haze or a scene-wide effect, not a local fire).
+
+Reason: the null distribution on placebo days was examined first, on one dev fire (2023-ORWIF-230266, Bedrock; its
+placebo days and also its own pre-anchor CUSUM were looked at). Exceedances clustered at cloud edges
+(P(z > 4) = 11 % next to cloud vs 0.5 % elsewhere) and in whole-scene morning events. On GOES-18 the null 99th
+percentile of S at the anchor dropped from 198 to 7, on GOES-16 from 384 to 158. A same-day drift correction was also
+tried; it is not adopted for Part A and becomes a Part B candidate feature (`dTd`). Disclosure: the Bedrock fire's
+own S was seen while choosing; it is a dev fire and is reported with the others.
+
+**Amendment 2 — 2026-11-20T18:35Z, representation only.** The IRWIN ids in `live_fires.csv` are written in lower case
+(GUIDs are case-insensitive): the repository's key scan matched upper-case GUIDs as a key shape. No fire, split or other
+value changed. New SHA-256 of `live_fires.csv`: `7cfa4e88d62388e4933061b2433cb133671ffbeb2367dd318f0b5f5c1b27234d` (was a2c7fa01…).
