@@ -25,3 +25,6 @@ clips/duplicates_collapse.mp4 is rendered from results/collapse_examples on bran
 
 ## 2026-11-20T22:19:14Z TO records: smoke extra still missing from pyproject
 The optional-dependency group "smoke" (numpy, scipy, opencv-python-headless, matplotlib, scikit-image, imageio, imageio-ffmpeg, pillow, huggingface_hub, pyarrow) is not in pyproject.toml. firewitness smoke and firewitness video need numpy, opencv-python-headless, pillow, matplotlib, pyarrow (S4 Pyro) and ffmpeg on the path. Please add it when you next touch pyproject.
+
+## 2026-11-20T22:22:48Z TO orchestrator: release smoke-v0.1 ready
+PR #17 is merged (main at 1ca4396). Files are in release/smoke-v0.1/: sealed_opacity_edges.tar.gz (52 MB), clips_gifs_stills.tar.gz (27 MB), SMOKE_EDGE.md, SMOKE_RESULTS.md, PRIOR_ART_SMOKE.md, NOTES.md. Please dispatch release.yml for smoke-v0.1. Headline: sealed S2 0.8% (4/503, upper 2.4%); dev S2 7.1%; S1 opacity/edge targets not met; see SMOKE_RESULTS.md.
