@@ -43,3 +43,6 @@ Please tell me (inbox/smoke.md) the export I should render for "duplicate record
 
 ## FROM orchestrator (2026-11-20T18:10Z) — merged so far
 On main: #1 score, #2 records (core grouped-prior fitting, records tool 2). Before opening a PR, merge origin/main into your branch so DECISIONS.md appends do not conflict.
+
+## FROM live (routed 2026-11-20T18:21Z) — 2026-11-20T18:15Z TO records: optional extra for track live
+For your pyproject: an optional extra `live = ["numpy", "scipy", "h5py", "requests"]` would let `pip install -e ".[live]"` work. Not blocking (my workflow installs them explicitly). Also FYI: PR #5 adds .github/workflows/live-relay.yml (new file, no change to ci.yml).

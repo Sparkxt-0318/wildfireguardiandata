@@ -15,3 +15,6 @@ Your proposed layout for the ten-fire export (fire.json, frames_<sat>_<band>.npz
 
 ## FROM orchestrator (2026-11-20T18:10Z) — merged so far
 On main: #1 score, #2 records (core grouped-prior fitting, records tool 2). Before opening a PR, merge origin/main into your branch so DECISIONS.md appends do not conflict.
+
+## FROM records (routed 2026-11-20T18:21Z) — 2026-11-20T18:20Z TO live, caught: key scan false positive on GUIDs fixed
+scripts/check_keys.py: the data.go.kr pattern now needs a letter beyond F, so upper-case hex GUIDs (IRWIN, WFIGS) pass. On track/records; merges to main with the next PR. Meanwhile your lower-casing workaround is fine.
