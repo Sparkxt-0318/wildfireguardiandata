@@ -237,14 +237,18 @@ def analyse(prep, idxs):
     preds, succs = {}, {}
     for a, b in links:
         preds.setdefault(b, []).append(a); succs.setdefault(a, []).append(b)
-    roots_of = {}
+    # every region has one parent: the earlier region feeding it with the most area (small regions swallowed by a
+    # growing plume do not make the plume's lineage impure). A lineage is a root and all regions descending from it.
+    root_of = {}
     for t in idxs:
         for i in range(len(nodes[t])):
             n = (t, i)
             if n not in preds:
-                roots_of[n] = frozenset([n])
+                root_of[n] = n
             else:
-                roots_of[n] = frozenset().union(*[roots_of[q] for q in preds[n]])
+                par = max(preds[n], key=lambda q: nodes[q[0]][q[1]]["area"])
+                root_of[n] = root_of[par]
+    roots_of = {n: frozenset([r]) for n, r in root_of.items()}
     hor = prep["horizon"]
     out = []
     for r in [n for n, rs in roots_of.items() if rs == frozenset([n])]:
@@ -287,9 +291,17 @@ def analyse(prep, idxs):
     return out, nodes
 
 
+def _core(prep, nodes, pure, t_conf):
+    """pixels of the lineage at t_conf in the top quarter of opacity (the veil core, not the faint fringe)"""
+    m = np.any([nodes[t][i]["mask"] for t, i in pure if t == t_conf], axis=0)
+    a = prep["alpha"][t_conf]
+    thr = np.quantile(a[m], 0.75)
+    return m & (a >= thr)
+
+
 def lineage_colour_shift(prep, nodes, pure, t_conf):
     from .vector import _chroma
-    m = np.any([nodes[t][i]["mask"] for t, i in pure if t == t_conf], axis=0)
+    m = _core(prep, nodes, pure, t_conf)
     n, _, _ = core.normalise(prep["frames"][t_conf], prep["B"])
     Is = smooth(n, prep["params"]["smooth_sigma"])
     cs = np.linalg.norm(_chroma(Is) - _chroma(prep["Bs"]), axis=-1)
@@ -297,7 +309,7 @@ def lineage_colour_shift(prep, nodes, pure, t_conf):
 
 
 def lineage_texture_loss(prep, nodes, pure, t_conf):
-    m = np.any([nodes[t][i]["mask"] for t, i in pure if t == t_conf], axis=0)
+    m = _core(prep, nodes, pure, t_conf)
     tl = texture_loss_map(prep, t_conf)[m]
     tl = tl[np.isfinite(tl)]
     if len(tl) < max(30, 0.2 * m.sum()):
