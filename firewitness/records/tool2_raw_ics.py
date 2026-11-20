@@ -65,4 +65,4 @@ def run(out_dir: Path, params: locate.Params | None = None, limit_years: list[st
 
 if __name__ == "__main__":
     import sys
-    print(json.dumps(run(paths.OUT / "tool2"), indent=1, default=str)[:4000])
+    print(json.dumps(run(paths.OUT / "tool2_final"), indent=1, default=str)[:4000])

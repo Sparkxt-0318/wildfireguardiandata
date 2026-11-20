@@ -1,0 +1,543 @@
+{
+ "blocks": {
+  "-100_47": "test",
+  "-100_49": "val",
+  "-100_51": "train",
+  "-101_37": "val",
+  "-101_38": "train",
+  "-101_40": "train",
+  "-101_49": "train",
+  "-101_51": "train",
+  "-101_52": "train",
+  "-101_53": "test",
+  "-102_37": "train",
+  "-102_38": "train",
+  "-102_40": "test",
+  "-102_41": "test",
+  "-102_42": "test",
+  "-102_47": "train",
+  "-102_48": "train",
+  "-102_51": "train",
+  "-102_52": "test",
+  "-102_53": "val",
+  "-102_54": "train",
+  "-103_38": "train",
+  "-103_40": "val",
+  "-103_41": "train",
+  "-103_42": "train",
+  "-103_43": "test",
+  "-103_44": "train",
+  "-103_45": "train",
+  "-103_47": "test",
+  "-103_50": "val",
+  "-103_52": "test",
+  "-103_53": "train",
+  "-103_54": "train",
+  "-104_43": "val",
+  "-104_44": "train",
+  "-104_45": "test",
+  "-104_46": "val",
+  "-104_47": "test",
+  "-105_41": "val",
+  "-105_42": "val",
+  "-105_43": "test",
+  "-105_44": "train",
+  "-105_46": "train",
+  "-105_47": "test",
+  "-105_48": "train",
+  "-106_45": "val",
+  "-106_46": "train",
+  "-106_47": "train",
+  "-89_38": "test",
+  "-89_47": "train",
+  "-89_52": "test",
+  "-90_40": "train",
+  "-90_44": "train",
+  "-90_46": "test",
+  "-91_37": "test",
+  "-91_42": "train",
+  "-91_46": "train",
+  "-91_48": "test",
+  "-91_50": "test",
+  "-92_45": "train",
+  "-92_47": "train",
+  "-92_50": "train",
+  "-92_51": "train",
+  "-93_37": "train",
+  "-93_39": "train",
+  "-93_45": "val",
+  "-93_50": "train",
+  "-93_52": "train",
+  "-93_53": "val",
+  "-94_37": "train",
+  "-94_43": "train",
+  "-94_52": "train",
+  "-95_37": "train",
+  "-95_38": "train",
+  "-95_43": "train",
+  "-95_44": "test",
+  "-95_45": "train",
+  "-95_46": "train",
+  "-95_47": "val",
+  "-95_51": "train",
+  "-95_52": "test",
+  "-96_37": "train",
+  "-96_38": "train",
+  "-96_39": "train",
+  "-96_40": "train",
+  "-96_43": "train",
+  "-96_44": "train",
+  "-96_46": "val",
+  "-96_49": "val",
+  "-96_50": "train",
+  "-96_51": "train",
+  "-97_38": "train",
+  "-97_41": "val",
+  "-97_46": "test",
+  "-97_47": "val",
+  "-97_48": "val",
+  "-97_53": "train",
+  "-98_38": "train",
+  "-98_39": "train",
+  "-98_40": "train",
+  "-98_41": "train",
+  "-98_42": "test",
+  "-98_45": "train",
+  "-98_46": "train",
+  "-98_47": "train",
+  "-98_49": "train",
+  "-98_50": "train",
+  "-98_51": "test",
+  "-98_52": "train",
+  "-98_54": "train",
+  "-99_45": "train",
+  "-99_47": "train",
+  "-99_48": "val",
+  "-99_49": "train",
+  "-99_50": "train",
+  "-99_51": "train",
+  "-99_54": "val"
+ },
+ "dataset": "wildfirespreadts-750m",
+ "dropped": [
+  {
+   "fire": "fire_21804572",
+   "fold": "train",
+   "near": "fire_21889763",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21804942",
+   "fold": "train",
+   "near": "fire_21998313",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21889683",
+   "fold": "train",
+   "near": "fire_21889672",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21890143",
+   "fold": "train",
+   "near": "fire_21998313",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21997828",
+   "fold": "train",
+   "near": "fire_21997844",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21998023",
+   "fold": "val",
+   "near": "fire_22141327",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21998081",
+   "fold": "train",
+   "near": "fire_22141327",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21998255",
+   "fold": "train",
+   "near": "fire_22141509",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21999354",
+   "fold": "train",
+   "near": "fire_21890013",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_22141195",
+   "fold": "train",
+   "near": "fire_21889672",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_22141445",
+   "fold": "val",
+   "near": "fire_22141327",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23159836",
+   "fold": "train",
+   "near": "fire_23301046",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23159841",
+   "fold": "train",
+   "near": "fire_23159847",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23159855",
+   "fold": "train",
+   "near": "fire_23159847",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23300668",
+   "fold": "train",
+   "near": "fire_23300689",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23300669",
+   "fold": "train",
+   "near": "fire_23300689",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23300689",
+   "fold": "val",
+   "near": "fire_23300699",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23410601",
+   "fold": "train",
+   "near": "fire_23300699",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24191360",
+   "fold": "train",
+   "near": "fire_24191357",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24191373",
+   "fold": "train",
+   "near": "fire_24104639",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24191377",
+   "fold": "val",
+   "near": "fire_24104639",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24191673",
+   "fold": "train",
+   "near": "fire_24191680",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24332591",
+   "fold": "val",
+   "near": "fire_24462764",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24332592",
+   "fold": "train",
+   "near": "fire_24191357",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24332731",
+   "fold": "train",
+   "near": "fire_24332704",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24332776",
+   "fold": "train",
+   "near": "fire_24191377",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24333255",
+   "fold": "train",
+   "near": "fire_24463162",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24461328",
+   "fold": "train",
+   "near": "fire_24332591",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24461618",
+   "fold": "train",
+   "near": "fire_24332704",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24461930",
+   "fold": "train",
+   "near": "fire_24463162",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24461965",
+   "fold": "train",
+   "near": "fire_24463162",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24462610",
+   "fold": "train",
+   "near": "fire_24462764",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25204815",
+   "fold": "train",
+   "near": "fire_25410444",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25205245",
+   "fold": "train",
+   "near": "fire_25294977",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25205788",
+   "fold": "train",
+   "near": "fire_25295877",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25294984",
+   "fold": "train",
+   "near": "fire_25294977",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25295026",
+   "fold": "train",
+   "near": "fire_25548269",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25295804",
+   "fold": "train",
+   "near": "fire_25295816",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25410444",
+   "fold": "val",
+   "near": "fire_25411134",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25410883",
+   "fold": "train",
+   "near": "fire_25548269",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25411738",
+   "fold": "train",
+   "near": "fire_25294977",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25411748",
+   "fold": "train",
+   "near": "fire_25294977",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25411821",
+   "fold": "val",
+   "near": "fire_25294977",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25547912",
+   "fold": "val",
+   "near": "fire_25411134",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25548678",
+   "fold": "train",
+   "near": "fire_25548269",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25639646",
+   "fold": "train",
+   "near": "fire_25411825",
+   "reason": "buffer"
+  }
+ ],
+ "folds": {
+  "test": [
+   "fire_21751315",
+   "fire_21889672",
+   "fire_21889763",
+   "fire_21997844",
+   "fire_21998313",
+   "fire_21999381",
+   "fire_22141243",
+   "fire_22141327",
+   "fire_22939556",
+   "fire_23036803",
+   "fire_23159847",
+   "fire_23159853",
+   "fire_23300699",
+   "fire_23301046",
+   "fire_23301386",
+   "fire_23410594",
+   "fire_24104639",
+   "fire_24104857",
+   "fire_24191357",
+   "fire_24191680",
+   "fire_24332704",
+   "fire_24333285",
+   "fire_24462764",
+   "fire_24463162",
+   "fire_24463172",
+   "fire_24695584",
+   "fire_25084892",
+   "fire_25086466",
+   "fire_25205363",
+   "fire_25294977",
+   "fire_25295877",
+   "fire_25410700",
+   "fire_25410735",
+   "fire_25411134",
+   "fire_25548269"
+  ],
+  "train": [
+   "fire_21458798",
+   "fire_21688910",
+   "fire_21688916",
+   "fire_21690102",
+   "fire_21748766",
+   "fire_21751305",
+   "fire_21890003",
+   "fire_21890033",
+   "fire_21890087",
+   "fire_21999270",
+   "fire_22141577",
+   "fire_22258318",
+   "fire_22343666",
+   "fire_22343688",
+   "fire_22710141",
+   "fire_22938749",
+   "fire_23036522",
+   "fire_23036542",
+   "fire_23036559",
+   "fire_23036564",
+   "fire_23036860",
+   "fire_23036877",
+   "fire_23037423",
+   "fire_23037424",
+   "fire_23159633",
+   "fire_23159637",
+   "fire_23159657",
+   "fire_23159787",
+   "fire_23159821",
+   "fire_23160511",
+   "fire_23300741",
+   "fire_23300861",
+   "fire_23300886",
+   "fire_23301095",
+   "fire_23301101",
+   "fire_23410616",
+   "fire_23410617",
+   "fire_23654679",
+   "fire_23757522",
+   "fire_24025605",
+   "fire_24103545",
+   "fire_24103571",
+   "fire_24191395",
+   "fire_24191411",
+   "fire_24332784",
+   "fire_24332785",
+   "fire_24332922",
+   "fire_24333259",
+   "fire_24461785",
+   "fire_24462233",
+   "fire_24463227",
+   "fire_24695758",
+   "fire_25204858",
+   "fire_25204877",
+   "fire_25204900",
+   "fire_25205312",
+   "fire_25205814",
+   "fire_25294989",
+   "fire_25294991",
+   "fire_25294998",
+   "fire_25295057",
+   "fire_25295089",
+   "fire_25295923",
+   "fire_25295937",
+   "fire_25411057",
+   "fire_25548658",
+   "fire_25548700",
+   "fire_25639187",
+   "fire_25639315"
+  ],
+  "val": [
+   "fire_21459242",
+   "fire_21890009",
+   "fire_21890013",
+   "fire_21997770",
+   "fire_21997854",
+   "fire_22141509",
+   "fire_22141554",
+   "fire_22141571",
+   "fire_22257961",
+   "fire_23036871",
+   "fire_23160475",
+   "fire_23300665",
+   "fire_23493983",
+   "fire_24332746",
+   "fire_24462604",
+   "fire_24604462",
+   "fire_25295816",
+   "fire_25411825"
+  ]
+ },
+ "input_fires_sha256": "72af700478b8c39489f640aefc44771efe7da4dbcbc7ee383555e9bdce473f1c",
+ "params": {
+  "block_km": 100.0,
+  "buffer_days": 30,
+  "buffer_km": 50.0,
+  "seed": 54,
+  "test_frac": 0.2,
+  "val_frac": 0.15
+ },
+ "row_level": false,
+ "scheme": "space",
+ "sha256": "d94a223cf441aab999d566d8e69bafe67e32c46d78c081853ee44434ac6d4557",
+ "version": 1
+}

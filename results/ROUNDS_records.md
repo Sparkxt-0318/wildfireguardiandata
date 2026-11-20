@@ -1,0 +1,24 @@
+# Improvement rounds (dev split only)
+
+Protocol section 7: read every failure, name one cause, change the rules for that cause, keep the change only if the dev score rises and do-no-harm does not worsen. Dev years only; the sealed test is opened once, at the end (see bottom). Scores are on dev years. "Do no harm" = planted-error false repairs, altered reference-clean records, distinct close pairs linked.
+
+| # | cause named (from reading the failures) | change | dev score before -> after | do no harm before -> after | kept |
+|---|---|---|---|---|---|
+| 0 | a date-parse bug: 60% of ICS-209-PLUS discovery dates were NaT (mixed formats), so the day witness was missing for FOD to ICS | `format="mixed"` in the canonical tables | FOD-ICS F1 0.46 -> 0.85 | n/a (links only) | yes (bug fix) |
+| 1 | time repair never fires: the as-reported date had a prior of 0.995 and its own contradicting evidence was not used against it; small fires gave no satellite evidence but diluted its reliability | candidates of one record compared as odds (normalised, "none of these" weight 0.05); satellite and scar date evidence only for fires of 300 acres or more | planted day-month recall 0/300 -> 26/300 (8.7%) | wrong repairs 0 -> 0; clean altered 0 -> 0 | yes |
+| 2 | ICS-FIRED: ignition points of FIRED events are far from the report point (median 4.9 km, 90th percentile 19 km) so absolute distance carries no weight for large fires | added distance relative to fire radius | F1 0.00 -> 0.27 | n/a | yes |
+| 3 | FOD duplicates: numbered sibling fires (BEAR BASIN 2 / 3) and same-system neighbours were being merged (684 links in two years, 93% same source) | names differing only by number count as different; duplicate removal in FOD only across source systems | links in 2008-2009: 684 -> 107; the checker found 19 chained same-source merges in the full run, which are now skipped | distinct close pairs: see round 5 | yes |
+| 4 | sign flip repairs land in the right county but not at the published place (0/24): county is too coarse | added a cross-source witness (a FOD fire within 3 km and 7 days of the point) | repairs matching the published value: 15/40 -> 15/40 | n/a | no (no gain; code kept, switched off) |
+| 5 | one distinct close MTBS pair (different, disjoint perimeters) reached posterior 0.953 | duplicate threshold 0.95 -> 0.97 | distinct pairs linked: 1 of 3,060 -> 0 | 1 -> 0 | yes (threshold chosen after seeing this pair; no dev score depends on it) |
+| 6 | FOD-MTBS: 969 of 1,032 uncovered truth pairs lie farther from the MTBS centroid than the radius (median 11.8 km: elongated or complex perimeters) and 864 are left undecided at 0.95 | radius 3 + 1.5 r to 10 + 4 r (r = equal-area radius); threshold 0.95 -> 0.7, margin 0.25 -> 0.1 | F1 0.897 -> 0.933 (P 0.958, R 0.908) | n/a | yes |
+| 7 | FOD-ICS: truth fires of complexes lie far from the report point; thresholds too strict | radius 5 + 1.5 r -> 10 + 3 r; threshold 0.95 -> 0.8, margin 0.1 | F1 0.847 -> 0.865 (P 0.950, R 0.795) | n/a | yes |
+| 8 | ICS-FIRED: posteriors rarely exceed 0.95 with only distance and size | threshold 0.5, margin 0 | F1 0.270 -> 0.313 (P 0.31, R 0.32) | n/a | yes |
+
+Eight of the twelve rounds were used. Gate R1 after round 8: FOD-MTBS meets precision 0.95 at recall 0.90 and beats the fixed rule with an interval excluding zero; FOD-ICS beats the fixed rule but reaches recall 0.795 at precision 0.95; ICS-FIRED beats the fixed rule by 0.024 (interval excludes zero) but at precision 0.31, because the FIRED download was blocked and only events already joined into ICS-209-PLUS can be candidates (no dates, no perimeters).
+
+Note on tuning: thresholds and radii above were chosen by looking at dev scores for several values (listed in the grid runs); that is the dev-tuning the protocol allows, and the sealed test years were not used.
+
+
+## Sealed test opening (appended 2026-11-20T21:10Z; earlier lines unchanged)
+
+The sealed test years (1995, 2001, 2007, 2013, 2019) were opened once, by `firewitness/records/sealed.py`, with the rules frozen at commit `69026c38a1be12c1d44c644b2e2bb91cb841dfa3` (recorded in `results/data/sealed_test_records.json`). No rule was changed after the opening. Results: `results/RECORDS_RESULTS.md` (links: FPA FOD to MTBS precision 0.955, recall 0.861, F1 0.906 vs 0.733; FPA FOD to ICS-209-PLUS 0.953, 0.811, F1 0.876 vs 0.798; ICS-209-PLUS to FIRED F1 0.328 vs 0.320, interval includes zero; location vs published cleaning, 43 documented, 27 flagged, 5 repaired, 4 within 5 km). Round 4 (peer witness) was not kept, the code stays switched off.

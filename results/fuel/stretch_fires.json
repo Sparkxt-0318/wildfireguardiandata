@@ -1,0 +1,1249 @@
+[
+ {
+  "id": "2017_AZ_boundary",
+  "counts": {
+   "consistent": 177215,
+   "stale": 0,
+   "contradicted": 15370,
+   "unknown": 101079
+  },
+  "rule_counts": {
+   "R1.1": 4380,
+   "R1.2": 463,
+   "R1.3": 0,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 0,
+   "R1.7": 2128,
+   "R1.9": 1760,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 1146,
+   "R3b": 7893,
+   "U0": 0
+  },
+  "replaced_cells": 2531,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 113.74125418643227,
+    "spearman": 0.8004497589338447,
+    "reached_share": 0.9898465952985321,
+    "n": 9061
+   },
+   "replaced": {
+    "mae_h_scaled": 111.65983254934923,
+    "spearman": 0.8003561254697799,
+    "reached_share": 0.9900673214876945,
+    "n": 9061
+   },
+   "scale": 0.8664779944651576,
+   "wind_mps": 3.743387755102041,
+   "wind_from": 224.65580340236278
+  }
+ },
+ {
+  "id": "2017_AZ_pinal",
+  "counts": {
+   "consistent": 100268,
+   "stale": 0,
+   "contradicted": 17430,
+   "unknown": 34078
+  },
+  "rule_counts": {
+   "R1.1": 12709,
+   "R1.2": 708,
+   "R1.3": 0,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 0,
+   "R1.7": 1847,
+   "R1.9": 413,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 1695,
+   "R3b": 1769,
+   "U0": 0
+  },
+  "replaced_cells": 1828,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 66.84346475680725,
+    "spearman": 0.7572662087979111,
+    "reached_share": 0.9950482147511076,
+    "n": 3837
+   },
+   "replaced": {
+    "mae_h_scaled": 66.82735351879441,
+    "spearman": 0.7572333123974835,
+    "reached_share": 0.9950482147511076,
+    "n": 3837
+   },
+   "scale": 1.661148112222323,
+   "wind_mps": 2.8897229219143576,
+   "wind_from": 246.82298509481188
+  }
+ },
+ {
+  "id": "2017_CA_alamo",
+  "counts": {
+   "consistent": 304125,
+   "stale": 0,
+   "contradicted": 37238,
+   "unknown": 51097
+  },
+  "rule_counts": {
+   "R1.1": 4595,
+   "R1.2": 118,
+   "R1.3": 97,
+   "R1.4": 0,
+   "R1.5": 3,
+   "R1.6": 0,
+   "R1.7": 10252,
+   "R1.9": 16275,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 1995,
+   "R3b": 7160,
+   "U0": 0
+  },
+  "replaced_cells": 18995,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 8.906147734373626,
+    "spearman": 0.8593128947990767,
+    "reached_share": 0.9505389980976537,
+    "n": 12616
+   },
+   "replaced": {
+    "mae_h_scaled": 9.338107977243641,
+    "spearman": 0.837348361388026,
+    "reached_share": 0.9609226379201015,
+    "n": 12616
+   },
+   "scale": 0.3716823526966785,
+   "wind_mps": 1.9562576687116562,
+   "wind_from": 280.3953969749443
+  }
+ },
+ {
+  "id": "2017_CA_atlas",
+  "counts": {
+   "consistent": 529151,
+   "stale": 0,
+   "contradicted": 79339,
+   "unknown": 103662
+  },
+  "rule_counts": {
+   "R1.1": 16523,
+   "R1.2": 155,
+   "R1.3": 539,
+   "R1.4": 0,
+   "R1.5": 356,
+   "R1.6": 0,
+   "R1.7": 31533,
+   "R1.9": 15204,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 1828,
+   "R3b": 15327,
+   "U0": 0
+  },
+  "replaced_cells": 18918,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 29.40727479428635,
+    "spearman": 0.39298371588023695,
+    "reached_share": 0.8717035370578677,
+    "n": 16002
+   },
+   "replaced": {
+    "mae_h_scaled": 29.143641499813313,
+    "spearman": 0.38596444729404195,
+    "reached_share": 0.8837645294338208,
+    "n": 16002
+   },
+   "scale": 0.528282410405389,
+   "wind_mps": 2.073137931034483,
+   "wind_from": 327.38516317153557
+  }
+ },
+ {
+  "id": "2017_CA_detwiler",
+  "counts": {
+   "consistent": 735834,
+   "stale": 0,
+   "contradicted": 163718,
+   "unknown": 154276
+  },
+  "rule_counts": {
+   "R1.1": 42186,
+   "R1.2": 264,
+   "R1.3": 58,
+   "R1.4": 0,
+   "R1.5": 17,
+   "R1.6": 0,
+   "R1.7": 12669,
+   "R1.9": 53669,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 12188,
+   "R3b": 60122,
+   "U0": 0
+  },
+  "replaced_cells": 42238,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 40.721236394722204,
+    "spearman": 0.6480929360139075,
+    "reached_share": 0.9624211916569064,
+    "n": 40129
+   },
+   "replaced": {
+    "mae_h_scaled": 41.05511086478737,
+    "spearman": 0.6360011309796423,
+    "reached_share": 0.968327144957512,
+    "n": 40129
+   },
+   "scale": 0.7806288146666458,
+   "wind_mps": 2.1333514986376025,
+   "wind_from": 292.70255767653737
+  }
+ },
+ {
+  "id": "2017_CO_peekaboo",
+  "counts": {
+   "consistent": 221788,
+   "stale": 0,
+   "contradicted": 41586,
+   "unknown": 19646
+  },
+  "rule_counts": {
+   "R1.1": 17446,
+   "R1.2": 0,
+   "R1.3": 25,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 59,
+   "R1.7": 9610,
+   "R1.9": 11711,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 142,
+   "R3b": 8449,
+   "U0": 0
+  },
+  "replaced_cells": 9816,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 52.65187814502085,
+    "spearman": 0.44970995166528915,
+    "reached_share": 0.9970405445398047,
+    "n": 6758
+   },
+   "replaced": {
+    "mae_h_scaled": 52.4328603637022,
+    "spearman": 0.46101130059838263,
+    "reached_share": 0.9973364900858243,
+    "n": 6758
+   },
+   "scale": 2.39472053310571,
+   "wind_mps": 1.7077016129032259,
+   "wind_from": 271.91019650895646
+  }
+ },
+ {
+  "id": "2017_ID_bearskin",
+  "counts": {
+   "consistent": 317508,
+   "stale": 0,
+   "contradicted": 88607,
+   "unknown": 98853
+  },
+  "rule_counts": {
+   "R1.1": 36843,
+   "R1.2": 5387,
+   "R1.3": 34,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 1,
+   "R1.7": 28985,
+   "R1.9": 2002,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 18385,
+   "R3b": 18658,
+   "U0": 0
+  },
+  "replaced_cells": 5861,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 86.35199414204295,
+    "spearman": 0.46846323032625853,
+    "reached_share": 0.9382809066365292,
+    "n": 15927
+   },
+   "replaced": {
+    "mae_h_scaled": 86.97522202430216,
+    "spearman": 0.45328840968469236,
+    "reached_share": 0.9430526778426571,
+    "n": 15927
+   },
+   "scale": 0.24664712911437092,
+   "wind_mps": 1.9978402903811252,
+   "wind_from": 304.723724501809
+  }
+ },
+ {
+  "id": "2017_MT_arrastra_creek",
+  "counts": {
+   "consistent": 98912,
+   "stale": 0,
+   "contradicted": 16108,
+   "unknown": 22806
+  },
+  "rule_counts": {
+   "R1.1": 10349,
+   "R1.2": 71,
+   "R1.3": 0,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 27,
+   "R1.7": 1042,
+   "R1.9": 22,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 2701,
+   "R3b": 3272,
+   "U0": 0
+  },
+  "replaced_cells": 210,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 175.2501782166005,
+    "spearman": 0.7048272725423776,
+    "reached_share": 0.9779532741033234,
+    "n": 3039
+   },
+   "replaced": {
+    "mae_h_scaled": 175.4380566564362,
+    "spearman": 0.7036784328733197,
+    "reached_share": 0.9776242184929254,
+    "n": 3039
+   },
+   "scale": 3.0862909722694534,
+   "wind_mps": 2.4455873925501432,
+   "wind_from": 297.73863849774693
+  }
+ },
+ {
+  "id": "2017_MT_caribou",
+  "counts": {
+   "consistent": 153925,
+   "stale": 0,
+   "contradicted": 37642,
+   "unknown": 162917
+  },
+  "rule_counts": {
+   "R1.1": 11847,
+   "R1.2": 23344,
+   "R1.3": 11,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 0,
+   "R1.7": 570,
+   "R1.9": 800,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 405,
+   "R3b": 1703,
+   "U0": 120025
+  },
+  "replaced_cells": 645,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 126.4947866745498,
+    "spearman": 0.5435400873540339,
+    "reached_share": 0.873603984304256,
+    "n": 13252
+   },
+   "replaced": {
+    "mae_h_scaled": 126.14979431228782,
+    "spearman": 0.5444225096681105,
+    "reached_share": 0.873603984304256,
+    "n": 13252
+   },
+   "scale": 1.6987521937556955,
+   "wind_mps": 2.394074567243675,
+   "wind_from": 236.90120459315415
+  }
+ },
+ {
+  "id": "2017_MT_july",
+  "counts": {
+   "consistent": 144595,
+   "stale": 0,
+   "contradicted": 22930,
+   "unknown": 23011
+  },
+  "rule_counts": {
+   "R1.1": 10160,
+   "R1.2": 930,
+   "R1.3": 8,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 1,
+   "R1.7": 7902,
+   "R1.9": 3665,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 1305,
+   "R3b": 600,
+   "U0": 0
+  },
+  "replaced_cells": 11835,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 46.290463415591816,
+    "spearman": 0.5822036301109754,
+    "reached_share": 0.9609942638623327,
+    "n": 5230
+   },
+   "replaced": {
+    "mae_h_scaled": 44.56950573254427,
+    "spearman": 0.5988682089836955,
+    "reached_share": 0.974378585086042,
+    "n": 5230
+   },
+   "scale": 0.7223591095343687,
+   "wind_mps": 3.0399638989169673,
+   "wind_from": 329.3606111402757
+  }
+ },
+ {
+  "id": "2017_NM_corral",
+  "counts": {
+   "consistent": 90707,
+   "stale": 0,
+   "contradicted": 12407,
+   "unknown": 179685
+  },
+  "rule_counts": {
+   "R1.1": 348,
+   "R1.2": 50,
+   "R1.3": 0,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 0,
+   "R1.7": 10632,
+   "R1.9": 685,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 1371,
+   "R3b": 694,
+   "U0": 0
+  },
+  "replaced_cells": 1873,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 94.76399062222977,
+    "spearman": 0.39823564556163615,
+    "reached_share": 0.9859288838182164,
+    "n": 10518
+   },
+   "replaced": {
+    "mae_h_scaled": 99.38583644515982,
+    "spearman": 0.3668023602192671,
+    "reached_share": 0.9929644419091082,
+    "n": 10518
+   },
+   "scale": 4.007928376535586,
+   "wind_mps": 2.5646732673267323,
+   "wind_from": 212.95768528061646
+  }
+ },
+ {
+  "id": "2017_NV_draw",
+  "counts": {
+   "consistent": 377653,
+   "stale": 0,
+   "contradicted": 27033,
+   "unknown": 53618
+  },
+  "rule_counts": {
+   "R1.1": 7590,
+   "R1.2": 0,
+   "R1.3": 0,
+   "R1.4": 0,
+   "R1.5": 2,
+   "R1.6": 0,
+   "R1.7": 501,
+   "R1.9": 18658,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 26,
+   "R3b": 4815,
+   "U0": 0
+  },
+  "replaced_cells": 12930,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 38.22468191646428,
+    "spearman": 0.6295000498896527,
+    "reached_share": 0.9934552454282964,
+    "n": 10390
+   },
+   "replaced": {
+    "mae_h_scaled": 43.229590824446504,
+    "spearman": 0.6097023136211788,
+    "reached_share": 0.9938402309913378,
+    "n": 10390
+   },
+   "scale": 2.373176383508677,
+   "wind_mps": 2.4055555555555554,
+   "wind_from": 258.51566584270654
+  }
+ },
+ {
+  "id": "2017_OR_blanket_creek",
+  "counts": {
+   "consistent": 465596,
+   "stale": 0,
+   "contradicted": 38720,
+   "unknown": 56147
+  },
+  "rule_counts": {
+   "R1.1": 21474,
+   "R1.2": 4103,
+   "R1.3": 0,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 0,
+   "R1.7": 3285,
+   "R1.9": 17,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 1048,
+   "R3b": 13444,
+   "U0": 0
+  },
+  "replaced_cells": 124,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 476.2806663012304,
+    "spearman": -0.07168632201654561,
+    "reached_share": 0.9947442566103164,
+    "n": 18456
+   },
+   "replaced": {
+    "mae_h_scaled": 476.295787501611,
+    "spearman": -0.07178263795238067,
+    "reached_share": 0.9947984395318595,
+    "n": 18456
+   },
+   "scale": 3.107483558860122,
+   "wind_mps": 2.2580882352941174,
+   "wind_from": 302.2512357131491
+  }
+ },
+ {
+  "id": "2017_OR_dfpa_horse_prairie",
+  "counts": {
+   "consistent": 187722,
+   "stale": 0,
+   "contradicted": 29472,
+   "unknown": 22344
+  },
+  "rule_counts": {
+   "R1.1": 26502,
+   "R1.2": 466,
+   "R1.3": 0,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 0,
+   "R1.7": 1434,
+   "R1.9": 6,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 518,
+   "R3b": 1122,
+   "U0": 0
+  },
+  "replaced_cells": 2332,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 27.37608705688472,
+    "spearman": 0.8508814613569968,
+    "reached_share": 0.9794495853863718,
+    "n": 8321
+   },
+   "replaced": {
+    "mae_h_scaled": 26.705484373710828,
+    "spearman": 0.8572568632955425,
+    "reached_share": 0.9795697632496094,
+    "n": 8321
+   },
+   "scale": 1.3678975164775835,
+   "wind_mps": 1.749776119402985,
+   "wind_from": 346.4455666863201
+  }
+ },
+ {
+  "id": "2018_CA_county",
+  "counts": {
+   "consistent": 743696,
+   "stale": 11747,
+   "contradicted": 109180,
+   "unknown": 108622
+  },
+  "rule_counts": {
+   "R1.1": 29364,
+   "R1.2": 37,
+   "R1.3": 739,
+   "R1.4": 0,
+   "R1.5": 20,
+   "R1.6": 8,
+   "R1.7": 6021,
+   "R1.9": 58562,
+   "S1": 11693,
+   "S2": 54,
+   "R3a": 775,
+   "R3b": 16055,
+   "U0": 0
+  },
+  "replaced_cells": 39444,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 28.88703447217906,
+    "spearman": 0.39442389982733767,
+    "reached_share": 0.9928184235058523,
+    "n": 28963
+   },
+   "replaced": {
+    "mae_h_scaled": 28.556806660420584,
+    "spearman": 0.3921344950615368,
+    "reached_share": 0.994268549528709,
+    "n": 28963
+   },
+   "scale": 0.5453685329958669,
+   "wind_mps": 2.161558935361217,
+   "wind_from": 247.15529139784633
+  }
+ },
+ {
+  "id": "2018_CO_416",
+  "counts": {
+   "consistent": 511588,
+   "stale": 480,
+   "contradicted": 31790,
+   "unknown": 89406
+  },
+  "rule_counts": {
+   "R1.1": 19706,
+   "R1.2": 1225,
+   "R1.3": 151,
+   "R1.4": 0,
+   "R1.5": 14,
+   "R1.6": 1,
+   "R1.7": 2064,
+   "R1.9": 3429,
+   "S1": 456,
+   "S2": 24,
+   "R3a": 123,
+   "R3b": 6203,
+   "U0": 0
+  },
+  "replaced_cells": 4371,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 114.19648517904704,
+    "spearman": 0.8471721583091251,
+    "reached_share": 0.9988016123760758,
+    "n": 27537
+   },
+   "replaced": {
+    "mae_h_scaled": 112.4915599139071,
+    "spearman": 0.8473285112869082,
+    "reached_share": 0.9988016123760758,
+    "n": 27537
+   },
+   "scale": 0.7286273713938042,
+   "wind_mps": 2.2244044943820227,
+   "wind_from": 317.52549779319077
+  }
+ },
+ {
+  "id": "2018_FL_buzzard",
+  "counts": {
+   "consistent": 454834,
+   "stale": 97630,
+   "contradicted": 140385,
+   "unknown": 164062
+  },
+  "rule_counts": {
+   "R1.1": 137808,
+   "R1.2": 7787,
+   "R1.3": 28,
+   "R1.4": 0,
+   "R1.5": 2,
+   "R1.6": 0,
+   "R1.7": 1,
+   "R1.9": 0,
+   "S1": 97333,
+   "S2": 297,
+   "R3a": 5,
+   "R3b": 15180,
+   "U0": 0
+  },
+  "replaced_cells": 32,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 198.32250140401285,
+    "spearman": 0.625847977248433,
+    "reached_share": 0.999874686716792,
+    "n": 31920
+   },
+   "replaced": {
+    "mae_h_scaled": 198.32250140401285,
+    "spearman": 0.625847977248433,
+    "reached_share": 0.999874686716792,
+    "n": 31920
+   },
+   "scale": 8.405416504200902,
+   "wind_mps": 3.3209135082604466,
+   "wind_from": 87.16091916215953
+  }
+ },
+ {
+  "id": "2018_FL_curlew",
+  "counts": {
+   "consistent": 83416,
+   "stale": 0,
+   "contradicted": 46755,
+   "unknown": 13604
+  },
+  "rule_counts": {
+   "R1.1": 45493,
+   "R1.2": 53,
+   "R1.3": 0,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 0,
+   "R1.7": 108,
+   "R1.9": 0,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 1056,
+   "R3b": 232,
+   "U0": 0
+  },
+  "replaced_cells": 0,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 121.00542935700678,
+    "spearman": 0.12825318726325838,
+    "reached_share": 0.9818321392016377,
+    "n": 3908
+   },
+   "replaced": {
+    "mae_h_scaled": 121.00542935700678,
+    "spearman": 0.12825318726325838,
+    "reached_share": 0.9818321392016377,
+    "n": 3908
+   },
+   "scale": 16.344393191423812,
+   "wind_mps": 3.1228316831683167,
+   "wind_from": 88.90738618314828
+  }
+ },
+ {
+  "id": "2018_FL_flamingo",
+  "counts": {
+   "consistent": 170640,
+   "stale": 103,
+   "contradicted": 18797,
+   "unknown": 35338
+  },
+  "rule_counts": {
+   "R1.1": 13719,
+   "R1.2": 3346,
+   "R1.3": 23,
+   "R1.4": 0,
+   "R1.5": 3,
+   "R1.6": 39,
+   "R1.7": 3,
+   "R1.9": 42,
+   "S1": 1,
+   "S2": 102,
+   "R3a": 79,
+   "R3b": 2220,
+   "U0": 0
+  },
+  "replaced_cells": 207,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 84.05781353042677,
+    "spearman": 0.4899975096731122,
+    "reached_share": 1.0,
+    "n": 5995
+   },
+   "replaced": {
+    "mae_h_scaled": 84.03632794176222,
+    "spearman": 0.48988033597644237,
+    "reached_share": 1.0,
+    "n": 5995
+   },
+   "scale": 3.9538107576511354,
+   "wind_mps": 3.0194075403949734,
+   "wind_from": 82.98776064801746
+  }
+ },
+ {
+  "id": "2018_NM_emily",
+  "counts": {
+   "consistent": 89587,
+   "stale": 0,
+   "contradicted": 1346,
+   "unknown": 58211
+  },
+  "rule_counts": {
+   "R1.1": 602,
+   "R1.2": 33,
+   "R1.3": 0,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 0,
+   "R1.7": 47,
+   "R1.9": 13,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 0,
+   "R3b": 667,
+   "U0": 0
+  },
+  "replaced_cells": 77,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 86.97117196809056,
+    "spearman": 0.3958310681463194,
+    "reached_share": 1.0,
+    "n": 4263
+   },
+   "replaced": {
+    "mae_h_scaled": 86.96201382910048,
+    "spearman": 0.3957624113288087,
+    "reached_share": 1.0,
+    "n": 4263
+   },
+   "scale": 2.0681960946387203,
+   "wind_mps": 3.1707264957264956,
+   "wind_from": 195.0910815824473
+  }
+ },
+ {
+  "id": "2018_NV_goose_creek",
+  "counts": {
+   "consistent": 1370245,
+   "stale": 117876,
+   "contradicted": 232419,
+   "unknown": 11348
+  },
+  "rule_counts": {
+   "R1.1": 1588,
+   "R1.2": 0,
+   "R1.3": 4,
+   "R1.4": 0,
+   "R1.5": 1,
+   "R1.6": 48,
+   "R1.7": 2439,
+   "R1.9": 249492,
+   "S1": 117876,
+   "S2": 0,
+   "R3a": 446,
+   "R3b": 27242,
+   "U0": 0
+  },
+  "replaced_cells": 82789,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 24.27300657362699,
+    "spearman": 0.6847832580265466,
+    "reached_share": 0.9984532876044451,
+    "n": 59481
+   },
+   "replaced": {
+    "mae_h_scaled": 25.70011055983206,
+    "spearman": 0.6756412535440874,
+    "reached_share": 0.9984532876044451,
+    "n": 59481
+   },
+   "scale": 0.30373776413499165,
+   "wind_mps": 3.0159239130434785,
+   "wind_from": 304.6929428804706
+  }
+ },
+ {
+  "id": "2018_TX_bear_mtn",
+  "counts": {
+   "consistent": 128141,
+   "stale": 0,
+   "contradicted": 12926,
+   "unknown": 15758
+  },
+  "rule_counts": {
+   "R1.1": 10558,
+   "R1.2": 0,
+   "R1.3": 0,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 0,
+   "R1.7": 120,
+   "R1.9": 164,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 0,
+   "R3b": 4404,
+   "U0": 0
+  },
+  "replaced_cells": 3937,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 41.095867413501715,
+    "spearman": 0.5167704392529919,
+    "reached_share": 0.9902456647398844,
+    "n": 2768
+   },
+   "replaced": {
+    "mae_h_scaled": 30.134845919152564,
+    "spearman": 0.4054649288635476,
+    "reached_share": 0.9913294797687862,
+    "n": 2768
+   },
+   "scale": 3.986829552521543,
+   "wind_mps": 3.892488038277512,
+   "wind_from": 157.0982801222301
+  }
+ },
+ {
+  "id": "2018_TX_long_x_2",
+  "counts": {
+   "consistent": 162077,
+   "stale": 0,
+   "contradicted": 3674,
+   "unknown": 50879
+  },
+  "rule_counts": {
+   "R1.1": 2390,
+   "R1.2": 2,
+   "R1.3": 0,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 0,
+   "R1.7": 231,
+   "R1.9": 396,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 0,
+   "R3b": 777,
+   "U0": 0
+  },
+  "replaced_cells": 846,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 63.05767917748449,
+    "spearman": 0.6395992946918286,
+    "reached_share": 0.9869109947643979,
+    "n": 3820
+   },
+   "replaced": {
+    "mae_h_scaled": 63.03953588901974,
+    "spearman": 0.6360507330450834,
+    "reached_share": 0.9913612565445026,
+    "n": 3820
+   },
+   "scale": 1.1301936330840099,
+   "wind_mps": 3.5056937799043064,
+   "wind_from": 176.8609616300928
+  }
+ },
+ {
+  "id": "2018_UT_bald_mountain",
+  "counts": {
+   "consistent": 397713,
+   "stale": 61,
+   "contradicted": 46386,
+   "unknown": 129380
+  },
+  "rule_counts": {
+   "R1.1": 23489,
+   "R1.2": 3016,
+   "R1.3": 10,
+   "R1.4": 0,
+   "R1.5": 187,
+   "R1.6": 54,
+   "R1.7": 10770,
+   "R1.9": 6491,
+   "S1": 0,
+   "S2": 61,
+   "R3a": 2363,
+   "R3b": 2450,
+   "U0": 0
+  },
+  "replaced_cells": 7600,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 43.49314719871203,
+    "spearman": 0.2955399780809631,
+    "reached_share": 0.9832327297116029,
+    "n": 8946
+   },
+   "replaced": {
+    "mae_h_scaled": 43.82757260291321,
+    "spearman": 0.2824406887243838,
+    "reached_share": 0.9837916387212162,
+    "n": 8946
+   },
+   "scale": 1.3322933474296463,
+   "wind_mps": 2.4016201117318436,
+   "wind_from": 222.2132438757796
+  }
+ },
+ {
+  "id": "2018_UT_pole_creek",
+  "counts": {
+   "consistent": 1193788,
+   "stale": 1796,
+   "contradicted": 142634,
+   "unknown": 408625
+  },
+  "rule_counts": {
+   "R1.1": 60337,
+   "R1.2": 17080,
+   "R1.3": 18,
+   "R1.4": 0,
+   "R1.5": 737,
+   "R1.6": 5,
+   "R1.7": 10590,
+   "R1.9": 17397,
+   "S1": 660,
+   "S2": 1136,
+   "R3a": 1893,
+   "R3b": 42039,
+   "U0": 0
+  },
+  "replaced_cells": 15947,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 45.79433152247028,
+    "spearman": 0.5534246402583372,
+    "reached_share": 0.992318511305853,
+    "n": 55458
+   },
+   "replaced": {
+    "mae_h_scaled": 46.497332019234015,
+    "spearman": 0.5443666155769127,
+    "reached_share": 0.9932200944859173,
+    "n": 55458
+   },
+   "scale": 0.7854060985740684,
+   "wind_mps": 2.075664739884393,
+   "wind_from": 199.44456500493712
+  }
+ },
+ {
+  "id": "2018_WA_boyds",
+  "counts": {
+   "consistent": 82252,
+   "stale": 130,
+   "contradicted": 10466,
+   "unknown": 24962
+  },
+  "rule_counts": {
+   "R1.1": 2005,
+   "R1.2": 7430,
+   "R1.3": 115,
+   "R1.4": 0,
+   "R1.5": 21,
+   "R1.6": 0,
+   "R1.7": 774,
+   "R1.9": 9,
+   "S1": 0,
+   "S2": 130,
+   "R3a": 143,
+   "R3b": 139,
+   "U0": 0
+  },
+  "replaced_cells": 868,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 65.38175416424878,
+    "spearman": 0.7465036453936243,
+    "reached_share": 0.9877634262406526,
+    "n": 1471
+   },
+   "replaced": {
+    "mae_h_scaled": 64.90346015006551,
+    "spearman": 0.7499780855976403,
+    "reached_share": 0.9877634262406526,
+    "n": 1471
+   },
+   "scale": 4.197145777242839,
+   "wind_mps": 1.8931250000000002,
+   "wind_from": 210.2991386586411
+  }
+ },
+ {
+  "id": "2018_WA_cougar_creek",
+  "counts": {
+   "consistent": 492757,
+   "stale": 1470,
+   "contradicted": 90242,
+   "unknown": 68147
+  },
+  "rule_counts": {
+   "R1.1": 53660,
+   "R1.2": 836,
+   "R1.3": 3,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 7,
+   "R1.7": 28646,
+   "R1.9": 69,
+   "S1": 0,
+   "S2": 1470,
+   "R3a": 7869,
+   "R3b": 12108,
+   "U0": 0
+  },
+  "replaced_cells": 13432,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 90.57630521403198,
+    "spearman": 0.6368997895499826,
+    "reached_share": 0.9214501510574018,
+    "n": 21846
+   },
+   "replaced": {
+    "mae_h_scaled": 85.59813674204523,
+    "spearman": 0.6201677801402748,
+    "reached_share": 0.9399890140071409,
+    "n": 21846
+   },
+   "scale": 1.0713445366274017,
+   "wind_mps": 2.880311614730878,
+   "wind_from": 291.66831308891636
+  }
+ },
+ {
+  "id": "2019_ID_cove_creek",
+  "counts": {
+   "consistent": 84227,
+   "stale": 4,
+   "contradicted": 17074,
+   "unknown": 16335
+  },
+  "rule_counts": {
+   "R1.1": 12392,
+   "R1.2": 216,
+   "R1.3": 116,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 0,
+   "R1.7": 3604,
+   "R1.9": 112,
+   "S1": 0,
+   "S2": 4,
+   "R3a": 4109,
+   "R3b": 124,
+   "U0": 0
+  },
+  "replaced_cells": 2599,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 88.7133192615747,
+    "spearman": 0.7151986609974288,
+    "reached_share": 0.9848558866634098,
+    "n": 2047
+   },
+   "replaced": {
+    "mae_h_scaled": 88.83918337626112,
+    "spearman": 0.7090071714949951,
+    "reached_share": 0.9921836834391793,
+    "n": 2047
+   },
+   "scale": 14.808604004142577,
+   "wind_mps": 1.073844696969697,
+   "wind_from": 313.5766280813669
+  }
+ },
+ {
+  "id": "2019_WY_pedro_mountain",
+  "counts": {
+   "consistent": 298975,
+   "stale": 0,
+   "contradicted": 38283,
+   "unknown": 6635
+  },
+  "rule_counts": {
+   "R1.1": 6763,
+   "R1.2": 0,
+   "R1.3": 11,
+   "R1.4": 0,
+   "R1.5": 0,
+   "R1.6": 3,
+   "R1.7": 817,
+   "R1.9": 29558,
+   "S1": 0,
+   "S2": 0,
+   "R3a": 120,
+   "R3b": 3745,
+   "U0": 0
+  },
+  "replaced_cells": 6849,
+  "r3b_evaluated": true,
+  "stretch": {
+   "original": {
+    "mae_h_scaled": 35.223496277757164,
+    "spearman": 0.7296803985117318,
+    "reached_share": 0.9986491050320837,
+    "n": 11844
+   },
+   "replaced": {
+    "mae_h_scaled": 33.435120607772234,
+    "spearman": 0.7321259922505288,
+    "reached_share": 0.9987335359675785,
+    "n": 11844
+   },
+   "scale": 0.5627534004199479,
+   "wind_mps": 3.5246184738955817,
+   "wind_from": 249.97030154323284
+  }
+ }
+]

@@ -1,0 +1,23 @@
+{
+ "repairs": 108921,
+ "repairs_with_reading_as_reported_inside_US": 0,
+ "as_reported_outside_US_or_invalid": 108921,
+ "mean_agreement_before": null,
+ "mean_agreement_after": null,
+ "min_gain": null,
+ "decreases": 0,
+ "mean_agreement_after_all_repairs": 0.9993024136047814,
+ "min_agreement_after": 0.9937044826024597,
+ "by_kind": {
+  "sign_flip_lon": {
+   "n": 108860,
+   "mean_after": 0.999302916504575,
+   "decreases": 0
+  },
+  "swap_axes_neg": {
+   "n": 61,
+   "mean_after": 0.9984049435796919,
+   "decreases": 0
+  }
+ }
+}

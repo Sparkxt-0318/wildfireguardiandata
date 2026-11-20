@@ -42,4 +42,6 @@ def scene_features(s: Scene, t: int, prox: bool, weather: bool = True) -> np.nda
 
 
 def danger_at(s: Scene, t: int) -> np.ndarray:
+    if "erc" not in s.dyn:       # label-only scenes (caught, live): no weather, one danger class
+        return np.zeros(s.state.shape[1:], np.int8)
     return danger_class(s.dyn["erc"][t - 1].astype(np.float32))

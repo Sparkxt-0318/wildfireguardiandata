@@ -17,6 +17,12 @@ def run_build(a):
     if a.adapter == "synthetic":
         from .adapters import synthetic
         ds = synthetic.build(a.n_fires, a.size, a.seed)
+    elif a.adapter == "caught":
+        from .adapters import caught
+        ds = caught.read_parquet(a.input)
+    elif a.adapter == "live":
+        from .adapters import live
+        ds = live.read_csv(a.input)
     else:
         from .adapters import wildfirespreadts
         ds = wildfirespreadts.build_dataset(a.raw, workers=a.workers)
@@ -77,7 +83,8 @@ def run_gates(a):
 def register(parser):
     sub = parser.add_subparsers(dest="cmd")
     sp = sub.add_parser("build", help="build a scene dataset from a benchmark's own masks")
-    sp.add_argument("--adapter", choices=["wildfirespreadts", "synthetic"], default="wildfirespreadts")
+    sp.add_argument("--adapter", choices=["wildfirespreadts", "synthetic", "caught", "live"], default="wildfirespreadts")
+    sp.add_argument("--input", help="caught: states parquet; live: live_fires.csv (or onset table)")
     sp.add_argument("--raw", default="/home/user/wildfire 3 (1)/firewitness_raw/wildfirespreadts")
     sp.add_argument("--out", required=True)
     sp.add_argument("--workers", type=int, default=3)
@@ -104,7 +111,7 @@ def register(parser):
     sgs = sg.add_subparsers(dest="scmd")
     m = sgs.add_parser("make", help="make a published split file (blocked in space/time, by fire, with a buffer)")
     m.add_argument("--dataset", required=True)
-    m.add_argument("--scheme", default="space", choices=["space", "time", "random_fire", "random_rows"])
+    m.add_argument("--scheme", default="space", choices=["space_time", "space", "time", "random_fire", "random_rows"])
     m.add_argument("--seed", type=int, default=54)
     m.add_argument("--test-frac", type=float, default=0.2)
     m.add_argument("--val-frac", type=float, default=0.15)
@@ -133,4 +140,5 @@ def register(parser):
     g.add_argument("--dataset", required=True)
     g.add_argument("--out", default="results/SCORE_GATES.json")
     g.add_argument("--name", default="benchmark")
+    g.add_argument("--scheme", default="space", choices=["space_time", "space", "time", "random_fire"])
     g.set_defaults(func=run_gates)

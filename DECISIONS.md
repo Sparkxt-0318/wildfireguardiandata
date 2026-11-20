@@ -32,6 +32,22 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 
 **D-104 — Part A pushed straight to main.** The brief and orchestrator allow it because the other five tracks wait for core/.
 
+## Track 53 (fuel)
+
+**D-531 — Where the keys are.** `keys.env` was written at `/home/user/wildfire 3 (1)/keys/keys.env` (outside the repo, mode 600) as the brief says. This track needs none of the keys: LANDFIRE, NLCD, WorldCover, Hansen, Meta canopy height, NIFC and Landscape Data Commons are keyless; Open-Meteo is keyless. No key value is used in code, logs or the coord branch.
+
+**D-532 — 29 fires and LANDFIRE rasters.** Attaching the old `wildfireguardian` repo with `add_repo` was denied by the permission classifier, so the original 29 fires could not be fetched. The set is rebuilt from public sources (NIFC/GeoMAC daily perimeters 2017-2019, LANDFIRE LF2016 fuels via LFPS, Open-Meteo ERA5 wind); selection rule and differences are in `firewitness/fuel/fires29/NOTES.md`. It is a different set of fires from the original 29 and arrival times are interpolated from daily perimeters, so the stretch is weaker than the original design.
+
+**D-533 — Field plots.** The only public source with exact coordinates and structural vegetation measurements at scale is BLM AIM via the Landscape Data Commons API (47,606 CONUS plot locations, 2019+). FIA public coordinates are perturbed up to 1 mile; NRI is obscured by design; LandPKS is user-located. So grading is on rangeland/woodland plots of the interior West, with a documented structural-proxy crosswalk (protocol section 4), not on official fuel-model determinations. This limits what the results can claim and is stated in FUEL_RESULTS.md.
+
+**D-534 — Fuel map versions.** M22 (LF2022) is primary; M16 (LF2016) is a pre-registered secondary run that exposes more post-map events for the staleness rules. Reason: with LF2022 only 2023-2025 events count and few plots lie in them.
+
+**D-535 — LANDFIRE disturbance codes are not decoded.** Protocol amendment A1: codes differ across releases and the LF2024 layer carries only 2 % of 2024 wildfire-perimeter cells. Staleness uses NIFC perimeter year and Hansen loss year. Reason: shown against NIFC perimeters in T010_033 before any plot was read.
+
+**D-536 — Rothermel implementation.** pyretechnics (Sig-GIS, https://github.com/pyregence/pyretechnics) is used for the surface-fire equations. It is licensed for non-commercial/research use and pinned to old numpy/Cython, so it is not vendored or declared as a hard dependency: `firewitness/fuel/scripts/setup_pyretechnics.sh` downloads the sdist and the package is imported from its `src` folder in pure-Python mode; rule R3b is skipped (reported as not evaluated) if it is absent.
+
+**D-537 — Model.** Track runs on Sonnet 5.5 at high effort (orchestrator D-008). Helper subagents: Sonnet for the 29-fire data build.
+
 ## Track 50 (caught)
 
 **D-501 — Records are FPA FOD 7th edition.** RDS-2013-0009.7 (1992-2024) is the latest edition; it is read raw (track 49's cleaned records are not merged yet). Reason: the brief needs agency-recorded fires with discovery and containment dates, size class and location for the whole US; FPA FOD is the national compilation.
@@ -90,3 +106,15 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 **D-507 — Cloud mask = ABI L2 clear-sky mask (ACMC).** It is produced by a separate algorithm from the fire product (FDCC) and from this detector; no non-ABI cloud product exists at 5-minute cadence. Probably-cloudy counts as cloudy.
 
 **D-508 — Protocol amendment 1 (cloud-edge buffer, scene filter).** Decided on placebo-day diagnostics of one dev fire before any result; see protocol/LIVE_PROTOCOL.md, Amendments.
+
+**D-010 — Releases are made by a workflow (19:35Z).** Cloud build sessions get HTTP 403 from the GitHub release API. The orchestrator added `.github/workflows/release.yml`. Each track commits its release files under `release/<track>-v0.1/` (with an optional NOTES.md), then asks the orchestrator, who dispatches the workflow with that tag. The workflow attaches the files with a SHA256SUMS.txt. The umbrella `v0.1` release is cut by the orchestrator after all six tracks are DONE and collects every `release/*-v0.1/` directory. Tracks do not create the tag `v0.1` themselves.
+
+**D-011 — Track 53 improvement loop (19:35Z).** Track 53 reports in results/ROUNDS_fuel.md that only round 1 came from reading individual wrong verdicts. Rounds 2–12 were threshold probes from a per-rule precision table. The sealed areas were already opened once after the rules were frozen. Re-opening them would break the protocol, so the loop is not redone. The deviation is reported as is, in FUEL_RESULTS.md and in the final report.
+
+**D-105 (records) — FIRMS_MAP_KEY.** The FIRMS key was copied from the git history of the old wildfireguardian repository (live/config/firms_map_key.txt, deleted in the commit "live: delete the temporary FIRMS key file") into keys.env outside the repo, as the brief says. It was not needed: the FIRMS country archives (MODIS 2000 to 2024, VIIRS S-NPP 2012 to 2024, United States) are public files on firms.modaps.eosdis.nasa.gov and were downloaded without a key. The key is unused and never appears in the repo (`scripts/check_keys.py` checks for it in CI and pre-commit).
+
+**D-106 (records) — Interval additions and append-only results.** Result files on main are append-only (orchestrator rule): later numbers, intervals and corrections are added as dated additions below earlier lines; earlier lines are never edited.
+
+**D-510 (caught) — DNB night look only for California 2020** (protocol amendment A1). Streaming a 30-40 MB tile per day for the whole US over three years would move about 300 GB.
+
+**D-511 (caught) — Disk budget overrun, and the cap that followed.** At 21:00Z the window cache for the dev rounds reached 46 GB and filled the disk (budget: half of the 61 GB free at start). The cache was deleted at once; the rounds re-read their windows from the network. Since then the cache writes only while more than 30 GB stay free, and no prefetch runs beside a round.

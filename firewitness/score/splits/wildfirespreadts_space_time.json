@@ -1,0 +1,873 @@
+{
+ "blocks": {
+  "-100_47": "test",
+  "-100_49": "val",
+  "-100_51": "val",
+  "-101_37": "val",
+  "-101_38": "train",
+  "-101_40": "train",
+  "-101_49": "train",
+  "-101_51": "train",
+  "-101_52": "train",
+  "-101_53": "test",
+  "-102_37": "val",
+  "-102_38": "train",
+  "-102_40": "test",
+  "-102_41": "test",
+  "-102_42": "test",
+  "-102_47": "train",
+  "-102_48": "train",
+  "-102_51": "val",
+  "-102_52": "test",
+  "-102_53": "test",
+  "-102_54": "train",
+  "-103_38": "val",
+  "-103_40": "test",
+  "-103_41": "val",
+  "-103_42": "val",
+  "-103_43": "test",
+  "-103_44": "val",
+  "-103_45": "val",
+  "-103_47": "test",
+  "-103_50": "test",
+  "-103_52": "test",
+  "-103_53": "train",
+  "-103_54": "train",
+  "-104_43": "test",
+  "-104_44": "train",
+  "-104_45": "test",
+  "-104_46": "test",
+  "-104_47": "test",
+  "-105_41": "test",
+  "-105_42": "test",
+  "-105_43": "test",
+  "-105_44": "val",
+  "-105_46": "train",
+  "-105_47": "test",
+  "-105_48": "train",
+  "-106_45": "test",
+  "-106_46": "train",
+  "-106_47": "train",
+  "-89_38": "test",
+  "-89_47": "train",
+  "-89_52": "test",
+  "-90_40": "train",
+  "-90_44": "train",
+  "-90_46": "test",
+  "-91_37": "test",
+  "-91_42": "train",
+  "-91_46": "train",
+  "-91_48": "test",
+  "-91_50": "test",
+  "-92_45": "train",
+  "-92_47": "train",
+  "-92_50": "train",
+  "-92_51": "train",
+  "-93_37": "val",
+  "-93_39": "train",
+  "-93_45": "test",
+  "-93_50": "train",
+  "-93_52": "val",
+  "-93_53": "test",
+  "-94_37": "val",
+  "-94_43": "val",
+  "-94_52": "train",
+  "-95_37": "val",
+  "-95_38": "train",
+  "-95_43": "val",
+  "-95_44": "test",
+  "-95_45": "train",
+  "-95_46": "train",
+  "-95_47": "test",
+  "-95_51": "val",
+  "-95_52": "test",
+  "-96_37": "train",
+  "-96_38": "train",
+  "-96_39": "train",
+  "-96_40": "train",
+  "-96_43": "val",
+  "-96_44": "train",
+  "-96_46": "test",
+  "-96_49": "test",
+  "-96_50": "train",
+  "-96_51": "val",
+  "-97_38": "val",
+  "-97_41": "test",
+  "-97_46": "test",
+  "-97_47": "test",
+  "-97_48": "test",
+  "-97_53": "val",
+  "-98_38": "val",
+  "-98_39": "train",
+  "-98_40": "train",
+  "-98_41": "train",
+  "-98_42": "test",
+  "-98_45": "train",
+  "-98_46": "train",
+  "-98_47": "train",
+  "-98_49": "val",
+  "-98_50": "val",
+  "-98_51": "test",
+  "-98_52": "train",
+  "-98_54": "val",
+  "-99_45": "train",
+  "-99_47": "train",
+  "-99_48": "test",
+  "-99_49": "val",
+  "-99_50": "train",
+  "-99_51": "train",
+  "-99_54": "test"
+ },
+ "dataset": "wildfirespreadts-750m",
+ "dropped": [
+  {
+   "fire": "fire_21458798",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21459242",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21688916",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21751315",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21804942",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21889672",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21889763",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21890003",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21890009",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21890013",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21890143",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21997770",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21997828",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21997844",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21997854",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21998023",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21998081",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21998313",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21999270",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_21999381",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_22141243",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_22141327",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_22141445",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_22141509",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_22141554",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_22141571",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_22257961",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_22343688",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_22938749",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_22939556",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23036564",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23036803",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23036860",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23036871",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23037423",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23159787",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23159847",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23159853",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23160475",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23300665",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23300668",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23300669",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23300689",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23300699",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23300861",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23300886",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23301046",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23301095",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23301386",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23410594",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23410601",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23493983",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_23757522",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24025605",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24104639",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24104857",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24191357",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24191360",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24191373",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24191377",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24191395",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24191411",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24191673",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24191680",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24332591",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24332704",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24332746",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24332776",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24332922",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24333255",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24333285",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24461328",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24461785",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24461930",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24461965",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24462233",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24462604",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24462610",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24462764",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24463162",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24463172",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24463227",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24695584",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_24695758",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25204815",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25204858",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25204877",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25204900",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25205245",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25205312",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25205788",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25205814",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25294984",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25294989",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25294991",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25294998",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25295026",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25295057",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25295089",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25295804",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25295923",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25295937",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25410883",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25411057",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25411738",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25411748",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25548658",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25548678",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25548700",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25639187",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25639315",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  },
+  {
+   "fire": "fire_25639646",
+   "fold": "-",
+   "near": "",
+   "reason": "cross (block and year disagree)"
+  }
+ ],
+ "folds": {
+  "test": [
+   "fire_25084892",
+   "fire_25086466",
+   "fire_25205363",
+   "fire_25294977",
+   "fire_25295816",
+   "fire_25295877",
+   "fire_25410444",
+   "fire_25410700",
+   "fire_25410735",
+   "fire_25411134",
+   "fire_25411821",
+   "fire_25411825",
+   "fire_25547912",
+   "fire_25548269"
+  ],
+  "train": [
+   "fire_21688910",
+   "fire_21690102",
+   "fire_21748766",
+   "fire_21751305",
+   "fire_21804572",
+   "fire_21889683",
+   "fire_21890033",
+   "fire_21890087",
+   "fire_21998255",
+   "fire_21999354",
+   "fire_22141195",
+   "fire_22141577",
+   "fire_22258318",
+   "fire_22343666",
+   "fire_22710141",
+   "fire_23036522",
+   "fire_23036542",
+   "fire_23036559",
+   "fire_23036877",
+   "fire_23037424",
+   "fire_23159633",
+   "fire_23159637",
+   "fire_23159657",
+   "fire_23159821",
+   "fire_23159836",
+   "fire_23159841",
+   "fire_23159855",
+   "fire_23160511",
+   "fire_23300741",
+   "fire_23301101",
+   "fire_23410616",
+   "fire_23410617"
+  ],
+  "val": [
+   "fire_23654679",
+   "fire_24103545",
+   "fire_24103571",
+   "fire_24332592",
+   "fire_24332731",
+   "fire_24332784",
+   "fire_24332785",
+   "fire_24333259",
+   "fire_24461618",
+   "fire_24604462"
+  ]
+ },
+ "input_fires_sha256": "72af700478b8c39489f640aefc44771efe7da4dbcbc7ee383555e9bdce473f1c",
+ "params": {
+  "block_km": 100.0,
+  "buffer_days": 30,
+  "buffer_km": 50.0,
+  "seed": 54,
+  "test_frac": 0.2,
+  "val_frac": 0.15
+ },
+ "row_level": false,
+ "scheme": "space_time",
+ "sha256": "b352300088adf6b24f34c66e73f183a1db934062fa0efc4ab58a86b9b161f9a2",
+ "version": 1
+}

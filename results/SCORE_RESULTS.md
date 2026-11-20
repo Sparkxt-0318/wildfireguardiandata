@@ -39,3 +39,20 @@ Dataset `wildfirespreadts-750m`: 168 fires, 68,872,831 cell-days, fire 115,550 (
 ## Not done / limits
 - Adapter for firewitness labels (tracks 50 and 51): their label format is not on main yet; the adapter interface is `firewitness/score/adapters/` (build a `Dataset` of `Scene` objects with three-state `state`). Revisit when merged.
 - One benchmark with one label source; 168 fires; 750 m cells; hard-negative catalogue coordinates approximate.
+
+
+---
+## Addition 2026-11-20 (after the orchestrator depth check; earlier lines unchanged)
+**Combined split.** `space_time` holds fires out in space and time at once (see docs/SCORING.md); 14 test, 10 validation, 32 train fires, 112 dropped. Gates re-run on it: `results/score/gates_wildfirespreadts_space_time.json`. N1-N4 PASS, N5 FAIL again (weather-only matched 54.1x vs random 73.5x at the validation threshold, 17.9x vs 33.3x at raw probability 0.5; with proximity 0.82 vs 0.83 and 3.8x vs 6.1x). Honest model strict F1 0.580 vs persistence 0.611 (lift -0.031, CI -0.114 to -0.013), so under the strictest split the persistence baseline is beaten by nothing tested. The memoriser scores 0.006 strict F1 (random-rows inflation 29x).
+
+**Label adapters.** `adapters/caught.py` (schema `caught_states_v0.1.parquet`, rows -> scenes, floor_m2 rule in the negatives sampler) and `adapters/live.py` (track 51 onset labels from `protocol/live_fires.csv`) are written and tested on small fixtures (`tests/score/test_adapters_and_split.py`). Negatives from caught labels use only `no_fire` cells whose look floor is no larger than the cell; WildfireSpreadTS masks stay the fallback, shown in a test. On the 240 live fires: 760,144 fire cell-days, 190,036 matched negatives (matched on region and season only, danger class and land cover unavailable), space split 147/36/48 with 9 dropped (`results/score/live_adapter_stats.json`). These pre-ignition negatives are not satellite verified. No model predictions exist for either label set, so no card was run on them.
+**Not yet run:** the card on the real `caught_states_v0.1.parquet` (the file is not on main or in a release yet); it will be added here as a dated addition.
+
+---
+## Addition 2026-11-20 (caught dev sample; earlier lines unchanged): DEV SAMPLE, not results
+Input: `results/caught/states_S1_dev_sample.parquet` (track 50, California 2020, rules at development fix D1, merged in PR #15). Full numbers: `results/score/caught_dev_sample_card.json`. Adapter `adapters/caught.py`, negatives sampler with the `floor_m2` rule, space split.
+- 334 records (184 record-only, 140 probable, 10 verified); 9.78M cell-days: fire 1.95M, no_fire 1.21M, unknown 6.62M (68% unknown).
+- **Finding about the rule.** On extent-sized cells (about 20 m, no floor sizing), 0 of the 3.75M no_fire cell-days pass the floor rule: the looks' floors are 1,440 to about 3,400 m2, larger than a roughly 400 m2 cell, so such a grid cannot call any cell verified no fire. The adapter therefore sizes each scene's cell to the largest finite look floor (median cell 0.038 km); coarser cells cost spatial detail and that is the price of a verified negative.
+- Sampler on the train fires of the space split (124 train / 55 val / 72 test fires, 83 dropped by the buffer): 118,121 positives, 354,363 verified negatives from 623,360 eligible, all from `no_fire` cells whose look floor is no larger than the cell. Matching keys danger class and land cover do not exist in this table, so the match is on region and season: exact 9%, month +-1 4%, land-cover group and region 15%, same-danger fallback 73% (this is not a matched sample in the sense of the protocol; it is a verified-only sample).
+- **No precision/recall card:** there are no model predictions or weather/fuel layers for these scenes. A model card on caught labels needs a model fed features at these records; that is not part of this sample.
+- The full S1 file will replace this sample; numbers here must not be quoted as results.

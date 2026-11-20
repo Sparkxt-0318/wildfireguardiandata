@@ -20,7 +20,7 @@ from ..core import Patch, PatchSet, Witness
 from . import em, geo
 from .io import parse_dt, to_num
 
-WITNESSES = ["admin", "fire_window", "scar"]
+WITNESSES = ["admin", "fire_window", "scar", "peer"]
 HIDDEN = re.compile(r"[ ​‌‍﻿⁠­\u0000-\u0008\u000b\u000c\u000e-\u001f]")
 EPOCH = pd.Timestamp("1970-01-01")
 DAY = np.timedelta64(1, "D")
@@ -41,6 +41,9 @@ class Params:
     scar_tol_km: float = 1.0
     scar_win: int = 30
     time_tol: int = 3
+    normalise_time: bool = True
+    det_min_acres: float = 300.0
+    none_weight: float = 0.05
     enable: tuple = ("sign_flip_lon", "sign_flip_lat", "sign_flip_both", "swap_axes", "swap_axes_neg", "dm_dd",
                      "dm_swap", "tz_shift", "day_month")
 
@@ -132,8 +135,8 @@ def make_candidates(lat, lon, cfg, enable) -> pd.DataFrame:
 
 # ------------------------------------------------------------------ evidence
 class Evidence:
-    def __init__(self, admin: geo.Admin, det: geo.Detections | None, scars: geo.Scars | None):
-        self.admin, self.det, self.scars = admin, det, scars
+    def __init__(self, admin: geo.Admin, det: geo.Detections | None, scars: geo.Scars | None, peers: geo.Detections | None = None):
+        self.admin, self.det, self.scars, self.peers = admin, det, scars, peers
 
     def named_areas(self, df: pd.DataFrame):
         """Per record: set of allowed county row indices (may be empty) and state abbreviation (or None)."""
@@ -170,7 +173,7 @@ class Evidence:
         """(len(cand), 3) int8 matrix: admin, fire_window, scar; 1 agree, 0 disagree, -1 unknown."""
         a = self.admin
         counties, st_ab = self.named_areas(df)
-        obs = np.full((len(cand), 3), -1, dtype=np.int8)
+        obs = np.full((len(cand), len(WITNESSES)), -1, dtype=np.int8)
         i = cand["i"].to_numpy()
         lat, lon = cand["lat"].to_numpy(), cand["lon"].to_numpy()
         cidx = a.locate_near(lat, lon, 3.0)
@@ -197,6 +200,12 @@ class Evidence:
             # we use 2000 acres to stay clear of the threshold); smaller fires give no information
             big = np.zeros(len(i), bool) if area_acres is None else (np.nan_to_num(area_acres[i], nan=0.0) >= 2000)
             obs[:, 2] = np.where(m, 1, np.where(big & np.isfinite(start_day[i]), 0, -1))
+        if self.peers is not None:
+            # another source (FPA FOD) should list a fire near this point within days of the start
+            okp = np.isfinite(start_day[i])
+            d0 = np.where(okp, start_day[i] - 7, -1e9).astype(np.int64); d1 = np.where(okp, start_day[i] + 7, -1e9).astype(np.int64)
+            cnt, _ = self.peers.window_stats(lat, lon, d0, d1, 3.0)
+            obs[okp, 3] = (cnt[okp] > 0).astype(np.int8)
         return obs
 
 
@@ -337,7 +346,7 @@ def make_time_candidates(start: pd.Series, state_abbr, enable) -> pd.DataFrame:
     return pd.concat(rows, ignore_index=True)
 
 
-def observe_time(ev: Evidence, cand: pd.DataFrame, lat, lon, report: pd.Series, params: Params) -> np.ndarray:
+def observe_time(ev: Evidence, cand: pd.DataFrame, lat, lon, report: pd.Series, params: Params, area=None) -> np.ndarray:
     i = cand["i"].to_numpy()
     sd = ((pd.to_datetime(cand["start"]) - EPOCH) / pd.Timedelta(days=1)).to_numpy(float)
     obs = np.full((len(cand), 3), -1, dtype=np.int8)
@@ -360,6 +369,9 @@ def observe_time(ev: Evidence, cand: pd.DataFrame, lat, lon, report: pd.Series, 
         near400 = ev.scars.near(la, lo, sd, 1.0, 400)
         obs[okd & near3, 2] = 1
         obs[okd & ~near3 & near400, 2] = 0
+    if area is not None and params.det_min_acres > 0:
+        small = np.nan_to_num(area[i], nan=0.0) < params.det_min_acres
+        obs[small, 1:] = -1          # satellites cannot be expected to see a small fire: no evidence either way
     return obs
 
 
@@ -373,7 +385,8 @@ def repair_times(df: pd.DataFrame, ev: Evidence, lat, lon, cfg: dict, params: Pa
     ab = st.where(st.str.len() == 2, None)
     ab = ab.where(~ab.str.fullmatch(r"\d{2}", na=False), None).fillna(st.map(lambda x: ev.admin.fips_to_abbr.get(x) if isinstance(x, str) else None)).to_numpy(dtype=object)
     cand = make_time_candidates(start, ab, params.enable)
-    obs = observe_time(ev, cand, lat, lon, report, params)
+    area = area_acres_of(df)
+    obs = observe_time(ev, cand, lat, lon, report, params, area)
     grp = (cand["kind"] != "as_reported").astype(int).to_numpy()
     if fitted is None:
         rng = np.random.default_rng(seed)
@@ -383,7 +396,7 @@ def repair_times(df: pd.DataFrame, ev: Evidence, lat, lon, cfg: dict, params: Pa
         shift = pd.to_timedelta(rng.choice([-1, 1], len(base)) * rng.integers(20, 200, len(base)), unit="D")
         plc = pd.DataFrame({"i": base["i"].to_numpy(), "kind": "placebo", "start": (pd.to_datetime(base["start"]) + shift).to_numpy()})
         pair = pd.concat([base, plc], ignore_index=True)
-        o2 = observe_time(ev, pair, lat, lon, report, params)
+        o2 = observe_time(ev, pair, lat, lon, report, params, area)
         g2 = np.where(pair["kind"] == "as_reported", 0, 2)
         wit, pri = em.fit_grouped(o2, g2, TIME_WITNESSES, init_priors={0: 0.97}, fixed={2: 1e-4})
         pri = {0: min(pri.get(0, 0.97), 0.995), 1: 0.03}
@@ -391,6 +404,12 @@ def repair_times(df: pd.DataFrame, ev: Evidence, lat, lon, cfg: dict, params: Pa
         wit, pri = fitted
     prior = np.where(grp == 0, pri.get(0, 0.97), pri.get(1, 0.03))
     cand["post"] = em.posterior(obs, wit, prior)
+    if params.normalise_time:
+        # one reading of the date is true: compare the candidates of a record with each other (odds), keeping a small
+        # weight for "none of these", so that evidence against the date as reported also counts for its alternatives
+        odds = cand["post"] / (1 - cand["post"]).clip(lower=1e-9)
+        tot = odds.groupby(cand["i"]).transform("sum") + params.none_weight
+        cand["post"] = (odds / tot).clip(0, 1)
     for j, w in enumerate(TIME_WITNESSES):
         cand[w] = obs[:, j]
     return cand, (wit, pri), (start, report)

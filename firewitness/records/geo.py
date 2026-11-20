@@ -135,6 +135,16 @@ class Detections:
         self.tree = cKDTree(xyz(self.lat, self.lon))
         self.n = len(d)
 
+    @classmethod
+    def from_arrays(cls, lat, lon, day):
+        o = cls.__new__(cls)
+        o.lat, o.lon, o.day = np.asarray(lat, np.float32), np.asarray(lon, np.float32), np.asarray(day, np.int32)
+        ok = np.isfinite(o.lat) & np.isfinite(o.lon)
+        o.lat, o.lon, o.day = o.lat[ok], o.lon[ok], o.day[ok]
+        o.tree = cKDTree(xyz(o.lat, o.lon))
+        o.n = len(o.lat)
+        return o
+
     def window_stats(self, lat, lon, day0, day1, radius_km=5.0):
         """For each point: number of detections within radius and days [day0, day1], and first detection day (or -1)."""
         lat, lon = np.asarray(lat, float), np.asarray(lon, float)

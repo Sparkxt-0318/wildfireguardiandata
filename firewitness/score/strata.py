@@ -71,6 +71,8 @@ def near_site_mask(scene: Scene, hard_km: float = 10.0, cat=None) -> np.ndarray:
 def hard_mask(scene: Scene, t: int, ref_tmax: float | None = None, hard_km: float = 10.0) -> np.ndarray:
     """Hard negative candidates on day t: top danger class and hotter than the scene's top-danger median
     (derived hot places), or near a catalogued thermal site."""
+    if "erc" not in scene.dyn:
+        return near_site_mask(scene, hard_km)
     dc = danger_class(scene.dyn["erc"][t - 1].astype(np.float32))
     tmax = scene.dyn["tmax"][t - 1].astype(np.float32)
     top = dc == N_DANGER - 1
