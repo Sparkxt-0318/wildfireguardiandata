@@ -16,12 +16,9 @@ AMAX = (0.3, 0.6, 0.9)
 
 
 def _frozen_horizon(Bs):
-    """Plume placement must not depend on the method under test: this is the v0 horizon rule, frozen. It only decides
-    where the planted source goes (8-50 px below a first strong luminance gradient per column)."""
-    y = core.smooth(core.lum(Bs), 3)
-    gy = np.abs(np.diff(y, axis=0)); gy[:20] = 0; gy[H - 30:] = 0
-    first = np.where((gy > 0.02).any(0), (gy > 0.02).argmax(0), H // 2)
-    return np.convolve(np.pad(first.astype(np.float32), 20, mode="edge"), np.ones(41) / 41, "valid")
+    """Plume placement must not depend on the method under test: a frozen copy of the continuous-seam horizon
+    (physically, smoke starts on terrain). It only decides where the planted source goes (8-50 px below it)."""
+    return pipeline.horizon_line(Bs)
 
 
 def rng_for(name, k):

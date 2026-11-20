@@ -96,7 +96,7 @@ def prepare(sq, params=None, pre_idx=None):
         alpha[i][~VALID] = 0
     null = alpha[pre_idx][:, BAN:H - BAN]
     # horizon from the background (needed for the noise pool and the seed rule)
-    horizon = horizon_line(Bs)
+    horizon = horizon_line_gradient(Bs) if p.get("horizon_method") == "gradient" else horizon_line(Bs)
     # camera noise floor: the null opacity on the ground below the horizon (sensor, compression, shimmer, shadows).
     # Sky pixels are excluded from the pool: clouds there are real changes, handled by the class rules.
     rows = np.arange(H)[:, None]
@@ -138,6 +138,14 @@ def texture_loss_map(prep, t):
     ci = _grad_energy(yi) / (cv2.GaussianBlur(yi, (0, 0), 4) + 0.03)
     cb = _grad_energy(yb) / (cv2.GaussianBlur(yb, (0, 0), 4) + 0.03)
     return np.where(cb > 0.02, 1.0 - ci / np.maximum(cb, 1e-4), np.nan).astype(np.float32)
+
+
+def horizon_line_gradient(Bs):
+    """v0 rule: first strong vertical gradient per column from the top (fooled by cloud edges); kept for the loop record."""
+    y = smooth(lum(Bs), 3)
+    gy = np.abs(np.diff(y, axis=0)); gy[:20] = 0; gy[H - 30:] = 0
+    first = np.where((gy > 0.02).any(0), (gy > 0.02).argmax(0), H // 2)
+    return np.convolve(np.pad(first.astype(np.float32), 20, mode="edge"), np.ones(41) / 41, "valid")
 
 
 def horizon_line(Bs, band=6, penalty=0.01):

@@ -4,6 +4,7 @@ import copy, hashlib, json
 
 DEFAULT = dict(
     version="v0",
+    horizon_method="seam",
     # frames and background
     pre_end_offset=-300,        # background = frames with offset <= this (seconds)
     pre_start_offset=-2400,
