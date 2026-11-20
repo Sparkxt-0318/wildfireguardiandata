@@ -46,6 +46,9 @@ PARAMS = {
     "regional_frac": 0.25, "attr_factor": 20.0, "attr_add_m2": 100_000.0,
     "ref_ratio": 0.5, "ref_slack_days": 16, "window_min_m": 1000.0, "max_window_px": 1000,
     "dnbr_ref": 0.25,
+    "comp_min_dnbr": 0.0,      # minimum median dNBR of a component (0 = off)
+    "dswir1_max": None,        # a candidate pixel's SWIR1 change must be below this (None = off)
+    "min_nir_pre": None,       # unused unless set
 }
 
 S2_BAD = {0, 1, 3, 6, 8, 9, 10, 11}   # no data, saturated, shadow, water, cloud med/high, cirrus, snow
@@ -424,6 +427,8 @@ def scar_search(lon, lat, radius_m, start: date, end: date, area_m2: float | Non
     mad = float(np.median(np.abs(dnbr[bg] - med))) * 1.4826 if bg.any() else 0.0
     thr = max(p["t_abs"], med + p["k_sigma"] * mad)
     cand = valid & (dnbr >= thr) & ((bpost["nir"] - bpre["nir"]) < p["dnir"]) & ((bpost["vis"] - bpre["vis"]) < p["dvis"])
+    if p.get("dswir1_max") is not None:
+        cand &= (bpost["swir1"] - bpre["swir1"]) < p["dswir1_max"]
     floor = scar_floor_m2(thr, grid.res, p["n_min"], p["dnbr_ref"])
     clear_frac = float(valid[disc].mean()) if disc.any() else 0.0
     res_ = ScarResult("no_scar_clear", sensor=sensor, pre_date=str(item_date(pre)), post_date=str(item_date(post)),
@@ -447,7 +452,9 @@ def scar_search(lon, lat, radius_m, start: date, end: date, area_m2: float | Non
         for k in keep:
             c = {"label": int(k), "n_px": int(sizes[k - 1]), "area_m2": float(sizes[k - 1] * px),
                  "median_dnbr": round(float(meds[k - 1]), 4), "status": "accepted", "reason": None}
-            if regional > p["regional_frac"] and mode == "small":
+            if mode == "small" and c["median_dnbr"] < p.get("comp_min_dnbr", 0.0):
+                c["status"], c["reason"] = "rejected", f"component median dNBR below {p['comp_min_dnbr']}"
+            elif regional > p["regional_frac"] and mode == "small":
                 c["status"], c["reason"] = "rejected", f"regional change ({regional:.2f} of neighbouring land)"
             elif mode == "small" and area_m2 is not None and c["area_m2"] > p["attr_factor"] * area_m2 + p["attr_add_m2"]:
                 c["status"], c["reason"] = "rejected", "larger than the recorded fire allows (other event)"
