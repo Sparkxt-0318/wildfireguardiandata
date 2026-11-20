@@ -66,10 +66,10 @@ def write_gz_npy(path: Path, arr):
         gz.write(buf.getvalue())
 
 
-def run_area(name: str, map_key: str = "M22", cfg: dict | None = None, out_root: Path | None = None, arrival=None) -> dict:
+def run_area(name: str, map_key: str = "M22", cfg: dict | None = None, out_root: Path | None = None, arrival=None, cutoff_year: int | None = None) -> dict:
     cfg = cfg or region_cfg()
     d = area_dir(name)
-    L = load(d, map_key, cfg)
+    L = load(d, map_key, cfg, cutoff_year=cutoff_year)
     inputs = sorted(set(L.files))
     make_readonly(inputs)
     before = hash_inputs(inputs)
@@ -88,7 +88,7 @@ def run_area(name: str, map_key: str = "M22", cfg: dict | None = None, out_root:
     rule_counts = {r: int(((res.rules >> b) & 1).sum()) for r, b in agent.RULE_BITS.items()}
     manifest = {"area": name, "map": map_key, "grid": L.grid.to_dict(), "code_version": CODE_VERSION, "code_hash": code_hash(),
                 "config_hash": hash_obj(cfg), "inputs": {Path(k).name: v["sha256"] for k, v in before.items()},
-                "inputs_unchanged": True, "counts": counts, "rule_counts": rule_counts,
+                "inputs_unchanged": True, "event_cutoff_year": cutoff_year, "counts": counts, "rule_counts": rule_counts,
                 "suggestions": int((res.suggest > 0).sum())}
     (out / "overlay.json").write_text(canonical_json(manifest) + "\n")
     return manifest

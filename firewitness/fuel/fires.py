@@ -53,7 +53,7 @@ def run_all(out_json: Path | None = None):
             r3b_ok = spread.available()
             if r3b_ok:
                 viol, ros, _ = r3b.r3b_mask(d, fb, cfg)
-            man = runner.run_area(name, "M16", cfg, arrival=viol)
+            man = runner.run_area(name, "M16", cfg, arrival=viol, cutoff_year=int(fid[:4]))
             od = runner.OUT_ROOT / "M16" / name
             verdict = rasterio.open(od / "verdict.tif").read(1)
             sug = rasterio.open(od / "suggest.tif").read(1)

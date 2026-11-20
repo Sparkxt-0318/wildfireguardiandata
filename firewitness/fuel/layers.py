@@ -45,7 +45,8 @@ def rasterize_years(per, grid: Grid, years):
     return out
 
 
-def load(area_dir: Path, map_key: str, cfg: dict) -> Layers:
+def load(area_dir: Path, map_key: str, cfg: dict, cutoff_year: int | None = None) -> Layers:
+    """cutoff_year: events dated this year or later are ignored (stretch: the fire under test is the observation, not a staleness event)."""
     import geopandas as gpd
     d = Path(area_dir)
     grid = Grid.from_dict(json.loads((d / "grid.json").read_text()))
@@ -59,6 +60,8 @@ def load(area_dir: Path, map_key: str, cfg: dict) -> Layers:
     wc = {c: wcarr[i] for i, c in enumerate(cfg["data"]["wc_classes"])}
     han = _read(d / "hansen.tif", files, band=None)
     loss = np.where(han[1] > 0, 2000 + han[1].astype(np.int16), 0).astype(np.int16)
+    if cutoff_year:
+        loss = np.where(loss >= cutoff_year, 0, loss).astype(np.int16)
     files.append(str(d / "perimeters.geojson"))
     per = gpd.read_file(d / "perimeters.geojson")
     my = m["map_year"]
@@ -68,7 +71,7 @@ def load(area_dir: Path, map_key: str, cfg: dict) -> Layers:
         yrs = sorted(set(int(y) for y in per[per.KIND == "WF"].YEAR))
         masks = rasterize_years(per, grid, yrs)
         for y, mk in sorted(masks.items()):
-            if y > my:
+            if y > my and not (cutoff_year and y >= cutoff_year):
                 post = np.where(mk, np.int16(y), post)
             elif y >= 1999:
                 p = d / f"dist_{y}.tif"
