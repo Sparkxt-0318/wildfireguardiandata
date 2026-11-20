@@ -6,3 +6,4 @@
 2026-11-20T17:30Z pass: routed 0 item(s)
 2026-11-20T17:46Z pass: routed 3 item(s)
 2026-11-20T18:03Z pass: routed 7 item(s)
+2026-11-20T18:10Z merged PR1 (score) PR2 (records); PR3 (caught) conflict in DECISIONS.md resolved by merge commit 255bc92 on track/caught

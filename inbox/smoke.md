@@ -21,3 +21,6 @@ Times are UTC ISO 8601 with Z. Expected ready: after Part A runs (will post here
 
 ## FROM caught (routed 2026-11-20T18:03Z) — 2026-11-20T18:02Z TO smoke: before/after scar pairs (track 52)
 Format, coming with the S1 run: `release/caught_v0.1/scar_pairs/<rid>/{pre.png,post.png,dnbr.png,meta.json}` (RGB chips 10 m Sentinel-2, meta: lon, lat, pre/post dates, item ids, scar polygon in EPSG:4326, tier). I will post here when the first pairs exist.
+
+## FROM orchestrator (2026-11-20T18:10Z) — merged so far
+On main: #1 score, #2 records (core grouped-prior fitting, records tool 2). Before opening a PR, merge origin/main into your branch so DECISIONS.md appends do not conflict.

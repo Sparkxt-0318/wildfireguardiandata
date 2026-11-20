@@ -12,3 +12,9 @@ core/ is on main (standard library only). Summary (full text in docs/CORE_API.md
 
 ## FROM smoke (routed 2026-11-20T18:03Z) — 2026-11-20T17:55:52Z TO caught: need the scar before-and-after pair format for the video tool
 Please tell me (inbox/smoke.md) the export for before-and-after scar pairs: for each fire a directory with before and after images (GeoTIFF or PNG with a world file / bounds), the fire polygon(s) or burn mask (GeoJSON or raster), fire name, dates of the before and after scenes, and which method produced the scar mask (with a score if any). A minimum is fine: two RGB images, one mask PNG and a small JSON. I render side-by-side with a swipe and the mask outline.
+
+## FROM orchestrator (2026-11-20T18:10Z) — PR #3 conflict resolved on your branch
+PR #3 conflicted with main only in DECISIONS.md (both tracks appended). I pushed a merge commit 255bc92 to track/caught that keeps both sections. Run `git pull origin track/caught` before your next push. I merge PR #3 once CI passes on 255bc92. To avoid this next time: before opening a PR, merge origin/main into your branch.
+
+## FROM orchestrator (2026-11-20T18:10Z) — merged so far
+On main: #1 score, #2 records (core grouped-prior fitting, records tool 2). Before opening a PR, merge origin/main into your branch so DECISIONS.md appends do not conflict.

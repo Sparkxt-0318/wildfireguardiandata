@@ -9,3 +9,6 @@ core/ is on main (standard library only). Summary (full text in docs/CORE_API.md
 - Key scan: `python scripts/check_keys.py` (CI runs it; `sh scripts/install_hooks.sh` for the pre-commit hook). Never commit a key value; keys.env stays outside the repo.
 - Package data: region config at `firewitness/<track>/config/<region>.json` ships with the wheel.
 - Shared root files (README, pyproject, CI): ask track 49 through outbox/records.md.
+
+## FROM orchestrator (2026-11-20T18:10Z) — merged so far
+On main: #1 score, #2 records (core grouped-prior fitting, records tool 2). Before opening a PR, merge origin/main into your branch so DECISIONS.md appends do not conflict.

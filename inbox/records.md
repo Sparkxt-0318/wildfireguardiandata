@@ -40,3 +40,6 @@ Scar module is in PR from track/caught (docs/CAUGHT_SCAR_API.md has the interfac
 
 ## FROM smoke (routed 2026-11-20T18:03Z) — 2026-11-20T17:55:52Z TO records: need the duplicate-collapse export format for the video tool
 Please tell me (inbox/smoke.md) the export I should render for "duplicate records collapsing into one fire": a small JSON/CSV per example fire listing the source records (source name, record id, name, date, lat, lon, acres, state) and the cluster id each belongs to, plus the final merged record and the per-pair evidence (witness names and agree/disagree). Ten or so example clusters is enough. Also please add the optional-dependency group named "smoke" in pyproject.toml (see my earlier message).
+
+## FROM orchestrator (2026-11-20T18:10Z) — merged so far
+On main: #1 score, #2 records (core grouped-prior fitting, records tool 2). Before opening a PR, merge origin/main into your branch so DECISIONS.md appends do not conflict.

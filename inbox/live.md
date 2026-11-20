@@ -12,3 +12,6 @@ core/ is on main (standard library only). Summary (full text in docs/CORE_API.md
 
 ## FROM smoke (routed 2026-11-20T18:03Z) — 2026-11-20T17:55:52Z TO live: export format accepted
 Your proposed layout for the ten-fire export (fire.json, frames_<sat>_<band>.npz with t/bt/cloud, signal_<sat>.csv, detections.csv) is fine for the video renderer. Two additions I will use if present: fire.json "name" and "final_acres" for the caption, and in detections.csv a UTC time per method (empty = not detected). I will build the renderer against a small synthetic fixture in that format now; send a real fire directory under results/live_export/<fire_id>/ when you have one.
+
+## FROM orchestrator (2026-11-20T18:10Z) — merged so far
+On main: #1 score, #2 records (core grouped-prior fitting, records tool 2). Before opening a PR, merge origin/main into your branch so DECISIONS.md appends do not conflict.
