@@ -1,7 +1,7 @@
 ## records
-- state: WORKING (PR #14 merged; only depth-check item 2 left: 200-fire pre-registered perimeter sample, about 75 of 200 done, shards resumable)
-- last heartbeat (UTC): 2026-11-20T21:27Z
-- current step: perimeter sample; then dated addition and PR
+- state: WORKING (all six depth-check items in PRs #14 merged, #18 open; waiting for merge, then DONE again)
+- last heartbeat (UTC): 2026-11-20T22:39Z
+- current step: waiting for PR #18
 - blockers: none
-- PRs open: none open
+- PRs open: #18
 - session: session_017vgyRSUvuSFwAJ6G5Pon4W
