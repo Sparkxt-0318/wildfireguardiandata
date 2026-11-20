@@ -1,0 +1,8 @@
+method,sat,t_utc,note
+agency_discovery,,2023-07-23T00:01:00Z,WFIGS FireDiscoveryDateTime
+polar_first,MODIS,2023-07-23T06:10:00Z,"FIRMS archive, acquisition time"
+goes_fdc_first,G16,2023-07-23T01:36:17Z,"FDCC codes 10-14/30-34, scan start"
+goes_fdc_first,G18,2023-07-23T01:41:17Z,"FDCC codes 10-14/30-34, scan start"
+traceback_distinguishable,G16,2023-07-23T01:31:17Z,"interval 2023-07-23T01:21:17Z to 2023-07-23T01:31:17Z (PRELIMINARY: dev run on 11 fires, h_A will change)"
+traceback_distinguishable,G18,2023-07-23T00:51:17Z,"interval 2023-07-23T00:46:17Z to 2023-07-23T00:51:17Z (PRELIMINARY: dev run on 11 fires, h_A will change)"
+live_detector_alert,G16+G18,,pending: detector not yet frozen

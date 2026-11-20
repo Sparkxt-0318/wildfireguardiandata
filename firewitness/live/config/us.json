@@ -1,0 +1,41 @@
+{
+  "region": "us",
+  "label": "United States (CONUS), GOES-East + GOES-West",
+  "tested": true,
+  "bbox_lonlat": [-125.0, 24.0, -66.5, 49.5],
+  "satellites": [
+    {"name": "G16", "role": "east", "bucket": "noaa-goes16", "from": "2017-12-18T00:00:00Z", "to": "2025-04-07T15:00:00Z"},
+    {"name": "G19", "role": "east", "bucket": "noaa-goes19", "from": "2025-04-07T15:00:00Z", "to": null},
+    {"name": "G17", "role": "west", "bucket": "noaa-goes17", "from": "2019-02-12T00:00:00Z", "to": "2023-01-04T18:00:00Z"},
+    {"name": "G18", "role": "west", "bucket": "noaa-goes18", "from": "2023-01-04T18:00:00Z", "to": null}
+  ],
+  "sector": "C",
+  "cadence_s": 300,
+  "products": {
+    "C07": {"prefix": "ABI-L1b-RadC", "band": 7, "kind": "bt", "res_km": 2},
+    "C14": {"prefix": "ABI-L1b-RadC", "band": 14, "kind": "bt", "res_km": 2},
+    "C01": {"prefix": "ABI-L1b-RadC", "band": 1, "kind": "refl", "res_km": 1},
+    "ACM": {"prefix": "ABI-L2-ACMC", "var": "ACM", "res_km": 2},
+    "FDC": {"prefix": "ABI-L2-FDCC", "var": "Mask", "res_km": 2}
+  },
+  "fdc_fire_codes": [10, 11, 12, 13, 14, 30, 31, 32, 33, 34],
+  "fdc_fire_codes_incl_low": [10, 11, 12, 13, 14, 15, 30, 31, 32, 33, 34, 35],
+  "acm_cloudy_min": 2,
+  "fire_list": {
+    "source": "WFIGS Incident Locations (NIFC), IncidentTypeCategory = WF",
+    "url": "https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/WFIGS_Incident_Locations/FeatureServer/0/query",
+    "period": ["2023-01-10T00:00:00Z", "2025-04-06T00:00:00Z"],
+    "min_acres": 10,
+    "size_classes_acres": [10, 100, 1000, 10000],
+    "states_excluded": ["AK", "HI", "PR", "GU", "VI", "AS", "MP"]
+  },
+  "polar": {
+    "source": "NASA FIRMS country archive (public, no key)",
+    "url_pattern": "https://firms.modaps.eosdis.nasa.gov/data/country/{sensor}/{year}/{sensor}_{year}_United_States.csv",
+    "sensors": ["viirs-snpp", "modis"],
+    "viirs_conf": ["n", "h"],
+    "modis_conf_min": 30
+  },
+  "delivery_delay": {"source": "S3 LastModified of each file", "extra_s": 30},
+  "korea_note": "see kr.json (untested)"
+}

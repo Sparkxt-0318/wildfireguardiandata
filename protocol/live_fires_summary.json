@@ -1,0 +1,28 @@
+{
+ "n_wfigs_in_scope": 10274,
+ "n_after_dedup": 9745,
+ "excluded": {
+  "no_polar_detection": 5890,
+  "pre_existing_heat_within_5km_9d": 901
+ },
+ "n_pool": 2954,
+ "pool_by_class": {
+  "0": 1165,
+  "1": 1237,
+  "2": 438,
+  "3": 114
+ },
+ "n_sample": 240,
+ "seed": 51,
+ "n_per_class": 60,
+ "by_split_class": {
+  "dev:0": 30,
+  "dev:1": 30,
+  "dev:2": 30,
+  "dev:3": 30,
+  "test:0": 30,
+  "test:1": 30,
+  "test:2": 30,
+  "test:3": 30
+ }
+}
