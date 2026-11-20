@@ -1,0 +1,21 @@
+===== BRIEF 53: fuel (fuel-map checking agent (rules only)). Run with: Opus, high effort. =====
+Standing rules. No watermark or attribution lines in commits, pull requests or files. No hard stop: keep working until every step is done in depth. Use the folder "wildfire 3 (1)" on this Mac first (same as "wildfire 3" in the Drive folder "wildfireguardian"; it holds LANDFIRE fuel and arrival rasters for 29 US fires). Keys: before anything else, make sure the file "wildfire 3 (1)/keys/keys.env" exists and holds these lines (add any that are missing, change nothing else in it): HF_TOKEN=<REDACTED:HF_TOKEN> EARTHDATA_USERNAME=sparkxt EARTHDATA_TOKEN=<REDACTED:EARTHDATA_TOKEN> DATA_GO_KR_KEY=<REDACTED:DATA_GO_KR_KEY> Then read keys only from that file. The file stays on this Mac and outside the repo: Hugging Face and GitHub revoke tokens they find in a public repo, which would stop the run; never print, log or commit a key; if a key you need is missing, write its name in NEEDS.md at the repo root, carry on with everything that does not need it, and look again every hour. Save every raw download under "wildfire 3 (1)/firewitness_raw/" and add it to the folder's index. Do not ask me questions: decide, record the decision and its reason in DECISIONS.md, and continue. Region for this run: United States; every country-specific value lives in a config file.
+Repo. Sparkxt-0318/wildfireguardiandata, created by prompt 49 (if missing, retry every 10 minutes for an hour, then create it). You own firewitness/fuel/ and the branch track/fuel.
+Problem. Fuel maps feed nearly every spread and risk model, and nobody checks them: in one region 58% of field plots matched no official fuel type, and models are trained on labels sampled from those same maps. Build an agent that checks a fuel map cell by cell without fieldwork. Rules only: no trained model and no language model takes part in a verdict.
+Protocol first. protocol/FUEL_PROTOCOL.md, committed alone before any result: the rule list, the grading design, dev and sealed test areas, gates.
+The agent. Given a fuel map and an area, it runs unattended and returns for every cell one verdict (consistent, stale, contradicted, unknown), the rules that fired, and an evidence card. Rule families:
+
+1. Internal contradiction: the fuel class against canopy height, canopy cover and land cover from independent layers (a timber class with no canopy; a burnable class on water or pavement).
+2. Staleness: fire, harvest or clearing since the map's date.
+3. Fire behaviour: cells that burned although labelled unburnable; observed spread from arrival-time rasters faster than the class can produce under the observed wind, using a published implementation of the standard spread equations (cite it).
+4. Field plots where they exist. These are held out and used only to grade the agent. It suggests a class only when a rule points to a specific one. It never rewrites the source map: output is an overlay, inputs are hashed before and after.
+
+Gates.
+
+* F1: on held-out field plots, cells the agent calls contradicted disagree with the plot more often than cells it calls consistent; ratio with an interval that excludes 1.
+* F2, placebo: where the plot agrees with the map, the contradicted rate stays below the limit frozen in the protocol.
+* F3: zero writes to the source map; identical output on a re-run.
+* Stretch, labelled as such: on the 29 US fires in the folder, does replacing contradicted cells with the suggested class bring a simple spread calculation closer to the observed arrival times?
+
+Improvement loop (after the first version passes, at most 12 rounds). Run on dev areas; read every wrong verdict against the dev plots; name one cause; change or add one rule; run again. Keep it only if F1 rises and F2 does not worsen. Sealed areas opened once. Log in results/ROUNDS_fuel.md.
+Deliver. Command: firewitness fuel check (area or fire name), producing the overlay, a map and a report with evidence cards. Release v0.1: overlays for the sealed areas and for the 29 fires. A Korea config stub (forest type map classes and a translation table), untested and labelled so. results/FUEL_RESULTS.md with each number's n, interval, source file and what it does not show. One short prior-art note. Do not re-verify the papers in my analysis.

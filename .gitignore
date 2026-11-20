@@ -1,0 +1,13 @@
+# Keys never enter the repo
+keys.env
+*.env
+.env*
+# Raw downloads live outside the repo in "wildfire 3 (1)/firewitness_raw/"
+firewitness_raw/
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.venv/
+.pytest_cache/

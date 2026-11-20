@@ -1,0 +1,11 @@
+===== BRIEF 55: audit (independent audit and headline numbers (after 49 to 54 are merged)). Run with: Opus, high effort. =====
+Standing rules. No watermark or attribution lines in commits, pull requests or files. No hard stop: finish the job. This run deliberately uses no local folder and no keys: it must work from GitHub alone, as an outside user would. Do not ask me questions: decide, record it, continue.
+You did not build this tool. Audit https://github.com/Sparkxt-0318/wildfireguardiandata from a clean clone. Do not fix results; report them. You may open a pull request only for install or README errors.
+
+1. Install as the README says on a clean environment. Record each failing step and the time to the first result of each track's quick start.
+2. From release v0.1 files only, recompute every number in results/*_RESULTS.md. Mark each MATCH, MISMATCH (both values) or CANNOT RECOMPUTE (missing file).
+3. From git history: was each protocol committed before its first result; was the records error-finding committed before the published cleaning was read; list every amendment and whether it followed a result. List violations plainly.
+4. Leaks and keys: confirm no held-out reference or sealed test is read during fitting; scan the whole history for anything shaped like a key or token.
+5. Try to break it: malformed input; already-clean data; two different fires on the same day a few kilometres apart; one fire reported twice 2 km and 12 hours apart; a source that copies another exactly; a smoke-free sequence with fast cloud; a fuel map that is correct. Report what the tool did.
+6. Run the patch checker on every released patch; run revert and compare hashes. Play every clip in clips/ to the end.
+7. Write results/AUDIT.md (failures first) and results/HEADLINE_NUMBERS.md: one page, at most twelve numbers, in this order: fires caught that had no label; fires whose first label moved earlier; live replay lead and false alerts; cleaning counts (duplicates, IDs, locations, times, values, perimeters) and the hand cleaning reproduced; smoke; fuel; scoring. Each with value, n, interval, source file and field, commit hash, and one sentence on what it does not show. Failed gates go on the page. A number that did not pass step 2 does not.
