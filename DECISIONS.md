@@ -79,3 +79,7 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 **D-507 — Cloud mask = ABI L2 clear-sky mask (ACMC).** It is produced by a separate algorithm from the fire product (FDCC) and from this detector; no non-ABI cloud product exists at 5-minute cadence. Probably-cloudy counts as cloudy.
 
 **D-508 — Protocol amendment 1 (cloud-edge buffer, scene filter).** Decided on placebo-day diagnostics of one dev fire before any result; see protocol/LIVE_PROTOCOL.md, Amendments.
+
+**D-010 — Releases are made by a workflow (19:35Z).** Cloud build sessions get HTTP 403 from the GitHub release API. The orchestrator added `.github/workflows/release.yml`. Each track commits its release files under `release/<track>-v0.1/` (with an optional NOTES.md), then asks the orchestrator, who dispatches the workflow with that tag. The workflow attaches the files with a SHA256SUMS.txt. The umbrella `v0.1` release is cut by the orchestrator after all six tracks are DONE and collects every `release/*-v0.1/` directory. Tracks do not create the tag `v0.1` themselves.
+
+**D-011 — Track 53 improvement loop (19:35Z).** Track 53 reports in results/ROUNDS_fuel.md that only round 1 came from reading individual wrong verdicts. Rounds 2–12 were threshold probes from a per-rule precision table. The sealed areas were already opened once after the rules were frozen. Re-opening them would break the protocol, so the loop is not redone. The deviation is reported as is, in FUEL_RESULTS.md and in the final report.
