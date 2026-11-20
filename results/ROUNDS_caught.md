@@ -17,3 +17,29 @@ are frozen.
   is kept only if catches (a) or (c) rise and neither placebo rate rises; otherwise it is reverted.
 
 ## Version 1 on dev
+
+Dev records 3,059 (1,346 searched), matched placebos 2,749 of 3,059 (1,194 searched), dev truth primary small 1,540.
+
+| measure | v1 |
+|---|---|
+| dev headline (no standard label -> verified) | 54 |
+| dev no standard label -> probable | 609 |
+| placebo verified, searched (gate <= 1 %) | 15 / 1,194 = 1.26 % (0.70-2.06) **fail** |
+| placebo probable, searched (guard <= 5 %) | 225 / 1,194 = 18.8 % (16.7-21.2) **fail** |
+| dev truth labelled recall vs standard | 0.670 vs 0.318, diff 0.353 (0.325-0.383) |
+| dev truth verified recall | 0.309 |
+| by class (labelled - standard) | A 0.000; B 0.417 (0.357-0.466); C 0.374 (0.332-0.409); D 0.305 (0.246-0.365) |
+
+What the placebo hits are (all 15 verified and a sample of 12 of the probable ones read as image chips, every
+component's numbers read): 10 of the 15 verified placebos pair a DNB night "hit" with a Sentinel-2 scar. The DNB
+test fires in 23 % of placebo windows against 36 % of record windows: the 5-sigma / 3 nW rule is noise at the 500 m
+scale of a small fire. Scar false positives: field-shaped changes on cropland (harvest that darkens), terrain
+shading that changes with the sun between autumn scenes, cloud shadow the scene classification missed, isolated
+4-8 pixel groups at urban edges. Placebo scar components have lower dNBR (median 0.19 vs 0.31 for records), higher
+pre-fire NIR, and a SWIR1 that rises rather than falls.
+
+Bugs found and fixed (no rule change): decimated reads of very large windows were warped and striped (now read
+from overviews on the native grid); invalid polygons broke the label union (made valid); duplicate FACTS ids
+inflated the secondary stratum (deduplicated); worker memory capped after an out-of-memory kill.
+
+## Development fixes (before the loop; dev only)
