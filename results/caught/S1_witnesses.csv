@@ -1,0 +1,17 @@
+tier,witness,fires
+verified,S2_SCAR,82
+verified,PERIM,80
+verified,HMS_ANALYST,17
+verified,GOES,11
+verified,HMS_SMOKE,8
+verified,S2_AF,6
+verified,LANDSAT_SCAR,4
+verified,LANDSAT_AF,1
+probable,S2_SCAR,248
+probable,PERIM,167
+probable,HMS_SMOKE,37
+probable,S2_AF,36
+probable,HMS_ANALYST,18
+probable,DNB,11
+probable,GOES,9
+probable,LANDSAT_AF,2

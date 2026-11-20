@@ -12,6 +12,37 @@ Every number below has its n, a 95 % interval (Clopper-Pearson for shares; paire
 
 (filled per slice as each slice completes)
 
+## Slice S1: California 2020 (complete)
+
+10,360 FPA FOD records; 4,037 searched with imagery (the rest are below the 2,345 m2 scar floor or too uncertain in
+location; heat evidence was still matched for all). Source: `results/caught/S1_headline.csv`,
+`S1_placebo.csv`, `S1_record_only_reasons.csv`, `S1_witnesses.csv`, `verified_S1.csv`, `states_S1.parquet`.
+Wall time 0.9 h.
+
+| class | records | standard label | no standard label | of these, now verified (95 % CI of share) | now probable | record-only |
+|---|---|---|---|---|---|---|
+| A | 5,450 | 71 | 5,379 | **1** (0.00-0.10 % of no-label) | 134 | 5,244 |
+| B | 4,240 | 103 | 4,137 | **26** (0.41-0.92 % of no-label) | 315 | 3,796 |
+| C | 404 | 70 | 334 | **45** (10.00-17.61 % of no-label) | 51 | 238 |
+| D | 111 | 34 | 77 | **16** (12.37-31.54 % of no-label) | 11 | 50 |
+| E | 55 | 32 | 23 | **3** (2.78-33.59 % of no-label) | 6 | 14 |
+| F | 48 | 37 | 11 | **0** (0.00-28.49 % of no-label) | 4 | 7 |
+| G | 52 | 50 | 2 | **1** (1.26-98.74 % of no-label) | 1 | 0 |
+| all | 10,360 | 397 | 9,963 | **92** (0.75-1.13 % of no-label) | 522 | 9,349 |
+
+**Headline S1: 92 recorded fires with no standard label now carry a verified label** (class A 1, B 26,
+C 45, D 16, E 3, G 1). Verified fires with no standard label rest mostly on a Sentinel-2 scar plus an agency
+perimeter, HMS analyst or GOES point, or HMS smoke (`S1_witnesses.csv`).
+
+**C1 placebo (S1):** verified 9 / 3,526 = 0.26 % (0.12-0.48) of searched placebos, 10 / 9,251 = 0.11 % (0.05-0.20) of all
+matched placebos: **passes** (<= 1 %). Probable 178 / 3,526 = 5.05 % (4.35-5.82) of searched placebos: **fails this
+track's own 5 % guard by a hair** (the dev rate was 4.44 %). 9,251 of 10,360 records got a matched placebo (89 %).
+
+What S1 does not show: a verified label rests on agreement of two kinds in place and time, not on proof the record's
+area or cause is right; probable labels carry a placebo-measured false rate near 5 %, so on the order of 200 of the 633
+probable S1 labels (5 % of 4,037 searched windows) can be expected to be false; a few placebo windows hold FIRMS detections, i.e. real fires no
+agency recorded, which count here as false positives.
+
 ## C2: recall on the sealed small fires (opened once: run 21:48-22:53Z on 2026-11-20, rules frozen at 530a3d5)
 
 Truth: mapped fires and prescribed burns 2018-2020 below 300 acres (CAL FIRE FRAP wildfire and Rx perimeters, NIFC
