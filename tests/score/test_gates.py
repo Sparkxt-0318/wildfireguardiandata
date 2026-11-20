@@ -44,3 +44,27 @@ def test_n5_matched_sampler_vs_random(ds, setup):
     rr = r["random"]["fixed_0.5"]["area_ratio_top_danger"]
     assert m is not None and rr is not None
     assert m < rr           # direction of the effect; the pre-registered absolute limit is reported in results/
+
+
+def test_round2_front_peek_cheat_is_flagged(ds, setup):
+    from firewitness.score import card
+    sp = setup[0]
+    cd = gates._blocked_card(ds, sp, models.leaky_front(ds, gates._fires(sp)), "leaky-front")
+    assert cd["leak"]["status"].startswith("FLAG")
+
+
+def test_round3_halo_does_not_beat_persistence_strict(ds, setup):
+    sp = setup[0]
+    cd = gates._blocked_card(ds, sp, models.halo(ds, gates._fires(sp)), "halo")
+    h = cd["models"]["halo"]["tolerances"]["strict"]["strict"]["f1"]
+    p = cd["models"]["persistence"]["tolerances"]["strict"]["strict"]["f1"]
+    assert h < p
+    assert cd["models"]["halo"]["area_ratio"] > cd["models"]["persistence"]["area_ratio"]
+
+
+def test_round4_training_on_test_fires_is_reported(ds, setup):
+    sp = setup[0]
+    mem = models.Memoriser().fit(ds, sorted(ds.scenes))          # trained on everything, test included
+    cd = gates._blocked_card(ds, sp, mem.predict(ds, gates._fires(sp)), "cheat-memoriser")
+    assert cd["training_provenance"]["status"].startswith("FAIL")
+    assert any("TRAINING PROVENANCE" in w for w in cd["warnings"])

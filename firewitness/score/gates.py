@@ -143,9 +143,11 @@ def gate_n3(ds, sp, honest_model_preds):
         P = models.leaky(ds, fires, **kw)
         card = _blocked_card(ds, sp, P, "leaky")
         out[label] = {"status": card["leak"]["status"], "auc": card["leak"].get("auc"), "detail": card["leak"]["detail"]}
+    card_f = _blocked_card(ds, sp, models.leaky_front(ds, fires), "leaky")
+    out["front_peek_lying_declaration"] = {"status": card_f["leak"]["status"], "auc": card_f["leak"].get("front_auc"), "detail": card_f["leak"]["detail"]}
     honest = _blocked_card(ds, sp, honest_model_preds, "honest")
     out["honest_model"] = {"status": honest["leak"]["status"], "auc": honest["leak"].get("auc")}
-    caught = all(not out[k]["status"].startswith("pass") for k in ("scar_lying_declaration", "next_day_lying_declaration", "scar_honest_declaration"))
+    caught = all(not out[k]["status"].startswith("pass") for k in ("scar_lying_declaration", "next_day_lying_declaration", "scar_honest_declaration", "front_peek_lying_declaration"))
     return {"gate": "N3", "passed": bool(caught and out["honest_model"]["status"] == "pass"),
             "claim": "a model fed information from after the fire is caught by the leak check (and an honest model is not)", **out}
 

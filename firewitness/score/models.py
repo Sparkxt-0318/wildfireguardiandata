@@ -93,6 +93,7 @@ class Memoriser:
         uk, inv = np.unique(K, return_inverse=True)
         self.uk = uk
         self.f = np.bincount(inv, V[:, 0], minlength=len(uk)); self.n = np.bincount(inv, V[:, 1], minlength=len(uk))
+        self.trained_on = sorted(fires)
         return self
 
     def predict(self, ds, fires) -> Predictions:
@@ -108,7 +109,7 @@ class Memoriser:
                 a[t] = v
             sc[fid] = a
             info[fid] = (s.dates - 1).astype(np.int32)
-        return Predictions(sc, info, {"model": self.name, "info_until_lag_days": 1})
+        return Predictions(sc, info, {"model": self.name, "info_until_lag_days": 1, "trained_on_fires": getattr(self, "trained_on", [])})
 
 
 def flag_everything(ds, fires) -> Predictions:
@@ -171,3 +172,35 @@ class Interpolator:
             sc[fid] = a
             info[fid] = (s.dates - 1).astype(np.int32)   # it claims issue-day info; the screen cannot see t+1 training rows
         return Predictions(sc, info, {"model": self.name, "info_until_lag_days": 1})
+
+
+def leaky_front(ds, fires) -> Predictions:
+    """Round-2 cheat: peeks at today's label only where it is hard to notice (within 3 cells of yesterday's fire),
+    falls back to persistence elsewhere, and declares info_until = issue day."""
+    from .ops import dilate_space
+    sc, info = {}, {}
+    for fid in fires:
+        s = ds.scenes[fid]
+        a = np.full(s.state.shape, np.nan, np.float32)
+        for t in s.valid_targets():
+            prev = s.state[t - 1] == FIRE
+            near = dilate_space(prev, 3)
+            today = s.state[t] == FIRE
+            a[t] = np.where(near, today, 0.0).astype(np.float32) + 0.1 * prev
+        sc[fid] = a
+        info[fid] = (s.dates - 1).astype(np.int32)
+    return Predictions(sc, info, {"model": "leaky-front", "info_until_lag_days": 1})
+
+
+def halo(ds, fires, radius=2) -> Predictions:
+    """Round-3 cheat: persistence thickened by `radius` cells, to profit from tolerant matching."""
+    from .ops import dilate_space
+    sc, info = {}, {}
+    for fid in fires:
+        s = ds.scenes[fid]
+        a = np.full(s.state.shape, np.nan, np.float32)
+        for t in s.valid_targets():
+            a[t] = dilate_space(s.state[t - 1] == FIRE, radius).astype(np.float32)
+        sc[fid] = a
+        info[fid] = (s.dates - 1).astype(np.int32)
+    return Predictions(sc, info, {"model": "halo", "info_until_lag_days": 1})

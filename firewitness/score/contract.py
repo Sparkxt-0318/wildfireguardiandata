@@ -15,7 +15,7 @@ TEMPLATE = {
     "threshold": {"rule": "max_f1_on_validation", "tolerance": "strict", "value": None},
     "label_readings": ["strict", "interval"],
     "event": {"min_new_cells": 5, "new_radius_cells": 1, "tolerance": "mid"},
-    "leak": {"radius_cells": 3, "auc": 0.90, "min_positives": 30},
+    "leak": {"radius_cells": 3, "auc": 0.90, "front_auc": 0.95, "min_positives": 30},
     "area_ratio_warn": 3.0,
     "hard": {"hard_km": 10.0},
     "bootstrap": {"n": 1000, "seed": 54},

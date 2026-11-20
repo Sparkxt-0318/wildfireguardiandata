@@ -257,10 +257,18 @@ def build_card(ds: Dataset, split: dict, preds: Predictions, c: dict, model_name
             tn: {rd: bootstrap_diff(resl[model_name], resl[other], tn, rd, n_b, seed) for rd in c["label_readings"]}
             for tn in sorted(c["tolerances"])}
     card["leak"] = leak_report(ds, test_f, preds, c)
+    tr = preds.meta.get("trained_on_fires")
+    if tr is None:
+        card["training_provenance"] = {"status": "not declared", "overlap_with_test": None}
+    else:
+        ov = sorted(set(tr) & set(test_f))
+        card["training_provenance"] = {"status": "FAIL: trained on test fires" if ov else "pass", "overlap_with_test": ov[:10]}
     warn = []
     ar = card["models"][model_name]["area_ratio"]
     if ar is not None and ar > c["area_ratio_warn"]:
         warn.append(f"OVER-PREDICTION: predicted area is {ar:.1f}x the true fire area (warn above {c['area_ratio_warn']}x)")
+    if card["training_provenance"]["status"].startswith("FAIL"):
+        warn.append("TRAINING PROVENANCE: " + card["training_provenance"]["status"])
     if card["leak"]["status"] != "pass":
         warn.append("LEAK CHECK: " + card["leak"]["status"])
     card["warnings"] = warn
@@ -311,5 +319,6 @@ def render(card: dict) -> str:
                 x = v[tn][rd]
                 L.append(f"- {k} [{tn}/{rd}]: {x['diff_f1']:+.4f} ({x['ci95'][0]:+.4f}, {x['ci95'][1]:+.4f}){'  *' if x['excludes_zero'] else ''}")
     L += ["", "## Leak check", "", f"status: **{card['leak']['status']}** — {card['leak']['detail']}", "",
+          f"training provenance: {card['training_provenance']['status']}", "",
           f"card hash `{card['card_sha256']}`"]
     return "\n".join(L) + "\n"
