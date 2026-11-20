@@ -143,7 +143,7 @@ opened for a round.
 
 ## Amendments
 
-**Amendment 1 — 2026-11-20T18:25Z, before any trace-back or replay result.** Two additions to §3, both applied in
+**Amendment 1 — 2026-11-20T17:52Z, before any trace-back or replay result.** Two additions to §3, both applied in
 Parts A, B and C:
 1. *Cloud-edge buffer:* a pixel is clear only if no ACM-cloudy (or missing) pixel lies within 2 pixels (5 × 5 window).
 2. *Scene filter:* z is discarded where more than 5 % of the clear pixels in the 33 × 33 window around the pixel have
@@ -156,6 +156,6 @@ percentile of S at the anchor dropped from 198 to 7, on GOES-16 from 384 to 158.
 tried; it is not adopted for Part A and becomes a Part B candidate feature (`dTd`). Disclosure: the Bedrock fire's
 own S was seen while choosing; it is a dev fire and is reported with the others.
 
-**Amendment 2 — 2026-11-20T18:35Z, representation only.** The IRWIN ids in `live_fires.csv` are written in lower case
+**Amendment 2 — 2026-11-20T17:55Z, representation only.** The IRWIN ids in `live_fires.csv` are written in lower case
 (GUIDs are case-insensitive): the repository's key scan matched upper-case GUIDs as a key shape. No fire, split or other
 value changed. New SHA-256 of `live_fires.csv`: `7cfa4e88d62388e4933061b2433cb133671ffbeb2367dd318f0b5f5c1b27234d` (was a2c7fa01…).
