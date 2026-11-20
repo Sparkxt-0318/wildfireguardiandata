@@ -1,7 +1,7 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T18:09Z
-- current step: dev run v1 (S1 California 2020 dev split: records, matched placebos, dev truth fires) in progress; DNB night look for CA 2020 extracting; then improvement rounds (<=12), sealed test once, S1 full.
-- blockers: FireCCI51 unreachable (dap.ceda.ac.uk); recorded in DECISIONS D-502 and protocol A1.
-- PRs open: #3 (protocol + v1 pipeline)
+- last heartbeat (UTC): 2026-11-20T18:40Z
+- current step: dev v1 (S1 dev records + placebos done; dev truth fires running). Reading every placebo hit: S2 scar false positives (fields, terrain shading, undetected cloud shadow, urban edges) and a noisy DNB night look (23% of placebos) found; development fixes next, then rounds.
+- blockers: none (FireCCI51 unreachable, recorded). Memory: one OOM restart, workers now capped.
+- PRs open: none (#3 merged); next PR after the dev rounds
 - session: session_017vgyRQiyh93zKanxaWeyYP
