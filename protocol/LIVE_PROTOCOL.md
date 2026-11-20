@@ -159,3 +159,19 @@ own S was seen while choosing; it is a dev fire and is reported with the others.
 **Amendment 2 — 2026-11-20T17:55Z, representation only.** The IRWIN ids in `live_fires.csv` are written in lower case
 (GUIDs are case-insensitive): the repository's key scan matched upper-case GUIDs as a key shape. No fire, split or other
 value changed. New SHA-256 of `live_fires.csv`: `7cfa4e88d62388e4933061b2433cb133671ffbeb2367dd318f0b5f5c1b27234d` (was a2c7fa01…).
+
+**Amendment 3 — 2026-11-20T18:14Z, before any Part B result (only one dev fire's placebo series examined).**
+Changes to §6:
+1. *Two-witness rule, one parameter:* per site G = max(S_E, S_W, [S_E ≥ m and S_W ≥ m]·(S_E + S_W)/ρ); alert when
+   G ≥ h. ρ (≥ 1, or ∞ for no pair rule) replaces the pair (h1, h2); ρ is a candidate setting chosen on dev.
+2. *One alert per episode:* after an alert the site is not alerted again until G returns to 0 (instead of resetting S).
+   The live service reports a persistent anomaly once, not every few frames.
+3. *False alerts are counted as clusters:* placebo alert episodes on 8-adjacent pixel-sites whose episodes overlap in
+   time are one false alert (the live service publishes one candidate per cluster). The budget stays **1 false alert
+   per 10,000 pixel-site-days**, now with clustered counting; the unclustered per-pixel curve is reported too.
+4. *Recent-fire mask (all modes):* a pixel-site with a polar detection within 5 km in the 9 days before is not evaluated
+   (a recent burn scar is warmer than its own history). Placebo site-days so masked are not counted.
+
+Reason: on the Bedrock placebo series (dev), single warm patches of 30–56 contiguous pixels (Willamette Valley fields)
+counted as dozens of false alerts under per-pixel counting; with the per-pixel count, no threshold could meet any
+budget below 10⁻² without the fire being missed. Reported as a per-pixel curve as well, so nothing is hidden.

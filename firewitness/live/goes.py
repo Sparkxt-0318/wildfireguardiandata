@@ -143,7 +143,10 @@ def list_prefix(bucket: str, prefix: str, cache: bool = True) -> list[dict]:
     """List S3 keys under prefix with LastModified and size. Past hours are cached on disk."""
     cf = LIST_CACHE / bucket / (prefix.strip("/").replace("/", "_") + ".json")
     if cache and cf.is_file():
-        return json.loads(cf.read_text())
+        try:
+            return json.loads(cf.read_text())
+        except ValueError:
+            pass
     out, token = [], None
     while True:
         url = f"https://{bucket}.s3.amazonaws.com/?list-type=2&prefix={prefix}"
@@ -165,7 +168,9 @@ def list_prefix(bucket: str, prefix: str, cache: bool = True) -> list[dict]:
         hour = datetime(int(m[1]), 1, 1, int(m[3]), tzinfo=timezone.utc) + timedelta(days=int(m[2]) - 1)
         if datetime.now(timezone.utc) - hour > timedelta(hours=3):
             cf.parent.mkdir(parents=True, exist_ok=True)
-            cf.write_text(json.dumps(out))
+            tmp = cf.with_suffix(f".{os.getpid()}.tmp")
+            tmp.write_text(json.dumps(out))
+            os.replace(tmp, cf)
     return out
 
 

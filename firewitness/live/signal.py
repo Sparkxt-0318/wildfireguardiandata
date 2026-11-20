@@ -137,6 +137,18 @@ def zscore_all(r: np.ndarray, ndays: int = 9) -> np.ndarray:
     return z
 
 
+def compact_filter(z: np.ndarray, nmax: int, zthr: float = 3.0) -> np.ndarray:
+    """Discard z (NaN) where more than nmax pixels of the 9x9 window outside the central 3x3 exceed zthr:
+    an early fire is a point source; an extended warm patch (harvest, surface change) is not."""
+    from scipy.ndimage import uniform_filter
+    hi = (np.isfinite(z) & (z > zthr)).astype(np.float32)
+    size9 = [1] * (z.ndim - 2) + [9, 9]
+    size3 = [1] * (z.ndim - 2) + [3, 3]
+    n9 = np.rint(uniform_filter(hi, size=size9, mode="constant") * 81)
+    n3 = np.rint(uniform_filter(hi, size=size3, mode="constant") * 9)
+    return np.where(n9 - n3 > nmax, np.nan, z)
+
+
 def site_u(z: np.ndarray, cap: float = UCAP) -> np.ndarray:
     """Site score for every pixel as a 3x3 site: u = Phi^-1(Phi(Zmax)^m), capped."""
     st = np.stack([shift2(z, i, j) for i in (-1, 0, 1) for j in (-1, 0, 1)], 0)

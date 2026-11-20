@@ -133,3 +133,38 @@ def finalize(rec: dict, h: float) -> dict:
 def threshold(placebo_S: list[float], q: float = 99.0) -> float:
     x = np.asarray(placebo_S, float)
     return float(np.percentile(x, q)) if len(x) else float("inf")
+
+
+# ---------------------------------------------------------------- runner
+def series_meta(fid: str):
+    p = SERIES_DIR / f"{fid}.json"
+    return json.loads(p.read_text()) if p.is_file() else None
+
+
+def run_fire(fid: str, firms: FirmsClean, out_dir: Path = DERIVED / "traceback", force=False):
+    """Process every satellite of one extracted fire; save a pickle per fire-satellite."""
+    import pickle
+    meta = series_meta(fid)
+    if meta is None:
+        return None
+    out_dir.mkdir(parents=True, exist_ok=True)
+    recs = {}
+    for sat in meta["sats"]:
+        f = out_dir / f"{fid}_{sat}.pkl"
+        if f.is_file() and not force:
+            recs[sat] = pickle.loads(f.read_bytes())
+            continue
+        rec = process_fire_sat(meta, sat, firms)
+        rec["meta"] = {k: v for k, v in meta.items() if k != "sats"}
+        f.write_bytes(pickle.dumps(rec))
+        recs[sat] = rec
+    return recs
+
+
+def load_records(fids, out_dir: Path = DERIVED / "traceback"):
+    import pickle
+    out = []
+    for fid in fids:
+        for f in sorted(out_dir.glob(f"{fid}_G*.pkl")):
+            out.append(pickle.loads(f.read_bytes()))
+    return out

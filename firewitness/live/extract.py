@@ -196,7 +196,9 @@ def extract_fire(fire: dict, cfg: dict, pool, out_dir: Path = SERIES_DIR, force=
                    "box_r0": r0, "box_c0": c0, "box1_r0": r10, "box1_c0": c10})
         _index(f_out, f"GOES {name} ABI L1b C07/C14/C01 + L2 ACMC/FDCC, {len(jobs)} files (range reads, box {BOX}x{BOX})", nbytes)
     meta["t_end"] = time.time()
-    meta_f.write_text(json.dumps(meta, indent=1))
+    tmp = meta_f.with_suffix(".tmp")
+    tmp.write_text(json.dumps(meta, indent=1))
+    tmp.replace(meta_f)
     return meta
 
 
