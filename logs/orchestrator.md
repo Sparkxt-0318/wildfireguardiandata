@@ -37,3 +37,4 @@
 2026-11-20T22:21Z pass: routed 4 item(s)
 - 22:22Z merged smoke PR #17 (1ca4396; scope ok: 4 new smoke files in protocol/ and scripts/); release smoke-v0.1 dispatched
 2026-11-20T22:39Z pass: routed 2 item(s)
+- 22:39Z merged records PR #18 (7b1711e; dated addition only; prereg 9a1391a precedes result). Records: smoke extra in pyproject left, then DONE. Smoke DONE 1ca4396 claimed; depth check running (Sonnet subagent). Release smoke-v0.1 exists (6 assets).
