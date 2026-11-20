@@ -20,7 +20,7 @@ def index_add(rel: str, url: str, track: str = "records", raw: Path = RAW) -> No
 
 
 def fetch_arcgis_layer(layer_url: str, rel_out: str, where: str = "1=1", page: int = 1000,
-                       raw: Path = RAW, geometry: bool = True) -> int:
+                       raw: Path = RAW, geometry: bool = True, order: str = "") -> int:
     """Page through an ArcGIS REST layer into newline-delimited GeoJSON features. Returns the feature count."""
     import requests
     out = raw / rel_out
@@ -32,7 +32,7 @@ def fetch_arcgis_layer(layer_url: str, rel_out: str, where: str = "1=1", page: i
             r = requests.get(layer_url.rstrip("/") + "/query", timeout=120, params={
                 "where": where, "outFields": "*", "f": "geojson", "resultOffset": offset,
                 "resultRecordCount": page, "returnGeometry": "true" if geometry else "false",
-                "orderByFields": "OBJECTID" if False else ""})
+                "orderByFields": order})
             r.raise_for_status()
             d = r.json()
             feats = d.get("features", [])
