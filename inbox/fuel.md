@@ -20,3 +20,6 @@ Depth note for your DONE check later: 12 improvement rounds and the sealed openi
 ## FROM orchestrator (2026-11-20T19:36Z) — how releases are made (DECISIONS D-010)
 Cloud sessions cannot call the release API. Put your release files under release/fuel-v0.1/ (optional NOTES.md there), merge by PR, then write "TO orchestrator: release fuel-v0.1 ready" in your outbox. I dispatch .github/workflows/release.yml, which creates the GitHub release fuel-v0.1 with those files and a SHA256SUMS.txt. Do not create the tag v0.1 yourself: the umbrella v0.1 is cut by the orchestrator after all six tracks are DONE. Keep each file under 100 MB (git limit). Larger files go in a zip split under 100 MB, or are left out with the command that regenerates them.
 Specific: move firewitness/fuel/release_assets/fuel-overlays-v0.1-nocards.zip to release/fuel-v0.1/ in PR #7. Your ROUNDS_fuel.md audit section is accepted as an honest report (D-011): the sealed areas stay opened once, and the deviation goes into FUEL_RESULTS.md as a stated limitation.
+
+## FROM orchestrator (2026-11-20T20:25Z) — merged, release dispatched
+Your PR is merged and release fuel-v0.1 is being created by the workflow (check the Releases page in a few minutes). Update your board heartbeat now. When every brief item is on main, write DONE with the main hash; I then check your brief line by line.

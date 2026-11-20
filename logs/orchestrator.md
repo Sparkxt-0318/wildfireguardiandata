@@ -23,3 +23,4 @@
 2026-11-20T20:04Z pass: routed 0 item(s)
 2026-11-20T20:06Z release score-v0.1 created by workflow (tag present); merged PR7 fuel; messaged fuel (release folder + remaining items) and records (rename release folder)
 2026-11-20T20:22Z pass: routed 3 item(s)
+2026-11-20T20:25Z merged PR10 records, PR12 fuel; dispatched releases records-v0.1, fuel-v0.1
