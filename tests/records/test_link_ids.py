@@ -1,3 +1,6 @@
+import pytest
+
+pytest.importorskip("scipy")
 import numpy as np
 import pandas as pd
 

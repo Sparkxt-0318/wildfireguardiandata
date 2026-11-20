@@ -37,3 +37,31 @@ Addition 2026-11-20T20:40Z: satellite-only candidates, 2015 to 2023, are now run
 - Planted errors are gross, in corroborated records; they say nothing about subtle in-county errors.
 - Reference-clean records use the same evidence as the repair rules.
 - No trained model wrote any label or patch; likelihood ratios are fitted without labels by EM with placebo pairs.
+
+Addition 2026-11-20T21:10Z (intervals for rows that gave only a rate or a count; Wilson 95% interval; earlier lines unchanged):
+
+| quantity | k | n | rate | Wilson 95% interval |
+|---|---|---|---|---|
+| Duplicates removed, FPA FOD across systems | 888 | 2,661,383 | 0.0334% | 0.0312% to 0.0356% |
+| Duplicates removed, WA list | 42 | 70,070 | 0.0599% | 0.0444% to 0.0810% |
+| Duplicates removed, OK list | 1,260 | 39,235 | 3.2114% | 3.0415% to 3.3905% |
+| Duplicates removed, AK list | 3 | 5,943 | 0.0505% | 0.0172% to 0.1483% |
+| Duplicates removed, WFIGS feed | 4,157 | 432,379 | 0.9614% | 0.9328% to 0.9909% |
+| IDs merged (FPA FOD records) | 888 | 2,661,383 | 0.0334% | 0.0312% to 0.0356% |
+| Source IDs split, of complex parents | 2 | 1,425 | 0.1404% | 0.0385% to 0.5103% |
+| Locations repaired, raw ICS-209 rows | 108,921 | 161,661 | 67.3762% | 67.1472% to 67.6043% |
+| Locations repaired, FPA FOD | 0 | 2,661,383 | 0.0000% | 0.0000% to 0.0001% |
+| Times repaired, raw ICS-209 rows | 0 | 161,661 | 0.0000% | 0.0000% to 0.0024% |
+| Value-level patches, FPA FOD (all) | 64,873 | 2,661,383 | 2.4376% | 2.4191% to 2.4562% |
+| Name placeholders blanked, FPA FOD | 63,985 | 2,661,383 | 2.4042% | 2.3859% to 2.4227% |
+| Cosmetic patches, FPA FOD | 172,824 | 2,661,383 | 6.4938% | 6.4642% to 6.5234% |
+| Perimeters created, 40 validation fires | 37 | 40 | 92.5000% | 80.1355% to 97.4164% |
+| Validation fires where imagery beat the circle | 26 | 37 | 70.2703% | 54.2166% to 82.5107% |
+| Published coordinate errors flagged (dev) | 112 | 146 | 76.7123% | 69.2253% to 82.8297% |
+| Repairs within 5 km of published (dev) | 15 | 40 | 37.5000% | 24.2228% to 52.9678% |
+| Published coordinate errors flagged (test) | 27 | 43 | 62.7907% | 47.8595% to 75.6239% |
+| Repairs within 5 km of published (test) | 4 | 5 | 80.0000% | 37.5528% to 96.3777% |
+| Planted time-zone offsets recovered | 0 | 52 | 0.0000% | 0.0000% to 6.8795% |
+| Planted day-month swaps recovered | 26 | 300 | 8.6667% | 5.9828% to 12.3957% |
+
+Failures and partial gates, as reported and not re-tuned after the sealed opening: R1 FPA FOD to MTBS sealed-test recall 0.861 (target 0.90); R1 FPA FOD to ICS-209-PLUS recall 0.795 on dev, 0.811 on test (target 0.90); R1 ICS-209-PLUS to FIRED not met (FIRED not downloaded; test difference to the fixed rule 0.008, interval -0.012 to 0.022 includes zero); R3 planted time repairs 26/300 (day-month) and 0/52 (time zone); R3(c) value-level patches touch 2.44% of FPA FOD records, over the 1% limit (0.05% if the 63,985 name placeholders are not counted).
