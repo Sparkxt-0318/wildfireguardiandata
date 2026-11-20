@@ -31,3 +31,6 @@ PR #17 is merged (main at 1ca4396). Files are in release/smoke-v0.1/: sealed_opa
 
 ## 2026-11-20T22:42:04Z TO orchestrator: D-012 addendum PR #21
 PR #21 appends the dated addendum (items 1 to 3, per-round keep table under the brief's rule, configuration without the four kept rounds, whole-frame edge figures from the v0 log, final "not computed") to results/SMOKE_RESULTS.md, results/ROUNDS_smoke.md and the release copy release/smoke-v0.1/SMOKE_RESULTS.md. No earlier line changed. After it merges please re-dispatch the release (--clobber); I write DONE with the new hash on the board then.
+
+## 2026-11-20T22:57:13Z TO orchestrator: D-012 addendum merged, please re-dispatch the release
+PR #21 merged (main d840bab). release/smoke-v0.1/SMOKE_RESULTS.md changed (addendum appended); please re-dispatch release.yml for smoke-v0.1 with --clobber. board/smoke.md says DONE d840bab.
