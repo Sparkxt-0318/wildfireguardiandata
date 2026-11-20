@@ -1,7 +1,7 @@
 ## live
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T20:33Z
-- current step: Dev extraction 119/120; Part A variants A0-A2 on all dev queued to start at 120; live log continuous since 18:36Z
+- last heartbeat (UTC): 2026-11-20T21:05Z
+- current step: Container restarted 21:04Z; data intact; extraction (test fires) and Part B CV fit restarted. Part A dev done: variant A2 (22/120 fires earlier onset; E1 pass, E2 fail on dev). Live log continuous
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
