@@ -104,3 +104,36 @@ def summarize(df: pd.DataFrame, n_boot=2000, seed=0) -> dict:
             "iou_ours_mean": float(ok.iou_ours.mean()), "iou_circle_mean_same_fires": float(ok.iou_circle.mean()),
             "iou_circle_mean_all": float(df.iou_circle.mean()), "diff_mean": float(d.mean()),
             "diff_ci": (float(np.percentile(boots, 2.5)), float(np.percentile(boots, 97.5))), "n_clusters": int(len(keys))}
+
+
+def create_missing(n=100, out_dir: Path | None = None, seed=0, years=range(2016, 2024), min_acres=1000.0):
+    """Make perimeters from imagery for large fires with no mapped perimeter (no MTBS link, not inside a WFIGS perimeter)."""
+    import numpy as np
+    from shapely.geometry import mapping
+    from ..caught.scar import make_perimeter
+    from . import coverage, link_tasks as LT
+    fod = pd.read_parquet(paths.CANON / "fod.parquet")
+    T, pairs, X, dec, _ = LT.decide_all("fod_mtbs")
+    linked = np.zeros(len(fod), bool)
+    linked[dec[dec.outcome == "link"].li.to_numpy()] = True
+    wf_df, wf_g = coverage.load_wfigs_perimeters()
+    inw = coverage.in_perimeter(fod.lat.to_numpy(), fod.lon.to_numpy(), fod.year.to_numpy(), wf_df, wf_g)
+    gap = fod[(fod.acres >= min_acres) & ~linked & ~inw & fod.year.isin(list(years))]
+    pick = gap.sample(min(n, len(gap)), random_state=seed)
+    feats, rows = [], []
+    for _, f in pick.iterrows():
+        d0 = (pd.Timestamp("1970-01-01") + pd.Timedelta(days=float(f.day))).date()
+        try:
+            r = make_perimeter(f.lon, f.lat, d0, d0 + timedelta(days=30), f.acres / 2.47105)
+            status, g, area = r.status, r.geometry, r.area_ha
+        except Exception as e:
+            status, g, area = f"error:{type(e).__name__}", None, None
+        rows.append({"fid": int(f.fid), "state": f.state, "year": int(f.year), "recorded_acres": f.acres, "status": status, "scar_area_ha": area})
+        if g is not None and not g.is_empty:
+            feats.append({"type": "Feature", "geometry": mapping(g), "properties": {"fid": int(f.fid), "recorded_acres": float(f.acres), "status": status}})
+        print(rows[-1], flush=True)
+        if out_dir:
+            out_dir.mkdir(parents=True, exist_ok=True)
+            pd.DataFrame(rows).to_csv(out_dir / "created_perimeters.csv", index=False)
+            (out_dir / "created_perimeters.geojson").write_text(json.dumps({"type": "FeatureCollection", "features": feats}))
+    return pd.DataFrame(rows), {"large_fires_without_perimeter_in_years": int(len(gap))}

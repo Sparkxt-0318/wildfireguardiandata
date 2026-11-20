@@ -162,3 +162,33 @@ def distinct_pairs_test(radius_km=10.0, day_window=3.0, seed=0):
     m = L.fit_fs(Xa, fields, init_prior=0.02)
     post = m.posterior(L.compare(rec, rec, pairs, fields))
     return {"distinct_pairs": int(len(pairs)), "linked": int((post >= 0.97).sum()), "undecided": int(((post > 0.05) & (post < 0.95)).sum()), "max_posterior": float(post.max()) if len(post) else 0.0}
+
+
+def planted_duplicates(df: pd.DataFrame, n=300, seed=0):
+    """Plant perturbed copies (<=0.5 km, +-1 day, +-5% size, name case/typo) of random records as a second source and
+    test whether the duplicate step links each copy to its original and links it to nothing else."""
+    from . import dedupe
+    rng = np.random.default_rng(seed)
+    base = df.dropna(subset=["lat", "lon", "day"]).reset_index(drop=True)
+    pick = rng.choice(len(base), n, replace=False)
+    cp = base.iloc[pick].copy()
+    cp["lat"] += rng.normal(0, 0.002, n); cp["lon"] += rng.normal(0, 0.002, n)
+    cp["day"] += rng.integers(-1, 2, n); cp["acres"] = cp["acres"] * rng.uniform(0.95, 1.05, n)
+    cp["name"] = cp["name"].map(lambda s: s.lower() if isinstance(s, str) else s)
+    cp["source"] = "planted_copy"; cp["rid"] = "copy:" + cp["rid"]; cp["ident"] = None
+    base = base.assign(source="orig")
+    allr = pd.concat([base, cp], ignore_index=True)
+    pairs, m = dedupe.find(allr, cross_source_only=True)
+    lk = pairs[pairs.outcome == "link"]
+    rid = allr.rid.to_numpy()
+    got = set()
+    wrong = 0
+    for a, b in zip(lk.li, lk.ri):
+        ra, rb = rid[a], rid[b]
+        if ra.startswith("copy:") ^ rb.startswith("copy:"):
+            c, o = (ra, rb) if ra.startswith("copy:") else (rb, ra)
+            if c == "copy:" + o:
+                got.add(c)
+            else:
+                wrong += 1
+    return {"n": n, "recovered": len(got), "recall": len(got) / n, "ci": wilson(len(got), n), "linked_to_wrong_record": wrong}
