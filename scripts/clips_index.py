@@ -27,6 +27,7 @@ sheet.save(os.path.join(d, "contact_sheet.png"))
 good = all(r[4] and 20 <= r[2] <= 40 and r[3] == "1920x1080" for r in rows)
 with open(os.path.join(d, "CLIPS.md"), "w") as fh:
     fh.write("# Clips\n\nAll clips 1920x1080 H.264. Each was decoded from first to last frame with ffmpeg (no errors) and its duration checked (20 to 40 s). "
+             "**Selection note:** the sequence clips use sealed sequences chosen by eye, after the sealed run, because a plume is visible in them (20160604 smer-tcs3, 20180605 rm-w, 20200306 ml-s). They do not represent typical behaviour: on many other sealed sequences the smoke class also paints sun-lit ground, shadows or cloud edges (see results/SMOKE_RESULTS.md, S2 and the false-alarm list). The satellite clip shows the live track's PRELIMINARY sample fire (2023-ORWIF-230266); the scar and duplicate clips show sample exports of tracks caught and records. "
              "Credit burnt into every frame: HPWREN, http://hpwren.ucsd.edu/ (sequence clips); Copernicus Sentinel-2 (scar clip); NOAA GOES-R (satellite clip); FPA FOD, ICS-209-PLUS, MTBS (duplicates clip).\n\n"
              "| file | frames | seconds | size | decodes start to end | MB |\n|---|---|---|---|---|---|\n")
     for f, n, dur, sz, ok, mb in rows:

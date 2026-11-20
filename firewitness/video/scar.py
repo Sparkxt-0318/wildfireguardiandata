@@ -64,7 +64,7 @@ class Pair:
         m = self.meta
         x0 = 1280 if self.dnbr is not None else 820
         info = [("fire", self.name), ("before", str(m.get("pre_date", ""))), ("after", str(m.get("post_date", ""))),
-                ("scar area", f"{self.area_ha:,.0f} ha"), ("median dNBR", f"{m['score_median_dnbr']:.2f}" if m.get("score_median_dnbr") is not None else "n/a"),
+                ("scar area", (f"{self.area_ha:,.1f} ha" if self.area_ha < 10 else f"{self.area_ha:,.0f} ha")), ("median dNBR", f"{m['score_median_dnbr']:.2f}" if m.get("score_median_dnbr") is not None else "n/a"),
                 ("tier", str(m.get("tier", "")))]
         y = 112
         for k, v in info:
