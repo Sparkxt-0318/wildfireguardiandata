@@ -1,0 +1,155 @@
+{
+ "schema": "firewitness.live.record/1",
+ "cycle_scan_start": "2026-11-20T20:46:18Z",
+ "processed_at": "2026-11-20T20:50:03Z",
+ "region": "us",
+ "detector": {
+  "config": {
+   "ukey": "dT_c4",
+   "cap": 8.0,
+   "k": 0.5,
+   "rho": 1.5,
+   "m": 1.0,
+   "vis_weight": 0.0,
+   "decay": 1.0
+  },
+  "h": 160.0,
+  "sha256": "7129781b35163eae6d751315cf4920ba153eb35df5c0f9facafb90ef4b3fab72",
+  "frozen": false,
+  "note": "PROVISIONAL settings used to start the live service while Part B is fitted on dev fires. Replaced by the frozen Part B settings when fitted; every record carries the SHA-256 of this file's content."
+ },
+ "code_commit": "f5bf891888939e5bcaec1e69d506ca3ba97141d7",
+ "inputs": [
+  {
+   "sat": "G19",
+   "product": "C07",
+   "key": "ABI-L1b-RadC/2026/324/20/OR_ABI-L1b-RadC-M6C07_G19_s20263242046182_e20263242048566_c20263242049005.nc",
+   "scan_start": "2026-11-20T20:46:18Z",
+   "s3_last_modified": "2026-11-20T20:49:08Z",
+   "sha256": "545e5e7d914d148226398f119d9398fbb81f207994d7bbf3818598d62a0905fa"
+  },
+  {
+   "sat": "G19",
+   "product": "C14",
+   "key": "ABI-L1b-RadC/2026/324/20/OR_ABI-L1b-RadC-M6C14_G19_s20263242046182_e20263242048555_c20263242049020.nc",
+   "scan_start": "2026-11-20T20:46:18Z",
+   "s3_last_modified": "2026-11-20T20:49:08Z",
+   "sha256": "3b91c9e354141e4e5adcbfcd94195c447ac61ed5127f8104c42f2e10100cc785"
+  },
+  {
+   "sat": "G19",
+   "product": "ACM",
+   "key": "ABI-L2-ACMC/2026/324/20/OR_ABI-L2-ACMC-M6_G19_s20263242046182_e20263242048555_c20263242049305.nc",
+   "scan_start": "2026-11-20T20:46:18Z",
+   "s3_last_modified": "2026-11-20T20:49:36Z",
+   "sha256": "addaea352e2dbe86be88a6211ec2c55170e67ba2c82bc2876ef2ca3798b660e5"
+  },
+  {
+   "sat": "G18",
+   "product": "C07",
+   "key": "ABI-L1b-RadC/2026/324/20/OR_ABI-L1b-RadC-M6C07_G18_s20263242046188_e20263242048573_c20263242049012.nc",
+   "scan_start": "2026-11-20T20:46:18Z",
+   "s3_last_modified": "2026-11-20T20:49:07Z",
+   "sha256": "842b8d5c9248ba13c83a81e53b814849300fe8b36b4fac61c54396e88076358e"
+  },
+  {
+   "sat": "G18",
+   "product": "C14",
+   "key": "ABI-L1b-RadC/2026/324/20/OR_ABI-L1b-RadC-M6C14_G18_s20263242046188_e20263242048562_c20263242048599.nc",
+   "scan_start": "2026-11-20T20:46:18Z",
+   "s3_last_modified": "2026-11-20T20:49:11Z",
+   "sha256": "fdba5650133483ca0fe9cfd0505d25ba74d678223328241b7331ac3041ef5baf"
+  },
+  {
+   "sat": "G18",
+   "product": "ACM",
+   "key": "ABI-L2-ACMC/2026/324/20/OR_ABI-L2-ACMC-M6_G18_s20263242046188_e20263242048562_c20263242049312.nc",
+   "scan_start": "2026-11-20T20:46:18Z",
+   "s3_last_modified": "2026-11-20T20:49:36Z",
+   "sha256": "e97aaf6b52ed9bdf36e251485a53fb8f9e3d9966e8cee188cc7df6a9a68e1af5"
+  }
+ ],
+ "satellites": {
+  "G19": {
+   "status": "ok",
+   "history_frames": 21,
+   "clear_fraction": 0.3128847958964959,
+   "avail_latest": 1795207776.0
+  },
+  "G18": {
+   "status": "ok",
+   "history_frames": 21,
+   "clear_fraction": 0.2719132307958637,
+   "avail_latest": 1795207776.0
+  }
+ },
+ "candidates": [
+  {
+   "lat": 35.7087,
+   "lon": -90.7275,
+   "n_pixels": 1,
+   "G": 161.84,
+   "S_east": 161.84,
+   "S_west": 0.0,
+   "witnesses": [
+    "G19"
+   ],
+   "pixel_rc_east": [
+    517,
+    1138
+   ],
+   "kind": "grows",
+   "id": "L20261120T2026Z-001",
+   "first_alert_scan": "2026-11-20T20:26:18Z"
+  },
+  {
+   "lat": 29.2005,
+   "lon": -113.2578,
+   "n_pixels": 1,
+   "G": 161.2,
+   "S_east": 161.2,
+   "S_west": 0.14,
+   "witnesses": [
+    "G19"
+   ],
+   "pixel_rc_east": [
+    831,
+    189
+   ],
+   "kind": "grows",
+   "id": "L20261120T2011Z-001",
+   "first_alert_scan": "2026-11-20T20:11:18Z"
+  }
+ ],
+ "notes": [],
+ "firms_nrt": {
+  "VIIRS_NOAA20": {
+   "ok": true,
+   "n": 11559,
+   "sha256": "19e0921db8aaf798d40fbf53a7245d2812bc0f9a101fa40c63d1976d48807a24"
+  },
+  "VIIRS_NOAA21": {
+   "ok": true,
+   "n": 11075,
+   "sha256": "8654f36efaab63927099095a2c04704ae9d2c2115c3367f3ccd466e2fd093797"
+  },
+  "VIIRS_SNPP": {
+   "ok": true,
+   "n": 0,
+   "sha256": "fe0401e40606fd90dd4cf24dff508a93539089a4aecf701e2a3c85851fe9bf40"
+  },
+  "MODIS": {
+   "ok": true,
+   "n": 1623,
+   "sha256": "af2f8f1981b3c8cd64e2fb5a8681091bad97c890c6d5c9e8593fd923627072c2"
+  }
+ },
+ "masked_recent_fire_pixels": 102705,
+ "evaluated_pixels": 2029485,
+ "processing_s": 25.3,
+ "published_at": "2026-11-20T20:50:03Z",
+ "run": {
+  "trigger": "manual",
+  "run_id": "44794730046"
+ }
+}
