@@ -44,10 +44,100 @@
     "sites_per_day_median": 3.5
    },
    "time": "2026-11-20T22:44Z"
+  },
+  {
+   "round": 2,
+   "cause": "scene filter discards the fire's own hot pixels and smoke (e.g. 2024-IDSCF-240103)",
+   "change": "scene filter ignores the central 11 x 11 pixels",
+   "before": {
+    "ukey": "bt7_c4",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2
+   },
+   "after": {
+    "ukey": "bt7_c4_o11",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2
+   },
+   "score_before": -49.696875000000006,
+   "score_after": -50.65572916666667,
+   "h_before": 64.40725,
+   "h_after": 72.350609375,
+   "earlier_before": 13,
+   "earlier_after": 12,
+   "n": 96,
+   "no_alert_before": 52,
+   "no_alert_after": 52,
+   "false_rate_after": 9.884828647735201e-05,
+   "kept": false,
+   "false_alerts_after": {
+    "n_days_with_false": 45,
+    "kinds": {
+     "previous days": 41,
+     "day0 (fire day, far sites)": 4
+    },
+    "sites_per_day_median": 3.0
+   },
+   "time": "2026-11-20T22:50Z"
+  },
+  {
+   "round": 3,
+   "cause": "history too cloudy for 6 values at +-5 min (monsoon; 2023-AZA3S-231213, 2023-NMGNF-000428)",
+   "change": "history fallback to +-30 min where +-5 min has < 6 values",
+   "before": {
+    "ukey": "bt7_c4",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2
+   },
+   "after": {
+    "ukey": "bt7_c4_w6",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2
+   },
+   "score_before": -49.696875000000006,
+   "score_after": -39.59826388888889,
+   "h_before": 64.40725,
+   "h_after": 67.05959375,
+   "earlier_before": 13,
+   "earlier_after": 16,
+   "n": 96,
+   "no_alert_before": 52,
+   "no_alert_after": 47,
+   "false_rate_after": 9.884828647735201e-05,
+   "kept": true,
+   "false_alerts_after": {
+    "n_days_with_false": 43,
+    "kinds": {
+     "previous days": 38,
+     "day0 (fire day, far sites)": 5
+    },
+    "sites_per_day_median": 4.0
+   },
+   "time": "2026-11-20T23:04Z"
   }
  ],
  "final_config": {
-  "ukey": "bt7_c4",
+  "ukey": "bt7_c4_w6",
   "cap": 40.0,
   "k": 4.0,
   "rho": 1.5,
