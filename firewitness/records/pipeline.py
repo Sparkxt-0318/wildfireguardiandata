@@ -111,7 +111,7 @@ def run_national(out_dir: Path, years=None, region="us", fit_models=None, skip_v
     d = fc.assign(ident=None, rid="fod:" + fc.fid.astype(str))
     dev = (LT.split_of(fc.year, cfg).to_numpy() == "dev")
     pairs, dmodel = dedupe.find(d, fit_mask=dev, cross_source_only=True)
-    dp, keeper = dedupe.dedupe_patches(d, pairs)
+    dp, keeper = dedupe.dedupe_patches(d, pairs, cross_source_only=True)
     ps.extend(dp)
     res["duplicates"] = {"pairs": int(len(pairs)), "linked": int((pairs.outcome == "link").sum()), "undecided": int((pairs.outcome == "undecided").sum()), "removed": len(dp)}
     T.lap("tool 3 duplicates")

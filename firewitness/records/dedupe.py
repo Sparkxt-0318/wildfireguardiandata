@@ -67,19 +67,23 @@ def keeper_order(df: pd.DataFrame) -> pd.Series:
     return (-score).astype(float) + np.arange(len(df)) * 1e-9
 
 
-def dedupe_patches(df: pd.DataFrame, pairs: pd.DataFrame, rule="dup:fs_link") -> tuple[list[Patch], np.ndarray]:
+def dedupe_patches(df: pd.DataFrame, pairs: pd.DataFrame, rule="dup:fs_link", cross_source_only: bool = False) -> tuple[list[Patch], np.ndarray]:
     df = df.reset_index(drop=True)
     lk = pairs[pairs.outcome == "link"]
     comp = clusters(len(df), lk)
     order = keeper_order(df).to_numpy()
     best = pd.Series(order).groupby(comp).idxmin()
-    keeper = best.reindex(comp).to_numpy()
+    keeper = best.reindex(comp).to_numpy().copy()
     patches = []
     prob = {}
     for a, b, p in zip(lk.li, lk.ri, lk.post):
         prob[a] = max(prob.get(a, 0), p); prob[b] = max(prob.get(b, 0), p)
+    src = df["source"].to_numpy(dtype=object) if "source" in df else None
     for i in np.flatnonzero(keeper != np.arange(len(df))):
         k = keeper[i]
+        if cross_source_only and src is not None and src[i] == src[k]:
+            keeper[i] = i
+            continue        # chained through a third record: same-source records are separate fires
         patches.append(Patch(df.rid.iloc[i], "dup_of", missing(), df.rid.iloc[k], rule,
                              {"posterior_best_link": round(float(prob.get(i, 0.0)), 4), "cluster_size": int((comp == comp[i]).sum())}, float(prob.get(i, 0.95))))
     return patches, keeper
