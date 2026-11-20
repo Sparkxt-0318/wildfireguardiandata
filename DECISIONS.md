@@ -32,6 +32,16 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 
 **D-104 — Part A pushed straight to main.** The brief and orchestrator allow it because the other five tracks wait for core/.
 
+## Track 54 (score)
+
+**D-541 — Grid scenes, numpy only inside firewitness/score.** The unit is a cell-day on each fire's raster. Everything is vectorised numpy (needs numpy, in the `dev` and `records` extras). Reason: tolerance matching (dilation in space and time) and a 0.18% fire rate over 20M+ cell-days are impractical on row lists. core/ stays standard-library only.
+**D-542 — Command names.** The brief's `firewitness negatives sample`, `splits make`, `score` are exposed as `firewitness score negatives sample`, `firewitness score splits make`, `firewitness score card` (plus `build`, `contract-template`, `gates`), because core discovery gives each track one namespace.
+**D-543 — Benchmark: WildfireSpreadTS (Zenodo 8006177, CC-BY-4.0), no key.** The 48 GB archive is read by HTTP byte range; a hash-ordered subset of fires is used (56 first, then more), 2x2 coarsened to 750 m. Reason: whole-archive download is not possible within disk limits, and the byte-range subset is reproducible from the listing hash in firewitness_raw/INDEX.md.
+**D-544 — Three-state labels from the benchmark's masks.** WildfireSpreadTS has no cloud or validity mask: no detection is NaN. `no_fire` = no detection with all three VIIRS reflectance bands present; otherwise `unknown`; a 750 m cell is `no_fire` only if all four 375 m sub-cells are. This is the weakest link (a missed detection is still counted as no fire) and is stated on the card. Replace with track 50's labels when merged.
+**D-545 — Buffer applied per fire, not per row.** A train or val fire is dropped when a later-fold fire is within `buffer_km` (gap between scene boxes) and `buffer_days` (gap between date ranges). Stricter than the protocol's row wording and simpler to publish; fire is the atom.
+**D-546 — Events are new-front events.** In a one-day-ahead spread benchmark every fire is trivially "detected" by persistence, so an event is a (fire, day) with at least `min_new_cells` newly burning cells farther than `new_radius_cells` from the previous day's fire. Lead time is bounded by horizon plus time tolerance by construction, and the card says so.
+**D-547 — Curated hard-negative catalogue is approximate.** Coordinates in `firewitness/score/data/hard_negatives.csv` are from public site descriptions at stated precision, not from a validated static-source mask. Derived classes (hot bare ground) are computed; agricultural burns and old burn scars cannot be derived from this benchmark's bands and are listed as absent.
+
 ## Track 51 (live)
 
 **D-501 — Raw files are read as windows and not stored.** GOES files are read with HTTP range requests (only the HDF5 chunks covering a 40 × 40 pixel box); the decoded box series are saved as compressed npz under `firewitness_raw/live/series/` and indexed in `firewitness_raw/INDEX.md`. Reason: the brief asks to read only the windows needed and delete raw files once series are extracted; storing whole files would cost ~3.7 GB per fire.
