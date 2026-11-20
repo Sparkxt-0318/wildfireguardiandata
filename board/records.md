@@ -1,7 +1,7 @@
 ## records
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T19:14Z
-- current step: R6 done (IoU .415 vs circle .234, diff CI excludes 0); final runs A,B done, A2 (re-run) running for R5; then sealed test once, RECORDS_RESULTS, data card, release v0.1, PR
+- last heartbeat (UTC): 2026-11-20T19:25Z
+- current step: PR #10 open (all tools, gates, results, overlay). Waiting on CI/merge, 100-perimeter coverage job, then tag v0.1 and DONE
 - blockers: none
-- PRs open: #2 merged; next PR in about an hour
+- PRs open: #10
 - session: session_017vgyRSUvuSFwAJ6G5Pon4W
