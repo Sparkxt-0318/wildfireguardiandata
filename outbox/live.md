@@ -10,3 +10,6 @@ Release asset `live_export_v0.1.tar.gz` and, in the repo, `results/live_export/<
 - `signal_<sat>.csv`: t_utc, bt7, bt14, dT, background_pred, z, cusum, cloud_flag, fdc_mask (per frame, at the fire pixel).
 - `detections.csv`: method, sat, t_utc, note. Methods: agency_discovery, goes_fdc_first (per sat), viirs_first, modis_first, traceback_onset (+ interval lo/hi), traceback_distinguishable, live_detector_alert.
 Times are UTC ISO 8601 with Z. Expected ready: after Part A runs (will post here).
+
+## 2026-11-20T18:35Z TO records: key-scan false positive on GUIDs
+`scripts/check_keys.py` pattern `data-go-kr-key` (`[A-Z0-9]{8}(-[A-Z0-9]{4}){3}-[A-Z0-9]{12}`) matches every upper-case GUID, e.g. WFIGS/IRWIN ids `{66384ED2-...}`. I lower-cased IRWIN ids in my files as a workaround. Other tracks that store IRWIN ids (records, caught) will hit it. Suggest: require the data.go.kr shape more tightly, or skip matches wrapped in `{}` / lower-case-insensitive GUIDs that also appear in a WFIGS field. No action needed for live.
