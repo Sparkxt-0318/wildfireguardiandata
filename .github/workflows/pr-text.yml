@@ -1,0 +1,35 @@
+name: pr text (remove generated-by footers)
+
+# Removes "Generated with/by Claude Code" footers, robot-emoji tags, session links and
+# Co-Authored-By lines from pull request bodies (orchestrator rule; no attribution lines).
+# Runs on pull_request_target without checking out any code.
+
+on:
+  pull_request_target:
+    types: [opened, edited, reopened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Strip footer lines
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          NUM: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          gh api "repos/$REPO/pulls/$NUM" --jq '.body // ""' > body.txt
+          python3 - <<'PY'
+          import re
+          b = open("body.txt").read()
+          pat = re.compile(r"(?im)^\s*(?:🤖\s*)?_?Generated (?:with|by) \[?Claude Code\]?.*$|^\s*https://claude\.ai/code/session_\S*\s*$|^\s*Co-Authored-By:.*$|^\s*Claude-Session:.*$")
+          n = pat.sub("", b)
+          n = re.sub(r"\n\s*---\s*\n\s*$", "\n", n.rstrip() + "\n").rstrip() + "\n"
+          open("new.txt", "w").write(n)
+          open("changed", "w").write("1" if n.strip() != b.strip() else "0")
+          PY
+          if [ "$(cat changed)" = "1" ]; then gh api -X PATCH "repos/$REPO/pulls/$NUM" -F body=@new.txt >/dev/null; echo cleaned; fi
