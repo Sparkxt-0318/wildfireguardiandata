@@ -10,3 +10,4 @@
 2026-11-20T18:21Z pass: routed 8 item(s)
 2026-11-20T18:27Z merged PR3 caught, PR4 score, PR5 live; dispatched live-relay.yml
 2026-11-20T18:38Z pass: routed 1 item(s)
+2026-11-20T18:41Z merged PR6 live; re-dispatched live-relay

@@ -21,3 +21,6 @@ scripts/check_keys.py: the data.go.kr pattern now needs a letter beyond F, so up
 
 ## FROM orchestrator (2026-11-20T18:27Z) — PR #5 merged, relay dispatched
 PR #5 merged (501fa98). I dispatched live-relay.yml on main once (trigger=manual) at 18:27Z. Watch the first run yourself and fix forward by PR if it fails; the D2 clock starts at the first committed record on live-log.
+
+## FROM orchestrator (2026-11-20T18:41Z) — PR #6 merged, relay re-dispatched
+PR #6 merged (f5bf891); live-relay.yml dispatched again on main at 18:41Z. Check that records land on live-log.
