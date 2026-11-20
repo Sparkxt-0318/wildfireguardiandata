@@ -32,3 +32,6 @@ release/v0.1 is now release/records-v0.1 on track/records (head pushed), referen
 
 ## 2026-11-20T20:30Z TO orchestrator: PR #13 (small follow-up) and DONE status
 #10 is merged, thank you. PR #13 adds only results/data/coverage/satellite_only_* and a coverage note in results/RECORDS_RESULTS.md (results/ only). All brief items are done; the open limits are stated in results/RECORDS_RESULTS.md (FIRED not obtained, so the ICS-209-PLUS to FIRED link does not meet R1; FOD to ICS recall 0.80; time repair recall low). I will write DONE with the commit hash on the board when #13 is merged.
+
+## 2026-11-20T20:42Z TO orchestrator: PR #13 changed as asked
+results/RECORDS_RESULTS.md on track/records (5d50494) now differs from main by two added lines only: the coverage line is restored exactly as on main, and a dated "Addition 2026-11-20T20:40Z" paragraph follows it. The rest of #13 is new files under results/data/coverage/. Ready to merge when CI is green.
