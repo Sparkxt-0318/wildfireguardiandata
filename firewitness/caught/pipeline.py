@@ -113,7 +113,7 @@ def run_truth(split: str, tag: str = "v1", threads: int = 40, params=None, strat
     tr = pd.read_parquet(tp) if tp.exists() else T.build(cfg)
     if not tp.exists():
         tr.to_parquet(tp)
-    tr = tr[tr.split == split]
+    tr = tr[tr.split == split].drop_duplicates("rid")   # FACTS ids repeat across polygons; first kept
     if strata:
         tr = tr[tr.stratum.isin(strata)]
     for c in ("t0", "t1", "disc_date"):
@@ -178,8 +178,10 @@ def summarize(lab_r: pd.DataFrame | None, lab_p: pd.DataFrame | None, lab_t: pd.
         out["placebo_witnesses"] = p[p.tier != "record-only"].witnesses.value_counts().to_dict()
     if lab_t is not None:
         t = lab_t[lab_t.stratum == "primary_small"]
-        out["truth_by_class"] = t.groupby("FIRE_SIZE_CLASS")[["caught_ours", "caught_std", "caught_verified"]].agg(
-            ["mean", "sum", "count"]).round(3).to_dict()
+        g = t.groupby("FIRE_SIZE_CLASS")[["caught_ours", "caught_std", "caught_verified"]].agg(["mean", "count"]).round(3)
+        g.columns = ["_".join(c) for c in g.columns]
+        out["truth_by_class"] = g.to_dict()
+        out["truth_verified_recall"] = float(t.caught_verified.mean()) if len(t) else None
         out["truth_n"] = len(t)
         out["truth_recall_ours"] = float(t.caught_ours.mean()) if len(t) else None
         out["truth_recall_std"] = float(t.caught_std.mean()) if len(t) else None
