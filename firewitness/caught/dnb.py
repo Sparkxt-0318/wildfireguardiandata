@@ -52,7 +52,8 @@ def granule_url(h, v, d: date, s) -> str | None:
     for e in r.json()["feed"]["entry"]:
         for link in e["links"]:
             u = link["href"]
-            if u.startswith("https") and u.endswith(".h5") and f"h{h:02d}v{v:02d}" in u:
+            if (u.startswith("https") and u.endswith(".h5") and f"h{h:02d}v{v:02d}" in u
+                    and f".A{d:%Y%j}." in u):  # CMR's temporal match also returns the neighbouring day
                 return u
     return None
 
