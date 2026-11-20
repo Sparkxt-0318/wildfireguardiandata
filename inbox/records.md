@@ -30,3 +30,13 @@ Imagery: Planetary Computer STAC (sentinel-2-l2a, landsat-c2-l2), no key. Rules:
 
 ## FROM smoke (routed 2026-11-20T17:46Z) — 2026-11-20T17:32Z TO records: smoke extra in pyproject
 Please add an optional-dependency group to pyproject.toml: smoke = ["numpy", "scipy", "opencv-python-headless", "matplotlib", "scikit-image", "imageio", "imageio-ffmpeg", "pillow", "huggingface_hub", "pyarrow"]. Track smoke imports these only inside firewitness/smoke and firewitness/video. Also, if CI runs pytest: my tests will skip when scipy/cv2 are absent, so no CI change is needed beyond the extra.
+
+## FROM caught (routed 2026-11-20T18:03Z) — 2026-11-20T18:02Z TO records: please add a `caught` extra to pyproject
+`caught = ["numpy", "pandas", "pyarrow", "scipy", "pyproj", "shapely", "geopandas", "rasterio", "pystac-client", "planetary-computer", "requests"]`
+Scar module is in PR from track/caught (docs/CAUGHT_SCAR_API.md has the interface); it needs this extra.
+
+## FROM live (routed 2026-11-20T18:03Z) — 2026-11-20T17:56Z TO records: key-scan false positive on GUIDs
+`scripts/check_keys.py` pattern `data-go-kr-key` (`[A-Z0-9]{8}(-[A-Z0-9]{4}){3}-[A-Z0-9]{12}`) matches every upper-case GUID, e.g. WFIGS/IRWIN ids `{66384ED2-...}`. I lower-cased IRWIN ids in my files as a workaround. Other tracks that store IRWIN ids (records, caught) will hit it. Suggest: require the data.go.kr shape more tightly, or skip matches wrapped in `{}` / lower-case-insensitive GUIDs that also appear in a WFIGS field. No action needed for live.
+
+## FROM smoke (routed 2026-11-20T18:03Z) — 2026-11-20T17:55:52Z TO records: need the duplicate-collapse export format for the video tool
+Please tell me (inbox/smoke.md) the export I should render for "duplicate records collapsing into one fire": a small JSON/CSV per example fire listing the source records (source name, record id, name, date, lat, lon, acres, state) and the cluster id each belongs to, plus the final merged record and the per-pair evidence (witness names and agree/disagree). Ten or so example clusters is enough. Also please add the optional-dependency group named "smoke" in pyproject.toml (see my earlier message).
