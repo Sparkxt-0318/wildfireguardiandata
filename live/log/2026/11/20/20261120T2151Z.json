@@ -1,0 +1,174 @@
+{
+ "schema": "firewitness.live.record/1",
+ "cycle_scan_start": "2026-11-20T21:51:18Z",
+ "processed_at": "2026-11-20T21:55:03Z",
+ "region": "us",
+ "detector": {
+  "config": {
+   "ukey": "dT_c4",
+   "cap": 8.0,
+   "k": 0.5,
+   "rho": 1.5,
+   "m": 1.0,
+   "vis_weight": 0.0,
+   "decay": 1.0
+  },
+  "h": 160.0,
+  "sha256": "7129781b35163eae6d751315cf4920ba153eb35df5c0f9facafb90ef4b3fab72",
+  "frozen": false,
+  "note": "PROVISIONAL settings used to start the live service while Part B is fitted on dev fires. Replaced by the frozen Part B settings when fitted; every record carries the SHA-256 of this file's content."
+ },
+ "code_commit": "f5bf891888939e5bcaec1e69d506ca3ba97141d7",
+ "inputs": [
+  {
+   "sat": "G19",
+   "product": "C07",
+   "key": "ABI-L1b-RadC/2026/324/21/OR_ABI-L1b-RadC-M6C07_G19_s20263242151182_e20263242153567_c20263242154017.nc",
+   "scan_start": "2026-11-20T21:51:18Z",
+   "s3_last_modified": "2026-11-20T21:54:13Z",
+   "sha256": "237072dc1460b1263a042b917563023d7c76b9b6afb0c93a0d5faa321196a64e"
+  },
+  {
+   "sat": "G19",
+   "product": "C14",
+   "key": "ABI-L1b-RadC/2026/324/21/OR_ABI-L1b-RadC-M6C14_G19_s20263242151182_e20263242153555_c20263242154030.nc",
+   "scan_start": "2026-11-20T21:51:18Z",
+   "s3_last_modified": "2026-11-20T21:54:15Z",
+   "sha256": "b1a791e099c21fbf3f4ffe62734fc48a362f9d77af20eaa5408fcdefa07a500d"
+  },
+  {
+   "sat": "G19",
+   "product": "ACM",
+   "key": "ABI-L2-ACMC/2026/324/21/OR_ABI-L2-ACMC-M6_G19_s20263242151182_e20263242153555_c20263242154313.nc",
+   "scan_start": "2026-11-20T21:51:18Z",
+   "s3_last_modified": "2026-11-20T21:54:40Z",
+   "sha256": "33579755ad6e73f6c80dba818c108ef72eeb973cd0a2c6c930e912f28119d7f1"
+  },
+  {
+   "sat": "G18",
+   "product": "C07",
+   "key": "ABI-L1b-RadC/2026/324/21/OR_ABI-L1b-RadC-M6C07_G18_s20263242151189_e20263242153573_c20263242154024.nc",
+   "scan_start": "2026-11-20T21:51:18Z",
+   "s3_last_modified": "2026-11-20T21:54:19Z",
+   "sha256": "be97076723509a03767362acd0084a8c3114724157447f20edd1d0cdd2ae5929"
+  },
+  {
+   "sat": "G18",
+   "product": "C14",
+   "key": "ABI-L1b-RadC/2026/324/21/OR_ABI-L1b-RadC-M6C14_G18_s20263242151189_e20263242153562_c20263242154006.nc",
+   "scan_start": "2026-11-20T21:51:18Z",
+   "s3_last_modified": "2026-11-20T21:54:13Z",
+   "sha256": "af4553b9311e25c07616e68e11bbf809be08873dd7ddd88eca69482e806338c4"
+  },
+  {
+   "sat": "G18",
+   "product": "ACM",
+   "key": "ABI-L2-ACMC/2026/324/21/OR_ABI-L2-ACMC-M6_G18_s20263242151189_e20263242153562_c20263242154322.nc",
+   "scan_start": "2026-11-20T21:51:18Z",
+   "s3_last_modified": "2026-11-20T21:54:44Z",
+   "sha256": "f8ef268e25334d394c0d79ee1e48f5ae9d79eff714e56c20e74b4e1b40499116"
+  }
+ ],
+ "satellites": {
+  "G19": {
+   "status": "ok",
+   "history_frames": 21,
+   "clear_fraction": 0.3252229013764576,
+   "avail_latest": 1795211680.0
+  },
+  "G18": {
+   "status": "ok",
+   "history_frames": 21,
+   "clear_fraction": 0.28391812824676005,
+   "avail_latest": 1795211684.0
+  }
+ },
+ "candidates": [
+  {
+   "lat": 34.8683,
+   "lon": -91.7392,
+   "n_pixels": 1,
+   "G": 160.55,
+   "S_east": 160.55,
+   "S_west": 0.0,
+   "witnesses": [
+    "G19"
+   ],
+   "pixel_rc_east": [
+    552,
+    1088
+   ],
+   "kind": "new",
+   "id": "L20261120T2151Z-001",
+   "first_alert_scan": "2026-11-20T21:51:18Z"
+  },
+  {
+   "lat": 30.9697,
+   "lon": -115.114,
+   "n_pixels": 3,
+   "G": 166.43,
+   "S_east": 166.43,
+   "S_west": 72.31,
+   "witnesses": [
+    "G19",
+    "G18"
+   ],
+   "pixel_rc_east": [
+    759,
+    162
+   ],
+   "kind": "grows",
+   "id": "L20261120T2131Z-002",
+   "first_alert_scan": "2026-11-20T21:31:18Z"
+  },
+  {
+   "lat": 30.9249,
+   "lon": -115.1503,
+   "n_pixels": 1,
+   "G": 167.45,
+   "S_east": 167.45,
+   "S_west": 0.0,
+   "witnesses": [
+    "G19"
+   ],
+   "pixel_rc_east": [
+    761,
+    160
+   ],
+   "kind": "grows",
+   "id": "L20261120T2131Z-002",
+   "first_alert_scan": "2026-11-20T21:31:18Z"
+  }
+ ],
+ "notes": [],
+ "firms_nrt": {
+  "VIIRS_NOAA20": {
+   "ok": true,
+   "n": 11559,
+   "sha256": "19e0921db8aaf798d40fbf53a7245d2812bc0f9a101fa40c63d1976d48807a24"
+  },
+  "VIIRS_NOAA21": {
+   "ok": true,
+   "n": 11575,
+   "sha256": "be81d9133b6356896c0b8451b5a55014ae821e7019fa4233f62981f14e2595c7"
+  },
+  "VIIRS_SNPP": {
+   "ok": true,
+   "n": 0,
+   "sha256": "fe0401e40606fd90dd4cf24dff508a93539089a4aecf701e2a3c85851fe9bf40"
+  },
+  "MODIS": {
+   "ok": true,
+   "n": 1623,
+   "sha256": "af2f8f1981b3c8cd64e2fb5a8681091bad97c890c6d5c9e8593fd923627072c2"
+  }
+ },
+ "masked_recent_fire_pixels": 104614,
+ "evaluated_pixels": 2029485,
+ "processing_s": 25.0,
+ "published_at": "2026-11-20T21:55:03Z",
+ "run": {
+  "trigger": "manual",
+  "run_id": "44794730046"
+ }
+}
