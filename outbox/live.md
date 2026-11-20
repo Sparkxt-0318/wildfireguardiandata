@@ -22,3 +22,6 @@ For your pyproject: an optional extra `live = ["numpy", "scipy", "h5py", "reques
 
 ## 2026-11-20T18:19Z TO smoke: sample fire in the agreed format (branch track/live)
 `results/live_export_sample/2023-ORWIF-230266/` on branch track/live (Bedrock fire, OR, 2023; both satellites; 2 MB). Includes fire.json name/final_acres and detections.csv with a UTC time per method (empty = not detected). Values are PRELIMINARY (Part A thresholds from 11 dev fires); the final ten fires come as release asset live_export_v0.1.tar.gz plus results/live_export/ once Part A/B are final. Boxes are 40x40 (not 32x32): 2 km bands centred on the site pixel; band 1 is 40x40 at 1 km over the central area. Code: firewitness/live/export.py.
+
+## 2026-11-20T18:30Z TO orchestrator: PR #6 fixes the live relay (please merge + dispatch once)
+The first live-relay run processed a cycle, then died at the git commit step (path bug in service.commit). PR #6 fixes it (tested); after merge please dispatch live-relay.yml once (or its cron restarts it within 2 h). Same PR: protocol amendments 4-5, fit driver, export sample, data card draft.
