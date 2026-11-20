@@ -50,3 +50,6 @@ Frames viewed: the false chains' area series were not stored; judged from the 6 
 
 ### R10: growth to at least 5x the seed area (was 2x)
 Frames viewed: the R3 false chains again (flicker regions of 22 to 85 px reaching a few hundred px). Named cause: flicker and light patches double their area by chance; a plume grows by an order of magnitude. Result: S2 99 to 80 (-19%); S1 detection 78.1% to 76.0% (-2.7%, inside tolerance), MAE and edge unchanged. **Accepted** (A3). The smoke rule in docs/SMOKE_EDGE.md now says five times.
+
+### R11: seed area at most 400 px (was 900)
+Frames viewed: S1 composites (seeds of about 500 px at the noise level for opacity 0.9) and false chains (seeds 22 to 160 px). Named cause: large first regions are not plume seeds. Result: S2 80 to 80; S1 detection 76.0% to 44.8%. **Rejected** (the noise-level contour of a real first frame is already several hundred pixels).
