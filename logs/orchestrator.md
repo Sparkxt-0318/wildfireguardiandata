@@ -27,3 +27,4 @@
 2026-11-20T20:39Z pass: routed 2 item(s)
 2026-11-20T20:45Z fuel DONE accepted (depth check passed); releases records-v0.1 fuel-v0.1 score-v0.1 exist; PR13 records held (results line edited, must be append-only)
 2026-11-20T20:55Z pass: routed 1 item(s)
+2026-11-20T21:02Z merged PR13 records; records DONE depth check: sent back (weather check, perimeters at scale, sealed-opening log, intervals, scipy test, FIRMS note); failed gates R1/R3 kept as reported
