@@ -12,7 +12,7 @@ Every number below has its n, a 95 % interval (Clopper-Pearson for shares; paire
 
 (filled per slice as each slice completes)
 
-## C2: recall on the sealed small fires (opened once, 2026-11-20 22:57Z, rules frozen at 530a3d5)
+## C2: recall on the sealed small fires (opened once: run 21:48-22:53Z on 2026-11-20, rules frozen at 530a3d5)
 
 Truth: mapped fires and prescribed burns 2018-2020 below 300 acres (CAL FIRE FRAP wildfire and Rx perimeters, NIFC
 perimeter history), sealed split (sha256 of source id mod 10 in 3-9). The pipeline saw a record-like input only
