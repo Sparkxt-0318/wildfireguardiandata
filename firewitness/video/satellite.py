@@ -11,8 +11,8 @@ from . import draw
 from .draw import W, H, OI, FG, MUTED
 
 METHOD_LABEL = {"agency_discovery": "agency discovery", "goes_fdc_first": "GOES fire product", "viirs_first": "VIIRS",
-                "modis_first": "MODIS", "traceback_onset": "trace-back onset", "traceback_distinguishable": "trace-back distinguishable",
-                "live_detector_alert": "live detector"}
+                "modis_first": "MODIS", "polar_first": "polar orbiter", "traceback_onset": "trace-back onset",
+                "traceback_distinguishable": "trace-back distinguishable", "live_detector_alert": "live detector"}
 PALETTE = [OI["vermillion"], OI["sky"], OI["orange"], OI["green"], OI["purple"], OI["yellow"], OI["blue"], OI["grey"]]
 
 
@@ -32,7 +32,7 @@ class SatClip:
     def __init__(self, d, sat=None, band="7"):
         self.d = d
         self.fire = json.load(open(os.path.join(d, "fire.json")))
-        cands = sorted(glob.glob(os.path.join(d, f"frames_*_{band}.npz")))
+        cands = sorted(glob.glob(os.path.join(d, f"frames_*_{band}.npz")) + glob.glob(os.path.join(d, f"frames_*_C{int(band):02d}.npz")))
         if not cands:
             cands = sorted(glob.glob(os.path.join(d, "frames_*.npz")))
         if not cands:
@@ -43,6 +43,9 @@ class SatClip:
         self.t = z["t"].astype(float); self.bt = z["bt"].astype(np.float32)
         self.cloud = z["cloud"] if "cloud" in z else np.zeros(self.bt.shape, np.uint8)
         sp = os.path.join(d, f"signal_{self.sat}.csv")
+        if not os.path.exists(sp):
+            alt = glob.glob(os.path.join(d, "signal_*.csv"))
+            sp = alt[0] if alt else sp
         self.sig = _read_csv(sp) if os.path.exists(sp) else []
         self.sig_t = np.array([_t(r["t_utc"]) for r in self.sig], float) if self.sig else self.t
         def col(k): return np.array([float(r[k]) if r.get(k, "") not in ("", None) else np.nan for r in self.sig], float) if self.sig else np.full(len(self.t), np.nan)
@@ -52,10 +55,13 @@ class SatClip:
         if os.path.exists(dp):
             for r in _read_csv(dp):
                 t = _t(r.get("t_utc", ""))
-                if r.get("sat") in ("", None, self.sat, "all") or True:
+                sv = (r.get("sat") or "").upper()
+                if sv in ("", self.sat.upper()) or self.sat.upper() in sv.split("+") or sv in ("MODIS", "VIIRS", "ALL"):
                     self.det.append((r["method"], r.get("sat", ""), t, r.get("note", "")))
         self.n = len(self.t)
         ref = [t for m, s, t, n in self.det if m == "agency_discovery" and t]
+        if not ref and self.fire.get("discovery_utc"):
+            ref = [_t(self.fire["discovery_utc"])]
         self.t0 = ref[0] if ref else self.t[0]
         self.name = self.fire.get("name", self.fire.get("fire_id", "fire"))
 
@@ -84,7 +90,7 @@ class SatClip:
         cv2.rectangle(img, (int(cx * s), int(cy * s)), (int((cx + 1) * s), int((cy + 1) * s)), (0, 0, 0), 6)
         cv2.rectangle(img, (int(cx * s), int(cy * s)), (int((cx + 1) * s), int((cy + 1) * s)), OI["yellow"], 3)
         draw.put(cv, img, 40, 120)
-        draw.text(cv, (48, 126), "brightness temperature, 2 km box", 30, FG, True, stroke=3)
+        draw.text(cv, (48, 126), f"brightness temperature, {self.bt.shape[2]} x {self.bt.shape[1]} pixels", 30, FG, True, stroke=3)
         draw.caption(cv, draw.wrap("Yellow box: the fire pixel. Blue wash: cloud in the satellite cloud mask.", 28, 640), 40, 775, 28, MUTED)
         # signal chart
         x0, x1, y0, y1 = 780, 1860, 150, 560
@@ -121,7 +127,7 @@ class SatClip:
             reached = t <= self.t[k]
             draw.text(cv, (836, y), lab, 32, FG if reached else MUTED, reached)
             draw.text(cv, (1860, y), f"{self.rel_min(t):+.0f} min", 32, FG if reached else MUTED, reached, anchor="ra")
-        sub = f"Final size {self.fire['final_acres']:,.0f} acres. " if self.fire.get("final_acres") else ""
+        sub = f"Final size {self.fire['final_acres']:,.0f} acres" + (f", {self.fire['state']}" if self.fire.get("state") else "") + ". " if self.fire.get("final_acres") else ""
         draw.caption(cv, draw.wrap(sub + "Each coloured line is the time a method first flags this fire; the white cursor is the frame shown.", 32, W - 80), 30, 940, 32)
         draw.footer(cv, credit="Satellite data: NOAA GOES-R ABI (public domain); detection times from the live track")
         cv[H - 8:H, :] = (40, 44, 54); cv[H - 8:H, :int(W * f / max(nf - 1, 1))] = OI["sky"]
