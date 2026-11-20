@@ -1,22 +1,22 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-20T21:13Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-20T21:30Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 12 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 8 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 9 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 15 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 51 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 86 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 3 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 24 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 25 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 5 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 67 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 102 min |
 
 ## records
-- state: WORKING (orchestrator depth-check items: weather vs gridMET in progress, 200-fire pre-registered perimeter sample running, intervals/rounds/tests/DECISIONS additions done)
-- last heartbeat (UTC): 2026-11-20T21:02Z
-- current step: gridMET download + weather run; perimeter shards
+- state: WORKING (PR #14 merged; only depth-check item 2 left: 200-fire pre-registered perimeter sample, about 75 of 200 done, shards resumable)
+- last heartbeat (UTC): 2026-11-20T21:27Z
+- current step: perimeter sample; then dated addition and PR
 - blockers: none
-- PRs open: none open (next PR after items complete)
+- PRs open: none open
 - session: session_017vgyRSUvuSFwAJ6G5Pon4W
 
 ## caught
@@ -38,11 +38,11 @@ Assembled by the orchestrator at 2026-11-20T21:13Z from board/*.md. Builders are
 
 ## smoke
 - state: RUNNING (Sonnet, high effort)
-- last heartbeat (UTC): 2026-11-20T20:58:48Z
-- current step: loop finished (12 rounds), config v1 frozen. Final runs in progress: dev full S1/S2/S3/S5, then sealed (once), then S4 (HPWREN + Pyro). Then clips (>=6), results doc, release/smoke-v0.1, PR.
+- last heartbeat (UTC): 2026-11-20T21:25:02Z
+- current step: config v1 frozen; final dev run (S2/S3, full S1, S5) in progress, then sealed once, then S4. Then clips (>=6), results doc, release/smoke-v0.1, PR.
 - blockers: none
 - PRs open: none
-- branch: track/smoke (e1bcf8d)
+- branch: track/smoke (ba012df)
 
 ## fuel
 - state: DONE 8dcb76d (accepted by orchestrator 20:45Z)
