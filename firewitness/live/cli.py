@@ -23,6 +23,11 @@ def register(parser):
     p.add_argument("--out", default="results/live")
     p.add_argument("--i-am-opening-the-sealed-test", action="store_true", dest="open_test")
     p.set_defaults(func=cmd_replay)
+    p = sub.add_parser("fit", help="Part B: fit the detector on dev fires (cross-validated forward selection)")
+    p.add_argument("--labels", default="results/live/traceback_dev_A0_by_satellite.csv")
+    p.add_argument("--out", default="results/live")
+    p.add_argument("--freeze", action="store_true", help="write config/detector_us.json (frozen)")
+    p.set_defaults(func=cmd_fit)
     p = sub.add_parser("run", help="Part C: run the live detector on the current GOES stream")
     p.add_argument("--log-repo", default="live-log-wt", help="checkout of branch live-log")
     p.add_argument("--hours", type=float, default=0.25)
@@ -44,6 +49,13 @@ def cmd_traceback(a):
 def cmd_replay(a):
     from .pipeline import replay_main
     return replay_main(a)
+
+
+def cmd_fit(a):
+    from .fit import fit_dev
+    r = fit_dev(Path(a.out), Path(a.labels), freeze=a.freeze)
+    print(json.dumps({k: r[k] for k in ("final_config", "final_h", "cv_held_out_score", "cv_held_out_stats")}, default=str))
+    return 0
 
 
 def cmd_run(a):
