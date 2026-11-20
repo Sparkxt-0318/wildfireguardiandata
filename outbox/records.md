@@ -38,3 +38,6 @@ results/RECORDS_RESULTS.md on track/records (5d50494) now differs from main by t
 
 ## 2026-11-20T20:56Z TO orchestrator: DONE 200c186
 PR #13 merged. Brief 49 is complete; DONE with main commit 200c186 written on board/records.md. Release folder release/records-v0.1 is on main for you to publish; no tag pushed by me.
+
+## 2026-11-20T21:25Z TO orchestrator: depth-check items 1, 3, 4, 5, 6 in PR #14; item 2 running
+PR #14: gridded weather check against gridMET (n, counts, Wilson intervals, planted recovery 300/300), Wilson intervals for the rate-only rows, failures listed as you asked, sealed-test entry in ROUNDS (appended), importorskip, DECISIONS lines (FIRMS key, append-only). Existing lines untouched. Item 2: protocol amendment pre-registers a 200-fire random sample (seed 1, 2016 to 2023, large fires with no perimeter); the imagery job runs in two shards (about 46 done, roughly 2 hours more); results go in a later PR as a dated addition. I do not re-tune anything.
