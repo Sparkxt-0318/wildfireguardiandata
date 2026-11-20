@@ -55,3 +55,28 @@ sr-1), the brightness of open flame filling part of a pixel. Threshold scan on S
 | placebo probable | 18.8 % | 11.0 % |
 | dev truth labelled / verified catches | 1,032 / 476 | 1,030 / 468 |
 | dev headline | 54 | 34 |
+
+**D2 — Sentinel-2 scar false positives (probable placebo 11.0 % after D1).** Cause (from the chips and the component
+numbers): small groups of 4-7 pixels at urban edges, in shrub and forest texture, and field-edge changes, plus
+changes where SWIR1 rises (bare soil after harvest, haze), which a burn does not do. Eight variants measured on the
+same cached windows (DNB at D1 in all):
+
+| variant | placebo verified | placebo probable | dev truth labelled | verified | B recall | C recall |
+|---|---|---|---|---|---|---|
+| D1 (N_min 4, T 0.10, 3 sd) | 0.25 % | 10.97 % | 1,030 | 468 | 0.528 | 0.767 |
+| A: component median dNBR >= 0.20 | 0.08 % | 5.19 % | 883 | 390 | 0.383 | 0.673 |
+| B: N_min 8 | 0.17 % | 6.62 % | 998 | 452 | 0.472 | 0.759 |
+| C: T >= 0.15 | 0.17 % | 7.37 % | 1,002 | 461 | 0.490 | 0.753 |
+| D: 4 sd | 0.17 % | 7.54 % | 1,004 | 454 | 0.485 | 0.759 |
+| E: N_min 12 | 0.17 % | 5.28 % | 971 | 448 | 0.440 | 0.744 |
+| **F: N_min 8 and SWIR1 rise < 0.02** | **0.17 %** | **4.44 %** | **985** | **448** | **0.460** | **0.749** |
+| G: N_min 8 and component dNBR >= 0.15 | 0.17 % | 5.61 % | 964 | 441 | 0.446 | 0.731 |
+| H: N_min 8 and T >= 0.15 | 0.17 % | 4.86 % | 964 | 448 | 0.433 | 0.740 |
+
+Chosen: F, the only variant under the 5 % guard that keeps the most catches. With N_min 8 the best scar floor rises
+from 1,440 m2 to 2,345 m2 (0.58 acre); records below it are `below_floor`.
+
+**Version 2 = v1 + D1 + D2 passes on dev**: placebo verified 2 / 1,194 = 0.17 %, probable 53 / 1,194 = 4.44 %, dev
+truth labelled recall 985 / 1,540 = 0.640 against the standard label's 489 / 1,540 = 0.318. The loop starts from v2.
+
+## Loop rounds

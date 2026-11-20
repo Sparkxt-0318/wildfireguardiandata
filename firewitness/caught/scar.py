@@ -42,12 +42,12 @@ if os.path.exists("/root/.ccr/ca-bundle.crt"):
 
 PARAMS = {
     "pre_days": 60, "post_days": 45, "min_clear": 0.8, "max_scene_cloud": 90.0, "max_tries": 4,
-    "t_abs": 0.10, "k_sigma": 3.0, "dnir": -0.01, "dvis": 0.02, "n_min": 4,
+    "t_abs": 0.10, "k_sigma": 3.0, "dnir": -0.01, "dvis": 0.02, "n_min": 8,
     "regional_frac": 0.25, "attr_factor": 20.0, "attr_add_m2": 100_000.0,
     "ref_ratio": 0.5, "ref_slack_days": 16, "window_min_m": 1000.0, "max_window_px": 1000,
     "dnbr_ref": 0.25,
     "comp_min_dnbr": 0.0,      # minimum median dNBR of a component (0 = off)
-    "dswir1_max": None,        # a candidate pixel's SWIR1 change must be below this (None = off)
+    "dswir1_max": 0.02,        # a candidate pixel's SWIR1 change must be below this (D2; None = off)
     "min_nir_pre": None,       # unused unless set
 }
 

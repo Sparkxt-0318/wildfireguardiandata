@@ -24,7 +24,7 @@ from .fetch import RAW_ROOT, fetch, index_note
 CMR = "https://cmr.earthdata.nasa.gov/search/granules.json"
 NPIX = 2400
 STEP = 10.0 / NPIX
-K_SIGMA, MIN_EXCESS = 5.0, 3.0
+K_SIGMA, MIN_EXCESS = 15.0, 100.0   # D1 (v1 was 5.0, 3.0)
 
 
 def tile_of(lat, lon):
