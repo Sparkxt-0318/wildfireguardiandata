@@ -1,0 +1,23 @@
+name: ci
+on:
+  push:
+    branches: [main, "track/**"]
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install -e ".[dev]"
+      - name: key scan (fails if any token appears in the repo)
+        run: python scripts/check_keys.py
+      - name: tests
+        run: python -m pytest -q
+      - name: command line discovery
+        run: firewitness --version && firewitness records --help

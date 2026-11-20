@@ -17,3 +17,13 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 **D-006 — Keys travel only inside each builder's own first message.** Each builder writes its own `keys.env` from its brief. FIRMS_MAP_KEY: track 49 retrieves it as its brief says; tracks that also need it (50, 51) may retrieve it the same way from the git history of Sparkxt-0318/wildfireguardian. Keys are never routed through the coord branch.
 
 **D-007 — Models.** Tracks 49–53 and the audit run on Opus at high effort, track 54 on Sonnet at high effort, as the briefs say.
+
+## Track 49 (records)
+
+**D-101 — core/ is standard-library only.** Other tracks import it without installing numpy or pandas; heavy dependencies sit in the `records` extra. Reason: five builders depend on core and an import failure there blocks all of them.
+
+**D-102 — Command discovery by convention.** `firewitness/<track>/cli.py` with `register(parser)`; a broken track cli is reported and skipped. Reason: the brief forbids editing a shared file to add a command.
+
+**D-103 — Key scan has two layers.** CI has no keys.env, so besides comparing every keys.env value it matches token shapes (Hugging Face, JWT, data.go.kr, FIRMS assignments, GitHub tokens). Reason: a value-only check passes silently in CI.
+
+**D-104 — Part A pushed straight to main.** The brief and orchestrator allow it because the other five tracks wait for core/.
