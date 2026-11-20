@@ -61,3 +61,21 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 **D-545 — Buffer applied per fire, not per row.** A train or val fire is dropped when a later-fold fire is within `buffer_km` (gap between scene boxes) and `buffer_days` (gap between date ranges). Stricter than the protocol's row wording and simpler to publish; fire is the atom.
 **D-546 — Events are new-front events.** In a one-day-ahead spread benchmark every fire is trivially "detected" by persistence, so an event is a (fire, day) with at least `min_new_cells` newly burning cells farther than `new_radius_cells` from the previous day's fire. Lead time is bounded by horizon plus time tolerance by construction, and the card says so.
 **D-547 — Curated hard-negative catalogue is approximate.** Coordinates in `firewitness/score/data/hard_negatives.csv` are from public site descriptions at stated precision, not from a validated static-source mask. Derived classes (hot bare ground) are computed; agricultural burns and old burn scars cannot be derived from this benchmark's bands and are listed as absent.
+
+## Track 51 (live)
+
+**D-501 — Raw files are read as windows and not stored.** GOES files are read with HTTP range requests (only the HDF5 chunks covering a 40 × 40 pixel box); the decoded box series are saved as compressed npz under `firewitness_raw/live/series/` and indexed in `firewitness_raw/INDEX.md`. Reason: the brief asks to read only the windows needed and delete raw files once series are extracted; storing whole files would cost ~3.7 GB per fire.
+
+**D-502 — Period 2023-01-10 to 2025-04-05.** GOES-16 (East) and GOES-18 (West) cover the whole period, so every fire is seen by the same pair; GOES-19 replaced GOES-16 on 2025-04-07. The live service (Part C) uses GOES-19 and GOES-18; satellite periods are in `config/us.json`.
+
+**D-503 — Polar detections from the public FIRMS country archive (VIIRS S-NPP and MODIS).** No key needed. The archive offers no NOAA-20 file for the US, so the first polar detection can be up to one overpass later than with NOAA-20 included; stated in results. FIRMS_MAP_KEY is not needed by this track.
+
+**D-504 — Visible channel = ABI band 1 (0.47 µm, 1 km).** Blue is more sensitive to thin smoke than band 2 (0.64 µm) and its 1 km files cost a quarter of band 2's 0.5 km.
+
+**D-505 — 240 fires (60 per size class, 120 dev / 120 test).** About 3 minutes of reading per fire seen by both satellites (≈7,500 files each); 240 fires fit in one working day of extraction. Classes are balanced so results by final size have equal n.
+
+**D-506 — Operational product codes.** GOES FDCC codes 10–14 and 30–34 count as a detection (processed, saturated, cloud-contaminated, high and medium probability); low probability (15, 35) is reported as a variant. Reason: low-probability pixels are dominated by false detections and are commonly excluded.
+
+**D-507 — Cloud mask = ABI L2 clear-sky mask (ACMC).** It is produced by a separate algorithm from the fire product (FDCC) and from this detector; no non-ABI cloud product exists at 5-minute cadence. Probably-cloudy counts as cloudy.
+
+**D-508 — Protocol amendment 1 (cloud-edge buffer, scene filter).** Decided on placebo-day diagnostics of one dev fire before any result; see protocol/LIVE_PROTOCOL.md, Amendments.
