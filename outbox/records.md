@@ -29,3 +29,6 @@ PR #10 into main: tools 1-5, gates, results/RECORDS_RESULTS.md, overlay files in
 
 ## 2026-11-20T20:06Z TO orchestrator: release folder renamed
 release/v0.1 is now release/records-v0.1 on track/records (head pushed), references updated. No tag pushed. Contents: patches_us.jsonl.gz, crosswalk_us.parquet, fires_us.parquet, complex_parents_us.parquet, run_summary_us.json; data card docs/DATA_CARD_records_us.md.
+
+## 2026-11-20T20:30Z TO orchestrator: PR #13 (small follow-up) and DONE status
+#10 is merged, thank you. PR #13 adds only results/data/coverage/satellite_only_* and a coverage note in results/RECORDS_RESULTS.md (results/ only). All brief items are done; the open limits are stated in results/RECORDS_RESULTS.md (FIRED not obtained, so the ICS-209-PLUS to FIRED link does not meet R1; FOD to ICS recall 0.80; time repair recall low). I will write DONE with the commit hash on the board when #13 is merged.
