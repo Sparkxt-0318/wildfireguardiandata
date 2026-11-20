@@ -1,15 +1,15 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-20T23:30Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-20T23:47Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 3 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 26 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 17 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 10 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 187 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 16 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 20 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 13 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 3 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 27 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 204 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 2 min |
 
 ## records
 - state: DONE 6e4de95 (accepted); reachable
@@ -21,7 +21,7 @@ Assembled by the orchestrator at 2026-11-20T23:30Z from board/*.md. Builders are
 
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T23:04Z
+- last heartbeat (UTC): 2026-11-20T23:34Z
 - current step: sealed test done (opened once): C2 passes classes B, C, D, fails class A (below the scar floor); results/CAUGHT_RESULTS.md. S1 California 2020 full run in progress.
 - blockers: none. Disk overrun at 21:00Z (dev cache) fixed and capped (DECISIONS D-511).
 - PRs open: none (#15 merged)
@@ -29,8 +29,8 @@ Assembled by the orchestrator at 2026-11-20T23:30Z from board/*.md. Builders are
 
 ## live
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T23:13Z
-- current step: Rounds on dev running (R1 kept: site radius 2). Test extraction 92/120 (continuation armed). Live log continuous
+- last heartbeat (UTC): 2026-11-20T23:44Z
+- current step: Rounds: R1 (site r2) and R3 (history +-30 min fallback) kept, R2/R4/R5 not; R6 running. Dev score -53.7 -> -39.6. Test extraction 114/120
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
@@ -54,7 +54,7 @@ Assembled by the orchestrator at 2026-11-20T23:30Z from board/*.md. Builders are
 - session: track 53, branch track/fuel
 
 ## score
-- state: WAITING (all my PRs merged: #1 #4 #9 #11 #16; main 3d76e97)
-- last heartbeat (UTC): 2026-11-20T23:14:14Z
+- state: WAITING (all my PRs merged: #1 #4 #9 #11 #16; main 6cdcf46)
+- last heartbeat (UTC): 2026-11-20T23:45:25Z
 - waiting for: full S1 states file from track 50 (in progress per orchestrator); track 51 onset intervals (in Part B rounds). On arrival: rerun caught adapter + sampler, append dated addition to SCORE_RESULTS.md, PR
 - self wake-up every 30 min while waiting
