@@ -127,3 +127,58 @@ def fit_witnesses(patterns: Sequence[Sequence[bool | None]], names: Sequence[str
         if delta < tol:
             break
     return [Witness(nm_, m[j], u[j]) for j, nm_ in enumerate(names)], pi
+
+
+def fit_witnesses_grouped(patterns: Sequence[Sequence[bool | None]], groups: Sequence[str], names: Sequence[str],
+                          init_priors: Mapping[str, float] | None = None, iters: int = 200, tol: float = 1e-8,
+                          m0: float = 0.9, u0: float = 0.1) -> tuple[list[Witness], dict]:
+    """Like fit_witnesses, but each comparison belongs to a group with its own prior.
+
+    Example: the "as reported" location candidate (usually right) and the repair candidates (usually wrong)
+    share witness reliabilities m, u but not prior. Fitted without labels.
+    """
+    glist = sorted(set(groups))
+    pri = {g: (init_priors or {}).get(g, 0.5) for g in glist}
+    k = len(names)
+    m, u = [m0] * k, [u0] * k
+    n = len(patterns)
+    if n == 0:
+        return [Witness(nm, m0, u0) for nm in names], pri
+    for _ in range(iters):
+        gam = []
+        for row, g in zip(patterns, groups):
+            lt, lf = math.log(min(max(pri[g], EPS), 1 - EPS)), math.log(1 - min(max(pri[g], EPS), 1 - EPS))
+            for j, o in enumerate(row):
+                if o is None:
+                    continue
+                mj, uj = min(max(m[j], EPS), 1 - EPS), min(max(u[j], EPS), 1 - EPS)
+                lt += math.log(mj if o else 1 - mj)
+                lf += math.log(uj if o else 1 - uj)
+            mx = max(lt, lf)
+            gam.append(math.exp(lt - mx) / (math.exp(lt - mx) + math.exp(lf - mx)))
+        new_pri = {}
+        for g in glist:
+            sel = [x for x, gg in zip(gam, groups) if gg == g]
+            new_pri[g] = min(max(sum(sel) / max(len(sel), 1), 1e-6), 1 - 1e-6)
+        nm, nu = [], []
+        for j in range(k):
+            a = b = c = d = 0.0
+            for gm, row in zip(gam, patterns):
+                o = row[j]
+                if o is None:
+                    continue
+                b += gm
+                d += 1 - gm
+                if o:
+                    a += gm
+                    c += 1 - gm
+            mj, uj = (a + 0.5) / (b + 1.0), (c + 0.5) / (d + 1.0)
+            if uj > mj:
+                mj, uj = uj, mj
+            nm.append(mj)
+            nu.append(uj)
+        delta = max([abs(new_pri[g] - pri[g]) for g in glist] + [abs(a_ - b_) for a_, b_ in zip(nm, m)] + [abs(a_ - b_) for a_, b_ in zip(nu, u)])
+        m, u, pri = nm, nu, new_pri
+        if delta < tol:
+            break
+    return [Witness(nm_, m[j], u[j]) for j, nm_ in enumerate(names)], pri

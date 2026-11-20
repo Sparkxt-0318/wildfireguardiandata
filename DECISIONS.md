@@ -47,3 +47,51 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 **D-536 — Rothermel implementation.** pyretechnics (Sig-GIS, https://github.com/pyregence/pyretechnics) is used for the surface-fire equations. It is licensed for non-commercial/research use and pinned to old numpy/Cython, so it is not vendored or declared as a hard dependency: `firewitness/fuel/scripts/setup_pyretechnics.sh` downloads the sdist and the package is imported from its `src` folder in pure-Python mode; rule R3b is skipped (reported as not evaluated) if it is absent.
 
 **D-537 — Model.** Track runs on Sonnet 5.5 at high effort (orchestrator D-008). Helper subagents: Sonnet for the 29-fire data build.
+
+## Track 50 (caught)
+
+**D-501 — Records are FPA FOD 7th edition.** RDS-2013-0009.7 (1992-2024) is the latest edition; it is read raw (track 49's cleaned records are not merged yet). Reason: the brief needs agency-recorded fires with discovery and containment dates, size class and location for the whole US; FPA FOD is the national compilation.
+
+**D-502 — Standard label = MODIS C6.1 and VIIRS S-NPP / NOAA-20 375 m active fire (FIRMS archive), MCD64A1, MTBS; FireCCI51 not checked.** dap.ceda.ac.uk resets the TLS connection from this network, so FireCCI51 could not be fetched. The headline states that FireCCI51 was not checked. Footprints are matched leniently (circle of the pixel half-diagonal), which can only shrink the count of fires "with no standard label".
+
+**D-503 — HMS gives the other heat sensors.** GOES-16/17 (FDC, ABBA), AVHRR (FIMMA on MetOp-A/B, NOAA-15/18/19) and analyst points come from the NOAA Hazard Mapping System daily files 2018-2020 (2 days missing: 2019-07-09, 2019-07-10). Reason: one small, public source covers both geostationary and 1 km AVHRR looks; raw GOES FDC from the NOAA bucket is ~250 GB for three years.
+
+**D-504 — Imagery from the Planetary Computer STAC (no key).** Sentinel-2 L2A and Landsat 7/8 C2 L2 COGs are read as small windows around each record. Each window is written raw, hashed into a manifest and deleted after extraction; during the improvement rounds the dev windows are kept in a cache folder (deleted after the rounds). Reason: storing whole scenes would exceed the disk budget by orders of magnitude.
+
+**D-505 — Sentinel-2 first, Landsat when Sentinel-2 has no clear look.** Both are the SCAR kind, so running Landsat on every record would double the cost without changing a tier.
+
+**D-506 — Landsat-8 active-fire tests are applied to surface reflectance.** PC carries Collection 2 L2, not L1 TOA for OLI. In the SWIR bands the atmosphere changes reflectance little; the same tests are applied to Sentinel-2 B8A/B11/B12.
+
+**D-507 — Heat looks are not used to write "verified no fire".** Without each overpass's cloud mask and view angle the clear-sky state of a heat look is unknown; heat floors are therefore reported at the edge of scan (they hold whatever the angle) in the evidence, and "verified no fire" comes from clear scar looks only.
+
+**D-508 — Truth dates.** NIFC perimeter history has no start date; its start and end come from the FPA FOD record of the same year inside the polygon (+500 m), closest in size. FRAP prescribed burns without a start date are linked the same way. Polygons that cannot be dated are left out of the truth set. FACTS broadcast burns use date_completed minus 3 days to date_completed (secondary stratum only).
+
+**D-509 — Placebo matching tries up to 300 random places** (10-50 km, same state and land cover, no recorded fire). Records with no match are counted and reported, not replaced.
+
+## Track 54 (score)
+
+**D-541 — Grid scenes, numpy only inside firewitness/score.** The unit is a cell-day on each fire's raster. Everything is vectorised numpy (needs numpy, in the `dev` and `records` extras). Reason: tolerance matching (dilation in space and time) and a 0.18% fire rate over 20M+ cell-days are impractical on row lists. core/ stays standard-library only.
+**D-542 — Command names.** The brief's `firewitness negatives sample`, `splits make`, `score` are exposed as `firewitness score negatives sample`, `firewitness score splits make`, `firewitness score card` (plus `build`, `contract-template`, `gates`), because core discovery gives each track one namespace.
+**D-543 — Benchmark: WildfireSpreadTS (Zenodo 8006177, CC-BY-4.0), no key.** The 48 GB archive is read by HTTP byte range; a hash-ordered subset of fires is used (56 first, then more), 2x2 coarsened to 750 m. Reason: whole-archive download is not possible within disk limits, and the byte-range subset is reproducible from the listing hash in firewitness_raw/INDEX.md.
+**D-544 — Three-state labels from the benchmark's masks.** WildfireSpreadTS has no cloud or validity mask: no detection is NaN. `no_fire` = no detection with all three VIIRS reflectance bands present; otherwise `unknown`; a 750 m cell is `no_fire` only if all four 375 m sub-cells are. This is the weakest link (a missed detection is still counted as no fire) and is stated on the card. Replace with track 50's labels when merged.
+**D-545 — Buffer applied per fire, not per row.** A train or val fire is dropped when a later-fold fire is within `buffer_km` (gap between scene boxes) and `buffer_days` (gap between date ranges). Stricter than the protocol's row wording and simpler to publish; fire is the atom.
+**D-546 — Events are new-front events.** In a one-day-ahead spread benchmark every fire is trivially "detected" by persistence, so an event is a (fire, day) with at least `min_new_cells` newly burning cells farther than `new_radius_cells` from the previous day's fire. Lead time is bounded by horizon plus time tolerance by construction, and the card says so.
+**D-547 — Curated hard-negative catalogue is approximate.** Coordinates in `firewitness/score/data/hard_negatives.csv` are from public site descriptions at stated precision, not from a validated static-source mask. Derived classes (hot bare ground) are computed; agricultural burns and old burn scars cannot be derived from this benchmark's bands and are listed as absent.
+
+## Track 51 (live)
+
+**D-501 — Raw files are read as windows and not stored.** GOES files are read with HTTP range requests (only the HDF5 chunks covering a 40 × 40 pixel box); the decoded box series are saved as compressed npz under `firewitness_raw/live/series/` and indexed in `firewitness_raw/INDEX.md`. Reason: the brief asks to read only the windows needed and delete raw files once series are extracted; storing whole files would cost ~3.7 GB per fire.
+
+**D-502 — Period 2023-01-10 to 2025-04-05.** GOES-16 (East) and GOES-18 (West) cover the whole period, so every fire is seen by the same pair; GOES-19 replaced GOES-16 on 2025-04-07. The live service (Part C) uses GOES-19 and GOES-18; satellite periods are in `config/us.json`.
+
+**D-503 — Polar detections from the public FIRMS country archive (VIIRS S-NPP and MODIS).** No key needed. The archive offers no NOAA-20 file for the US, so the first polar detection can be up to one overpass later than with NOAA-20 included; stated in results. FIRMS_MAP_KEY is not needed by this track.
+
+**D-504 — Visible channel = ABI band 1 (0.47 µm, 1 km).** Blue is more sensitive to thin smoke than band 2 (0.64 µm) and its 1 km files cost a quarter of band 2's 0.5 km.
+
+**D-505 — 240 fires (60 per size class, 120 dev / 120 test).** About 3 minutes of reading per fire seen by both satellites (≈7,500 files each); 240 fires fit in one working day of extraction. Classes are balanced so results by final size have equal n.
+
+**D-506 — Operational product codes.** GOES FDCC codes 10–14 and 30–34 count as a detection (processed, saturated, cloud-contaminated, high and medium probability); low probability (15, 35) is reported as a variant. Reason: low-probability pixels are dominated by false detections and are commonly excluded.
+
+**D-507 — Cloud mask = ABI L2 clear-sky mask (ACMC).** It is produced by a separate algorithm from the fire product (FDCC) and from this detector; no non-ABI cloud product exists at 5-minute cadence. Probably-cloudy counts as cloudy.
+
+**D-508 — Protocol amendment 1 (cloud-edge buffer, scene filter).** Decided on placebo-day diagnostics of one dev fire before any result; see protocol/LIVE_PROTOCOL.md, Amendments.

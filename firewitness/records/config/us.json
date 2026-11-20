@@ -1,0 +1,170 @@
+{
+ "region": "us",
+ "name": "United States",
+ "country_code": "US",
+ "state_fips": {
+  "AL": "01",
+  "AK": "02",
+  "AZ": "04",
+  "AR": "05",
+  "CA": "06",
+  "CO": "08",
+  "CT": "09",
+  "DE": "10",
+  "DC": "11",
+  "FL": "12",
+  "GA": "13",
+  "HI": "15",
+  "ID": "16",
+  "IL": "17",
+  "IN": "18",
+  "IA": "19",
+  "KS": "20",
+  "KY": "21",
+  "LA": "22",
+  "ME": "23",
+  "MD": "24",
+  "MA": "25",
+  "MI": "26",
+  "MN": "27",
+  "MS": "28",
+  "MO": "29",
+  "MT": "30",
+  "NE": "31",
+  "NV": "32",
+  "NH": "33",
+  "NJ": "34",
+  "NM": "35",
+  "NY": "36",
+  "NC": "37",
+  "ND": "38",
+  "OH": "39",
+  "OK": "40",
+  "OR": "41",
+  "PA": "42",
+  "RI": "44",
+  "SC": "45",
+  "SD": "46",
+  "TN": "47",
+  "TX": "48",
+  "UT": "49",
+  "VT": "50",
+  "VA": "51",
+  "WA": "53",
+  "WV": "54",
+  "WI": "55",
+  "WY": "56",
+  "PR": "72",
+  "VI": "78",
+  "GU": "66",
+  "AS": "60",
+  "MP": "69"
+ },
+ "bbox": {
+  "conus": [
+   24.0,
+   49.6,
+   -125.0,
+   -66.5
+  ],
+  "alaska": [
+   51.0,
+   72.0,
+   -180.0,
+   -129.0
+  ],
+  "hawaii": [
+   18.5,
+   22.5,
+   -161.0,
+   -154.0
+  ],
+  "pr": [
+   17.5,
+   18.7,
+   -68.0,
+   -64.0
+  ]
+ },
+ "lat_range": [
+  17.0,
+  72.0
+ ],
+ "lon_range": [
+  -180.0,
+  -64.0
+ ],
+ "longitude_sign_convention": "west_negative",
+ "area_units": {
+  "acres_per_hectare": 2.47105,
+  "acres_per_km2": 247.105,
+  "acres_per_sq_mile": 640.0
+ },
+ "primary_area_unit": "acres",
+ "distance_unit": "mile",
+ "km_per_mile": 1.609344,
+ "temperature_primary_unit": "F",
+ "weather_fields": {
+  "temp": "F",
+  "wind": "mph",
+  "rh": "percent"
+ },
+ "placeholders_numeric": [
+  -9999,
+  -999,
+  -99,
+  9999,
+  99999,
+  999999,
+  99,
+  999,
+  0
+ ],
+ "placeholders_text": [
+  "",
+  "N/A",
+  "NA",
+  "NULL",
+  "NONE",
+  "UNKNOWN",
+  "UNK",
+  "TBD",
+  "TBA",
+  "-",
+  "--",
+  "?",
+  "NAN"
+ ],
+ "time_zones_utc_offset_hours": {
+  "EST": -5,
+  "EDT": -4,
+  "CST": -6,
+  "CDT": -5,
+  "MST": -7,
+  "MDT": -6,
+  "PST": -8,
+  "PDT": -7,
+  "AKST": -9,
+  "AKDT": -8,
+  "HST": -10
+ },
+ "fire_year_range": [
+  1992,
+  2024
+ ],
+ "survey_section_miles": 1.0,
+ "survey_quarter_section_miles": 0.5,
+ "survey_township_miles": 6.0,
+ "split": {
+  "test_years": [
+   1995,
+   2001,
+   2007,
+   2013,
+   2019
+  ],
+  "heldout_year": 2024
+ },
+ "perimeter_min_acres": 1000,
+ "source_epoch_notes": "Pre-2014 ICS-209 tables store longitude without sign (west positive); 2014+ tables carry the sign."
+}
