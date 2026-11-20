@@ -38,6 +38,23 @@ def fod_big_index(all_fod: pd.DataFrame) -> PointIndex:
                       [t - timedelta(days=1) for t in b.t1])
 
 
+def slice_placebos(slice_name, cfg, src, all_fod) -> pd.DataFrame:
+    """Placebo windows for every record of a slice (deterministic per record); cached once per slice."""
+    from . import perimeters
+    from .fetch import RAW_ROOT
+
+    pp = RAW_ROOT / "derived_caught" / f"placebo_windows_{slice_name}.parquet"
+    if pp.exists():
+        plc = pd.read_parquet(pp)
+    else:
+        rec = prepare_windows(records.load_slice(slice_name, cfg), cfg)
+        plc = make_placebos(rec, all_fod, src.perim_idx, src.mtbs_idx, perimeters.states(), cfg)
+        plc.to_parquet(pp)
+    for c in ("t0", "t1", "disc_date"):
+        plc[c] = pd.to_datetime(plc[c]).dt.date
+    return plc
+
+
 def run_slice(slice_name: str, threads: int = 40, params=None, tag: str = "v1", only_dev=False, limit=None):
     from . import perimeters
 
@@ -53,13 +70,8 @@ def run_slice(slice_name: str, threads: int = 40, params=None, tag: str = "v1", 
     src = sources(cfg)
     big = fod_big_index(all_fod)
     name = f"{slice_name}_{tag}" + ("_dev" if only_dev else "") + (f"_n{limit}" if limit else "")
-    rd = run_dir(name)
-    pp = rd / "placebo_windows.parquet"
-    if pp.exists():
-        plc = pd.read_parquet(pp)
-    else:
-        plc = make_placebos(rec, all_fod, src.perim_idx, src.mtbs_idx, perimeters.states(), cfg)
-        plc.to_parquet(pp)
+    plc = slice_placebos(slice_name, cfg, src, all_fod)
+    plc = plc[plc.of_rid.isin(set(rec.rid))]
     plc = prepare_windows(plc, cfg)
     lab_r = evaluate(name + "/records", rec, src, big, True, threads, params)
     lab_p = evaluate(name + "/placebo", plc, src, big, True, threads, params)

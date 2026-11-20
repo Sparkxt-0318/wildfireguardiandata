@@ -167,46 +167,59 @@ def _other_fire(src, poly, w, d, fod_big) -> bool:
 
 
 # ------------------------------------------------------------------ scar stage
-def scar_stage(name: str, w: pd.DataFrame, threads: int = 40, params=None, log_every=200) -> dict:
-    """Run find_scar on every searched window; JSON lines checkpoint; returns {rid: result dict}."""
+def _scar_one(args):
+    rid, lon, lat, r_m, t0, t1, area_ha, name, params = args
+    try:
+        res = find_scar(lon, lat, r_m, t0, t1, area_ha, run=name, params=params, floor_check=True)
+        d = res.to_dict()
+        d["states"].pop("no_fire", None)
+    except Exception as e:
+        d = {"status": "error", "error": f"{type(e).__name__}: {e}"[:500]}
+    d["rid"] = rid
+    return d
+
+
+def _scar_chunk(chunk, threads):
+    import warnings
+    warnings.filterwarnings("ignore")
+    with ThreadPoolExecutor(threads) as ex:
+        return list(ex.map(_scar_one, chunk))
+
+
+def scar_stage(name: str, w: pd.DataFrame, threads: int = 40, params=None, log_every=200, procs: int = 4) -> dict:
+    """Run find_scar on every searched window (procs processes x threads); JSON lines checkpoint."""
+    import multiprocessing as mp
+    from concurrent.futures import ProcessPoolExecutor
+
     ck = run_dir(name) / "scar.jsonl"
     done = {}
     if ck.exists():
         for line in ck.read_text().splitlines():
             try:
                 j = json.loads(line)
-                done[j["rid"]] = j
+                if j.get("status") != "error":
+                    done[j["rid"]] = j
             except json.JSONDecodeError:
                 continue
     todo = w[w.searched & ~w.rid.isin(done)]
-    lock = threading.Lock()
+    args = [(r.rid, r.LONGITUDE, r.LATITUDE, r.r_m, r.t0, r.t1, r.area_m2 / 1e4, name, params)
+            for r in todo.itertuples()]
+    chunks = [args[i:i + 24] for i in range(0, len(args), 24)]
     t = time.time()
     n = 0
-
-    def one(r):
-        try:
-            res = find_scar(r.LONGITUDE, r.LATITUDE, r.r_m, r.t0, r.t1, r.area_m2 / 1e4, run=name, params=params,
-                            floor_check=True)
-            d = res.to_dict()
-            d["states"].pop("no_fire", None)
-        except Exception as e:
-            d = {"status": "error", "error": f"{type(e).__name__}: {e}"[:500]}
-        d["rid"] = r.rid
-        return d
-
-    with ThreadPoolExecutor(threads) as ex, open(ck, "a") as f:
-        futs = [ex.submit(one, r) for r in todo.itertuples()]
+    per = max(1, threads // procs)
+    with ProcessPoolExecutor(procs, mp_context=mp.get_context("spawn")) as ex, open(ck, "a") as f:
+        futs = [ex.submit(_scar_chunk, c, per) for c in chunks]
         for fu in as_completed(futs):
-            d = fu.result()
-            with lock:
+            for d in fu.result():
                 f.write(json.dumps(d, default=str) + "\n")
-                f.flush()
                 done[d["rid"]] = d
                 n += 1
-                if n % log_every == 0:
-                    rate = n / (time.time() - t)
-                    print(f"[{name}] scar {n}/{len(todo)} {rate:.2f}/s eta {(len(todo)-n)/max(rate,1e-9)/3600:.2f} h",
-                          flush=True)
+            f.flush()
+            if n // log_every != (n - 24) // log_every:
+                rate = n / (time.time() - t)
+                print(f"[{name}] scar {n}/{len(args)} {rate:.2f}/s eta {(len(args)-n)/max(rate,1e-9)/3600:.2f} h",
+                      flush=True)
     return done
 
 
@@ -344,7 +357,7 @@ def prepare_windows(w: pd.DataFrame, cfg) -> pd.DataFrame:
 
 
 def evaluate(name: str, w: pd.DataFrame, src: Sources, fod_big: PointIndex | None, perimeter_on=True,
-             threads=40, params=None) -> pd.DataFrame:
+             threads=40, params=None, extra_points: dict | None = None) -> pd.DataFrame:
     rd = run_dir(name)
     w = w[w.LATITUDE.notna()].copy() if "matched" not in w else w.copy()
     pts_p = rd / "points.json"
@@ -367,7 +380,8 @@ def evaluate(name: str, w: pd.DataFrame, src: Sources, fod_big: PointIndex | Non
         sc = scars.get(r.rid)
         if sc is None and not r.searched:
             sc = None
-        items = build_items(r, pts[r.rid]["pts"], pts[r.rid]["polys"], sc, src)
+        items = build_items(r, pts[r.rid]["pts"] + list((extra_points or {}).get(r.rid, [])), pts[r.rid]["polys"], sc,
+                            src)
         rows.append(label_row(r, items, sc, perimeter_on))
     lab = pd.DataFrame(rows)
     keep = [c for c in ["rid", "of_rid", "LATITUDE", "LONGITUDE", "r_m", "r_loc_m", "t0", "t1", "t1_source", "area_m2",
