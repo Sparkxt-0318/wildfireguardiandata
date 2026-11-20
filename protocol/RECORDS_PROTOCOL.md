@@ -52,4 +52,4 @@ Headline numbers: duplicates removed, IDs split and merged, locations repaired, 
 ## Amendment log
 | date (UTC) | change | reason | results seen? |
 |---|---|---|---|
-| (none yet) | | | |
+| 2026-11-20 | No rule changed. Logged: before any tuning, one aggregate first-look score of tool 2 against the published cleaning was computed on ALL years including the sealed test years (aggregate only, no per-record reading of test years); the committed score is dev-only. The sealed test is still opened once at the end. | transparency about a look at the test years | yes (aggregate only) |
