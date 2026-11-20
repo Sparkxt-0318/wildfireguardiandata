@@ -27,7 +27,7 @@ def self_pairs(df: pd.DataFrame, radius_km=3.0, day_window=3.0) -> pd.DataFrame:
     return pd.DataFrame({"li": a[keep], "ri": b[keep]})
 
 
-def find(df: pd.DataFrame, model: L.FSModel | None = None, radius_km=3.0, day_window=3.0, hi=0.95, lo=0.05, fit_mask=None,
+def find(df: pd.DataFrame, model: L.FSModel | None = None, radius_km=3.0, day_window=3.0, hi=0.97, lo=0.05, fit_mask=None,
          cross_source_only=False):
     """Returns (pairs with posterior and outcome, model). df needs ident, name, day, lat, lon, acres."""
     df = df.reset_index(drop=True)

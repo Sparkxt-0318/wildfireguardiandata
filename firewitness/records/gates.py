@@ -138,3 +138,27 @@ def recovery_time(df_clean, ev, cfg, params, fitted_loc, fitted_time=None, class
         res["classes"][kind] = {"n": n, "recovered": int(exact.sum()), "recall": float(exact.mean()) if n else float("nan"), "ci": wilson(int(exact.sum()), n),
                                 "wrong_repair": int((rep & ~exact).sum()), "undecided": int(und.sum()), "missed": int((~rep & ~und).sum())}
     return res
+
+
+def distinct_pairs_test(radius_km=10.0, day_window=3.0, seed=0):
+    """R3(b): MTBS events with different ids whose perimeters do not intersect are distinct fires. The duplicate step,
+    run without identifiers, must not link any such pair (names, size and place alone must keep them apart)."""
+    from . import dedupe, link as L
+    mt = pd.read_parquet(paths.CANON / "mtbs.parquet").reset_index(drop=True)
+    sc = geo.Scars()
+    rec = mt.assign(ident=None, source="mtbs", rid=mt.mid)
+    pairs = dedupe.self_pairs(rec, radius_km, day_window)
+    ga, gb = sc.geoms[pairs.li.to_numpy()], sc.geoms[pairs.ri.to_numpy()]
+    import shapely
+    distinct = ~shapely.intersects(ga, gb)
+    pairs = pairs[distinct].reset_index(drop=True)
+    from . import link_tasks as LT
+    out, model = dedupe.find(rec.iloc[:0].assign(), None) if False else (None, None)
+    X = L.compare(rec, rec, pairs, dedupe.FIELDS if rec.ident.notna().any() else ["dist", "day", "size", "name"])
+    # model fitted without labels on all candidate pairs (including these), like the real run
+    allp = dedupe.self_pairs(rec, 3.0, 3.0)
+    fields = ["dist", "day", "size", "name"]
+    Xa = L.compare(rec, rec, allp, fields)
+    m = L.fit_fs(Xa, fields, init_prior=0.02)
+    post = m.posterior(L.compare(rec, rec, pairs, fields))
+    return {"distinct_pairs": int(len(pairs)), "linked": int((post >= 0.97).sum()), "undecided": int(((post > 0.05) & (post < 0.95)).sum()), "max_posterior": float(post.max()) if len(post) else 0.0}

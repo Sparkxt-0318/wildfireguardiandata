@@ -38,10 +38,19 @@ def load_tables():
 
 
 # ------------------------------------------------------------------ task definitions
+SETTINGS = {"mtbs_radius_mult": 4.0, "mtbs_radius_floor": 10.0, "ics_radius_mult": 3.0, "ics_radius_floor": 10.0, "hi": 0.95, "margin": 0.25}
+# decision thresholds per task, chosen on dev years only (see results/ROUNDS_records.md)
+TASK_DECISION = {"fod_mtbs": {"hi": 0.7, "margin": 0.1}, "fod_ics": {"hi": 0.8, "margin": 0.1}, "ics_fired": {"hi": 0.5, "margin": 0.0}}
+
+
+def _dec(name):
+    return TASK_DECISION.get(name, {"hi": SETTINGS["hi"], "margin": SETTINGS["margin"]})
+
+
 def task_fod_mtbs(fod, mtbs, ics, cfg):
     left = fod.reset_index(drop=True)
     right = mtbs.reset_index(drop=True)
-    rad = 3 + 1.5 * np.sqrt(np.nan_to_num(right.acres.to_numpy(), nan=100.0) * 0.00405 / np.pi)
+    rad = SETTINGS["mtbs_radius_floor"] + SETTINGS["mtbs_radius_mult"] * np.sqrt(np.nan_to_num(right.acres.to_numpy(), nan=100.0) * 0.00405 / np.pi)
     truth = set(zip(left.fid[left.pub_mtbs.isin(set(right.mid))], left.pub_mtbs[left.pub_mtbs.isin(set(right.mid))]))
     return dict(name="fod_mtbs", left=left, right=right, radius=rad, day_window=30, lid="fid", rid="mid", truth=truth,
                 left_year="year", left_state="state", fields=L.FIELDS, side="left")
@@ -50,7 +59,7 @@ def task_fod_mtbs(fod, mtbs, ics, cfg):
 def task_fod_ics(fod, mtbs, ics, cfg):
     left = fod.reset_index(drop=True)
     right = ics.dropna(subset=["lat", "lon"]).reset_index(drop=True)
-    rad = 5 + 1.5 * np.sqrt(np.nan_to_num(right.acres.to_numpy(), nan=100.0) * 0.00405 / np.pi)
+    rad = SETTINGS["ics_radius_floor"] + SETTINGS["ics_radius_mult"] * np.sqrt(np.nan_to_num(right.acres.to_numpy(), nan=100.0) * 0.00405 / np.pi)
     ids = set(right.iid)
     t1 = set(zip(left.fid[left.pub_ics.isin(ids)], left.pub_ics[left.pub_ics.isin(ids)]))
     t2 = set()
@@ -107,7 +116,7 @@ def run_task(name: str, split: str = "dev", model=None, rule=None, n_boot=1000, 
     if model is None:
         model = L.fit_fs(X[pdev], T["fields"])
     log("fit prior", round(model.prior, 4), "iters", model.iters)
-    dec = L.decide(pairs, model.posterior(X), side=T["side"])
+    dec = L.decide(pairs, model.posterior(X), **_dec(name), side=T["side"])
     code = lambda d: d.li.to_numpy().astype(np.int64) * NR + d.ri.to_numpy()
     truth_sel = tcode[in_sel[tcode // NR]]
     truth_dev = tcode[in_dev[tcode // NR]]
@@ -172,7 +181,7 @@ def decide_all(name: str, model=None):
     dev = (split_of(left[T["left_year"]], cfg).to_numpy() == "dev")[pairs.li.to_numpy()]
     if model is None:
         model = L.fit_fs(X[dev], T["fields"])
-    dec = L.decide(pairs, model.posterior(X), side=T["side"])
+    dec = L.decide(pairs, model.posterior(X), **_dec(name), side=T["side"])
     return T, pairs, X, dec, model
 
 
