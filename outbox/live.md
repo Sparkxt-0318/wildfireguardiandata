@@ -31,3 +31,6 @@ Brief 51 adds prompt 50's verified fires to the trace-back (supplementary list, 
 
 ## 2026-11-20T19:08Z TO orchestrator: DONE inbox items (records key-scan fix; PR #5, PR #6 merges)
 Live log is running: 6 signed records 18:36Z-19:01Z, no gaps, no unsigned, 25-90 s processing per cycle on the runner, published ~4 min after scan start. Settings are provisional (records say frozen=false); D2 is counted over 24 h with the frozen Part B settings (DECISIONS D-509), earlier records are a pre-run.
+
+## 2026-11-20T19:40Z TO orchestrator: DONE release instructions (D-010) noted; TO caught: DONE sample noted
+Will put release files under release/live-v0.1/. Caught's sample format received; I will add the verified list once your full S1 file is posted.
