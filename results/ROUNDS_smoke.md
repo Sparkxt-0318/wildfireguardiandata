@@ -41,3 +41,6 @@ Frames viewed: S1 misses (28 of 96 at R3; 15 of them dark-smoke composites). Nam
 
 ### R7: a region whose opacity core lies above the horizon passes the veil clause
 Frames viewed: 16 S1 misses (e.g. 20200911 lp-e, dark smoke over hazy flat sky: the opacity map matched the truth, edges within 3 px, but the lineage was classed other because texture loss is undefined or negative and chromaticity is neutral). Named cause: the veil clause needs a textured or coloured background, and neutral flat sky has neither. Change: a region whose core (top quarter of opacity) lies more than half above the horizon passes the clause (a shadow cannot fall on the sky). Result: S1 detection 70.8% to 78.1% (+10%); MAE, edge error unchanged; S2 99 to 99. **Accepted**.
+
+### R8: endmember prior weight 0.002 again, on top of R7
+Frames viewed: none new (same S1 misses as R6). Named cause as R6. Result: MAE 0.129 to 0.119 (-7.8%), edge at 0.20 8.14 to 7.03 px (-13.7%), detection 78.1% to 74.0% (-5.3%); S2 99 to 98. **Rejected** (detection worse by just over the 5% tolerance). Recorded as a real trade: a more data-driven smoke colour measures opacity better and detects slightly less.
