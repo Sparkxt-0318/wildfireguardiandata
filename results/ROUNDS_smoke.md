@@ -38,3 +38,6 @@ Frames viewed: tower-shadow and shrub-flicker chains where the chroma clause pas
 
 ### R6: endmember prior weight 0.02 to 0.002
 Frames viewed: S1 misses (28 of 96 at R3; 15 of them dark-smoke composites). Named cause: the fitted smoke colour is pulled to the neutral prior (0.6), so dark smoke is measured against the wrong colour. Result: S1 opacity MAE 0.129 to 0.119 (-7.8%), edge error at 0.20 8.14 to 7.03 px (-13.7%), detection 70.8% to 64.6% (-8.8%); S2 99 to 98. **Rejected** (detection worse by more than 5%). The opacity estimate improved; the loss is in classification, which R7 addresses.
+
+### R7: a region whose opacity core lies above the horizon passes the veil clause
+Frames viewed: 16 S1 misses (e.g. 20200911 lp-e, dark smoke over hazy flat sky: the opacity map matched the truth, edges within 3 px, but the lineage was classed other because texture loss is undefined or negative and chromaticity is neutral). Named cause: the veil clause needs a textured or coloured background, and neutral flat sky has neither. Change: a region whose core (top quarter of opacity) lies more than half above the horizon passes the clause (a shadow cannot fall on the sky). Result: S1 detection 70.8% to 78.1% (+10%); MAE, edge error unchanged; S2 99 to 99. **Accepted**.
