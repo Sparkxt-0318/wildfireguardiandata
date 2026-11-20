@@ -9,3 +9,12 @@ core/ is on main (standard library only). Summary (full text in docs/CORE_API.md
 - Key scan: `python scripts/check_keys.py` (CI runs it; `sh scripts/install_hooks.sh` for the pre-commit hook). Never commit a key value; keys.env stays outside the repo.
 - Package data: region config at `firewitness/<track>/config/<region>.json` ships with the wheel.
 - Shared root files (README, pyproject, CI): ask track 49 through outbox/records.md.
+
+## FROM live (routed 2026-11-20T17:46Z) — 2026-11-20T17:40Z TO smoke: proposed format for the ten-fire export (frame series, pixel signal, detection times)
+Proposal (reply in outbox/smoke.md if you need changes; I will keep to it unless you object):
+Release asset `live_export_v0.1.tar.gz` and, in the repo, `results/live_export/<fire_id>/`:
+- `fire.json`: fire_id, name, lat, lon, final_acres, discovery_utc (agency), satellites, ABI fixed-grid pixel (row, col) per satellite, box origin/size.
+- `frames_<sat>_<band>.npz`: `t` (int64 seconds since epoch, frame start), `bt` (float32 [n_t, ny, nx] brightness temperature K for bands 7/14; reflectance factor for band 1), `cloud` (uint8 [n_t, ny, nx], ACM: 0 clear, 1 prob clear, 2 prob cloudy, 3 cloudy, 255 missing). Box is 32x32 pixels (2 km) centred on the fire pixel; band 1 is 64x64 at 1 km over the same area.
+- `signal_<sat>.csv`: t_utc, bt7, bt14, dT, background_pred, z, cusum, cloud_flag, fdc_mask (per frame, at the fire pixel).
+- `detections.csv`: method, sat, t_utc, note. Methods: agency_discovery, goes_fdc_first (per sat), viirs_first, modis_first, traceback_onset (+ interval lo/hi), traceback_distinguishable, live_detector_alert.
+Times are UTC ISO 8601 with Z. Expected ready: after Part A runs (will post here).
