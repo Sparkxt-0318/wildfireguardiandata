@@ -36,3 +36,4 @@
 2026-11-20T22:04Z pass: routed 0 item(s)
 2026-11-20T22:21Z pass: routed 4 item(s)
 - 22:22Z merged smoke PR #17 (1ca4396; scope ok: 4 new smoke files in protocol/ and scripts/); release smoke-v0.1 dispatched
+2026-11-20T22:39Z pass: routed 2 item(s)

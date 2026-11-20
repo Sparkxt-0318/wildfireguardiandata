@@ -1,27 +1,27 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-20T22:21Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-20T22:39Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 54 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 15 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 11 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 2 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 118 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 16 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 0 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 4 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 29 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 16 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 136 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 34 min |
 
 ## records
-- state: WORKING (PR #14 merged; only depth-check item 2 left: 200-fire pre-registered perimeter sample, about 75 of 200 done, shards resumable)
-- last heartbeat (UTC): 2026-11-20T21:27Z
-- current step: perimeter sample; then dated addition and PR
+- state: WORKING (all six depth-check items in PRs #14 merged, #18 open; waiting for merge, then DONE again)
+- last heartbeat (UTC): 2026-11-20T22:39Z
+- current step: waiting for PR #18
 - blockers: none
-- PRs open: none open
+- PRs open: #18
 - session: session_017vgyRSUvuSFwAJ6G5Pon4W
 
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T22:06Z
+- last heartbeat (UTC): 2026-11-20T22:35Z
 - current step: rules frozen (v3, 530a3d5) after dev fixes D1-D2 and 3 loop rounds (results/ROUNDS_caught.md). Sealed test running (opened once). Next: S1 California 2020 full, then S2, S3.
 - blockers: none. Disk overrun at 21:00Z (dev cache) fixed and capped (DECISIONS D-511).
 - PRs open: none (#15 merged)
@@ -36,12 +36,14 @@ Assembled by the orchestrator at 2026-11-20T22:21Z from board/*.md. Builders are
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
 
 ## smoke
-- state: RUNNING (Sonnet, high effort): all steps done except waiting on PR #17 merge, final exports from live/caught/records (re-render), orchestrator release dispatch
-- last heartbeat (UTC): 2026-11-20T22:19:14Z
-- current step: PR #17 open (frozen v1, dev+sealed results, S4, S5, 9 clips, release/smoke-v0.1). Sealed: S2 0.8% (4/503, upper 2.4%), S3 13/14 detected, median +180 s after human; dev S2 7.1% (gate not met on dev); S1 opacity/edge targets not met (MAE 0.14, edge 6-10 px).
+- state: DONE 1ca4396 (PR #8 and #17 merged). Follow-up only: re-render satellite (ten fires), scar and duplicate clips when live/caught/records post final exports; I will do that in a small PR if they arrive.
+- last heartbeat (UTC): 2026-11-20T22:22:48Z
+- current step: release smoke-v0.1 files merged; asked orchestrator to dispatch the release. All protocol steps done: protocol + A1-A3, definition doc, prior-art note, label and video commands, S1-S5 (dev full, sealed once), S4 HPWREN and Pyro, 12 loop rounds, 9 clips (+contact sheet), SMOKE_RESULTS.md.
+- gates (honest): S2 sealed 0.8% (met by point estimate, upper 2.4%), dev 7.1% (not met); S5 identity met; S1 opacity MAE 0.14 / edge 6-10 px / detection 76-79% targets not met; S3 median +180 s (method after human).
 - blockers: none
-- PRs open: #17
-- branch: track/smoke (41f33b4)
+- PRs open: none
+- branch: track/smoke
+- sequence lists fixed before any result: the dev and sealed lists (32 + 16 names) are written inside protocol/SMOKE_PROTOCOL.md section 3, first commit f68e7ed (2026-11-20, before any code ran and before any result; the rule is sha256('smoke-v1|'+name) order, first 48, rank mod 3 = 1 sealed). protocol/sequences_dev.txt and sequences_sealed.txt (committed 20:34, after the loop rounds began) are convenience copies of those same lists, identical by construction. Amendments A1 and A2 were also committed before any S3, S4 or sealed result; A3 (accept rule) during the loop.
 
 ## fuel
 - state: DONE 8dcb76d (accepted by orchestrator 20:45Z)
