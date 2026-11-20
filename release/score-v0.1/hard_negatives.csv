@@ -1,0 +1,22 @@
+site_id,kind,lat,lon,precision_km,source_note
+geysers,geothermal,38.79,-122.76,5,Geysers geothermal field CA; approximate centre from public site descriptions
+salton_sea,geothermal,33.16,-115.61,8,Salton Sea geothermal plants CA; approximate
+coso,geothermal,36.02,-117.79,6,Coso geothermal field CA; approximate
+casa_diablo,geothermal,37.65,-118.89,4,Casa Diablo / Mammoth geothermal CA; approximate
+steamboat,geothermal,39.38,-119.74,4,Steamboat Springs geothermal NV; approximate
+yellowstone_basins,geothermal_natural,44.46,-110.83,12,Yellowstone hydrothermal basins WY; approximate
+lassen_hydrothermal,geothermal_natural,40.46,-121.50,4,Lassen hydrothermal areas CA; approximate
+kern_river_steam,oilfield_steam,35.43,-119.03,10,Kern River oil field steam flood CA; approximate
+midway_sunset,oilfield_steam,35.18,-119.47,10,Midway-Sunset oil field CA; approximate
+richmond_refinery,refinery,37.94,-122.39,3,Richmond CA refinery; approximate
+martinez_refineries,refinery,38.02,-122.12,4,Martinez CA refineries; approximate
+wilmington_refineries,refinery,33.79,-118.25,5,Wilmington CA refinery cluster; approximate
+williston_flaring,gas_flare,48.10,-103.00,80,Bakken gas flaring ND/MT area; broad
+permian_flaring,gas_flare,31.80,-103.00,80,Permian basin gas flaring TX/NM; broad
+eagle_ford_flaring,gas_flare,28.60,-98.20,80,Eagle Ford gas flaring TX; broad
+kilauea_summit,volcano,19.41,-155.28,3,Kilauea Halemaumau HI; approximate
+st_helens_dome,volcano,46.20,-122.19,3,Mount St Helens dome WA; approximate
+centralia_mine_fire,coal_seam_fire,40.80,-76.34,3,Centralia PA underground coal fire; approximate
+derived_hot_bare_ground,derived,,,,Top danger class and heat variable above stratum median; computed at sampling time
+derived_agricultural_burn,derived,,,,Not derivable from the benchmark bands; listed so the card states it is absent
+derived_old_burn_scar,derived,,,,Not derivable from the benchmark bands; listed so the card states it is absent
