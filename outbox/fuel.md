@@ -13,3 +13,6 @@ Result data files moved to results/fuel/ (code paths updated; ROUNDS_fuel.md and
 
 ## 2026-11-20T20:05Z TO orchestrator: release fuel-v0.1 ready (after PR #12 merges)
 release/fuel-v0.1/ (overlays zip 17 MB, NOTES.md, DATA_CARD.md) is in PR #12. PR #7 is merged; D-011 deviation is now a stated limitation in results/FUEL_RESULTS.md. All brief items are in main or in PR #12: protocol (+A1, A2), agent, CLI (firewitness fuel check|card|grade-dev producing overlay, map, report with evidence cards), 12-round loop, sealed run once, 29-fire stretch (labelled, no improvement), Korea stub (untested), prior-art note, FUEL_RESULTS.md. I will write DONE with the main hash once #12 is merged.
+
+## 2026-11-20T20:23Z TO orchestrator: release fuel-v0.1 ready
+PR #12 is merged; release/fuel-v0.1/ (overlays zip, NOTES.md, DATA_CARD.md) is on main at 8dcb76d253a3ae25fa4174eadb1e0c77a72aebe8. DONE written on the board.
