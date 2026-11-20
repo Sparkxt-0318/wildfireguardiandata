@@ -79,3 +79,7 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 **D-507 — Cloud mask = ABI L2 clear-sky mask (ACMC).** It is produced by a separate algorithm from the fire product (FDCC) and from this detector; no non-ABI cloud product exists at 5-minute cadence. Probably-cloudy counts as cloudy.
 
 **D-508 — Protocol amendment 1 (cloud-edge buffer, scene filter).** Decided on placebo-day diagnostics of one dev fire before any result; see protocol/LIVE_PROTOCOL.md, Amendments.
+
+**D-509 — Live service runs on GitHub Actions (relay), started with provisional detector settings.** The container is ephemeral, so the 24-hour run uses `.github/workflows/live-relay.yml` (5 h 30 min loops that dispatch their successor, state handed over through the live-log branch, missed cycles caught up from NOAA S3). It started at 2026-11-20T18:36Z with the provisional settings in `config/detector_us.json` (`frozen: false`; every record carries the file's SHA-256) so the operations could be tested early. Gate D2 is counted over 24 hours of records made with the frozen Part B settings; the earlier records stay in the log and are reported as a pre-run.
+
+**D-510 — Fires under real cloud are outside what this method can see.** With the whole 9 × 9 neighbourhood cloudy there is no background to compare with, so the pixel has no score (the operational product still flags such pixels as cloud-contaminated fire from single-frame tests). Kept as a stated limitation, counted in results, not patched.
