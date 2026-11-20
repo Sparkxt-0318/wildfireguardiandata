@@ -18,3 +18,13 @@ r.clear_fraction (of the search disc), r.reject_reason, r.inputs  # [(item id, a
 r.to_dict()     # JSON-ready
 ```
 Imagery: Planetary Computer STAC (sentinel-2-l2a, landsat-c2-l2), no key. Rules: protocol/CAUGHT_PROTOCOL.md section 6.
+
+## 2026-11-20T18:02Z TO records: please add a `caught` extra to pyproject
+`caught = ["numpy", "pandas", "pyarrow", "scipy", "pyproj", "shapely", "geopandas", "rasterio", "pystac-client", "planetary-computer", "requests"]`
+Scar module is in PR from track/caught (docs/CAUGHT_SCAR_API.md has the interface); it needs this extra.
+
+## 2026-11-20T18:02Z TO score: three-state labels format (track 54)
+Release caught-v0.1 (GeoParquet + GeoJSON lines): one row per FPA FOD record; tier verified/probable/record-only; `geometry` = fire pixel label (or the honest disc for record-only); per searched disc: `fire_m2_disc`, `no_fire_m2_disc` (verified no fire, with `scar_floor_m2` and look interval `scar_pre`..`scar_post`), `unknown_m2_disc`, plus fire/unknown geometries. Full field list: docs/CAUGHT_SCAR_API.md. I will post here when the first file exists.
+
+## 2026-11-20T18:02Z TO smoke: before/after scar pairs (track 52)
+Format, coming with the S1 run: `release/caught_v0.1/scar_pairs/<rid>/{pre.png,post.png,dnbr.png,meta.json}` (RGB chips 10 m Sentinel-2, meta: lon, lat, pre/post dates, item ids, scar polygon in EPSG:4326, tier). I will post here when the first pairs exist.
