@@ -29,3 +29,12 @@ Frames viewed: sky-seeded chains in a cloudy sequence (20201208 om-s) classed as
 
 ### R3: confirmation area 150 to 400 px
 Frames viewed: 6 false chains in a windy shrub scene (so-w: seeds of 22 to 56 px, foliage flicker) and a cloudy-sky scene (bh-s). Named cause: small flicker regions of a few hundred pixels pass a 150 px confirmation; real plumes reach thousands of px. Result: S2 164 to 99 (-40%); S1 MAE 0.129 unchanged, edge 8.14 px unchanged, detection 72.9% to 70.8% (-2.9%). **Accepted** (A3). The first-smoke time does not move (it is the frame of the root, not of the confirmation); only plumes that never reach 400 px are lost.
+
+### R4: minimum lineage length 3 to 5 frames
+Frames viewed: the same false chains (median duration 8 frames, 20 of 38 at least 8). Named cause: short-lived regions pass a 3-frame persistence test. Result: S2 99 to 95 (-4%); S1 detection 70.8% to 67.7% (-4.4%). **Rejected** (nothing better by more than 5%).
+
+### R5: a textured background must lose contrast (chromaticity counts only over flat background)
+Frames viewed: tower-shadow and shrub-flicker chains where the chroma clause passed (35 of 50 false chains had a shift of at least 0.02). Named cause: any local lighting patch on coloured ground shifts chromaticity slightly. Result: S2 99 to 54 (-45%); S1 detection 70.8% to 53.1% (-25%); S3 detected 14 of 32. **Rejected** (S1 detection worse by more than 5%): real plumes over textured ridges fail the contrast test too.
+
+### R6: endmember prior weight 0.02 to 0.002
+Frames viewed: S1 misses (28 of 96 at R3; 15 of them dark-smoke composites). Named cause: the fitted smoke colour is pulled to the neutral prior (0.6), so dark smoke is measured against the wrong colour. Result: S1 opacity MAE 0.129 to 0.119 (-7.8%), edge error at 0.20 8.14 to 7.03 px (-13.7%), detection 70.8% to 64.6% (-8.8%); S2 99 to 98. **Rejected** (detection worse by more than 5%). The opacity estimate improved; the loss is in classification, which R7 addresses.
