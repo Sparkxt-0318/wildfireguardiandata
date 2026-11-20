@@ -11,10 +11,10 @@ cv2.setNumThreads(1)
 CLASSES = ["none", "smoke", "cloud", "haze_fog", "dust", "other"]
 
 RULES = {
-    "smoke": "A region above the noise level that is linked back through the frames to a small seed on or just above the ground, has grown since the seed, and (where the background has texture) has lost at least 15% of its relative contrast or shifted the background chromaticity by at least 0.02 (a shadow does neither), is smoke.",
+    "smoke": "A region above the noise level that is linked back through the frames to a small seed on or just above the ground, has grown to five times the seed, and shows a veil (its opacity core loses 15% of relative contrast, or shifts chromaticity by 0.02, or lies above the horizon; a shadow does none of these), is smoke.",
     "cloud": "A region above the noise level that lies mostly above the horizon, has no seed on the ground and drifts slowly is cloud.",
     "haze_fog": "A region at the lowest opacity band (below 0.15) that covers more than 15% of the frame and has no seed is haze or fog.",
-    "dust": "A region with a warm colour shift above 0.04 that has no seed growth into a plume (it does not reach twice its seed area) is dust.",
+    "dust": "A region with a warm colour shift above 0.04 that has no seed growth into a plume (it does not reach five times its seed area) is dust.",
     "other": "Any region above the noise level that matches none of the rules above is other (lighting change, moving object, lens artefact).",
 }
 
@@ -297,14 +297,23 @@ def analyse(prep, idxs):
         seed_area = rn["area"]; cx, cy = rn["cx"], rn["cy"]
         on_ground = cy >= hor[int(np.clip(cx, 0, W - 1))] - p["horizon_tol"]
         grown = max(areas.values()) / max(seed_area, 1) >= p["grow_ratio_min"]
+        if p.get("persist_frac", 0) > 0:
+            # smoke does not fade within its own life: the lineage is still at least persist_frac of its peak at its last frame
+            grown = grown and areas[ts[-1]] >= p["persist_frac"] * max(areas.values())
         small_seed = seed_area <= p["seed_area_max"]
         tex = lineage_texture_loss(prep, nodes, pure, t_conf)
         cshift = lineage_colour_shift(prep, nodes, pure, t_conf)
         # a veil changes more than brightness: relative contrast falls, or chromaticity moves (a shadow does neither)
+        sky_core = False
+        if p.get("veil_sky_rule"):
+            cm = _core(prep, nodes, pure, t_conf)
+            ys, xs = np.where(cm)
+            sky_core = bool(len(ys) and np.mean(ys < hor[xs] - p["horizon_tol"]) > 0.5)   # a shadow cannot fall on the sky
         if p.get("veil_rule") == "texture_first" and tex is not None:
             textured = tex >= p["texture_loss_min"]          # a textured background must lose contrast
         else:
             textured = (tex is not None and tex >= p["texture_loss_min"]) or cshift >= p["chroma_shift_min"]
+        textured = textured or sky_core
         preexisting = r[0] == idxs[0]      # present at the first analysed frame: no seed was seen
         cls = classify_chain(prep, nodes, pure, r, on_ground, grown and textured, small_seed, areas, t_conf)
         if preexisting and cls[0] == "smoke":

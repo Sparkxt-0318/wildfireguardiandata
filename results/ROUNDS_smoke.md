@@ -29,3 +29,34 @@ Frames viewed: sky-seeded chains in a cloudy sequence (20201208 om-s) classed as
 
 ### R3: confirmation area 150 to 400 px
 Frames viewed: 6 false chains in a windy shrub scene (so-w: seeds of 22 to 56 px, foliage flicker) and a cloudy-sky scene (bh-s). Named cause: small flicker regions of a few hundred pixels pass a 150 px confirmation; real plumes reach thousands of px. Result: S2 164 to 99 (-40%); S1 MAE 0.129 unchanged, edge 8.14 px unchanged, detection 72.9% to 70.8% (-2.9%). **Accepted** (A3). The first-smoke time does not move (it is the frame of the root, not of the confirmation); only plumes that never reach 400 px are lost.
+
+### R4: minimum lineage length 3 to 5 frames
+Frames viewed: the same false chains (median duration 8 frames, 20 of 38 at least 8). Named cause: short-lived regions pass a 3-frame persistence test. Result: S2 99 to 95 (-4%); S1 detection 70.8% to 67.7% (-4.4%). **Rejected** (nothing better by more than 5%).
+
+### R5: a textured background must lose contrast (chromaticity counts only over flat background)
+Frames viewed: tower-shadow and shrub-flicker chains where the chroma clause passed (35 of 50 false chains had a shift of at least 0.02). Named cause: any local lighting patch on coloured ground shifts chromaticity slightly. Result: S2 99 to 54 (-45%); S1 detection 70.8% to 53.1% (-25%); S3 detected 14 of 32. **Rejected** (S1 detection worse by more than 5%): real plumes over textured ridges fail the contrast test too.
+
+### R6: endmember prior weight 0.02 to 0.002
+Frames viewed: S1 misses (28 of 96 at R3; 15 of them dark-smoke composites). Named cause: the fitted smoke colour is pulled to the neutral prior (0.6), so dark smoke is measured against the wrong colour. Result: S1 opacity MAE 0.129 to 0.119 (-7.8%), edge error at 0.20 8.14 to 7.03 px (-13.7%), detection 70.8% to 64.6% (-8.8%); S2 99 to 98. **Rejected** (detection worse by more than 5%). The opacity estimate improved; the loss is in classification, which R7 addresses.
+
+### R7: a region whose opacity core lies above the horizon passes the veil clause
+Frames viewed: 16 S1 misses (e.g. 20200911 lp-e, dark smoke over hazy flat sky: the opacity map matched the truth, edges within 3 px, but the lineage was classed other because texture loss is undefined or negative and chromaticity is neutral). Named cause: the veil clause needs a textured or coloured background, and neutral flat sky has neither. Change: a region whose core (top quarter of opacity) lies more than half above the horizon passes the clause (a shadow cannot fall on the sky). Result: S1 detection 70.8% to 78.1% (+10%); MAE, edge error unchanged; S2 99 to 99. **Accepted**.
+
+### R8: endmember prior weight 0.002 again, on top of R7
+Frames viewed: none new (same S1 misses as R6). Named cause as R6. Result: MAE 0.129 to 0.119 (-7.8%), edge at 0.20 8.14 to 7.03 px (-13.7%), detection 78.1% to 74.0% (-5.3%); S2 99 to 98. **Rejected** (detection worse by just over the 5% tolerance). Recorded as a real trade: a more data-driven smoke colour measures opacity better and detects slightly less.
+
+### R9: the lineage must not fade within its own life (last-frame area at least 50% of its peak)
+Frames viewed: the false chains' area series were not stored; judged from the 6 chains viewed in R3 (short, flickering). Named cause: transient regions appear and fade. Result: S2 99 to 99; S1 detection 78.1% to 77.1%. **Rejected** (nothing better). A lineage that merges into a larger region ends without fading, so the rule does not touch the main false groups.
+
+### R10: growth to at least 5x the seed area (was 2x)
+Frames viewed: the R3 false chains again (flicker regions of 22 to 85 px reaching a few hundred px). Named cause: flicker and light patches double their area by chance; a plume grows by an order of magnitude. Result: S2 99 to 80 (-19%); S1 detection 78.1% to 76.0% (-2.7%, inside tolerance), MAE and edge unchanged. **Accepted** (A3). The smoke rule in docs/SMOKE_EDGE.md now says five times.
+
+### R11: seed area at most 400 px (was 900)
+Frames viewed: S1 composites (seeds of about 500 px at the noise level for opacity 0.9) and false chains (seeds 22 to 160 px). Named cause: large first regions are not plume seeds. Result: S2 80 to 80; S1 detection 76.0% to 44.8%. **Rejected** (the noise-level contour of a real first frame is already several hundred pixels).
+
+### R12: noise floor minimum 0.03 to 0.05
+Frames viewed: none new. Named cause: a near-zero floor in clean cameras admits tiny regions. Result: S2 80 to 80; S1 unchanged (MAE 0.129, edge 8.14 px, detection 76.0%). **Rejected** (nothing better).
+
+## Summary of the loop
+
+12 rounds. Accepted: R2 (horizon seam), R3 (confirmation 400 px), R7 (sky-core veil), R10 (growth 5x). Rejected: R1, R4, R5, R6, R8, R9, R11, R12. Final dev configuration `v1` = baseline v2 + R2 + R3 + R7 + R10, frozen. S2 on dev: 198 to 80 false frames of 1122 pre-ignition frames (17.6% to 7.1%): **the 1% gate is not met on dev**. S1-lite detection 70.8% (baseline) to 76.0%. These numbers come from the 32 dev sequences, which were used to choose the rules; the sealed sequences, not touched until now, give the unbiased figures (results/SMOKE_RESULTS.md).

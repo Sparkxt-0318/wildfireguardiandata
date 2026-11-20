@@ -143,13 +143,13 @@ class Clip:
         i, w, k = self.pos(f, nf)
         cv = draw.canvas()
         draw.banner(cv, "C  First smoke: this method and the human label", self.name)
-        pw, ph = 800, 600
+        pw, ph = 780, 585
         draw.put(cv, self.raw_panel(k, i, w, pw, ph), 60, 100)
-        draw.put(cv, self.opacity_panel(k, i, w, pw, ph), 1060, 100)
+        draw.put(cv, self.opacity_panel(k, i, w, pw, ph), 1080, 100)
         txt = (f"This method: first smoke at {self.first:+d} s." if self.first is not None else "This method: no smoke confirmed.") + "  Human label: 0 s."
-        draw.text(cv, (60, 712), txt, 44, FG, True)
+        draw.text(cv, (60, 698), txt, 40, FG, True)
         # timeline
-        x0, x1, y0, y1 = 150, 1850, 800, 990
+        x0, x1, y0, y1 = 150, 1850, 830, 985
         o0, o1 = float(self.offsets[0]), float(self.offsets[-1])
         def X(o): return int(x0 + (o - o0) / (o1 - o0) * (x1 - x0))
         cv[y0:y1 + 1, x0:x1 + 1] = (30, 33, 42)
@@ -160,20 +160,20 @@ class Clip:
         for o in range(int(np.ceil(o0 / 600) * 600), int(o1) + 1, 600):
             cv2.line(cv, (X(o), y1), (X(o), y1 + 10), MUTED, 2)
             draw.text(cv, (X(o), y1 + 12), f"{o // 60:+d}", 26, MUTED, anchor="ma")
-        draw.text(cv, (x0 - 10, y0), "area above", 24, MUTED, anchor="ra"); draw.text(cv, (x0 - 10, y0 + 26), "noise", 24, MUTED, anchor="ra")
-        draw.text(cv, (x1, y1 + 40), "minutes from the human first-smoke label", 24, MUTED, anchor="ra")
+        draw.text(cv, (x0 - 10, y0 + 40), "area above", 24, MUTED, anchor="ra"); draw.text(cv, (x0 - 10, y0 + 66), "noise", 24, MUTED, anchor="ra")
+        draw.text(cv, (x1 - 8, y0 + 6), "minutes from the human first-smoke label", 24, MUTED, anchor="ra")
         for o, col, lab, dy in [(0, OI["blue"], "human label 0 s", 0), (self.first, OI["yellow"], None, 34)]:
             if o is None:
                 continue
             cv2.line(cv, (X(o), y0 - 6), (X(o), y1), (0, 0, 0), 9); cv2.line(cv, (X(o), y0 - 6), (X(o), y1), col, 5)
-        draw.text(cv, (X(0) + 12, y0 - 38), "human label", 30, OI["blue"], True, stroke=2)
+        draw.text(cv, (X(0) + 12, y0 - 40), "human label", 30, OI["blue"], True, stroke=2)
         if self.first is not None:
             left = self.first < 0
-            draw.text(cv, (X(self.first) + (-12 if left else 12), y0 - 38 - (0 if abs(self.first) > 500 else 36)),
+            draw.text(cv, (X(self.first) + (-12 if left else 12), y0 - 40 - (0 if abs(self.first) > 500 else 36)),
                       "this method", 30, OI["yellow"], True, anchor="ra" if left else "la", stroke=2)
         cx = X(float(self.offsets[k]))
         cv2.line(cv, (cx, y0), (cx, y1), FG, 2, cv2.LINE_AA)
-        draw.text(cv, (W - 30, 722), self.time_label(k), 28, MUTED, anchor="ra")
+        draw.text(cv, (W - 30, 706), f"t = {int(self.offsets[k]) // 60:+d} min", 30, MUTED, anchor="ra")
         draw.footer(cv, extra="grey: all regions above noise; vermillion: smoke class"); self.progress(cv, f / max(nf - 1, 1))
         return cv
 
@@ -216,9 +216,9 @@ class Clip:
         else:
             line = f"{draw.CLASS_LABEL[shown].capitalize()}: " + RULES[shown].split(" is ", 1)[0] + " is " + RULES[shown].split(" is ", 1)[1] if " is " in RULES[shown] else RULES[shown]
             col = draw.CLASS_COLOURS[shown]
-        draw.caption(cv, draw.wrap(line, 40, W - 80), 30, 808, 40, colour=FG)
-        draw.swatch_legend(cv, [(draw.CLASS_COLOURS[n], draw.CLASS_LABEL[n]) for n in ["smoke", "cloud", "haze_fog", "dust", "other"]], 30, 940, 32)
-        draw.text(cv, (W - 30, 944), self.time_label(k), 28, MUTED, anchor="ra")
+        draw.caption(cv, draw.wrap(line, 34, W - 80), 30, 806, 34, colour=FG)
+        draw.swatch_legend(cv, [(draw.CLASS_COLOURS[n], draw.CLASS_LABEL[n]) for n in ["smoke", "cloud", "haze_fog", "dust", "other"]], 30, 968, 30)
+        draw.text(cv, (W - 30, 970), f"t = {int(self.offsets[k]) // 60:+d} min", 28, MUTED, anchor="ra")
         draw.footer(cv); self.progress(cv, f / max(nf - 1, 1))
         return cv
 
