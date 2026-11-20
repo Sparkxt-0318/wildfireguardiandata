@@ -35,3 +35,4 @@
 2026-11-20T21:50Z merged PR15 caught (dev rounds, frozen rules v3, three-state sample); woke score to run adapter on sample
 2026-11-20T22:04Z pass: routed 0 item(s)
 2026-11-20T22:21Z pass: routed 4 item(s)
+- 22:22Z merged smoke PR #17 (1ca4396; scope ok: 4 new smoke files in protocol/ and scripts/); release smoke-v0.1 dispatched
