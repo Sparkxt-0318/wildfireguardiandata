@@ -134,6 +134,96 @@
     "sites_per_day_median": 4.0
    },
    "time": "2026-11-20T23:04Z"
+  },
+  {
+   "round": 4,
+   "cause": "ACM files missing for hours (2024-UTUWF-200810, 2024-CAANF-243334)",
+   "change": "cloud reference falls back to the pixel's own clear BT14 history",
+   "before": {
+    "ukey": "bt7_c4_w6",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2
+   },
+   "after": {
+    "ukey": "bt7_c4_w6_h",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2
+   },
+   "score_before": -39.59826388888889,
+   "score_after": -40.53732638888889,
+   "h_before": 67.05959375,
+   "h_after": 68.45166833496094,
+   "earlier_before": 16,
+   "earlier_after": 16,
+   "n": 96,
+   "no_alert_before": 47,
+   "no_alert_after": 48,
+   "false_rate_after": 9.884828647735201e-05,
+   "kept": false,
+   "false_alerts_after": {
+    "n_days_with_false": 43,
+    "kinds": {
+     "previous days": 38,
+     "day0 (fire day, far sites)": 5
+    },
+    "sites_per_day_median": 3.0
+   },
+   "time": "2026-11-20T23:20Z"
+  },
+  {
+   "round": 5,
+   "cause": "growing fires lose evidence when more than 4 neighbours are hot (late fires)",
+   "change": "compactness limit 4 -> 8 pixels",
+   "before": {
+    "ukey": "bt7_c4_w6",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2
+   },
+   "after": {
+    "ukey": "bt7_w6_c8",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2
+   },
+   "score_before": -39.59826388888889,
+   "score_after": -42.440378006872855,
+   "h_before": 67.05959375,
+   "h_after": 88.0195546875,
+   "earlier_before": 16,
+   "earlier_after": 15,
+   "n": 97,
+   "no_alert_before": 47,
+   "no_alert_after": 50,
+   "false_rate_after": 9.884828647735201e-05,
+   "kept": false,
+   "false_alerts_after": {
+    "n_days_with_false": 42,
+    "kinds": {
+     "previous days": 36,
+     "day0 (fire day, far sites)": 6
+    },
+    "sites_per_day_median": 5.0
+   },
+   "time": "2026-11-20T23:34Z"
   }
  ],
  "final_config": {
