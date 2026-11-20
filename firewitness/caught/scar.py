@@ -32,7 +32,8 @@ os.environ.setdefault("GDAL_HTTP_MERGE_CONSECUTIVE_RANGES", "YES")
 os.environ.setdefault("GDAL_HTTP_MULTIPLEX", "YES")
 os.environ.setdefault("GDAL_HTTP_VERSION", "2")
 os.environ.setdefault("VSI_CACHE", "TRUE")
-os.environ.setdefault("GDAL_CACHEMAX", "512")
+os.environ.setdefault("GDAL_CACHEMAX", "96")
+os.environ.setdefault("VSI_CACHE_SIZE", "4000000")
 os.environ.setdefault("GDAL_HTTP_MAX_RETRY", "5")
 os.environ.setdefault("GDAL_HTTP_RETRY_DELAY", "2")
 os.environ.setdefault("CPL_VSIL_CURL_ALLOWED_EXTENSIONS", ".tif,.TIF,.tiff")
@@ -40,14 +41,19 @@ if os.path.exists("/root/.ccr/ca-bundle.crt"):
     os.environ.setdefault("CURL_CA_BUNDLE", "/root/.ccr/ca-bundle.crt")
 
 PARAMS = {
-    "pre_days": 60, "post_days": 45, "min_clear": 0.8, "max_scene_cloud": 90.0, "max_tries": 4,
-    "t_abs": 0.10, "k_sigma": 3.0, "dnir": -0.01, "dvis": 0.02, "n_min": 4,
+    "pre_days": 60, "post_days": 45, "min_clear": 0.8, "max_scene_cloud": 90.0, "max_tries": 10,
+    "t_abs": 0.10, "k_sigma": 3.0, "dnir": -0.01, "dvis": 0.02, "n_min": 8,
     "regional_frac": 0.25, "attr_factor": 20.0, "attr_add_m2": 100_000.0,
-    "ref_ratio": 0.5, "ref_slack_days": 16, "window_min_m": 1000.0, "max_window_px": 1600,
+    "ref_ratio": 0.5, "ref_slack_days": 16, "window_min_m": 1000.0, "max_window_px": 1000,
     "dnbr_ref": 0.25,
+    "comp_min_dnbr": 0.0,      # minimum median dNBR of a component (0 = off)
+    "dswir1_max": 0.02,        # a candidate pixel's SWIR1 change must be below this (D2; None = off)
+    "min_nir_pre": None,       # unused unless set
+    "landsat_if_no_scar": False,  # also look in Landsat when Sentinel-2 was clear but found no scar
 }
 
-S2_BAD = {0, 1, 3, 6, 8, 9, 10, 11}   # no data, saturated, shadow, water, cloud med/high, cirrus, snow
+S2_BAD = {0, 1, 3, 6, 8, 9, 10, 11}
+CACHE_MIN_FREE = 30 * 1024 ** 3   # the dev cache never takes the disk below 30 GB free (half of the start)   # no data, saturated, shadow, water, cloud med/high, cirrus, snow
 _tls = threading.local()
 _manifest_lock = threading.Lock()
 
@@ -179,10 +185,13 @@ def read_asset(item, asset: str, grid: Grid, resampling: str = "nearest", run: s
     for i in range(4):
         try:
             with rasterio.open(href) as src:
-                if src.crs and src.crs.to_epsg() == grid.epsg and abs(src.res[0] - grid.res) < 1e-6:
+                if src.crs and src.crs.to_epsg() == grid.epsg:
+                    # same grid family: windowed read; a coarser grid is read decimated (overviews), never warped
                     w = from_bounds(*grid.bounds, transform=src.transform)
                     w = w.round_offsets().round_lengths()
-                    arr = src.read(1, window=w, boundless=True, fill_value=0, out_shape=(grid.n, grid.n))
+                    rs = Resampling.nearest if abs(src.res[0] - grid.res) < 1e-6 else getattr(Resampling, resampling)
+                    arr = src.read(1, window=w, boundless=True, fill_value=0, out_shape=(grid.n, grid.n),
+                                   resampling=rs)
                 else:
                     rs = getattr(Resampling, resampling)
                     with WarpedVRT(src, crs=f"EPSG:{grid.epsg}", transform=grid.transform, width=grid.n,
@@ -204,7 +213,8 @@ def read_asset(item, asset: str, grid: Grid, resampling: str = "nearest", run: s
     with _manifest_lock:
         with open(d / "MANIFEST.tsv", "a") as m:
             m.write(f"{item.id}\t{asset}\t{grid.epsg}\t{','.join(f'{v:.0f}' for v in grid.bounds)}\t{sha}\t{len(b)}\n")
-    if cache:
+    import shutil as _sh
+    if cache and _sh.disk_usage(str(RAW_ROOT)).free > CACHE_MIN_FREE:
         Path(cache).mkdir(parents=True, exist_ok=True)
         os.replace(f, cf)   # kept for the dev rounds; the cache folder is deleted when the rounds end
     else:
@@ -420,6 +430,8 @@ def scar_search(lon, lat, radius_m, start: date, end: date, area_m2: float | Non
     mad = float(np.median(np.abs(dnbr[bg] - med))) * 1.4826 if bg.any() else 0.0
     thr = max(p["t_abs"], med + p["k_sigma"] * mad)
     cand = valid & (dnbr >= thr) & ((bpost["nir"] - bpre["nir"]) < p["dnir"]) & ((bpost["vis"] - bpre["vis"]) < p["dvis"])
+    if p.get("dswir1_max") is not None:
+        cand &= (bpost["swir1"] - bpre["swir1"]) < p["dswir1_max"]
     floor = scar_floor_m2(thr, grid.res, p["n_min"], p["dnbr_ref"])
     clear_frac = float(valid[disc].mean()) if disc.any() else 0.0
     res_ = ScarResult("no_scar_clear", sensor=sensor, pre_date=str(item_date(pre)), post_date=str(item_date(post)),
@@ -443,7 +455,9 @@ def scar_search(lon, lat, radius_m, start: date, end: date, area_m2: float | Non
         for k in keep:
             c = {"label": int(k), "n_px": int(sizes[k - 1]), "area_m2": float(sizes[k - 1] * px),
                  "median_dnbr": round(float(meds[k - 1]), 4), "status": "accepted", "reason": None}
-            if regional > p["regional_frac"] and mode == "small":
+            if mode == "small" and c["median_dnbr"] < p.get("comp_min_dnbr", 0.0):
+                c["status"], c["reason"] = "rejected", f"component median dNBR below {p['comp_min_dnbr']}"
+            elif regional > p["regional_frac"] and mode == "small":
                 c["status"], c["reason"] = "rejected", f"regional change ({regional:.2f} of neighbouring land)"
             elif mode == "small" and area_m2 is not None and c["area_m2"] > p["attr_factor"] * area_m2 + p["attr_add_m2"]:
                 c["status"], c["reason"] = "rejected", "larger than the recorded fire allows (other event)"
@@ -540,9 +554,12 @@ def find_scar(lon: float, lat: float, radius_m: float, start: date, end: date, a
     for s in sensors:
         r = scar_search(lon, lat, radius_m, start, end, area_m2, s, "small", run, p)
         hs += r.hotspots
-        if out is None or (out.status == "no_clear_look" and r.status != "no_clear_look"):
+        if out is None or (out.status == "no_clear_look" and r.status != "no_clear_look") or \
+                (r.status == "scar" and out.status != "scar"):
+            if out is not None and out.status != "no_clear_look":
+                r.looks = out.looks + r.looks
             out = r
-        if r.status != "no_clear_look":
+        if r.status == "scar" or (r.status != "no_clear_look" and not p.get("landsat_if_no_scar")):
             break
     out.hotspots = hs
     return out

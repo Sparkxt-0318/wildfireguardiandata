@@ -24,7 +24,7 @@ from .fetch import RAW_ROOT, fetch, index_note
 CMR = "https://cmr.earthdata.nasa.gov/search/granules.json"
 NPIX = 2400
 STEP = 10.0 / NPIX
-K_SIGMA, MIN_EXCESS = 5.0, 3.0
+K_SIGMA, MIN_EXCESS = 15.0, 100.0   # D1 (v1 was 5.0, 3.0)
 
 
 def tile_of(lat, lon):
@@ -113,7 +113,8 @@ def extract(windows: pd.DataFrame, name: str, threads: int = 6) -> dict:
     return {"pix": pix, "need": need, "dir": out}
 
 
-def detect(windows: pd.DataFrame, ex: dict) -> dict:
+def detect(windows: pd.DataFrame, ex: dict, k_sigma: float = K_SIGMA, min_excess: float = MIN_EXCESS,
+           rule: str = "v1") -> dict:
     """{rid: [item dicts]} DNB night-light anomalies inside each window."""
     out = defaultdict(list)
     for hv, plist in ex["pix"].items():
@@ -145,7 +146,7 @@ def detect(windows: pd.DataFrame, ex: dict) -> dict:
             while d <= w.t1:
                 if d in vals:
                     x = vals[d][sel]
-                    hit = np.isfinite(x) & (nvalid >= 5) & (x - med >= np.maximum(K_SIGMA * sd, MIN_EXCESS))
+                    hit = np.isfinite(x) & (nvalid >= 5) & (x - med >= np.maximum(k_sigma * sd, min_excess))
                     if hit.any():
                         pl = [p for p, m in zip(ex["pix"][hv], sel) if m]
                         hp = [pl[i] for i in np.nonzero(hit)[0]]

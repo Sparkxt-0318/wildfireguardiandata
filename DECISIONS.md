@@ -114,3 +114,7 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 **D-105 (records) — FIRMS_MAP_KEY.** The FIRMS key was copied from the git history of the old wildfireguardian repository (live/config/firms_map_key.txt, deleted in the commit "live: delete the temporary FIRMS key file") into keys.env outside the repo, as the brief says. It was not needed: the FIRMS country archives (MODIS 2000 to 2024, VIIRS S-NPP 2012 to 2024, United States) are public files on firms.modaps.eosdis.nasa.gov and were downloaded without a key. The key is unused and never appears in the repo (`scripts/check_keys.py` checks for it in CI and pre-commit).
 
 **D-106 (records) — Interval additions and append-only results.** Result files on main are append-only (orchestrator rule): later numbers, intervals and corrections are added as dated additions below earlier lines; earlier lines are never edited.
+
+**D-510 (caught) — DNB night look only for California 2020** (protocol amendment A1). Streaming a 30-40 MB tile per day for the whole US over three years would move about 300 GB.
+
+**D-511 (caught) — Disk budget overrun, and the cap that followed.** At 21:00Z the window cache for the dev rounds reached 46 GB and filled the disk (budget: half of the 61 GB free at start). The cache was deleted at once; the rounds re-read their windows from the network. Since then the cache writes only while more than 30 GB stay free, and no prefetch runs beside a round.

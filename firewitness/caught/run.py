@@ -186,7 +186,8 @@ def _scar_chunk(chunk, threads):
         return list(ex.map(_scar_one, chunk))
 
 
-def scar_stage(name: str, w: pd.DataFrame, threads: int = 40, params=None, log_every=200, procs: int = 4) -> dict:
+def scar_stage(name: str, w: pd.DataFrame, threads: int = 40, params=None, log_every=200, procs: int = 4,
+               heat_rids: set | None = None) -> dict:
     """Run find_scar on every searched window (procs processes x threads); JSON lines checkpoint."""
     import multiprocessing as mp
     from concurrent.futures import ProcessPoolExecutor
@@ -202,13 +203,24 @@ def scar_stage(name: str, w: pd.DataFrame, threads: int = 40, params=None, log_e
             except json.JSONDecodeError:
                 continue
     todo = w[w.searched & ~w.rid.isin(done)]
-    args = [(r.rid, r.LONGITUDE, r.LATITUDE, r.r_m, r.t0, r.t1, r.area_m2 / 1e4, name, params)
+    p0 = dict(params or {})
+    lh = p0.pop("landsat_if_heat", True)   # round 3 (kept)
+
+    def prm(rid):
+        if lh and heat_rids and rid in heat_rids:
+            return {**p0, "landsat_if_no_scar": True}
+        return p0 or None
+    args = [(r.rid, r.LONGITUDE, r.LATITUDE, r.r_m, r.t0, r.t1, r.area_m2 / 1e4, name, prm(r.rid))
             for r in todo.itertuples()]
-    chunks = [args[i:i + 24] for i in range(0, len(args), 24)]
+    # big windows first and spread over chunks, so no worker holds several at once
+    args.sort(key=lambda a: -a[3])
+    k = max(1, len(args) // 24)
+    chunks = [args[i::k] for i in range(k)]
     t = time.time()
     n = 0
     per = max(1, threads // procs)
-    with ProcessPoolExecutor(procs, mp_context=mp.get_context("spawn")) as ex, open(ck, "a") as f:
+    with ProcessPoolExecutor(procs, mp_context=mp.get_context("spawn"), max_tasks_per_child=8) as ex, \
+            open(ck, "a") as f:
         futs = [ex.submit(_scar_chunk, c, per) for c in chunks]
         for fu in as_completed(futs):
             for d in fu.result():
@@ -266,6 +278,10 @@ def build_items(w, pts, polys, scar, src: Sources) -> list:
             dd = date.fromisoformat(h["date"])
             items.append(E.Item(wit, unary_union(gs), dd, dd, {"item": h["item"], "n_pixels": h["n_pixels"]}))
     # an item only counts if it meets the disc (point sources were matched on the disc already)
+    from shapely import make_valid
+    for it in items:
+        if not it.geom.is_valid:
+            it.geom = make_valid(it.geom)
     disc = Point(0, 0).buffer(w.r_m, 64)
     return [it for it in items if it.geom.intersects(disc)]
 
@@ -282,7 +298,10 @@ def label_row(w, items, scar, perimeter_on=True) -> dict:
     if not pix and t != "record-only":
         pix = [it.geom for it in items if it.kind == "PERIMETER"]
     if pix:
-        geom = unary_union(pix).intersection(disc)
+        try:
+            geom = unary_union(pix).intersection(disc)
+        except Exception:  # GEOS topology error on unusual inputs: union after a zero buffer
+            geom = unary_union([g.buffer(0) for g in pix]).intersection(disc)
         pixel_label = True
     else:
         geom = disc
@@ -370,7 +389,10 @@ def evaluate(name: str, w: pd.DataFrame, src: Sources, fod_big: PointIndex | Non
                 continue
             pts[r.rid] = {"pts": point_matches(src, r), "polys": polygon_matches(src, r, fod_big, perimeter_on)}
         pts_p.write_text(json.dumps(pts, default=str))
-    scars = scar_stage(name, w[w.LATITUDE.notna()], threads=threads, params=params)
+    heat = {"MODIS", "VIIRS_SNPP", "VIIRS_NOAA20", "GOES", "AVHRR", "HMS_ANALYST", "DNB"}
+    heat_rids = {rid for rid, v in pts.items() if any(q["witness"] in heat for q in v["pts"])}
+    heat_rids |= {rid for rid, v in (extra_points or {}).items() if v}
+    scars = scar_stage(name, w[w.LATITUDE.notna()], threads=threads, params=params, heat_rids=heat_rids)
     rows = []
     for r in w.itertuples():
         if pd.isna(r.LATITUDE):
