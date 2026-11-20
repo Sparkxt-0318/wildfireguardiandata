@@ -16,6 +16,12 @@ def _sat(args):
     return 0
 
 
+def _truth(args):
+    from . import truth
+    print(json.dumps(truth.render_truth(args.sequence, args.out, args.alpha_max, args.endmember, 0, args.seconds)))
+    return 0
+
+
 def register(parser):
     sub = parser.add_subparsers(dest="cmd")
     sp = sub.add_parser("render", help="render a labelled FIgLib sequence")
@@ -33,3 +39,9 @@ def register(parser):
     st.add_argument("--seconds", type=float, default=24); st.add_argument("--fps", type=int, default=30)
     st.add_argument("--no-gif", action="store_true"); st.add_argument("--no-stills", action="store_true")
     st.set_defaults(func=_sat)
+    tr = sub.add_parser("truth", help="known-truth demo (test S1): planted plume, truth contours, measured contours")
+    tr.add_argument("sequence", help="directory of frames (smoke-free pre-ignition frames are used)")
+    tr.add_argument("--out", required=True); tr.add_argument("--alpha-max", type=float, default=0.6)
+    tr.add_argument("--endmember", default="grey055", choices=["grey030", "grey055", "grey085", "warm"])
+    tr.add_argument("--seconds", type=float, default=24)
+    tr.set_defaults(func=_truth)

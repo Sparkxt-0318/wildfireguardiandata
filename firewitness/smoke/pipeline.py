@@ -301,7 +301,10 @@ def analyse(prep, idxs):
         tex = lineage_texture_loss(prep, nodes, pure, t_conf)
         cshift = lineage_colour_shift(prep, nodes, pure, t_conf)
         # a veil changes more than brightness: relative contrast falls, or chromaticity moves (a shadow does neither)
-        textured = (tex is not None and tex >= p["texture_loss_min"]) or cshift >= p["chroma_shift_min"]
+        if p.get("veil_rule") == "texture_first" and tex is not None:
+            textured = tex >= p["texture_loss_min"]          # a textured background must lose contrast
+        else:
+            textured = (tex is not None and tex >= p["texture_loss_min"]) or cshift >= p["chroma_shift_min"]
         preexisting = r[0] == idxs[0]      # present at the first analysed frame: no seed was seen
         cls = classify_chain(prep, nodes, pure, r, on_ground, grown and textured, small_seed, areas, t_conf)
         if preexisting and cls[0] == "smoke":
