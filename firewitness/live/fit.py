@@ -111,14 +111,15 @@ def score(evals, h, fids=None):
 
 # ---------------------------------------------------------------- candidates and forward selection
 def candidates(cur: dt.Config, k_label: float):
+    """One-step changes from the current settings (protocol §6 candidates)."""
     out = []
     for u in ("dT", "dT_c4", "dTd", "dTd_c4", "bt7_c4"):
         if u != cur.ukey:
             out.append(("feature " + u, replace(cur, ukey=u)))
-    for c in (4.0, 8.0, 12.0):
+    for c in (4.0, 8.0, 20.0, 40.0):
         if c != cur.cap:
             out.append((f"cap {c:g}", replace(cur, cap=c)))
-    for k in sorted({0.5, round(k_label, 2), 1.0}):
+    for k in sorted({0.5, 1.0, 2.0, 4.0, round(k_label, 2)}):
         if k != cur.k:
             out.append((f"k {k:g}", replace(cur, k=k)))
     for r in (1.0, 1.5, 2.0, math.inf):
