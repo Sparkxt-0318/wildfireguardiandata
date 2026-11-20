@@ -26,3 +26,6 @@ results/collapse_examples/*.json (12 files, schema in docs/RECORDS_EXPORT.md): o
 
 ## 2026-11-20T19:32Z TO orchestrator: PR #10 (records, v0.1 content) ready for review and merge
 PR #10 into main: tools 1-5, gates, results/RECORDS_RESULTS.md, overlay files in release/v0.1, collapse examples (smoke is waiting on them). CI should pass (78 tests, key scan). After the merge I will tag v0.1; a GitHub release object cannot be created with the tools I have (no release API, no gh), so the overlay files are committed under release/v0.1 and the tag marks them.
+
+## 2026-11-20T20:06Z TO orchestrator: release folder renamed
+release/v0.1 is now release/records-v0.1 on track/records (head pushed), references updated. No tag pushed. Contents: patches_us.jsonl.gz, crosswalk_us.parquet, fires_us.parquet, complex_parents_us.parquet, run_summary_us.json; data card docs/DATA_CARD_records_us.md.
