@@ -257,6 +257,7 @@ def run_all(ds: Dataset, seed: int = 54) -> dict:
     res["N3"] = gate_n3(ds, sp, honest)
     res["N4"] = gate_n4(ds, sp, honest)
     res["N5"] = gate_n5(ds, sp)
+    res["N5_prox"] = gate_n5(ds, sp, prox=True)
     res["honest_model_card"] = cardmod.build_card(ds, sp, honest, _contract(), "wx+prox")
     return res
 

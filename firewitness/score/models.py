@@ -204,3 +204,16 @@ def halo(ds, fires, radius=2) -> Predictions:
         sc[fid] = a
         info[fid] = (s.dates - 1).astype(np.int32)
     return Predictions(sc, info, {"model": "halo", "info_until_lag_days": 1})
+
+
+def abstain_cheat(ds, fires) -> Predictions:
+    """Round-5 cheat: persistence, but silent on days where (it secretly knows) no fire burns today."""
+    sc, info = {}, {}
+    for fid in fires:
+        s = ds.scenes[fid]
+        a = np.full(s.state.shape, np.nan, np.float32)
+        for t in s.valid_targets():
+            a[t] = (s.state[t - 1] == FIRE) if (s.state[t] == FIRE).any() else 0.0
+        sc[fid] = a
+        info[fid] = (s.dates - 1).astype(np.int32)
+    return Predictions(sc, info, {"model": "abstain", "info_until_lag_days": 1})
