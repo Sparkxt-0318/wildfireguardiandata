@@ -1,7 +1,7 @@
 ## records
-- state: DONE 200c186
-- last heartbeat (UTC): 2026-11-20T20:56Z
-- current step: all steps, gates and deliverables of brief 49 done; PRs #2, #10, #13 merged
+- state: WORKING (orchestrator depth-check items: weather vs gridMET in progress, 200-fire pre-registered perimeter sample running, intervals/rounds/tests/DECISIONS additions done)
+- last heartbeat (UTC): 2026-11-20T21:02Z
+- current step: gridMET download + weather run; perimeter shards
 - blockers: none
-- open limits (stated in results/RECORDS_RESULTS.md): FIRED not obtained, so ICS-209-PLUS to FIRED link does not meet R1; FPA FOD to ICS-209-PLUS recall 0.80 at precision 0.95; time repair recall low
+- PRs open: none open (next PR after items complete)
 - session: session_017vgyRSUvuSFwAJ6G5Pon4W
