@@ -43,3 +43,15 @@ from overviews on the native grid); invalid polygons broke the label union (made
 inflated the secondary stratum (deduplicated); worker memory capped after an out-of-memory kill.
 
 ## Development fixes (before the loop; dev only)
+
+**D1 — DNB night look was noise.** Cause: a 5-sigma / 3 nW excess over a 30-night baseline fires on ordinary
+night-to-night variation of 500 m pixels (23 % of placebo windows). Change: excess >= max(15 robust sd, 100 nW cm-2
+sr-1), the brightness of open flame filling part of a pixel. Threshold scan on S1 windows: (5, 10) 25.7 % records vs
+15.7 % placebos; (8, 30) 5.0 vs 3.1; (10, 50) 2.1 vs 1.2; (15, 100) 0.69 vs 0.29.
+
+| | v1 | D1 |
+|---|---|---|
+| placebo verified | 1.26 % | 0.25 % (3 / 1,194) |
+| placebo probable | 18.8 % | 11.0 % |
+| dev truth labelled / verified catches | 1,032 / 476 | 1,030 / 468 |
+| dev headline | 54 | 34 |
