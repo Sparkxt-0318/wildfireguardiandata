@@ -1,0 +1,147 @@
+{
+ "n_records": 161661,
+ "location": {
+  "reliabilities": {
+   "admin": {
+    "m": 0.9993,
+    "u": 0.0
+   },
+   "fire_window": {
+    "m": 0.1507,
+    "u": 0.0558
+   },
+   "scar": {
+    "m": 0.9314,
+    "u": 0.3761
+   }
+  },
+  "priors": {
+   "0": 0.995,
+   "1": 0.02
+  },
+  "actions": {
+   "repair": 108921,
+   "keep": 43717,
+   "undecided": 9023
+  },
+  "repair_kinds": {
+   "sign_flip_lon": 108860,
+   "swap_axes_neg": 61
+  },
+  "by_file_year": {
+   "1999": {
+    "keep": 744,
+    "repair": 2381,
+    "undecided": 118
+   },
+   "2000": {
+    "keep": 703,
+    "repair": 5693,
+    "undecided": 194
+   },
+   "2001": {
+    "keep": 645,
+    "repair": 6097,
+    "undecided": 524
+   },
+   "2002": {
+    "keep": 287,
+    "repair": 6517,
+    "undecided": 622
+   },
+   "2003": {
+    "keep": 487,
+    "repair": 6611,
+    "undecided": 680
+   },
+   "2004": {
+    "keep": 202,
+    "repair": 4019,
+    "undecided": 450
+   },
+   "2005": {
+    "keep": 502,
+    "repair": 6251,
+    "undecided": 666
+   },
+   "2006": {
+    "keep": 669,
+    "repair": 11273,
+    "undecided": 954
+   },
+   "2007": {
+    "keep": 29,
+    "repair": 9285,
+    "undecided": 760
+   },
+   "2008": {
+    "keep": 209,
+    "repair": 8544,
+    "undecided": 889
+   },
+   "2009": {
+    "keep": 20,
+    "repair": 6293,
+    "undecided": 569
+   },
+   "2010": {
+    "keep": 2,
+    "repair": 6817,
+    "undecided": 510
+   },
+   "2011": {
+    "keep": 4,
+    "repair": 12510,
+    "undecided": 1022
+   },
+   "2012": {
+    "keep": 1,
+    "repair": 8992,
+    "undecided": 703
+   },
+   "2013": {
+    "keep": 0,
+    "repair": 7638,
+    "undecided": 362
+   },
+   "2020": {
+    "keep": 39213,
+    "repair": 0,
+    "undecided": 0
+   }
+  }
+ },
+ "time": {
+  "reliabilities": {
+   "order": {
+    "m": 0.9704,
+    "u": 0.573
+   },
+   "first_detection": {
+    "m": 0.3551,
+    "u": 0.13
+   },
+   "scar_date": {
+    "m": 0.3476,
+    "u": 0.0071
+   }
+  },
+  "priors": {
+   "0": 0.995,
+   "1": 0.03
+  },
+  "actions": {
+   "keep": 161661
+  },
+  "repair_kinds": {}
+ },
+ "n_patches": 135108,
+ "seconds": 166.5,
+ "inputs": {
+  "/home/user/wildfire 3 (1)/work/canon/ics_raw_all.parquet": {
+   "sha256": "e4c197eaadb78abd065b22a66d41721dfb29e5be8ae7fa5505a01e75aa25d33d",
+   "bytes": 8575273
+  }
+ },
+ "patch_chain": "e6a2d06111efe281f4a37033b80c33e5af3269f1f3d3157ae74d88eb0512d74d"
+}
