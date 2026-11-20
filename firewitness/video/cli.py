@@ -10,6 +10,12 @@ def _render(args):
     return 0
 
 
+def _sat(args):
+    from . import satellite
+    print(json.dumps(satellite.render_satellite(args.dir, args.out, args.seconds, args.fps, not args.no_gif, not args.no_stills)))
+    return 0
+
+
 def register(parser):
     sub = parser.add_subparsers(dest="cmd")
     sp = sub.add_parser("render", help="render a labelled FIgLib sequence")
@@ -21,3 +27,9 @@ def register(parser):
     sp.add_argument("--fps", type=int, default=30)
     sp.add_argument("--no-gif", action="store_true"); sp.add_argument("--no-stills", action="store_true")
     sp.set_defaults(func=_render)
+    st = sub.add_parser("satellite", help="render a satellite series export (track live): frames, pixel signal, detection times")
+    st.add_argument("dir", help="results/live_export/<fire_id>/")
+    st.add_argument("--out", required=True)
+    st.add_argument("--seconds", type=float, default=24); st.add_argument("--fps", type=int, default=30)
+    st.add_argument("--no-gif", action="store_true"); st.add_argument("--no-stills", action="store_true")
+    st.set_defaults(func=_sat)

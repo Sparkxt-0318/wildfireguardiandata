@@ -109,10 +109,24 @@ def prepare(sq, params=None, pre_idx=None):
     L0 = max(float(np.median(Nmap[VALID])), p["noise_floor_min"])
     Tmap = np.maximum(L0, Nmap).astype(np.float32)
     noisy = Nmap > L0
+    # per-frame bar: pre-window frames are tested against a bar built without their own block and gap, so that
+    # a frame is never compared with a maximum it helped to set (a slowly growing shadow would pass otherwise)
+    T_of = {}
+    for k in range(0, len(pre_idx), nb):
+        blk = pre_idx[k:k + nb]
+        lo, hi = blk[0] - gap, blk[-1] + gap
+        rest = np.array([i for i in pre_idx if i < lo or i > hi])
+        if len(rest) < 8:
+            rest = np.array([i for i in pre_idx if i not in set(blk.tolist())])
+        Nk = cv2.dilate(np.max(alpha[rest], axis=0), np.ones((5, 5), np.uint8))
+        Tk = np.maximum(L0, Nk).astype(np.float32)
+        for i in blk:
+            T_of[int(i)] = Tk
+    T_frames = [T_of.get(i, Tmap) for i in range(T)]
     info["masked_share"] = float(noisy[VALID].mean())
     # horizon from the background
     return dict(info=info, params=p, offsets=off, pre_idx=pre_idx, B=B, Bs=Bs, d=d, alpha=alpha,
-                S=S, S_fitted=bool(ok), L0=L0, T=Tmap, tau_d=tau_d, horizon=horizon, frames=fr, shifts=shifts, noisy=noisy)
+                S=S, S_fitted=bool(ok), L0=L0, T=Tmap, T_frames=T_frames, tau_d=tau_d, horizon=horizon, frames=fr, shifts=shifts, noisy=noisy)
 
 
 def texture_loss_map(prep, t):
@@ -139,6 +153,7 @@ def horizon_line(Bs):
 
 # ---------------------------------------------------------------- regions
 def regions(alpha_t, T, area_min):
+    """connected pixels with alpha at or above the bar T(x)"""
     m = (alpha_t >= T).astype(np.uint8)
     n, lab, st, cen = cv2.connectedComponentsWithStats(m, connectivity=8)
     keep = [k for k in range(1, n) if st[k, cv2.CC_STAT_AREA] >= area_min]
@@ -147,10 +162,10 @@ def regions(alpha_t, T, area_min):
 
 def build_nodes(prep, idxs):
     """For each frame index in idxs: list of node dicts with a boolean mask."""
-    p = prep["params"]; L0 = prep["T"]
+    p = prep["params"]
     nodes = {}
     for t in idxs:
-        lab, keep, st, cen = regions(prep["alpha"][t], L0, p["area_min"])
+        lab, keep, st, cen = regions(prep["alpha"][t], prep["T_frames"][t], p["area_min"])
         nl = []
         for k in keep:
             mk = lab == k

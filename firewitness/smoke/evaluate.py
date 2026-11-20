@@ -96,6 +96,7 @@ def summarise_s1(rows):
     fe = col("first_err_frames")
     out["first_err_median_frames"] = float(np.nanmedian(fe)) if np.isfinite(fe).any() else None
     out["first_err_n"] = int(np.isfinite(fe).sum())
+    out["first_err_abs_median_frames"] = float(np.nanmedian(np.abs(fe))) if np.isfinite(fe).any() else None
     out["false_smoke_chains_mean"] = float(np.mean(col("false_smoke_chains")))
     byE = {}
     for e in S1.ENDMEMBERS:
@@ -138,3 +139,32 @@ def summarise_s23(res):
         out["s3_share_before_human"] = float((d < 0).mean()); out["s3_share_after_human"] = float((d > 0).mean())
         out["s3_share_within_5min"] = float((abs(d) <= 300).mean())
     return out
+
+
+def s1_vector(summary):
+    """The four S1 components used by the accept rule: lower is better except detection."""
+    return dict(mae=summary["mae"][0], edge020=summary.get("edge_0.20_median"),
+                detect=summary["detect_all"][0], first_err=summary.get("first_err_abs_median_frames"))
+
+
+def accept(base_s1, new_s1, base_false, new_false, tol=0.05):
+    """Protocol section 7. S1 improves: no component worse by more than tol (relative), at least one better by more than tol.
+    S2 does not worsen: false-frame count does not increase."""
+    b, n = s1_vector(base_s1), s1_vector(new_s1)
+    worse, better = [], []
+    for k in b:
+        if b[k] is None or n[k] is None:
+            continue
+        hib = (k == "detect")
+        ref = max(abs(b[k]), 1e-9)
+        d = (n[k] - b[k]) / ref
+        if hib:
+            d = -d
+        if d > tol:
+            worse.append(k)
+        elif d < -tol:
+            better.append(k)
+    s1_ok = (not worse) and bool(better)
+    s2_ok = new_false <= base_false
+    return dict(accepted=bool(s1_ok and s2_ok), s1_improves=bool(s1_ok), s2_not_worse=bool(s2_ok), worse=worse, better=better,
+                base=b, new=n, base_false=int(base_false), new_false=int(new_false))

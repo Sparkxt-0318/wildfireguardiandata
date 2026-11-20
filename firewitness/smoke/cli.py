@@ -25,7 +25,7 @@ def _label(args):
         return 0
     pr = r["prep"]; T = len(pr["alpha"])
     levels = [("noise", None)] + [(f"{l:.2f}", l) for l in p["levels"]]
-    edges = {str(int(pr["offsets"][t])): {nm: pipeline.contours_at(pr["alpha"][t], pr["T"], lv) for nm, lv in levels}
+    edges = {str(int(pr["offsets"][t])): {nm: pipeline.contours_at(pr["alpha"][t], pr["T_frames"][t], lv) for nm, lv in levels}
              for t in range(T)}
     post0 = int(pr["pre_idx"][-1]) + 1
     cls = np.zeros((T, seq.H, seq.W), np.uint8)
@@ -62,6 +62,10 @@ def _eval(args):
     if "s1" in args.tests:
         rows = E.run_s1(E.S1.full_cases(names) if args.full else E.S1.lite_cases(names), p, raw=args.raw)
         res["s1"] = E.summarise_s1(rows); res["s1_rows"] = rows
+    if "s5" in args.tests:
+        from . import s5
+        ident = s5.run_identity(names, raw=args.raw); win = s5.run_window(names, raw=args.raw)
+        res["s5"] = s5.summarise(ident, win); res["s5_identity_rows"] = ident; res["s5_window_rows"] = win
     with open(args.out, "w") as f:
         json.dump(res, f, indent=1, default=str)
     print("wrote", args.out)
@@ -78,7 +82,7 @@ def register(parser):
     ev = sub.add_parser("eval", help="run tests S1, S2/S3 over a list of sequence names")
     ev.add_argument("list", help="text file, one sequence name per line")
     ev.add_argument("--raw", default="/home/user/wildfire 3 (1)/firewitness_raw/figlib/")
-    ev.add_argument("--tests", nargs="+", default=["s23", "s1"])
+    ev.add_argument("--tests", nargs="+", default=["s23", "s1"], help="any of s23 s1 s5")
     ev.add_argument("--full", action="store_true", help="full S1 grid (default: lite)")
     ev.add_argument("--out", required=True)
     ev.set_defaults(func=_eval)
