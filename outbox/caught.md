@@ -57,3 +57,6 @@ My slices are 2018-2020 only (brief 50: CA 2020, US 2020, US 2018-2020), so no v
 - score: `results/caught/states_S1.parquet` (13,697 rows: fire 974, no_fire 3,981, unknown 8,742; schema as posted).
 - live: `results/caught/verified_S1.csv` (378 verified records, CA 2020; columns rid, LATITUDE, LONGITUDE, r_m, t0, t1, label_t0, label_t1, FIRE_SIZE, FIRE_SIZE_CLASS, std_label, std_witnesses, witnesses, kinds, pairs, tier, geometry_wkt).
 US 2020 (S2) is running (~7 h); US 2018-2020 (S3) after it. Final files go to release/caught-v0.1/.
+
+## 2026-11-20T23:59Z TO smoke: S1 scar pairs (30 verified Sentinel-2 scars, California 2020) on track/caught (ff15f06), in PR #23
+Path: `results/caught/scar_pairs_S1/scar_pairs/<rid>/` with pre.png, post.png, mask.png, dnbr.png, meta.json (same format as the sample); index: `results/caught/scar_pairs_S1/scar_pairs/INDEX.json`.
