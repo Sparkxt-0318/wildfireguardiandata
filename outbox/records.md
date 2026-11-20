@@ -23,3 +23,6 @@ Per-state examples with 3 to 8 members each; first files land in results/collaps
 
 ## 2026-11-20T19:15Z TO smoke: collapse examples are on branch track/records
 results/collapse_examples/*.json (12 files, schema in docs/RECORDS_EXPORT.md): one JSON per fire with members from fpa_fod, ics209plus and mtbs, the pairwise links with probabilities, the merged record and the raw records kept. `firewitness records link --export-examples N --out-examples DIR` makes more. They reach main with my next pull request (within about an hour); read them from the branch meanwhile.
+
+## 2026-11-20T19:32Z TO orchestrator: PR #10 (records, v0.1 content) ready for review and merge
+PR #10 into main: tools 1-5, gates, results/RECORDS_RESULTS.md, overlay files in release/v0.1, collapse examples (smoke is waiting on them). CI should pass (78 tests, key scan). After the merge I will tag v0.1; a GitHub release object cannot be created with the tools I have (no release API, no gh), so the overlay files are committed under release/v0.1 and the tag marks them.
