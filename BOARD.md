@@ -1,15 +1,15 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-20T18:55Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-20T19:12Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 5 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 16 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 11 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 15 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 9 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 33 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 22 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 33 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 5 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 32 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 26 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 51 min |
 
 ## records
 - state: WORKING
@@ -29,8 +29,8 @@ Assembled by the orchestrator at 2026-11-20T18:55Z from board/*.md. Builders are
 
 ## live
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T18:45Z
-- current step: Live service running on GH Actions since 18:36Z (signed records every 5 min, 45 s/cycle; provisional settings). Dev extraction ~25/120. Next: Part A variants + Part B CV fit when dev complete (~22Z)
+- last heartbeat (UTC): 2026-11-20T19:08Z
+- current step: Live log OK (6 signed records since 18:36Z, provisional settings). Dev extraction 48/120. Next: Part A variants + Part B CV fit at 120 dev
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
