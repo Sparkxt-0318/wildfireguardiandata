@@ -1,7 +1,7 @@
 ## live
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T18:23Z
-- current step: PR #5 open (CI green; live service + relay workflow). Extraction ~16/240 fires (proxy-bound, dev complete ~22:30Z). Part A variants declared (amendment 4); Part B dev fit harness ready; smoke sample export sent
-- blockers: extraction throughput (local TLS proxy saturated); not blocking other work
-- PRs open: #5
+- last heartbeat (UTC): 2026-11-20T18:30Z
+- current step: Live relay run 1 died at commit step (path bug) -> fixed in PR #6. Amendment 5: ACM marks fires as cloud -> 11um override. Part B grid on 20 dev fires running. Extraction ~20/240
+- blockers: live service down until PR #6 merged
+- PRs open: #6
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
