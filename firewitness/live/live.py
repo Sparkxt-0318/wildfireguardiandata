@@ -335,6 +335,8 @@ class LiveService:
         new = (G >= self.h) & ~self.alerted
         self.alerted |= new
         rec["masked_recent_fire_pixels"] = int((mask & self.E.inside).sum())
+        rec["G_summary"] = {"max": round(float(G.max()), 2), "n_ge_half_h": int((G >= self.h / 2).sum()),
+                            "n_ge_quarter_h": int((G >= self.h / 4).sum()), "n_in_episode": int((G > 0).sum())}
         rec["evaluated_pixels"] = int(self.E.inside.sum())
         rec["candidates"] = self._candidates(new, G, SE, SW, t)
         rec["processed_at"] = iso(time.time())

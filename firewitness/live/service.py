@@ -20,10 +20,14 @@ def sh(cmd, cwd=None, check=True):
     return r
 
 
-def sign(path: Path) -> bool:
+def sign(path: Path, tries: int = 3) -> bool:
     b = path.with_suffix(".sigstore.json")
-    r = sh([sys.executable, "-m", "sigstore", "sign", "--bundle", str(b), str(path)], check=False)
-    return r.returncode == 0 and b.is_file()
+    for i in range(tries):
+        r = sh([sys.executable, "-m", "sigstore", "sign", "--bundle", str(b), str(path)], check=False)
+        if r.returncode == 0 and b.is_file():
+            return True
+        time.sleep(10 * (i + 1))
+    return False
 
 
 def commit(repo: Path, paths, msg):
