@@ -32,7 +32,8 @@ os.environ.setdefault("GDAL_HTTP_MERGE_CONSECUTIVE_RANGES", "YES")
 os.environ.setdefault("GDAL_HTTP_MULTIPLEX", "YES")
 os.environ.setdefault("GDAL_HTTP_VERSION", "2")
 os.environ.setdefault("VSI_CACHE", "TRUE")
-os.environ.setdefault("GDAL_CACHEMAX", "512")
+os.environ.setdefault("GDAL_CACHEMAX", "96")
+os.environ.setdefault("VSI_CACHE_SIZE", "4000000")
 os.environ.setdefault("GDAL_HTTP_MAX_RETRY", "5")
 os.environ.setdefault("GDAL_HTTP_RETRY_DELAY", "2")
 os.environ.setdefault("CPL_VSIL_CURL_ALLOWED_EXTENSIONS", ".tif,.TIF,.tiff")
@@ -43,7 +44,7 @@ PARAMS = {
     "pre_days": 60, "post_days": 45, "min_clear": 0.8, "max_scene_cloud": 90.0, "max_tries": 4,
     "t_abs": 0.10, "k_sigma": 3.0, "dnir": -0.01, "dvis": 0.02, "n_min": 4,
     "regional_frac": 0.25, "attr_factor": 20.0, "attr_add_m2": 100_000.0,
-    "ref_ratio": 0.5, "ref_slack_days": 16, "window_min_m": 1000.0, "max_window_px": 1600,
+    "ref_ratio": 0.5, "ref_slack_days": 16, "window_min_m": 1000.0, "max_window_px": 1000,
     "dnbr_ref": 0.25,
 }
 

@@ -204,11 +204,15 @@ def scar_stage(name: str, w: pd.DataFrame, threads: int = 40, params=None, log_e
     todo = w[w.searched & ~w.rid.isin(done)]
     args = [(r.rid, r.LONGITUDE, r.LATITUDE, r.r_m, r.t0, r.t1, r.area_m2 / 1e4, name, params)
             for r in todo.itertuples()]
-    chunks = [args[i:i + 24] for i in range(0, len(args), 24)]
+    # big windows first and spread over chunks, so no worker holds several at once
+    args.sort(key=lambda a: -a[3])
+    k = max(1, len(args) // 24)
+    chunks = [args[i::k] for i in range(k)]
     t = time.time()
     n = 0
     per = max(1, threads // procs)
-    with ProcessPoolExecutor(procs, mp_context=mp.get_context("spawn")) as ex, open(ck, "a") as f:
+    with ProcessPoolExecutor(procs, mp_context=mp.get_context("spawn"), max_tasks_per_child=8) as ex, \
+            open(ck, "a") as f:
         futs = [ex.submit(_scar_chunk, c, per) for c in chunks]
         for fu in as_completed(futs):
             for d in fu.result():
