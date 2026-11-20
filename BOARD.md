@@ -1,15 +1,15 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-20T20:04Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-20T20:22Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 30 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 24 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 24 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 25 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 47 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 16 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 48 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 9 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 10 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 16 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 17 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 34 min |
 
 ## records
 - state: WORKING
@@ -21,8 +21,8 @@ Assembled by the orchestrator at 2026-11-20T20:04Z from board/*.md. Builders are
 
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T19:40Z
-- current step: dev development fixes: scar variants (min pixels, dNBR threshold, sigma, SWIR1 test) measured against placebo probable guard and dev truth catches; then loop rounds, sealed test, S1 full.
+- last heartbeat (UTC): 2026-11-20T20:13Z
+- current step: v2 passes on dev (placebo verified 0.17 %, probable 4.4 %; dev truth labelled 0.64 vs standard 0.32). Loop round 1 running (look search depth).
 - samples posted: states / verified / scar pairs on track/caught a6196a6 (results/caught/)
 - blockers: none
 - PRs open: none (next after rules freeze)
@@ -30,26 +30,26 @@ Assembled by the orchestrator at 2026-11-20T20:04Z from board/*.md. Builders are
 
 ## live
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T19:40Z
-- current step: Live log: 12 records 18:36-19:31Z, no gaps, 1 unsigned (sign retry added). Dev extraction 73/120. Part A variants running on extracted dev fires
+- last heartbeat (UTC): 2026-11-20T20:12Z
+- current step: Live log 19 records 18:36-20:06Z, no gaps (1 unsigned). Dev extraction 101/120. Part A preview on ~50 dev: E1 passes (false onset ~1%), onset in 10-17% of fires
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
 
 ## smoke
 - state: RUNNING (Sonnet, high effort)
-- last heartbeat (UTC): 2026-11-20T19:39:21Z
-- current step: improvement loop on dev: R1 R4 R5 rejected, R2 R3 accepted (S2 false pre frames 198 -> 99 of 1122, S1-lite detect 71%). R6 (endmember prior) running, R7 (sky-core veil) next. PR #8 merged. Next: S4 (HPWREN, Pyro), S5, sealed run once, clips from live/caught/records samples, release/smoke-v0.1.
+- last heartbeat (UTC): 2026-11-20T20:05:36Z
+- current step: improvement loop on dev, rounds R1-R8 done (accepted: R2 horizon seam, R3 confirm area, R7 sky-core veil; rejected: R1 R4 R5 R6 R8). Dev now: S2 99/1122 false pre frames, S1-lite detect 78%, MAE 0.129. R9 running. Video tool done for all layouts (sequence a-d, known truth, satellite, scars, collapse). Next: finish loop, S4, S5, sealed run once, clips, release/smoke-v0.1.
 - blockers: none
 - PRs open: none (PR #8 merged)
-- branch: track/smoke (2770dc4)
+- branch: track/smoke (100277a)
 
 ## fuel
-- state: WORKING (all steps and deliverables done; waiting for CI and merge of PR #7)
-- last heartbeat (UTC): 2026-11-20T19:17Z
-- current step: done: protocol (+A1, A2), agent, 12-round loop, sealed opened once (F1 7.91 [6.36,10.03], F2 0.92 %, F3 pass), 29-fire stretch (no improvement), CLI, report, results/FUEL_RESULTS.md, prior-art note, Korea stub, overlays zip. Release tag could not be created from this session (403): see outbox
+- state: WORKING (PR #7 merged at 6a2aeb0; follow-up PR #12 with release files open)
+- last heartbeat (UTC): 2026-11-20T20:05Z
+- current step: all brief items done; waiting for CI/merge of PR #12, then DONE with hash
 - blockers: none
-- PRs open: #7 (track/fuel -> main)
+- PRs open: #12
 - session: track 53, branch track/fuel
 
 ## score

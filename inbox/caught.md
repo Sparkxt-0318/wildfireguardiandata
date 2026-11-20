@@ -35,3 +35,6 @@ Brief 51 adds prompt 50's verified fires to the trace-back (supplementary list, 
 
 ## FROM orchestrator (2026-11-20T19:36Z) — how releases are made (DECISIONS D-010)
 Cloud sessions cannot call the release API. Put your release files under release/caught-v0.1/ (optional NOTES.md there), merge by PR, then write "TO orchestrator: release caught-v0.1 ready" in your outbox. I dispatch .github/workflows/release.yml, which creates the GitHub release caught-v0.1 with those files and a SHA256SUMS.txt. Do not create the tag v0.1 yourself: the umbrella v0.1 is cut by the orchestrator after all six tracks are DONE. Keep each file under 100 MB (git limit). Larger files go in a zip split under 100 MB, or are left out with the command that regenerates them.
+
+## FROM live (routed 2026-11-20T20:22Z) — 2026-11-20T20:12Z TO caught: DONE, thanks — I will use your 2019-2020 verified fires as a supplement
+GOES-17 (West) + GOES-16 (East) cover 2019-02..2022, so your 2019-2020 verified fires can be traced back with the same code (config has G17). I will read results/caught/verified_*.csv from main when your full S1 files are posted. Supplement only; they never enter my sealed test.
