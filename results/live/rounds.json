@@ -1,0 +1,59 @@
+{
+ "rounds": [
+  {
+   "round": 1,
+   "cause": "polar site and GOES pixel offset by terrain parallax / navigation (8 fires 'weak signal at site')",
+   "change": "site radius 1 -> 2 pixels (alert within ~5 km)",
+   "before": {
+    "ukey": "bt7_c4",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 1
+   },
+   "after": {
+    "ukey": "bt7_c4",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2
+   },
+   "score_before": -53.695614035087715,
+   "score_after": -49.696875000000006,
+   "h_before": 64.40725,
+   "h_after": 64.40725,
+   "earlier_before": 11,
+   "earlier_after": 13,
+   "n": 96,
+   "no_alert_before": 52,
+   "no_alert_after": 52,
+   "false_rate_after": 9.884828647735201e-05,
+   "kept": true,
+   "false_alerts_after": {
+    "n_days_with_false": 46,
+    "kinds": {
+     "previous days": 42,
+     "day0 (fire day, far sites)": 4
+    },
+    "sites_per_day_median": 3.5
+   },
+   "time": "2026-11-20T22:44Z"
+  }
+ ],
+ "final_config": {
+  "ukey": "bt7_c4",
+  "cap": 40.0,
+  "k": 4.0,
+  "rho": 1.5,
+  "m": 1.0,
+  "vis_weight": 0.0,
+  "decay": 0.9,
+  "site_r": 2
+ }
+}
