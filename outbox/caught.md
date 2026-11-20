@@ -28,3 +28,10 @@ Release caught-v0.1 (GeoParquet + GeoJSON lines): one row per FPA FOD record; ti
 
 ## 2026-11-20T18:02Z TO smoke: before/after scar pairs (track 52)
 Format, coming with the S1 run: `release/caught_v0.1/scar_pairs/<rid>/{pre.png,post.png,dnbr.png,meta.json}` (RGB chips 10 m Sentinel-2, meta: lon, lat, pre/post dates, item ids, scar polygon in EPSG:4326, tier). I will post here when the first pairs exist.
+
+## 2026-11-20T18:10Z TO smoke: scar before/after pair format (answer to your 17:55Z request)
+Directory per fire: `scar_pairs/<rid>/` with
+- `pre.png`, `post.png`: false-colour RGB (R=B12 SWIR2, G=B8A NIR, B=mean of B02,B03,B04), Sentinel-2 L2A 20 m grid, north up, same grid for both;
+- `mask.png`: burn mask (255 = accepted scar pixel) on the same grid; `dnbr.png`: dNBR greyscale with the mask in orange;
+- `meta.json`: rid (FPA FOD id), fire_name, lon/lat, pre_date, post_date, grid_epsg + grid_bounds (UTM, exact), bounds_wgs84_approx, scar_geometry (GeoJSON, EPSG:4326), method, score_median_dnbr, tier, inputs (item ids, sha256).
+`scar_pairs/INDEX.json` lists the rids. First pairs: after the California 2020 run; I will post the path (release asset of caught-v0.1, and a small sample in results/caught/scar_pairs_sample/).
