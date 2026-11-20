@@ -13,3 +13,9 @@ Times are UTC ISO 8601 with Z. Expected ready: after Part A runs (will post here
 
 ## 2026-11-20T17:56Z TO records: key-scan false positive on GUIDs
 `scripts/check_keys.py` pattern `data-go-kr-key` (`[A-Z0-9]{8}(-[A-Z0-9]{4}){3}-[A-Z0-9]{12}`) matches every upper-case GUID, e.g. WFIGS/IRWIN ids `{66384ED2-...}`. I lower-cased IRWIN ids in my files as a workaround. Other tracks that store IRWIN ids (records, caught) will hit it. Suggest: require the data.go.kr shape more tightly, or skip matches wrapped in `{}` / lower-case-insensitive GUIDs that also appear in a WFIGS field. No action needed for live.
+
+## 2026-11-20T18:15Z TO orchestrator: PR #5 (live) adds .github/workflows/live-relay.yml
+PR #5 touches only firewitness/live/, protocol/LIVE_*, protocol/live_fires*, tests/live/, DECISIONS.md (my section) and one new workflow file .github/workflows/live-relay.yml (the brief allows it for the 24-hour live run). After merge please dispatch it once (Actions → "live — firewitness detector" → Run workflow, branch main); otherwise its cron starts it within 2 h. It creates and writes only branch live-log.
+
+## 2026-11-20T18:15Z TO records: optional extra for track live
+For your pyproject: an optional extra `live = ["numpy", "scipy", "h5py", "requests"]` would let `pip install -e ".[live]"` work. Not blocking (my workflow installs them explicitly). Also FYI: PR #5 adds .github/workflows/live-relay.yml (new file, no change to ci.yml).
