@@ -106,7 +106,7 @@ def summarize(df: pd.DataFrame, n_boot=2000, seed=0) -> dict:
             "diff_ci": (float(np.percentile(boots, 2.5)), float(np.percentile(boots, 97.5))), "n_clusters": int(len(keys))}
 
 
-def create_missing(n=100, out_dir: Path | None = None, seed=0, years=range(2016, 2024), min_acres=1000.0):
+def create_missing(n=100, out_dir: Path | None = None, seed=0, years=range(2016, 2024), min_acres=1000.0, shard=(0, 1)):
     """Make perimeters from imagery for large fires with no mapped perimeter (no MTBS link, not inside a WFIGS perimeter)."""
     import numpy as np
     from shapely.geometry import mapping
@@ -119,9 +119,16 @@ def create_missing(n=100, out_dir: Path | None = None, seed=0, years=range(2016,
     wf_df, wf_g = coverage.load_wfigs_perimeters()
     inw = coverage.in_perimeter(fod.lat.to_numpy(), fod.lon.to_numpy(), fod.year.to_numpy(), wf_df, wf_g)
     gap = fod[(fod.acres >= min_acres) & ~linked & ~inw & fod.year.isin(list(years))]
-    pick = gap.sample(min(n, len(gap)), random_state=seed)
+    pick = gap.sample(min(n, len(gap)), random_state=seed).iloc[shard[0]::shard[1]]
     feats, rows = [], []
+    done = set()
+    if out_dir and (out_dir / 'created_perimeters.csv').exists():
+        prev = pd.read_csv(out_dir / 'created_perimeters.csv'); rows = prev.to_dict('records'); done = set(prev.fid)
+        gj = out_dir / 'created_perimeters.geojson'
+        feats = json.loads(gj.read_text())['features'] if gj.exists() else []
     for _, f in pick.iterrows():
+        if int(f.fid) in done:
+            continue
         d0 = (pd.Timestamp("1970-01-01") + pd.Timedelta(days=float(f.day))).date()
         try:
             r = make_perimeter(f.lon, f.lat, d0, d0 + timedelta(days=30), f.acres / 2.47105)
