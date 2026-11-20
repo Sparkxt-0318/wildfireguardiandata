@@ -62,7 +62,10 @@ def locate_fod(fod: pd.DataFrame, ev: locate.Evidence, cfg, params: locate.Param
         return [], info
     if rel is None:
         rng = np.random.default_rng(0)
-        pick = f.iloc[rng.choice(len(f), min(len(f), 150000), replace=False)].reset_index(drop=True)
+        yr = pd.to_numeric(fod.FIRE_YEAR, errors="coerce")
+        devm = ~yr.isin(set(cfg["split"]["test_years"]) | {cfg["split"]["heldout_year"]}).to_numpy() if False else ~yr.isin(list(cfg["split"]["test_years"]) + [cfg["split"]["heldout_year"]]).to_numpy()
+        key = pd.to_numeric(fod.FOD_ID, errors="coerce").fillna(0).astype("int64").to_numpy()
+        pick = f[devm & (key % 11 == 0)].reset_index(drop=True)   # dev years only, chosen by id so adding a year changes nothing
         (wit, pri), _ = locate.fit_reliabilities(pick, ev, cfg, params)
         rel = (wit, {0: 0.98, 1: 0.02})
     cand, _, _ = locate.repair_locations(sub, ev, cfg, params, fitted=rel)

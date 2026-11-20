@@ -20,7 +20,7 @@ from ..core import Patch, PatchSet, Witness
 from . import em, geo
 from .io import parse_dt, to_num
 
-WITNESSES = ["admin", "fire_window", "scar"]
+WITNESSES = ["admin", "fire_window", "scar", "peer"]
 HIDDEN = re.compile(r"[ ​‌‍﻿⁠­\u0000-\u0008\u000b\u000c\u000e-\u001f]")
 EPOCH = pd.Timestamp("1970-01-01")
 DAY = np.timedelta64(1, "D")
@@ -135,8 +135,8 @@ def make_candidates(lat, lon, cfg, enable) -> pd.DataFrame:
 
 # ------------------------------------------------------------------ evidence
 class Evidence:
-    def __init__(self, admin: geo.Admin, det: geo.Detections | None, scars: geo.Scars | None):
-        self.admin, self.det, self.scars = admin, det, scars
+    def __init__(self, admin: geo.Admin, det: geo.Detections | None, scars: geo.Scars | None, peers: geo.Detections | None = None):
+        self.admin, self.det, self.scars, self.peers = admin, det, scars, peers
 
     def named_areas(self, df: pd.DataFrame):
         """Per record: set of allowed county row indices (may be empty) and state abbreviation (or None)."""
@@ -173,7 +173,7 @@ class Evidence:
         """(len(cand), 3) int8 matrix: admin, fire_window, scar; 1 agree, 0 disagree, -1 unknown."""
         a = self.admin
         counties, st_ab = self.named_areas(df)
-        obs = np.full((len(cand), 3), -1, dtype=np.int8)
+        obs = np.full((len(cand), len(WITNESSES)), -1, dtype=np.int8)
         i = cand["i"].to_numpy()
         lat, lon = cand["lat"].to_numpy(), cand["lon"].to_numpy()
         cidx = a.locate_near(lat, lon, 3.0)
@@ -200,6 +200,12 @@ class Evidence:
             # we use 2000 acres to stay clear of the threshold); smaller fires give no information
             big = np.zeros(len(i), bool) if area_acres is None else (np.nan_to_num(area_acres[i], nan=0.0) >= 2000)
             obs[:, 2] = np.where(m, 1, np.where(big & np.isfinite(start_day[i]), 0, -1))
+        if self.peers is not None:
+            # another source (FPA FOD) should list a fire near this point within days of the start
+            okp = np.isfinite(start_day[i])
+            d0 = np.where(okp, start_day[i] - 7, -1e9).astype(np.int64); d1 = np.where(okp, start_day[i] + 7, -1e9).astype(np.int64)
+            cnt, _ = self.peers.window_stats(lat, lon, d0, d1, 3.0)
+            obs[okp, 3] = (cnt[okp] > 0).astype(np.int8)
         return obs
 
 
