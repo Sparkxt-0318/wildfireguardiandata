@@ -152,3 +152,11 @@ Test: for each fire, run the agent on the LF2016 fuel map; replace the cells tha
 
 ## 14. Reproducibility
 Plots, fuel maps, and layers are fetched by scripts in `firewitness/fuel/fetch/`; each download is hashed and indexed in the raw folder. Randomness is limited to the bootstrap and the spatial placebo, both with the seeds above. Verdicts use no randomness.
+
+## Amendment A1 (2026-11-20, before any verdict or plot comparison existed)
+Reason: while building the staleness and fire rules it was found that LANDFIRE annual disturbance codes are not stable across releases and lag the events. Compared with NIFC wildfire perimeters in tile T010_033: in the LF2023 layer fire pixels carry codes 47x (data-source digit 4, type 7, severity 1-3); in the LF2024 layer only 2 % of 2024 wildfire-perimeter cells carry any code; in the LF2025 layer the fire codes are 20xx. No numeric decode is therefore used. Changes to sections 2 and 3 (nothing else changes):
+
+* **S1 fire since the map**: the cell lies inside an NIFC/WFIGS perimeter of kind wildfire with fire year greater than the map year. (The Hansen/LANDFIRE corroboration clause is dropped.)
+* **S2 tree-cover loss since the map**: Hansen loss year (2000 + value) greater than the map year at a cell with tree cover 2000 >= 25, and S1 did not fire. (The LANDFIRE harvest/clearing/development type clause is dropped; Hansen loss cannot tell harvest from fire from other loss, and the card says so.)
+* **R3a burned although unburnable**: class in {98, 99} (92 and 91, 93 stay excluded as before); the cell lies inside a wildfire perimeter of year Y <= map year **and** the LANDFIRE annual disturbance layer for year Y (any nonzero code, no decode) is nonzero at the cell. LANDFIRE disturbance layers are fetched only for years with a perimeter in the area.
+* Fire perimeters come from three NIFC services merged by year (history all-years view, 2020s view, WFIGS interagency perimeters); prescribed fire perimeters are not used for S1 and R3a. Fire year, not discovery date, is the resolution; this is why map dates are 1 January.
