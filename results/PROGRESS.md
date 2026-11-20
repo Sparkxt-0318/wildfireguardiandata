@@ -17,7 +17,7 @@ Pull requests merged so far: 1 to 19 and 21 (#20 is this report).
 
 Restarts: none. No builder's heartbeat has gone over 60 minutes while it was working.
 
-Keys: none missing. NEEDS.md has no open key.
+Keys: none missing; the NEEDS list in the coordination folder has no open entry.
 
 Failed gates reported by the tracks so far (as reported, not re-verified):
 - records: R1 recall on the sealed test; R3(c) at 2.44%; FIRED link blocked.
