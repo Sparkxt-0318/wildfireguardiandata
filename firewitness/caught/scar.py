@@ -41,7 +41,7 @@ if os.path.exists("/root/.ccr/ca-bundle.crt"):
     os.environ.setdefault("CURL_CA_BUNDLE", "/root/.ccr/ca-bundle.crt")
 
 PARAMS = {
-    "pre_days": 60, "post_days": 45, "min_clear": 0.8, "max_scene_cloud": 90.0, "max_tries": 4,
+    "pre_days": 60, "post_days": 45, "min_clear": 0.8, "max_scene_cloud": 90.0, "max_tries": 10,
     "t_abs": 0.10, "k_sigma": 3.0, "dnir": -0.01, "dvis": 0.02, "n_min": 8,
     "regional_frac": 0.25, "attr_factor": 20.0, "attr_add_m2": 100_000.0,
     "ref_ratio": 0.5, "ref_slack_days": 16, "window_min_m": 1000.0, "max_window_px": 1000,
@@ -49,6 +49,7 @@ PARAMS = {
     "comp_min_dnbr": 0.0,      # minimum median dNBR of a component (0 = off)
     "dswir1_max": 0.02,        # a candidate pixel's SWIR1 change must be below this (D2; None = off)
     "min_nir_pre": None,       # unused unless set
+    "landsat_if_no_scar": False,  # also look in Landsat when Sentinel-2 was clear but found no scar
 }
 
 S2_BAD = {0, 1, 3, 6, 8, 9, 10, 11}   # no data, saturated, shadow, water, cloud med/high, cirrus, snow
@@ -551,9 +552,12 @@ def find_scar(lon: float, lat: float, radius_m: float, start: date, end: date, a
     for s in sensors:
         r = scar_search(lon, lat, radius_m, start, end, area_m2, s, "small", run, p)
         hs += r.hotspots
-        if out is None or (out.status == "no_clear_look" and r.status != "no_clear_look"):
+        if out is None or (out.status == "no_clear_look" and r.status != "no_clear_look") or \
+                (r.status == "scar" and out.status != "scar"):
+            if out is not None and out.status != "no_clear_look":
+                r.looks = out.looks + r.looks
             out = r
-        if r.status != "no_clear_look":
+        if r.status == "scar" or (r.status != "no_clear_look" and not p.get("landsat_if_no_scar")):
             break
     out.hotspots = hs
     return out

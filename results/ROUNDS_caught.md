@@ -80,3 +80,11 @@ from 1,440 m2 to 2,345 m2 (0.58 acre); records below it are `below_floor`.
 truth labelled recall 985 / 1,540 = 0.640 against the standard label's 489 / 1,540 = 0.318. The loop starts from v2.
 
 ## Loop rounds
+
+Comparisons below use the same placebo set in every round (the 1,194 placebos searched in v1), so counts stay
+comparable when the floor moves.
+
+**Round 1 — the look search stopped too early. KEPT.** Read: 555 dev truth misses (reason, every look tried, clear
+fractions, rejected components). 126 had no clear look; 76 of them failed for want of a clear pre image after only
+the 4 latest scenes were tried. Change: try up to 10 scenes before and after. Catches (a) 985 -> 994, verified 448 ->
+461, headline 30 -> 31; placebos verified 2 -> 2, probable 53 -> 53.
