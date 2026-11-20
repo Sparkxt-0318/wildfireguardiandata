@@ -52,7 +52,8 @@ PARAMS = {
     "landsat_if_no_scar": False,  # also look in Landsat when Sentinel-2 was clear but found no scar
 }
 
-S2_BAD = {0, 1, 3, 6, 8, 9, 10, 11}   # no data, saturated, shadow, water, cloud med/high, cirrus, snow
+S2_BAD = {0, 1, 3, 6, 8, 9, 10, 11}
+CACHE_MIN_FREE = 30 * 1024 ** 3   # the dev cache never takes the disk below 30 GB free (half of the start)   # no data, saturated, shadow, water, cloud med/high, cirrus, snow
 _tls = threading.local()
 _manifest_lock = threading.Lock()
 
@@ -212,7 +213,8 @@ def read_asset(item, asset: str, grid: Grid, resampling: str = "nearest", run: s
     with _manifest_lock:
         with open(d / "MANIFEST.tsv", "a") as m:
             m.write(f"{item.id}\t{asset}\t{grid.epsg}\t{','.join(f'{v:.0f}' for v in grid.bounds)}\t{sha}\t{len(b)}\n")
-    if cache:
+    import shutil as _sh
+    if cache and _sh.disk_usage(str(RAW_ROOT)).free > CACHE_MIN_FREE:
         Path(cache).mkdir(parents=True, exist_ok=True)
         os.replace(f, cf)   # kept for the dev rounds; the cache folder is deleted when the rounds end
     else:
