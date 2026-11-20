@@ -1,0 +1,430 @@
+{
+ "blocks": {},
+ "dataset": "wildfirespreadts-750m",
+ "dropped": [
+  {
+   "fire": "fire_21748766",
+   "fold": "val",
+   "near": "fire_21804572",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21889672",
+   "fold": "train",
+   "near": "fire_21889683",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21889763",
+   "fold": "val",
+   "near": "fire_21804572",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21890143",
+   "fold": "val",
+   "near": "fire_21804942",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21997828",
+   "fold": "train",
+   "near": "fire_21997844",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21997844",
+   "fold": "val",
+   "near": "fire_22141243",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21998255",
+   "fold": "train",
+   "near": "fire_22141571",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_21998313",
+   "fold": "train",
+   "near": "fire_21804942",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_22141327",
+   "fold": "val",
+   "near": "fire_21998023",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_22141445",
+   "fold": "train",
+   "near": "fire_22141327",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23159787",
+   "fold": "train",
+   "near": "fire_23036860",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23159836",
+   "fold": "train",
+   "near": "fire_23036877",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23159847",
+   "fold": "train",
+   "near": "fire_23159841",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23159853",
+   "fold": "val",
+   "near": "fire_23159841",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23159855",
+   "fold": "train",
+   "near": "fire_23036877",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23300669",
+   "fold": "train",
+   "near": "fire_23300699",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23300689",
+   "fold": "train",
+   "near": "fire_23300699",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_23410601",
+   "fold": "val",
+   "near": "fire_23300699",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24025605",
+   "fold": "train",
+   "near": "fire_24103571",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24103545",
+   "fold": "val",
+   "near": "fire_24191360",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24191411",
+   "fold": "train",
+   "near": "fire_24103571",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24191680",
+   "fold": "train",
+   "near": "fire_24191673",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24332591",
+   "fold": "train",
+   "near": "fire_24461328",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24332592",
+   "fold": "train",
+   "near": "fire_24191357",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24332704",
+   "fold": "train",
+   "near": "fire_24332731",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24332776",
+   "fold": "train",
+   "near": "fire_24332784",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24332785",
+   "fold": "train",
+   "near": "fire_24332784",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24332922",
+   "fold": "train",
+   "near": "fire_24462233",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24333255",
+   "fold": "train",
+   "near": "fire_24191673",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24461618",
+   "fold": "val",
+   "near": "fire_24332731",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24461930",
+   "fold": "val",
+   "near": "fire_24463162",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24461965",
+   "fold": "train",
+   "near": "fire_24461930",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24462610",
+   "fold": "train",
+   "near": "fire_24461328",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_24463172",
+   "fold": "train",
+   "near": "fire_24461930",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25204877",
+   "fold": "train",
+   "near": "fire_25204900",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25205245",
+   "fold": "train",
+   "near": "fire_25294977",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25205788",
+   "fold": "train",
+   "near": "fire_25295877",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25294984",
+   "fold": "val",
+   "near": "fire_25294977",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25294989",
+   "fold": "val",
+   "near": "fire_25294998",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25294991",
+   "fold": "train",
+   "near": "fire_25294984",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25295026",
+   "fold": "val",
+   "near": "fire_25294998",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25295057",
+   "fold": "train",
+   "near": "fire_25295026",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25410883",
+   "fold": "train",
+   "near": "fire_25294984",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25411738",
+   "fold": "train",
+   "near": "fire_25294977",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25411748",
+   "fold": "train",
+   "near": "fire_25294977",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25411821",
+   "fold": "val",
+   "near": "fire_25294977",
+   "reason": "buffer"
+  },
+  {
+   "fire": "fire_25548678",
+   "fold": "train",
+   "near": "fire_25295026",
+   "reason": "buffer"
+  }
+ ],
+ "folds": {
+  "test": [
+   "fire_21804572",
+   "fire_21804942",
+   "fire_21998023",
+   "fire_21998081",
+   "fire_21999270",
+   "fire_22141243",
+   "fire_22141571",
+   "fire_22343688",
+   "fire_22939556",
+   "fire_23036803",
+   "fire_23036871",
+   "fire_23036877",
+   "fire_23159841",
+   "fire_23160511",
+   "fire_23300699",
+   "fire_23300861",
+   "fire_23300886",
+   "fire_23301046",
+   "fire_23301095",
+   "fire_24103571",
+   "fire_24191357",
+   "fire_24191360",
+   "fire_24332731",
+   "fire_24332784",
+   "fire_24462233",
+   "fire_24463162",
+   "fire_25086466",
+   "fire_25204900",
+   "fire_25205312",
+   "fire_25205363",
+   "fire_25294977",
+   "fire_25294998",
+   "fire_25295877",
+   "fire_25639315"
+  ],
+  "train": [
+   "fire_21458798",
+   "fire_21459242",
+   "fire_21688910",
+   "fire_21688916",
+   "fire_21690102",
+   "fire_21751315",
+   "fire_21890003",
+   "fire_21890009",
+   "fire_21890033",
+   "fire_21997770",
+   "fire_21997854",
+   "fire_21999381",
+   "fire_22141509",
+   "fire_22141554",
+   "fire_22141577",
+   "fire_22257961",
+   "fire_22258318",
+   "fire_22343666",
+   "fire_22710141",
+   "fire_22938749",
+   "fire_23036522",
+   "fire_23036542",
+   "fire_23036559",
+   "fire_23036564",
+   "fire_23037423",
+   "fire_23037424",
+   "fire_23159633",
+   "fire_23159637",
+   "fire_23159657",
+   "fire_23159821",
+   "fire_23160475",
+   "fire_23300665",
+   "fire_23300668",
+   "fire_23300741",
+   "fire_23301101",
+   "fire_23301386",
+   "fire_23410594",
+   "fire_23410616",
+   "fire_23410617",
+   "fire_23493983",
+   "fire_23654679",
+   "fire_23757522",
+   "fire_24104639",
+   "fire_24104857",
+   "fire_24191373",
+   "fire_24191377",
+   "fire_24191395",
+   "fire_24332746",
+   "fire_24333259",
+   "fire_24333285",
+   "fire_24461785",
+   "fire_24462604",
+   "fire_24463227",
+   "fire_24604462",
+   "fire_24695584",
+   "fire_25084892",
+   "fire_25204815",
+   "fire_25204858",
+   "fire_25205814",
+   "fire_25295089",
+   "fire_25295804",
+   "fire_25295816",
+   "fire_25295923",
+   "fire_25295937",
+   "fire_25410444",
+   "fire_25410700",
+   "fire_25410735",
+   "fire_25411057",
+   "fire_25411134",
+   "fire_25411825",
+   "fire_25547912",
+   "fire_25548658",
+   "fire_25548700",
+   "fire_25639187",
+   "fire_25639646"
+  ],
+  "val": [
+   "fire_21751305",
+   "fire_21889683",
+   "fire_21890013",
+   "fire_21890087",
+   "fire_21999354",
+   "fire_22141195",
+   "fire_23036860",
+   "fire_24191673",
+   "fire_24461328",
+   "fire_24462764",
+   "fire_24695758",
+   "fire_25548269"
+  ]
+ },
+ "input_fires_sha256": "72af700478b8c39489f640aefc44771efe7da4dbcbc7ee383555e9bdce473f1c",
+ "params": {
+  "block_km": 100.0,
+  "buffer_days": 30,
+  "buffer_km": 50.0,
+  "seed": 54,
+  "test_frac": 0.2,
+  "val_frac": 0.15
+ },
+ "row_level": false,
+ "scheme": "random_fire",
+ "sha256": "114534d9eac06f72aeafd9851f9c02435ad7d11e8fad9b94fa71c647779aff39",
+ "version": 1
+}

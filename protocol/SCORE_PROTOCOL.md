@@ -52,3 +52,10 @@ A gate outcome is PASS or FAIL; a failure is reported as a failure and fixed thr
 
 ## 9. Benchmark and what is not claimed
 Primary benchmark: a public spread benchmark with an adapter and no key (WildfireSpreadTS, Zenodo 8006177, CC-BY-4.0; sampled by byte-range from the archive, not downloaded whole). Where it cannot be read, a stated fallback is used and recorded in DECISIONS.md. Gates N1-N4 are also run on a synthetic benchmark with known truth. The tool shows that cheats lose under the contract; it does not show that any real model is good, that WildfireSpreadTS labels are correct, or that the thresholds in this protocol are optimal.
+
+## Amendments (after the first run; reasons in results/ROUNDS_score.md)
+1. 2026-11-20 round 1: `leak.auc` 0.97 -> 0.90.
+2. 2026-11-20 round 2: added `leak.front_auc` = 0.95, a second behavioural screen on cells within `radius_cells` of the previous day's fire.
+3. 2026-11-20 round 4: optional `trained_on_fires` in the predictions meta; overlap with the test fold fails the card.
+4. Clarifications of section 4 and 6 (not changes of intent): the buffer is applied per fire (gap between scene boxes and date ranges), and an event is a fire-day with at least `min_new_cells` newly burning cells away from the previous day's fire (decisions D-545, D-546).
+5. N1 wording: "and it IS better on a random split" is read as "scores far higher than on the blocked split" (inflation ratio); on the real benchmark persistence stays higher than the cheats even on the random split, and results say so.
