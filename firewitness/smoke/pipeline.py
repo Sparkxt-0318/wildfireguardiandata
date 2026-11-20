@@ -11,7 +11,7 @@ cv2.setNumThreads(1)
 CLASSES = ["none", "smoke", "cloud", "haze_fog", "dust", "other"]
 
 RULES = {
-    "smoke": "A region above the noise level that is linked back through the frames to a small seed on or just above the ground, has grown since the seed, and (where the background has texture) has lost at least 15% of its relative contrast or shifted the background chromaticity by at least 0.02 (a shadow does neither), is smoke.",
+    "smoke": "A region above the noise level that is linked back through the frames to a small seed on or just above the ground, has grown to five times the seed, and shows a veil (its opacity core loses 15% of relative contrast, or shifts chromaticity by 0.02, or lies above the horizon; a shadow does none of these), is smoke.",
     "cloud": "A region above the noise level that lies mostly above the horizon, has no seed on the ground and drifts slowly is cloud.",
     "haze_fog": "A region at the lowest opacity band (below 0.15) that covers more than 15% of the frame and has no seed is haze or fog.",
     "dust": "A region with a warm colour shift above 0.04 that has no seed growth into a plume (it does not reach five times its seed area) is dust.",

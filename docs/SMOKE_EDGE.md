@@ -42,13 +42,13 @@ This is a trace back from a later, confirmed plume to the earliest frame where a
 
 ## 5. Classes are rules on the vector, one plain sentence each
 
-- **smoke**: a region above the noise level that is linked back through the frames to a small seed (at most 900 px) on or just above the ground (not above the horizon line, a continuous left-to-right seam of the strongest bright-above-dark step in the background luminance, 8 px tolerance), has grown to at least five times its seed area, and, where the background has texture, has lost at least 15% of its relative contrast.
+- **smoke**: a region above the noise level that is linked back through the frames to a small seed (at most 900 px) on or just above the ground (not above the horizon line, a continuous left-to-right seam of the strongest bright-above-dark step in the background luminance, 8 px tolerance), has grown to at least five times its seed area, and passes the veil test: the top quarter of its opacity has lost at least 15% of its relative contrast, or shifted the background chromaticity by at least 0.02, or lies mostly above the horizon (a shadow does none of these, and cannot fall on the sky).
 - **cloud**: a region above the noise level that lies mostly above the horizon, has no seed on the ground and drifts slowly.
 - **haze or fog**: a region below opacity 0.15 covering more than 15% of the frame, with no seed.
 - **dust**: a region with a warm colour shift of at least 0.04 and a ground seed that does not grow into a plume (five times its seed area).
 - **other**: everything else above the noise level (lighting change, moving object, lens artefact, a shadow).
 
-The first rule that matches fires. A shadow keeps its texture contrast, so it fails the texture clause of the smoke rule.
+The first rule that matches fires. A shadow keeps its relative contrast and chromaticity and cannot fall on the sky, so it fails the veil test of the smoke rule.
 
 ## 6. Out of scope
 
