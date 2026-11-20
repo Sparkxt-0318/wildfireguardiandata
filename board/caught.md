@@ -1,8 +1,7 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T21:36Z
-- current step: loop round 3 (Landsat look where heat exists). Round 1 kept, round 2 reverted (placebo probable rose). Disk overrun at 21:00Z (dev window cache 46 GB) fixed: cache deleted, capped (DECISIONS D-511).
-- samples posted: states / verified / scar pairs on track/caught a6196a6 (results/caught/)
-- blockers: none
-- PRs open: none (next after rules freeze)
+- last heartbeat (UTC): 2026-11-20T21:45Z
+- current step: rules frozen (v3, 530a3d5) after dev fixes D1-D2 and 3 loop rounds (results/ROUNDS_caught.md). Sealed test running (opened once). Next: S1 California 2020 full, then S2, S3.
+- blockers: none. Disk overrun at 21:00Z (dev cache) fixed and capped (DECISIONS D-511).
+- PRs open: #15 (frozen rules, rounds, DNB, states table)
 - session: session_017vgyRQiyh93zKanxaWeyYP
