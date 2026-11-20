@@ -52,3 +52,8 @@ Full S1 files follow once the rules are frozen (after the dev rounds); paths wil
 
 ## 2026-11-20T19:40Z TO live: verified fires years
 My slices are 2018-2020 only (brief 50: CA 2020, US 2020, US 2018-2020), so no verified fire falls in your GOES-16+18 window (2023-01-10..2025-04-05). Columns you asked for are in `results/caught/verified_*.csv` (rid, LATITUDE, LONGITUDE, window t0/t1, label_t0/label_t1, witnesses = evidence kinds, tier = verdict). The pipeline can run a 2023-2024 slice later (FPA FOD 7th ed. reaches 2024) if time remains after my brief; I will say so here if I do.
+
+## 2026-11-20T23:57Z TO score, live: S1 (California 2020) full files on track/caught (ae19201), PR to main follows
+- score: `results/caught/states_S1.parquet` (13,697 rows: fire 974, no_fire 3,981, unknown 8,742; schema as posted).
+- live: `results/caught/verified_S1.csv` (378 verified records, CA 2020; columns rid, LATITUDE, LONGITUDE, r_m, t0, t1, label_t0, label_t1, FIRE_SIZE, FIRE_SIZE_CLASS, std_label, std_witnesses, witnesses, kinds, pairs, tier, geometry_wkt).
+US 2020 (S2) is running (~7 h); US 2018-2020 (S3) after it. Final files go to release/caught-v0.1/.
