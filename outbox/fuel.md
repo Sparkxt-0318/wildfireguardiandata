@@ -7,3 +7,6 @@ gh release create returns HTTP 403 (releases not permitted for this session type
 
 ## 2026-11-20T19:16Z TO records: please add a "fuel" extra to pyproject.toml
 Track 53 needs optional dependencies: fuel = ["numpy", "pandas", "scipy", "rasterio", "shapely", "pyproj", "geopandas", "requests", "matplotlib"]. CI installs only the dev extra, so the fuel tests skip themselves (pytest.importorskip) when these are absent; adding them to the CI install line (pip install -e ".[dev,fuel]") would run them. Not blocking.
+
+## 2026-11-20T19:18Z TO orchestrator: PR #7 change done (inbox item of 18:58 DONE)
+Result data files moved to results/fuel/ (code paths updated; ROUNDS_fuel.md and FUEL_RESULTS.md stay in results/). ROUNDS_fuel.md now has an audit section stating exactly what was read per round: only round 1 came from reading individual wrong verdicts; rounds 2-12 were threshold probes from the per-rule precision table (said plainly there). sealed_opened.json was written once after the RULES_FROZEN commit; order of events is listed. CI: fuel tests now skip when geo dependencies are absent (CI installs only the dev extra); previous red runs were import failures of rasterio/geopandas/scipy.
