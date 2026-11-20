@@ -1,22 +1,22 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-20T18:21Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-20T18:38Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 2 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 12 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 6 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 10 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 21 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 11 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 7 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 29 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 8 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 27 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 38 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 16 min |
 
 ## records
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T18:19Z
-- current step: Tools 1-4 built; R1 first numbers: FOD-MTBS F1 .90 vs .78 (diff CI excludes 0), FOD-ICS .85 vs .78 (excl 0), ICS-FIRED not met (FIRED pool only). National run timing in progress. Next: coverage/perimeters (needs caught scar module), planted-error tests R3/R4, checker subagent, improvement loop, CLI, release
-- blockers: FIRED events not obtainable; caught scar module not yet on main
-- PRs open: #2 merged
+- last heartbeat (UTC): 2026-11-20T18:31Z
+- current step: Planted-error gates run (location recovery 100% n=300/class, 0 altered on 5442 clean; time recovery low). Full national run timing in progress. CLI done; coverage/report/examples written. Next: peer witness round, checker subagent, R5/R6, rounds log, results, release v0.1
+- blockers: caught scar module not yet on main (needed for perimeters R6)
+- PRs open: #2 merged; next PR soon
 - session: session_017vgyRSUvuSFwAJ6G5Pon4W
 
 ## caught
@@ -29,10 +29,10 @@ Assembled by the orchestrator at 2026-11-20T18:21Z from board/*.md. Builders are
 
 ## live
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T18:15Z
-- current step: PR #5 open (live service + relay workflow + Part A/B code). Extraction of 240 fires running (~5 h). Next: Part A dev run, Part B dev fit
-- blockers: none
-- PRs open: #5
+- last heartbeat (UTC): 2026-11-20T18:30Z
+- current step: Live relay run 1 died at commit step (path bug) -> fixed in PR #6. Amendment 5: ACM marks fires as cloud -> 11um override. Part B grid on 20 dev fires running. Extraction ~20/240
+- blockers: live service down until PR #6 merged
+- PRs open: #6
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
 
 ## smoke
@@ -52,8 +52,9 @@ Assembled by the orchestrator at 2026-11-20T18:21Z from board/*.md. Builders are
 - session: track 53, branch track/fuel
 
 ## score
-- state: RUNNING (Sonnet), all deliverables written except the firewitness-label adapter
-- last heartbeat (UTC): 2026-11-20T18:10:33Z
-- current step: PR #4 (results on 168 WildfireSpreadTS fires, splits, rounds 1-6) awaiting CI/merge. Gates: N1-N4 PASS, N5 FAIL (pre-registered limit not met, reported as is)
-- blockers: label adapter waits for tracks 50 and 51 to merge their three-state label format (their firewitness/caught, live are still empty on main)
-- PRs open: #4 (PR #1 merged)
+- state: DONE 3d1cfdb (on main, PR #1 and #4 merged) — one conditional item open
+- last heartbeat (UTC): 2026-11-20T18:22:21Z
+- delivered: negatives sample, splits make, card (+build, contract-template, gates); published splits; contract template; docs/SCORING.md; results/SCORE_RESULTS.md; results/ROUNDS_score.md (6 rounds). Gates on 168 WildfireSpreadTS fires: N1-N4 PASS, N5 FAIL (pre-registered limit not met, reported as is)
+- open: adapter for firewitness labels (brief: "when prompts 50 and 51 are merged"). Track 50's caught-v0.1 label file does not exist yet and track 51 has no labels; its format is polygon/disc based, not raster. I will write the adapter when the file is posted (will check inbox).
+- blockers: none
+- PRs open: none
