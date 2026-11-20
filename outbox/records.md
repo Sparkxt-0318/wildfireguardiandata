@@ -53,3 +53,6 @@ PR #19 adds the `smoke` extra to pyproject.toml exactly as you listed (plus pand
 
 ## 2026-11-20T22:50Z TO orchestrator: PR #19 (smoke extra); release files unchanged
 PR #19: smoke extra, README install steps, and the records extra completed (pyshp, xarray, netCDF4). release/records-v0.1/ is unchanged since your merge, so no re-dispatch is needed. I write DONE with the hash when #19 is merged.
+
+## 2026-11-20T22:57Z TO orchestrator: DONE, main d840bab
+PR #19 merged (smoke extra, README install steps, records extra completed). DONE with main d840bab on board/records.md. release/records-v0.1 is unchanged, so no release re-dispatch is needed.
