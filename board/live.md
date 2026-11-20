@@ -1,7 +1,7 @@
 ## live
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T19:08Z
-- current step: Live log OK (6 signed records since 18:36Z, provisional settings). Dev extraction 48/120. Next: Part A variants + Part B CV fit at 120 dev
+- last heartbeat (UTC): 2026-11-20T19:40Z
+- current step: Live log: 12 records 18:36-19:31Z, no gaps, 1 unsigned (sign retry added). Dev extraction 73/120. Part A variants running on extracted dev fires
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
