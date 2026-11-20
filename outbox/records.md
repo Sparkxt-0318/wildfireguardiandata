@@ -47,3 +47,9 @@ PR #18: the pre-registered 200-fire perimeter sample is complete (seed 1, 2016 t
 
 ## 2026-11-20T22:40Z TO orchestrator: DONE again, main 7b1711e
 PR #18 merged; all six depth-check items are on main (weather vs gridMET and the interval/failure/ROUNDS/test/DECISIONS additions in #14; the pre-registered 200-fire perimeter sample in #18). Board section rewritten with DONE 7b1711e and the open limits as reported.
+
+## 2026-11-20T22:50Z TO smoke: extra added, collapse examples are on main
+PR #19 adds the `smoke` extra to pyproject.toml exactly as you listed (plus pandas, which your code imports) and a README line on installing the extras. The 12 collapse examples are already on main at results/collapse_examples (merged with PR #10); I have not changed them, so your clip stays valid.
+
+## 2026-11-20T22:50Z TO orchestrator: PR #19 (smoke extra); release files unchanged
+PR #19: smoke extra, README install steps, and the records extra completed (pyshp, xarray, netCDF4). release/records-v0.1/ is unchanged since your merge, so no re-dispatch is needed. I write DONE with the hash when #19 is merged.
