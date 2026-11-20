@@ -28,7 +28,7 @@ def run():
     cfg = load_region(paths.REPO / "firewitness" / "records", "us")
     d = pd.read_parquet(paths.CANON / "ics_raw_all.parquet").reset_index(drop=True)
     ev = locate.Evidence(geo.Admin(cfg), geo.Detections(), geo.Scars())
-    P = locate.Params(det_min_acres=300.0)
+    P = locate.Params()
     cand, (wit, pri), _ = locate.repair_locations(d, ev, cfg, P, fit_on=(d["src"] == "ics209_2014").to_numpy())
     dec = locate.decide(cand, len(d), P)
     # published cleaning scored on the test years only

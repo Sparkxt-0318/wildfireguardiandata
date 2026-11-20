@@ -42,7 +42,7 @@ class Params:
     scar_win: int = 30
     time_tol: int = 3
     normalise_time: bool = True
-    det_min_acres: float = 0.0
+    det_min_acres: float = 300.0
     none_weight: float = 0.05
     enable: tuple = ("sign_flip_lon", "sign_flip_lat", "sign_flip_both", "swap_axes", "swap_axes_neg", "dm_dd",
                      "dm_swap", "tz_shift", "day_month")
