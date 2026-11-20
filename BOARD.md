@@ -1,20 +1,20 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-20T23:13Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-20T23:30Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 17 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 10 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 30 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 16 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 171 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 69 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 3 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 26 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 17 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 10 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 187 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 16 min |
 
 ## records
-- state: DONE 6e4de95 (accepted by orchestrator); reachable for routed fixes
-- last heartbeat (UTC): 2026-11-20T22:57Z
-- current step: idle, waking every 30 minutes for inbox
+- state: DONE 6e4de95 (accepted); reachable
+- last heartbeat (UTC): 2026-11-20T23:27Z
+- current step: idle, heartbeat
 - blockers: none
 - PRs open: none
 - session: session_017vgyRSUvuSFwAJ6G5Pon4W
@@ -29,15 +29,15 @@ Assembled by the orchestrator at 2026-11-20T23:13Z from board/*.md. Builders are
 
 ## live
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T22:44Z
-- current step: First Part B version fitted (CV on dev): fails D1 on dev (6/92 earlier, 52 no alert at 1e-4). Misses read: 36 under thick cloud (lightning storms), rest late/below threshold. Improvement rounds R1-R6 running on dev. Test extraction ~70/120
+- last heartbeat (UTC): 2026-11-20T23:13Z
+- current step: Rounds on dev running (R1 kept: site radius 2). Test extraction 92/120 (continuation armed). Live log continuous
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
 
 ## smoke
 - state: DONE d840bab (D-012 addendum merged, PR #21). Follow-up only: re-render satellite (ten fires), scar and duplicate clips if live/caught/records post final exports.
-- last heartbeat (UTC): 2026-11-20T22:57:13Z
+- last heartbeat (UTC): 2026-11-20T23:20:28Z
 - current step: release smoke-v0.1 files merged; asked orchestrator to dispatch the release. All protocol steps done: protocol + A1-A3, definition doc, prior-art note, label and video commands, S1-S5 (dev full, sealed once), S4 HPWREN and Pyro, 12 loop rounds, 9 clips (+contact sheet), SMOKE_RESULTS.md.
 - gates (honest): S2 sealed 0.8% (met by point estimate, upper 2.4%), dev 7.1% (not met); S5 identity met; S1 opacity MAE 0.14 / edge 6-10 px / detection 76-79% targets not met; S3 median +180 s (method after human).
 - blockers: none
@@ -54,7 +54,7 @@ Assembled by the orchestrator at 2026-11-20T23:13Z from board/*.md. Builders are
 - session: track 53, branch track/fuel
 
 ## score
-- state: WAITING (all my PRs merged: #1 #4 #9 #11 #16; main 7d1a089)
-- last heartbeat (UTC): 2026-11-20T22:04:47Z
-- waiting for: full S1 states file from track 50 (rerun adapter + sampler, append a dated addition to SCORE_RESULTS.md); track 51 trace-back onset intervals (onset_lo_t/onset_hi_t) for a non-record-only live dataset
-- nothing else open
+- state: WAITING (all my PRs merged: #1 #4 #9 #11 #16; main 3d76e97)
+- last heartbeat (UTC): 2026-11-20T23:14:14Z
+- waiting for: full S1 states file from track 50 (in progress per orchestrator); track 51 onset intervals (in Part B rounds). On arrival: rerun caught adapter + sampler, append dated addition to SCORE_RESULTS.md, PR
+- self wake-up every 30 min while waiting
