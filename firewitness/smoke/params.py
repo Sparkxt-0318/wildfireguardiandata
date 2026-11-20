@@ -36,7 +36,7 @@ DEFAULT = dict(
     min_chain_frames=3,
     # classes
     seed_area_max=900,
-    grow_ratio_min=2.0,
+    grow_ratio_min=5.0,
     horizon_tol=8,
     haze_alpha_max=0.15,
     haze_cover_min=0.15,

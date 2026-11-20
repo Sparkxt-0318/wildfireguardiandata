@@ -14,7 +14,7 @@ RULES = {
     "smoke": "A region above the noise level that is linked back through the frames to a small seed on or just above the ground, has grown since the seed, and (where the background has texture) has lost at least 15% of its relative contrast or shifted the background chromaticity by at least 0.02 (a shadow does neither), is smoke.",
     "cloud": "A region above the noise level that lies mostly above the horizon, has no seed on the ground and drifts slowly is cloud.",
     "haze_fog": "A region at the lowest opacity band (below 0.15) that covers more than 15% of the frame and has no seed is haze or fog.",
-    "dust": "A region with a warm colour shift above 0.04 that has no seed growth into a plume (it does not reach twice its seed area) is dust.",
+    "dust": "A region with a warm colour shift above 0.04 that has no seed growth into a plume (it does not reach five times its seed area) is dust.",
     "other": "Any region above the noise level that matches none of the rules above is other (lighting change, moving object, lens artefact).",
 }
 

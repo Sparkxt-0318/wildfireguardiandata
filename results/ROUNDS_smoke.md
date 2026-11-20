@@ -47,3 +47,6 @@ Frames viewed: none new (same S1 misses as R6). Named cause as R6. Result: MAE 0
 
 ### R9: the lineage must not fade within its own life (last-frame area at least 50% of its peak)
 Frames viewed: the false chains' area series were not stored; judged from the 6 chains viewed in R3 (short, flickering). Named cause: transient regions appear and fade. Result: S2 99 to 99; S1 detection 78.1% to 77.1%. **Rejected** (nothing better). A lineage that merges into a larger region ends without fading, so the rule does not touch the main false groups.
+
+### R10: growth to at least 5x the seed area (was 2x)
+Frames viewed: the R3 false chains again (flicker regions of 22 to 85 px reaching a few hundred px). Named cause: flicker and light patches double their area by chance; a plume grows by an order of magnitude. Result: S2 99 to 80 (-19%); S1 detection 78.1% to 76.0% (-2.7%, inside tolerance), MAE and edge unchanged. **Accepted** (A3). The smoke rule in docs/SMOKE_EDGE.md now says five times.
