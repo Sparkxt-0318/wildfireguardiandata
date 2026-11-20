@@ -1,0 +1,18 @@
+{
+ "attempted": 40,
+ "created": 37,
+ "status": {
+  "scar": 37,
+  "no_scar_clear": 2,
+  "no_clear_look": 1
+ },
+ "iou_ours_mean": 0.4152624159358999,
+ "iou_circle_mean_same_fires": 0.23366016023307634,
+ "iou_circle_mean_all": 0.23577816267405388,
+ "diff_mean": 0.1816022557028236,
+ "diff_ci": [
+  0.08388050544173933,
+  0.27937784964282325
+ ],
+ "n_clusters": 27
+}
