@@ -1,6 +1,6 @@
-# Data card: records overlay v0.1 (US)
+# Data card: records overlay records-v0.1 (US)
 
-Files in `release/v0.1/`:
+Files in `release/records-v0.1/`:
 - `patches_us.jsonl.gz`: 353,536 patches on FPA FOD 7th edition (record id `fod:<FOD_ID>`, field, old, new, rule, evidence, confidence); header carries the input hash and a hash chain. Applying them never overwrites the input; `firewitness records revert` undoes them.
 - `crosswalk_us.parquet`: permanent fire ID to source ID (`fpa_fod`, `mtbs`, `ics209plus`).
 - `fires_us.parquet`: one row per real fire: permanent ID `FW-yyyymmdd-cell-ordinal`, start day, location, acres, state, year.
