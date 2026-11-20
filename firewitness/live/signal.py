@@ -135,8 +135,18 @@ def clear_from_cloud(cloudy: np.ndarray, buf: int = None) -> np.ndarray:
     return ~maximum_filter(cloudy, size=size, mode="constant", cval=False)
 
 
-def feature(series: dict, name: str = "dT", cloudy_min: int = 2):
-    """Per-pixel feature with clouds masked (amendments 1 and 5). dT = BT7 - BT14; bt7 = BT7."""
+def bt7_contrast(bt7: np.ndarray) -> np.ndarray:
+    """BT7 minus the median BT7 of the 9x9 annulus (all pixels, cloudy or not)."""
+    return bt7 - (bt7 - residual(bt7.astype(np.float32)))
+
+
+def feature(series: dict, name: str = "dT", cloudy_min: int = 2, hot_keep: float | None = None,
+            history_fallback: bool = False):
+    """Per-pixel feature with clouds masked (amendments 1 and 5). dT = BT7 - BT14; bt7 = BT7.
+
+    Candidates (improvement rounds): hot_keep = K keeps a cloud-flagged pixel whose BT7 exceeds its annulus median
+    by >= K (a fire seen through cloud); history_fallback uses the pixel's own clear BT14 history where the spatial
+    reference is missing (e.g. ACM files missing)."""
     if name == "dT":
         f = series["BT7"] - series["BT14"]
     elif name == "bt7":
@@ -147,7 +157,15 @@ def feature(series: dict, name: str = "dT", cloudy_min: int = 2):
         ref = bt14_clear_ref(series["BT14"], series["ACM"], cloudy_min, series["BT14"].shape[0])
     else:
         ref = bt14_spatial_ref(series["BT14"], series["ACM"], cloudy_min)
-    clear = clear_from_cloud(effective_cloud(series["ACM"], series["BT14"], ref, cloudy_min))
+        if history_fallback and series["BT14"].ndim == 4:
+            href = bt14_clear_ref(series["BT14"], series["ACM"], cloudy_min, series["BT14"].shape[0])
+            ref = np.where(np.isfinite(ref), ref, href)
+    cloud = effective_cloud(series["ACM"], series["BT14"], ref, cloudy_min)
+    clear = clear_from_cloud(cloud)
+    if hot_keep is not None:
+        with np.errstate(invalid="ignore"):
+            hot = bt7_contrast(series["BT7"]) >= hot_keep
+        clear = clear | (hot & np.isfinite(series["BT7"]) & np.isfinite(series["BT14"]))
     f = np.where(clear, f, np.nan)
     return f.astype(np.float32)
 

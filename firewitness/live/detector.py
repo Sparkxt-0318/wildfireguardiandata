@@ -47,22 +47,32 @@ class Config:
 
 # ---------------------------------------------------------------- u arrays per fire, cached
 def parse_ukey(ukey):
-    parts = ukey.split("_")
-    feat = parts[0]
-    compact = None
-    for p in parts[1:]:
-        if p.startswith("c"):
-            compact = int(p[1:])
+    """'dT_c4_x10_h' -> feature dT, compact 4; options: x<K> hot_keep, h history fallback."""
+    feat, compact, _ = parse_ukey_full(ukey)
     return feat, compact
 
 
+def parse_ukey_full(ukey):
+    parts = ukey.split("_")
+    feat = parts[0]
+    compact, opts = None, {}
+    for p in parts[1:]:
+        if p.startswith("c"):
+            compact = int(p[1:])
+        elif p.startswith("x"):
+            opts["hot_keep"] = float(p[1:])
+        elif p == "h":
+            opts["history_fallback"] = True
+    return feat, compact, opts
+
+
 def compute_u(series: dict, ukey: str) -> np.ndarray:
-    feat, compact = parse_ukey(ukey)
+    feat, compact, opts = parse_ukey_full(ukey)
     if feat == "vis":
         from .replay import vis_u
         return vis_u(series)
     base = "dT" if feat == "dTd" else feat
-    f = sg.feature(series, base)
+    f = sg.feature(series, base, **opts)
     r = sg.residual(f)
     if feat == "dTd":
         from .replay import sameday_ref
