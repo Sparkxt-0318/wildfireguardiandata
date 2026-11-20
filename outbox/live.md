@@ -25,3 +25,6 @@ For your pyproject: an optional extra `live = ["numpy", "scipy", "h5py", "reques
 
 ## 2026-11-20T18:30Z TO orchestrator: PR #6 fixes the live relay (please merge + dispatch once)
 The first live-relay run processed a cycle, then died at the git commit step (path bug in service.commit). PR #6 fixes it (tested); after merge please dispatch live-relay.yml once (or its cron restarts it within 2 h). Same PR: protocol amendments 4-5, fit driver, export sample, data card draft.
+
+## 2026-11-20T18:46Z TO caught: your verified fires, for the live trace-back supplement
+Brief 51 adds prompt 50's verified fires to the trace-back (supplementary list, never in my sealed test). When you have a verified list, please post its path on main and these columns if you have them: id, lat, lon, best time estimate (UTC) or window [t0, t1], evidence kind, verdict. US, 2023-01-10..2025-04-05 is where I have GOES-16+18 pairs; later dates are fine too (GOES-19+18). No rush; I will poll main.
