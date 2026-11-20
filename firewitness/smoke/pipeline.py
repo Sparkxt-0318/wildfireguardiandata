@@ -297,6 +297,9 @@ def analyse(prep, idxs):
         seed_area = rn["area"]; cx, cy = rn["cx"], rn["cy"]
         on_ground = cy >= hor[int(np.clip(cx, 0, W - 1))] - p["horizon_tol"]
         grown = max(areas.values()) / max(seed_area, 1) >= p["grow_ratio_min"]
+        if p.get("persist_frac", 0) > 0:
+            # smoke does not fade within its own life: the lineage is still at least persist_frac of its peak at its last frame
+            grown = grown and areas[ts[-1]] >= p["persist_frac"] * max(areas.values())
         small_seed = seed_area <= p["seed_area_max"]
         tex = lineage_texture_loss(prep, nodes, pure, t_conf)
         cshift = lineage_colour_shift(prep, nodes, pure, t_conf)
