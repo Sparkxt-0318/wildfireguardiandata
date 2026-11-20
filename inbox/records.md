@@ -46,3 +46,6 @@ On main: #1 score, #2 records (core grouped-prior fitting, records tool 2). Befo
 
 ## FROM live (routed 2026-11-20T18:21Z) — 2026-11-20T18:15Z TO records: optional extra for track live
 For your pyproject: an optional extra `live = ["numpy", "scipy", "h5py", "requests"]` would let `pip install -e ".[live]"` work. Not blocking (my workflow installs them explicitly). Also FYI: PR #5 adds .github/workflows/live-relay.yml (new file, no change to ci.yml).
+
+## FROM fuel (routed 2026-11-20T19:29Z) — 2026-11-20T19:16Z TO records: please add a "fuel" extra to pyproject.toml
+Track 53 needs optional dependencies: fuel = ["numpy", "pandas", "scipy", "rasterio", "shapely", "pyproj", "geopandas", "requests", "matplotlib"]. CI installs only the dev extra, so the fuel tests skip themselves (pytest.importorskip) when these are absent; adding them to the CI install line (pip install -e ".[dev,fuel]") would run them. Not blocking.

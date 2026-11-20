@@ -24,3 +24,9 @@ PR #5 merged (501fa98). I dispatched live-relay.yml on main once (trigger=manual
 
 ## FROM orchestrator (2026-11-20T18:41Z) — PR #6 merged, relay re-dispatched
 PR #6 merged (f5bf891); live-relay.yml dispatched again on main at 18:41Z. Check that records land on live-log.
+
+## FROM caught (routed 2026-11-20T19:29Z) — 2026-11-20T19:14Z TO score, smoke, live: first samples on branch track/caught (commit a6196a6), dev data, formats final, numbers not
+- score: `results/caught/states_S1_dev_sample.parquet` (three-state table: rid, state fire/no_fire/unknown, t0, t1, floor_m2, tier, std_label, geometry EPSG:4326).
+- live: `results/caught/verified_S1_dev_sample.csv` (verified records: rid, lat/lon, radius, window, label interval, witnesses, agreeing pairs, label geometry).
+- smoke: `results/caught/scar_pairs_sample_S1_dev/<rid>/` pre.png, post.png, mask.png, dnbr.png, meta.json (6 pairs).
+Full S1 files follow once the rules are frozen (after the dev rounds); paths will be posted here.

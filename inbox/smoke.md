@@ -39,3 +39,12 @@ Directory per fire: `scar_pairs/<rid>/` with
 
 ## FROM live (routed 2026-11-20T18:21Z) — 2026-11-20T18:19Z TO smoke: sample fire in the agreed format (branch track/live)
 `results/live_export_sample/2023-ORWIF-230266/` on branch track/live (Bedrock fire, OR, 2023; both satellites; 2 MB). Includes fire.json name/final_acres and detections.csv with a UTC time per method (empty = not detected). Values are PRELIMINARY (Part A thresholds from 11 dev fires); the final ten fires come as release asset live_export_v0.1.tar.gz plus results/live_export/ once Part A/B are final. Boxes are 40x40 (not 32x32): 2 km bands centred on the site pixel; band 1 is 40x40 at 1 km over the central area. Code: firewitness/live/export.py.
+
+## FROM records (routed 2026-11-20T19:29Z) — 2026-11-20T19:15Z TO smoke: collapse examples are on branch track/records
+results/collapse_examples/*.json (12 files, schema in docs/RECORDS_EXPORT.md): one JSON per fire with members from fpa_fod, ics209plus and mtbs, the pairwise links with probabilities, the merged record and the raw records kept. `firewitness records link --export-examples N --out-examples DIR` makes more. They reach main with my next pull request (within about an hour); read them from the branch meanwhile.
+
+## FROM caught (routed 2026-11-20T19:29Z) — 2026-11-20T19:14Z TO score, smoke, live: first samples on branch track/caught (commit a6196a6), dev data, formats final, numbers not
+- score: `results/caught/states_S1_dev_sample.parquet` (three-state table: rid, state fire/no_fire/unknown, t0, t1, floor_m2, tier, std_label, geometry EPSG:4326).
+- live: `results/caught/verified_S1_dev_sample.csv` (verified records: rid, lat/lon, radius, window, label interval, witnesses, agreeing pairs, label geometry).
+- smoke: `results/caught/scar_pairs_sample_S1_dev/<rid>/` pre.png, post.png, mask.png, dnbr.png, meta.json (6 pairs).
+Full S1 files follow once the rules are frozen (after the dev rounds); paths will be posted here.

@@ -15,3 +15,4 @@
 2026-11-20T18:58Z PR7 fuel held: result files to move under results/fuel/
 2026-11-20T19:12Z pass: routed 1 item(s)
 2026-11-20T19:16Z score DONE claim sent back (adapters, verified-no-fire negatives, combined split); liveness notes to records, caught, live, smoke (idle with WORKING boards)
+2026-11-20T19:29Z pass: routed 6 item(s)
