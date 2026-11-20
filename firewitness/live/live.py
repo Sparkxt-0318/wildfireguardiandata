@@ -126,7 +126,9 @@ class SatStream:
         acm = decode(raws["ACM"], "acm", self.box)
         for k, f in files.items():
             f["sha256"] = hashlib.sha256(raws[k]).hexdigest()
-        f = np.where(sg.clear_mask(acm), bt7 - bt14, np.nan).astype(np.float32)
+        ref = sg.bt14_spatial_ref(bt14[None], acm[None])[0]
+        clear = sg.clear_from_cloud(sg.effective_cloud(acm, bt14, ref))
+        f = np.where(clear, bt7 - bt14, np.nan).astype(np.float32)
         r = residual_fast(f)
         return r, files
 

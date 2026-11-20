@@ -78,15 +78,77 @@ def scene_filter(z: np.ndarray, zthr: float = None, frac: float = None, win: int
     return np.where(f > frac, np.nan, z)
 
 
+CLOUD_REF = "spatial"
+COLD_K = 3.0       # amendment 5: an ACM-cloudy (or ACM-missing) pixel counts as cloud only if its BT14 is colder
+                   # than its own clear-sky history at that clock time by more than COLD_K
+
+
+def bt14_clear_ref(bt14: np.ndarray, acm: np.ndarray, cloudy_min: int = 2, ndays: int = 9) -> np.ndarray:
+    """Clear-sky BT14 reference per [day, slot, pixel]: median of ACM-clear BT14 on the background days at t-5, t,
+    t+5 min (needs >= 3 values)."""
+    b = np.where(acm < cloudy_min, bt14, np.nan).astype(np.float32)
+    out = np.full_like(b, np.nan)
+    for d in range(b.shape[0]):
+        samples = []
+        T = b.shape[1]
+        for dd in bg_days(d, ndays):
+            for dk in (-1, 0, 1):
+                x = np.full_like(b[dd], np.nan)
+                if dk >= 0:
+                    x[:T - dk] = b[dd, dk:]
+                else:
+                    x[-dk:] = b[dd, :T + dk]
+                samples.append(x)
+        med, n = nanmedian0(np.stack(samples, 0))
+        med[n < 3] = np.nan
+        out[d] = med
+    return out
+
+
+def bt14_spatial_ref(bt14: np.ndarray, acm: np.ndarray, cloudy_min: int = 2, win: int = 33, min_n: int = 20):
+    """Clear-sky BT14 reference from the same frame: mean BT14 of ACM-clear pixels in the win x win window."""
+    from scipy.ndimage import uniform_filter
+    clr = (acm < cloudy_min) & np.isfinite(bt14)
+    size = [1] * (bt14.ndim - 2) + [win, win]
+    a = uniform_filter(np.where(clr, bt14, 0).astype(np.float32), size=size, mode="constant")
+    n = uniform_filter(clr.astype(np.float32), size=size, mode="constant")
+    with np.errstate(all="ignore"):
+        ref = a / n
+    return np.where(n * win * win >= min_n, ref, np.nan).astype(np.float32)
+
+
+def effective_cloud(acm: np.ndarray, bt14: np.ndarray, ref: np.ndarray, cloudy_min: int = 2) -> np.ndarray:
+    """Cloud = ACM probably-cloudy/cloudy or missing, unless BT14 is no colder than ref - COLD_K (fires and smoke
+    are flagged by ACM but are not cold at 11 um)."""
+    flagged = ~(acm < cloudy_min)
+    with np.errstate(invalid="ignore"):
+        warm = np.isfinite(bt14) & np.isfinite(ref) & (bt14 >= ref - COLD_K)
+    return flagged & ~warm
+
+
+def clear_from_cloud(cloudy: np.ndarray, buf: int = None) -> np.ndarray:
+    buf = CLOUD_BUF if buf is None else buf
+    if buf <= 0:
+        return ~cloudy
+    from scipy.ndimage import maximum_filter
+    size = [1] * (cloudy.ndim - 2) + [2 * buf + 1, 2 * buf + 1]
+    return ~maximum_filter(cloudy, size=size, mode="constant", cval=False)
+
+
 def feature(series: dict, name: str = "dT", cloudy_min: int = 2):
-    """Per-pixel feature with clouds masked. dT = BT7 - BT14; bt7 = BT7."""
+    """Per-pixel feature with clouds masked (amendments 1 and 5). dT = BT7 - BT14; bt7 = BT7."""
     if name == "dT":
         f = series["BT7"] - series["BT14"]
     elif name == "bt7":
         f = series["BT7"].copy()
     else:
         raise ValueError(name)
-    f = np.where(clear_mask(series["ACM"], cloudy_min), f, np.nan)
+    if CLOUD_REF == "history" and series["BT14"].ndim == 4:
+        ref = bt14_clear_ref(series["BT14"], series["ACM"], cloudy_min, series["BT14"].shape[0])
+    else:
+        ref = bt14_spatial_ref(series["BT14"], series["ACM"], cloudy_min)
+    clear = clear_from_cloud(effective_cloud(series["ACM"], series["BT14"], ref, cloudy_min))
+    f = np.where(clear, f, np.nan)
     return f.astype(np.float32)
 
 

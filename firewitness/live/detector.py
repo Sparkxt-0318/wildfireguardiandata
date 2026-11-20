@@ -340,7 +340,7 @@ def placebo_episodes(fid, cfg, firms, base=None, floor=None):
     base = base or ensure_base(fid, firms)
     uE, uW = ensure_u(fid, cfg.ukey, base)
     vE = ensure_u(fid, "vis", base)[0] if cfg.vis_weight else None
-    floor = cfg.cap if floor is None else floor
+    floor = 2.0 if floor is None else floor
     days, sd = [], 0.0
     for d in range(NDAYS):
         idx = np.argwhere(base["clean"][d])
