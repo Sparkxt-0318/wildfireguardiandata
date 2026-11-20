@@ -22,6 +22,18 @@ def _truth(args):
     return 0
 
 
+def _scar(args):
+    from . import scar
+    print(json.dumps(scar.render_scars(args.dir, args.out, args.per_pair, args.max_pairs)))
+    return 0
+
+
+def _collapse(args):
+    from . import collapse
+    print(json.dumps(collapse.render_collapse(args.dir, args.out, args.per_example, args.max_examples)))
+    return 0
+
+
 def register(parser):
     sub = parser.add_subparsers(dest="cmd")
     sp = sub.add_parser("render", help="render a labelled FIgLib sequence")
@@ -45,3 +57,11 @@ def register(parser):
     tr.add_argument("--endmember", default="grey055", choices=["grey030", "grey055", "grey085", "warm"])
     tr.add_argument("--seconds", type=float, default=24)
     tr.set_defaults(func=_truth)
+    sc = sub.add_parser("scars", help="render before-and-after scar pairs (track caught export)")
+    sc.add_argument("dir", help="directory holding scar_pairs/<rid>/ (pre.png post.png mask.png dnbr.png meta.json)")
+    sc.add_argument("--out", required=True); sc.add_argument("--per-pair", type=float, default=4.0); sc.add_argument("--max-pairs", type=int, default=6)
+    sc.set_defaults(func=_scar)
+    co = sub.add_parser("collapse", help="render duplicate records collapsing into one fire (track records export)")
+    co.add_argument("dir", help="results/collapse_examples/")
+    co.add_argument("--out", required=True); co.add_argument("--per-example", type=float, default=4.0); co.add_argument("--max-examples", type=int, default=6)
+    co.set_defaults(func=_collapse)
