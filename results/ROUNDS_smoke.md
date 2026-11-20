@@ -20,4 +20,12 @@ v2 does not meet the S2 gate (1%) or the S1 targets; the loop therefore starts f
 ## Loop
 
 ### R1: chromaticity clause 0.02 to 0.05
-Frames viewed: 20 false placebo chains over 4 sequences (sunrise ramp, cloud shadows, tower shadow, a second fire's plume visible before ignition). Named cause: ordinary lighting patches on coloured terrain shift chromaticity by more than 0.02. Result: S2 198 to 165 false frames; S1 detection 70% to 54%. **Rejected** (S1 detection worse by more than 5%).
+Frames viewed: 20 false placebo chains over 4 sequences (sunrise ramp, cloud shadows, tower shadow, a second fire's plume visible before ignition). Named cause: ordinary lighting patches on coloured terrain shift chromaticity by more than 0.02. Result: S2 198 to 165 false frames; S1 detection 70% to 54%. **Rejected** (S1 detection worse by more than 5%, under the original and the amended rule).
+
+Accept rule from R2 on: protocol amendment A3 (no S1 component worse than 5%, S2 false frames not up, at least one of S1 or S2 better than 5%). The S1 composites' source placement is frozen on the continuous-seam horizon (a physical requirement: smoke starts on terrain) so that S1 does not move when the method's horizon changes; baseline numbers below were re-run on that population.
+
+### R2: horizon as a continuous seam
+Frames viewed: sky-seeded chains in a cloudy sequence (20201208 om-s) classed as ground smoke. Named cause: the horizon was the first strong vertical gradient per column from the top, which cloud edges satisfy. Change: the horizon is the continuous left-to-right seam (dynamic programming, at most 2 px per column) of the strongest bright-above-dark step in the background (viewed on three cameras: it follows the ridge, not the cloud). A first attempt compared S1 populations that had moved with the horizon and was refused for an artefact (S1 detection 70% to 64%, because planted sources sat in the sky under the new horizon); after freezing S1 placement, re-run: S2 198 to 164 (-17%), S1 MAE 0.129 to 0.129, edge at 0.20 8.14 px unchanged, detection 70.8% to 72.9% (+2.9%, inside tolerance). **Accepted** (A3).
+
+### R3: confirmation area 150 to 400 px
+Frames viewed: 6 false chains in a windy shrub scene (so-w: seeds of 22 to 56 px, foliage flicker) and a cloudy-sky scene (bh-s). Named cause: small flicker regions of a few hundred pixels pass a 150 px confirmation; real plumes reach thousands of px. Result: S2 164 to 99 (-40%); S1 MAE 0.129 unchanged, edge 8.14 px unchanged, detection 72.9% to 70.8% (-2.9%). **Accepted** (A3). The first-smoke time does not move (it is the frame of the root, not of the confirmation); only plumes that never reach 400 px are lost.

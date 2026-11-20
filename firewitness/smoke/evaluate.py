@@ -148,8 +148,9 @@ def s1_vector(summary):
 
 
 def accept(base_s1, new_s1, base_false, new_false, tol=0.05):
-    """Protocol section 7. S1 improves: no component worse by more than tol (relative), at least one better by more than tol.
-    S2 does not worsen: false-frame count does not increase."""
+    """Protocol section 7 as amended (A3): a change is kept when no S1 component is worse by more than tol (relative),
+    S2 false frames do not increase, and at least one of the S1 components or the S2 false-frame count is better by more
+    than tol. (The original wording required an S1 gain, which cannot be met by a change that only removes false alarms.)"""
     b, n = s1_vector(base_s1), s1_vector(new_s1)
     worse, better = [], []
     for k in b:
@@ -164,7 +165,9 @@ def accept(base_s1, new_s1, base_false, new_false, tol=0.05):
             worse.append(k)
         elif d < -tol:
             better.append(k)
-    s1_ok = (not worse) and bool(better)
     s2_ok = new_false <= base_false
-    return dict(accepted=bool(s1_ok and s2_ok), s1_improves=bool(s1_ok), s2_not_worse=bool(s2_ok), worse=worse, better=better,
+    if base_false > 0 and (new_false - base_false) / base_false < -tol:
+        better.append("s2_false_frames")
+    ok = (not worse) and s2_ok and bool(better)
+    return dict(accepted=bool(ok), s1_no_worse=not worse, s2_not_worse=bool(s2_ok), worse=worse, better=better,
                 base=b, new=n, base_false=int(base_false), new_false=int(new_false))

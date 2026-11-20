@@ -56,6 +56,7 @@ def test_accept_rule():
     assert not evaluate.accept(base, better, 10, 11)["accepted"]       # S2 must not worsen
     assert not evaluate.accept(base, worse, 10, 10)["accepted"]        # one component worse by more than 5%
     assert not evaluate.accept(base, base, 10, 10)["accepted"]         # nothing better
+    assert evaluate.accept(base, base, 10, 5)["accepted"]              # A3: fewer false frames, S1 unchanged
 
 
 def test_plume_is_deterministic():

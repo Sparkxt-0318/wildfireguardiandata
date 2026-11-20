@@ -31,7 +31,7 @@ DEFAULT = dict(
     area_min=20,
     link_dilate=3,
     link_overlap=0.5,           # share of the earlier region that must lie inside the later one
-    confirm_area=150,
+    confirm_area=400,
     min_chain_frames=3,
     # classes
     seed_area_max=900,
