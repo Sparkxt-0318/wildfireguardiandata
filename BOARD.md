@@ -1,19 +1,19 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-20T20:39Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-20T20:55Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 15 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 26 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 6 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 7 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 16 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 51 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 11 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 16 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 23 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 24 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 33 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 68 min |
 
 ## records
-- state: WORKING (all items done; #10 merged, #13 follow-up open)
-- last heartbeat (UTC): 2026-11-20T20:24Z
+- state: WORKING (all brief items done; #10 merged; #13 CI green, waiting for merge)
+- last heartbeat (UTC): 2026-11-20T20:45Z
 - current step: waiting for PR #13 merge, then DONE
 - blockers: none
 - PRs open: #13
@@ -21,8 +21,8 @@ Assembled by the orchestrator at 2026-11-20T20:39Z from board/*.md. Builders are
 
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T20:13Z
-- current step: v2 passes on dev (placebo verified 0.17 %, probable 4.4 %; dev truth labelled 0.64 vs standard 0.32). Loop round 1 running (look search depth).
+- last heartbeat (UTC): 2026-11-20T20:40Z
+- current step: loop: round 1 kept (look search depth, catches 985->994, placebos unchanged); round 2 running (Landsat look when Sentinel-2 finds nothing).
 - samples posted: states / verified / scar pairs on track/caught a6196a6 (results/caught/)
 - blockers: none
 - PRs open: none (next after rules freeze)
@@ -45,7 +45,7 @@ Assembled by the orchestrator at 2026-11-20T20:39Z from board/*.md. Builders are
 - branch: track/smoke (f461ab9)
 
 ## fuel
-- state: DONE 8dcb76d253a3ae25fa4174eadb1e0c77a72aebe8
+- state: DONE 8dcb76d (accepted by orchestrator 20:45Z)
 - last heartbeat (UTC): 2026-11-20T20:23Z
 - current step: all steps, gates and deliverables merged to main (PR #7 at 6a2aeb0, PR #12 release files; main at 8dcb76d253a3ae25fa4174eadb1e0c77a72aebe8). Sealed result: F1 7.91 [6.36,10.03], F2 0.92 %, F3 pass; stretch on 29 fires: no improvement; loop deviation (D-011) stated in results/FUEL_RESULTS.md
 - blockers: none
