@@ -8,7 +8,7 @@ import pytest
 from firewitness.core import Patch, apply_patches, load_region, missing, revert_patches
 from firewitness.records.values import clean_values
 
-CFG = load_region("/home/user/wildfireguardiandata/firewitness/records", "us")
+CFG = load_region(__import__("pathlib").Path(__file__).resolve().parents[2] / "firewitness" / "records", "us")
 
 
 def _fmt(v, dec=1):
