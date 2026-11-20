@@ -6,6 +6,7 @@ Fire records are split across agencies with no shared schema, and have been clea
 
 ```
 pip install -e ".[dev,records]"
+# other tracks: pip install -e ".[caught]" (imagery scar module), ".[live]", ".[smoke]" (smoke edge and video clips)
 firewitness --help
 firewitness records clean --input table.csv --table generic --out out/      # patches + clean table
 firewitness records revert --patches out/patches.jsonl --clean out/clean.csv --out back.csv --columns out/input_columns.json
