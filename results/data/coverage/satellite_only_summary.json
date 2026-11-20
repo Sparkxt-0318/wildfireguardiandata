@@ -1,0 +1,17 @@
+{
+ "candidate_cells": 21554,
+ "candidate_fires": 9122,
+ "with_50_or_more_detections": 955,
+ "by_year": {
+  "2015": 1123,
+  "2016": 1113,
+  "2017": 1092,
+  "2018": 953,
+  "2019": 877,
+  "2020": 1084,
+  "2021": 1010,
+  "2022": 907,
+  "2023": 963
+ },
+ "parameters": "cells of 0.02 deg with >=8 detections over 2 to 60 days, not repeating in other years, no recorded fire (FPA FOD or WFIGS) within 10 km and 10 days; cells within 3 km and 3 days joined"
+}
