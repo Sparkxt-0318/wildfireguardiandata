@@ -3,7 +3,7 @@ Changes are made only through the improvement loop (results/ROUNDS_smoke.md)."""
 import copy, hashlib, json
 
 DEFAULT = dict(
-    version="v0",
+    version="v1",
     veil_sky_rule=True,
     horizon_method="seam",
     # frames and background

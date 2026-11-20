@@ -53,3 +53,10 @@ Frames viewed: the R3 false chains again (flicker regions of 22 to 85 px reachin
 
 ### R11: seed area at most 400 px (was 900)
 Frames viewed: S1 composites (seeds of about 500 px at the noise level for opacity 0.9) and false chains (seeds 22 to 160 px). Named cause: large first regions are not plume seeds. Result: S2 80 to 80; S1 detection 76.0% to 44.8%. **Rejected** (the noise-level contour of a real first frame is already several hundred pixels).
+
+### R12: noise floor minimum 0.03 to 0.05
+Frames viewed: none new. Named cause: a near-zero floor in clean cameras admits tiny regions. Result: S2 80 to 80; S1 unchanged (MAE 0.129, edge 8.14 px, detection 76.0%). **Rejected** (nothing better).
+
+## Summary of the loop
+
+12 rounds. Accepted: R2 (horizon seam), R3 (confirmation 400 px), R7 (sky-core veil), R10 (growth 5x). Rejected: R1, R4, R5, R6, R8, R9, R11, R12. Final dev configuration `v1` = baseline v2 + R2 + R3 + R7 + R10, frozen. S2 on dev: 198 to 80 false frames of 1122 pre-ignition frames (17.6% to 7.1%): **the 1% gate is not met on dev**. S1-lite detection 70.8% (baseline) to 76.0%. These numbers come from the 32 dev sequences, which were used to choose the rules; the sealed sequences, not touched until now, give the unbiased figures (results/SMOKE_RESULTS.md).

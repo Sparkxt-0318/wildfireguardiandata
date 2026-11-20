@@ -1,6 +1,6 @@
 # SMOKE_EDGE: a reproducible definition of the smoke edge, the first smoke frame and the smoke class
 
-Version v0 (parameters in `firewitness/smoke/params.py`, hash recorded in every output). Image data credit: HPWREN, http://hpwren.ucsd.edu/. For annotators and for code: every step below is a measurement or a rule you can apply by hand or by script. No trained model decides anything.
+Version v1 (frozen after improvement round R12; parameters in `firewitness/smoke/params.py`, hash recorded in every output). Image data credit: HPWREN, http://hpwren.ucsd.edu/. For annotators and for code: every step below is a measurement or a rule you can apply by hand or by script. No trained model decides anything.
 
 ## 1. The label is a measured opacity map
 
@@ -22,9 +22,9 @@ For a fixed camera, at each pixel x and frame t, the opacity alpha(x, t) says ho
 ## 3. First smoke by tracing back
 
 1. Build regions per frame after the background window: connected pixels above the noise level.
-2. Link a region at t to a region at t+1 when at least half of the earlier region lies inside the later one (the later one dilated by 3 px): the smoke grew out of it.
-3. A **lineage** is a root region (no earlier region links into it) and the regions that only that root feeds. A root present in the first analysed frame is not a seed (it was already there).
-4. A lineage is **confirmed** when it lasts at least 3 frames and reaches 150 px. First smoke is the frame of the root of the confirmed smoke lineage (section 5) with the largest summed opacity.
+2. Link a region at t to a region at t+1 when at least half of the earlier region lies inside the later one (the later one dilated by 3 px): the smoke grew out of it. Each region has one parent, the earlier region feeding it with the most area.
+3. A **lineage** is a root region (no earlier region links into it) and all regions descending from it through parents. A root present in the first analysed frame is not a seed (it was already there).
+4. A lineage is **confirmed** when it lasts at least 3 frames and reaches 400 px. First smoke is the frame of the root of the confirmed smoke lineage (section 5) with the largest summed opacity.
 
 This is a trace back from a later, confirmed plume to the earliest frame where a region above the noise level persists and connects forward to it.
 
@@ -42,7 +42,7 @@ This is a trace back from a later, confirmed plume to the earliest frame where a
 
 ## 5. Classes are rules on the vector, one plain sentence each
 
-- **smoke**: a region above the noise level that is linked back through the frames to a small seed (at most 900 px) on or just above the ground (not above the horizon line found in the background, 8 px tolerance), has grown to at least five times its seed area, and, where the background has texture, has lost at least 15% of its relative contrast.
+- **smoke**: a region above the noise level that is linked back through the frames to a small seed (at most 900 px) on or just above the ground (not above the horizon line, a continuous left-to-right seam of the strongest bright-above-dark step in the background luminance, 8 px tolerance), has grown to at least five times its seed area, and, where the background has texture, has lost at least 15% of its relative contrast.
 - **cloud**: a region above the noise level that lies mostly above the horizon, has no seed on the ground and drifts slowly.
 - **haze or fog**: a region below opacity 0.15 covering more than 15% of the frame, with no seed.
 - **dust**: a region with a warm colour shift of at least 0.04 and a ground seed that does not grow into a plume (five times its seed area).
@@ -53,3 +53,7 @@ The first rule that matches fires. A shadow keeps its texture contrast, so it fa
 ## 6. Out of scope
 
 Cameras that move without registration; night frames (median pre-window luminance below 0.20); fewer than 60 frames or fewer than 12 pre-ignition frames. Excluded sequences are listed with the reason, never dropped silently. The map is not physical optical depth. Smoke seen only against uniform sky has an unidentified colour. Classes other than smoke have no independent truth in these sequences.
+
+## 7. Parameters (v1)
+
+Every number is in `firewitness/smoke/params.py` and its hash is written into each output. Working size 512 x 384; smoothing sigma 2 px; background offsets -2400 to -300 s (at least 12 frames); noise: per-pixel maximum over leave-block-out nulls (block 6 frames, gap 2), 5 x 5 spatial maximum, L0 = median of that map, floor 0.03; fixed levels 0.10, 0.20, 0.40, 0.60; minimum region 20 px; link overlap 0.5, dilation 3 px; confirmation 400 px and 3 frames; seed at most 900 px; growth at least 5x; veil test 0.15 texture loss or 0.02 chromaticity or sky core; horizon tolerance 8 px. How each number was chosen or changed: `results/ROUNDS_smoke.md`.
