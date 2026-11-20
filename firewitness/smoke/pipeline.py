@@ -140,15 +140,38 @@ def texture_loss_map(prep, t):
     return np.where(cb > 0.02, 1.0 - ci / np.maximum(cb, 1e-4), np.nan).astype(np.float32)
 
 
-def horizon_line(Bs):
-    y = smooth(lum(Bs), 3)
-    gy = np.abs(np.diff(y, axis=0))
-    gy[:20] = 0
-    gy[H - 30:] = 0
-    first = np.where(gy.max(0) > 0, (gy > 0.02).argmax(0), 0)
-    first = np.where((gy > 0.02).any(0), first, H // 2)
-    return cv2.medianBlur(first.astype(np.float32).reshape(1, -1), 5).ravel() if False else \
-        np.convolve(np.pad(first.astype(np.float32), 20, mode="edge"), np.ones(41) / 41, "valid")
+def horizon_line(Bs, band=6, penalty=0.01):
+    """Row of the terrain/sky boundary per column: the continuous left-to-right seam (dynamic programming, at most
+    2 px step per column) that follows the strongest bright-above-dark-below step of the background luminance.
+    A continuous seam is not fooled by the edges of clouds, which are local."""
+    y = smooth(lum(Bs), 2)
+    cs = np.cumsum(np.pad(y, ((1, 0), (0, 0)), mode="edge"), axis=0)
+    r = np.arange(H)
+    above = (cs[r] - cs[np.clip(r - band, 0, H)]) / np.maximum(r - np.clip(r - band, 0, H), 1)[:, None]
+    below = (cs[np.clip(r + band + 1, 0, H)] - cs[r + 1]) / np.maximum(np.clip(r + band + 1, 0, H) - (r + 1), 1)[:, None]
+    step = above - below                       # (H, W): positive where bright sits above dark
+    step[:BAN + band] = 0; step[H - BAN - band:] = 0
+    cost = -step
+    acc = np.zeros_like(cost); acc[:, 0] = cost[:, 0]
+    back = np.zeros((H, W), np.int16)
+    for x in range(1, W):
+        prev = acc[:, x - 1]
+        best = prev.copy(); arg = np.arange(H)
+        for d in (1, 2):
+            for sgn in (-1, 1):
+                sh = np.roll(prev, sgn * d)
+                if sgn == 1:
+                    sh[:d] = np.inf
+                else:
+                    sh[-d:] = np.inf
+                cand = sh + penalty * d
+                better = cand < best
+                best = np.where(better, cand, best); arg = np.where(better, (np.arange(H) - sgn * d), arg)
+        acc[:, x] = best + cost[:, x]; back[:, x] = arg
+    row = np.empty(W, np.int32); row[-1] = int(np.argmin(acc[:, -1]))
+    for x in range(W - 1, 0, -1):
+        row[x - 1] = back[row[x], x]
+    return row.astype(np.float32)
 
 
 # ---------------------------------------------------------------- regions
