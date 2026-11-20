@@ -1,0 +1,728 @@
+{
+ "n_dev_fires": 120,
+ "k_label": 2.8431000700422926,
+ "n_k_label": 26,
+ "budget": 0.0001,
+ "base": {
+  "ukey": "dT",
+  "cap": 8.0,
+  "k": 2.84,
+  "rho": 1.5,
+  "m": 1.0,
+  "vis_weight": 0.0,
+  "decay": 1.0
+ },
+ "cv_folds": [
+  {
+   "fold": 0,
+   "config": {
+    "ukey": "bt7_c4",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9
+   },
+   "train_score": -57.13625,
+   "held_score": -35.345555555555556
+  },
+  {
+   "fold": 1,
+   "config": {
+    "ukey": "bt7_c4",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9
+   },
+   "train_score": -52.87511415525114,
+   "held_score": -56.41818181818183
+  },
+  {
+   "fold": 2,
+   "config": {
+    "ukey": "bt7_c4",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.0,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9
+   },
+   "train_score": -45.63568376068376,
+   "held_score": -91.55
+  },
+  {
+   "fold": 3,
+   "config": {
+    "ukey": "dT_c4",
+    "cap": 40.0,
+    "k": 2.84,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9
+   },
+   "train_score": -55.35202702702703,
+   "held_score": -77.225
+  },
+  {
+   "fold": 4,
+   "config": {
+    "ukey": "dT",
+    "cap": 40.0,
+    "k": 2.84,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 1.0
+   },
+   "train_score": -63.221271929824574,
+   "held_score": -84.70370370370371
+  }
+ ],
+ "cv_held_out_score": -69.53152173913043,
+ "cv_held_out_stats": {
+  "n": 92,
+  "earlier": 6,
+  "share_earlier": [
+   0.06521739130434782,
+   0.03022979137398394,
+   0.13505960279305834
+  ],
+  "median_lead_min": [
+   -1000000.0,
+   -1000000.0,
+   -74.88333333333334
+  ],
+  "no_alert": 52,
+  "no_operational": 0,
+  "D1_pass": false
+ },
+ "final_config": {
+  "ukey": "bt7_c4",
+  "cap": 40.0,
+  "k": 4.0,
+  "rho": 1.5,
+  "m": 1.0,
+  "vis_weight": 0.0,
+  "decay": 0.9
+ },
+ "final_h": 64.40725,
+ "final_dev_score_in_sample": -53.695614035087715,
+ "selection_steps": [
+  {
+   "step": 0,
+   "config": {
+    "ukey": "dT",
+    "cap": 8.0,
+    "k": 2.84,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 1.0
+   },
+   "score": -79.20265957446809,
+   "change": "base"
+  },
+  {
+   "step": 1,
+   "config": {
+    "ukey": "dT",
+    "cap": 40.0,
+    "k": 2.84,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 1.0
+   },
+   "score": -67.33492907801418,
+   "change": "cap 40",
+   "all": [
+    [
+     "feature dT_c4",
+     -79.21
+    ],
+    [
+     "feature dTd",
+     -96.01
+    ],
+    [
+     "feature dTd_c4",
+     -92.76
+    ],
+    [
+     "feature bt7_c4",
+     -95.3
+    ],
+    [
+     "cap 4",
+     -93.65
+    ],
+    [
+     "cap 20",
+     -72.23
+    ],
+    [
+     "cap 40",
+     -67.33
+    ],
+    [
+     "k 0.5",
+     -90.1
+    ],
+    [
+     "k 1",
+     -87.73
+    ],
+    [
+     "k 2",
+     -81.33
+    ],
+    [
+     "k 4",
+     -81.07
+    ],
+    [
+     "rho 1",
+     -80.96
+    ],
+    [
+     "rho 2",
+     -82.46
+    ],
+    [
+     "rho inf",
+     -82.46
+    ],
+    [
+     "visible weight 0.5",
+     -79.2
+    ],
+    [
+     "cloud decay 0.9",
+     -81.07
+    ]
+   ]
+  },
+  {
+   "step": 2,
+   "config": {
+    "ukey": "bt7_c4",
+    "cap": 40.0,
+    "k": 2.84,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 1.0
+   },
+   "score": -62.93157894736843,
+   "change": "feature bt7_c4",
+   "all": [
+    [
+     "feature dT_c4",
+     -69.29
+    ],
+    [
+     "feature dTd",
+     -75.87
+    ],
+    [
+     "feature dTd_c4",
+     -71.76
+    ],
+    [
+     "feature bt7_c4",
+     -62.93
+    ],
+    [
+     "cap 4",
+     -93.65
+    ],
+    [
+     "cap 8",
+     -79.2
+    ],
+    [
+     "cap 20",
+     -72.23
+    ],
+    [
+     "k 0.5",
+     -66.17
+    ],
+    [
+     "k 1",
+     -66.79
+    ],
+    [
+     "k 2",
+     -69.24
+    ],
+    [
+     "k 4",
+     -67.08
+    ],
+    [
+     "rho 1",
+     -66.74
+    ],
+    [
+     "rho 2",
+     -68.03
+    ],
+    [
+     "rho inf",
+     -68.03
+    ],
+    [
+     "visible weight 0.5",
+     -67.33
+    ],
+    [
+     "cloud decay 0.9",
+     -71.3
+    ]
+   ]
+  },
+  {
+   "step": 3,
+   "config": {
+    "ukey": "bt7_c4",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 1.0
+   },
+   "score": -56.59491228070175,
+   "change": "k 4",
+   "all": [
+    [
+     "feature dT",
+     -67.33
+    ],
+    [
+     "feature dT_c4",
+     -69.29
+    ],
+    [
+     "feature dTd",
+     -75.87
+    ],
+    [
+     "feature dTd_c4",
+     -71.76
+    ],
+    [
+     "cap 4",
+     -108.26
+    ],
+    [
+     "cap 8",
+     -95.3
+    ],
+    [
+     "cap 20",
+     -65.82
+    ],
+    [
+     "k 0.5",
+     -93.44
+    ],
+    [
+     "k 1",
+     -86.15
+    ],
+    [
+     "k 2",
+     -75.16
+    ],
+    [
+     "k 4",
+     -56.59
+    ],
+    [
+     "rho 1",
+     -66.83
+    ],
+    [
+     "rho 2",
+     -63.2
+    ],
+    [
+     "rho inf",
+     -63.2
+    ],
+    [
+     "visible weight 0.5",
+     -62.93
+    ],
+    [
+     "cloud decay 0.9",
+     -60.19
+    ]
+   ]
+  },
+  {
+   "step": 4,
+   "config": {
+    "ukey": "bt7_c4",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9
+   },
+   "score": -53.695614035087715,
+   "change": "cloud decay 0.9",
+   "all": [
+    [
+     "feature dT",
+     -67.08
+    ],
+    [
+     "feature dT_c4",
+     -64.64
+    ],
+    [
+     "feature dTd",
+     -73.77
+    ],
+    [
+     "feature dTd_c4",
+     -70.32
+    ],
+    [
+     "cap 4",
+     -120.0
+    ],
+    [
+     "cap 8",
+     -84.15
+    ],
+    [
+     "cap 20",
+     -58.08
+    ],
+    [
+     "k 0.5",
+     -93.44
+    ],
+    [
+     "k 1",
+     -86.15
+    ],
+    [
+     "k 2",
+     -75.16
+    ],
+    [
+     "k 2.84",
+     -62.93
+    ],
+    [
+     "rho 1",
+     -54.91
+    ],
+    [
+     "rho 2",
+     -56.86
+    ],
+    [
+     "rho inf",
+     -56.86
+    ],
+    [
+     "visible weight 0.5",
+     -56.59
+    ],
+    [
+     "cloud decay 0.9",
+     -53.7
+    ]
+   ]
+  }
+ ],
+ "final_dev_stats_in_sample": {
+  "n": 95,
+  "earlier": 11,
+  "share_earlier": [
+   0.11578947368421053,
+   0.06589789764646398,
+   0.19554667629811
+  ],
+  "median_lead_min": [
+   -1000000.0,
+   -1000000.0,
+   -49.61666666666667
+  ],
+  "no_alert": 52,
+  "no_operational": 3,
+  "D1_pass": false
+ },
+ "curve_dev": [
+  {
+   "budget": 1e-06,
+   "h": 419.15,
+   "false_clustered_per_site_day": 0.0,
+   "n_false_clustered": 0,
+   "false_per_pixel_per_site_day": 0.0,
+   "site_days": 495709.1,
+   "n": 92,
+   "share_earlier": 0.011,
+   "median_lead_min": -1000000.0,
+   "median_lo": -1000000.0,
+   "median_hi": -1000000.0
+  },
+  {
+   "budget": 3e-06,
+   "h": 401.97,
+   "false_clustered_per_site_day": 2.017311968925551e-06,
+   "n_false_clustered": 1,
+   "false_per_pixel_per_site_day": 6.051935906776654e-06,
+   "site_days": 495709.1,
+   "n": 92,
+   "share_earlier": 0.011,
+   "median_lead_min": -1000000.0,
+   "median_lo": -1000000.0,
+   "median_hi": -1000000.0
+  },
+  {
+   "budget": 1e-05,
+   "h": 155.23,
+   "false_clustered_per_site_day": 8.069247875702205e-06,
+   "n_false_clustered": 4,
+   "false_per_pixel_per_site_day": 1.2103871813553308e-05,
+   "site_days": 495709.1,
+   "n": 92,
+   "share_earlier": 0.054,
+   "median_lead_min": -1000000.0,
+   "median_lo": -1000000.0,
+   "median_hi": -1000000.0
+  },
+  {
+   "budget": 3e-05,
+   "h": 103.85,
+   "false_clustered_per_site_day": 2.8242367564957717e-05,
+   "n_false_clustered": 14,
+   "false_per_pixel_per_site_day": 7.86751667880965e-05,
+   "site_days": 495709.1,
+   "n": 94,
+   "share_earlier": 0.085,
+   "median_lead_min": -1000000.0,
+   "median_lo": -1000000.0,
+   "median_hi": -84.86666666666666
+  },
+  {
+   "budget": 0.0001,
+   "h": 64.41,
+   "false_clustered_per_site_day": 9.884828647735201e-05,
+   "n_false_clustered": 49,
+   "false_per_pixel_per_site_day": 0.0005406396076720478,
+   "site_days": 495709.1,
+   "n": 95,
+   "share_earlier": 0.116,
+   "median_lead_min": -1000000.0,
+   "median_lo": -1000000.0,
+   "median_hi": -49.61666666666667
+  },
+  {
+   "budget": 0.0003,
+   "h": 43.94,
+   "false_clustered_per_site_day": 0.00029856217140098156,
+   "n_false_clustered": 148,
+   "false_per_pixel_per_site_day": 0.0018075115241572939,
+   "site_days": 495709.1,
+   "n": 96,
+   "share_earlier": 0.177,
+   "median_lead_min": -500052.5,
+   "median_lo": -1000000.0,
+   "median_hi": -22.291666666666664
+  },
+  {
+   "budget": 0.001,
+   "h": 23.6,
+   "false_clustered_per_site_day": 0.0009985694246181479,
+   "n_false_clustered": 495,
+   "false_per_pixel_per_site_day": 0.00735511943870256,
+   "site_days": 495709.1,
+   "n": 97,
+   "share_earlier": 0.34,
+   "median_lead_min": -9.966666666666667,
+   "median_lo": -100.28333333333333,
+   "median_hi": -4.7
+  },
+  {
+   "budget": 0.003,
+   "h": 11.31,
+   "false_clustered_per_site_day": 0.0029997428977922946,
+   "n_false_clustered": 1487,
+   "false_per_pixel_per_site_day": 0.026148397741212994,
+   "site_days": 495709.1,
+   "n": 101,
+   "share_earlier": 0.515,
+   "median_lead_min": 0.08333333333333333,
+   "median_lo": -30.066666666666666,
+   "median_hi": 0.13333333333333333
+  },
+  {
+   "budget": 0.01,
+   "h": 3.44,
+   "false_clustered_per_site_day": 0.00998972887011933,
+   "n_false_clustered": 4952,
+   "false_per_pixel_per_site_day": 0.1095218841049371,
+   "site_days": 495709.1,
+   "n": 104,
+   "share_earlier": 0.644,
+   "median_lead_min": 5.25,
+   "median_lo": 0.13333333333333333,
+   "median_hi": 32.79166666666667
+  }
+ ],
+ "false_rate_at_h": [
+  9.884828647735201e-05,
+  49,
+  495709.1493055554
+ ],
+ "unclustered_rate_at_h": [
+  0.0005406396076720478,
+  268,
+  495709.1493055554
+ ],
+ "log": [
+  "  evaluated b7e8c46e7beb {'ukey': 'dT', 'cap': 8.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=100.6 (12s)",
+  "  evaluated bc5707cae8e7 {'ukey': 'dT_c4', 'cap': 8.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=85.7 (315s)",
+  "  evaluated ad4b15498d28 {'ukey': 'dTd', 'cap': 8.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=84.6 (613s)",
+  "  evaluated 79d8331f713b {'ukey': 'dTd_c4', 'cap': 8.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=71.3 (487s)",
+  "  evaluated 4991df2f57c0 {'ukey': 'bt7_c4', 'cap': 8.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=114.6 (426s)",
+  "  evaluated 2badda0b2c04 {'ukey': 'dT', 'cap': 4.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=34.9 (9s)",
+  "  evaluated 7ac1474840be {'ukey': 'dT', 'cap': 20.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=138.8 (12s)",
+  "  evaluated 59cf60af07f1 {'ukey': 'dT', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=138.8 (8s)",
+  "  evaluated 92639dd1c8a6 {'ukey': 'dT', 'cap': 8.0, 'k': 0.5, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=215.2 (19s)",
+  "  evaluated 63033b7c3f94 {'ukey': 'dT', 'cap': 8.0, 'k': 1.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=175.7 (11s)",
+  "  evaluated d36703784730 {'ukey': 'dT', 'cap': 8.0, 'k': 2.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=129.6 (11s)",
+  "  evaluated 257e56ec1d24 {'ukey': 'dT', 'cap': 8.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=68.4 (10s)",
+  "  evaluated 7b950f9f3a1f {'ukey': 'dT', 'cap': 8.0, 'k': 2.84, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=120.3 (13s)",
+  "  evaluated 3f5c2f2c1997 {'ukey': 'dT', 'cap': 8.0, 'k': 2.84, 'rho': 2.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=99.4 (11s)",
+  "  evaluated 506f7b2975dc {'ukey': 'dT', 'cap': 8.0, 'k': 2.84, 'rho': None, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=99.4 (11s)",
+  "  evaluated a81e5f3d9b00 {'ukey': 'dT', 'cap': 8.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.5, 'decay': 1.0} h=100.6 (245s)",
+  "  evaluated ede1960337b0 {'ukey': 'dT', 'cap': 8.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=92.3 (12s)",
+  " step 1: best change cap 40 score -71.51 (current -82.35)",
+  "  evaluated c0abd5fc327c {'ukey': 'dT_c4', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=122.0 (12s)",
+  "  evaluated 98e600d66f2b {'ukey': 'dTd', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=115.1 (8s)",
+  "  evaluated 104783174004 {'ukey': 'dTd_c4', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=94.8 (11s)",
+  "  evaluated 9f23325a8efe {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=124.8 (11s)",
+  "  evaluated a85d6eb8a0a5 {'ukey': 'dT', 'cap': 40.0, 'k': 0.5, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=240.4 (24s)",
+  "  evaluated fddb4bcce1d7 {'ukey': 'dT', 'cap': 40.0, 'k': 1.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=212.0 (15s)",
+  "  evaluated 1d3914a69536 {'ukey': 'dT', 'cap': 40.0, 'k': 2.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=175.7 (10s)",
+  "  evaluated 0338ab4883a0 {'ukey': 'dT', 'cap': 40.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=112.8 (8s)",
+  "  evaluated c5ed31d679e2 {'ukey': 'dT', 'cap': 40.0, 'k': 2.84, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=166.0 (12s)",
+  "  evaluated 02daea1e294a {'ukey': 'dT', 'cap': 40.0, 'k': 2.84, 'rho': 2.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=138.8 (12s)",
+  "  evaluated a72cacab875a {'ukey': 'dT', 'cap': 40.0, 'k': 2.84, 'rho': None, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=138.8 (12s)",
+  "  evaluated 36fdf74481f7 {'ukey': 'dT', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.5, 'decay': 1.0} h=138.8 (14s)",
+  "  evaluated 8740902fca90 {'ukey': 'dT', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=137.2 (10s)",
+  " step 2: best change feature bt7_c4 score -66.67 (current -71.51)",
+  "  evaluated fea90d3c50b7 {'ukey': 'bt7_c4', 'cap': 4.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=59.4 (8s)",
+  "  evaluated e954dd374057 {'ukey': 'bt7_c4', 'cap': 20.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=123.2 (11s)",
+  "  evaluated c86f245e938c {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 0.5, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=344.1 (29s)",
+  "  evaluated 13497a712d45 {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 1.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=280.4 (19s)",
+  "  evaluated d99615b2b20d {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 2.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=179.2 (11s)",
+  "  evaluated c77688b04712 {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=77.5 (9s)",
+  "  evaluated 1570a352b26e {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 2.84, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=140.8 (10s)",
+  "  evaluated 2ecca65861b8 {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 2.84, 'rho': 2.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=123.2 (10s)",
+  "  evaluated b9297dd38ec3 {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 2.84, 'rho': None, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=123.2 (7s)",
+  "  evaluated 077f40ec2df9 {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.5, 'decay': 1.0} h=124.8 (10s)",
+  "  evaluated 89e249567e4c {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=106.6 (8s)",
+  " step 3: best change k 4 score -60.27 (current -66.67)",
+  "  evaluated b81971b63a89 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=90.9 (6s)",
+  "  evaluated c0aab6b6add7 {'ukey': 'dTd', 'cap': 40.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=92.5 (5s)",
+  "  evaluated be8fe0684ee3 {'ukey': 'dTd_c4', 'cap': 40.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=76.3 (5s)",
+  "  evaluated d09ba3310134 {'ukey': 'bt7_c4', 'cap': 4.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=0.0 (4s)",
+  "  evaluated 720594d4503a {'ukey': 'bt7_c4', 'cap': 8.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=61.7 (5s)",
+  "  evaluated 3a971cc1be71 {'ukey': 'bt7_c4', 'cap': 20.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=73.4 (6s)",
+  "  evaluated 56e88dbfa2da {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 4.0, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=82.8 (8s)",
+  "  evaluated 17228f516642 {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 4.0, 'rho': 2.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=77.5 (5s)",
+  "  evaluated 8a54eb3b4cdf {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 4.0, 'rho': None, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=77.5 (7s)",
+  "  evaluated 6fb5b141c2af {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.5, 'decay': 1.0} h=77.5 (11s)",
+  "  evaluated 4c7d89f852c9 {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=64.4 (8s)",
+  " step 4: best change cloud decay 0.9 score -57.14 (current -60.27)",
+  "  evaluated 9766ac4f14be {'ukey': 'dT', 'cap': 40.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=106.6 (11s)",
+  "  evaluated c705f3e4d359 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=79.1 (9s)",
+  "  evaluated 35335f3dad4a {'ukey': 'dTd', 'cap': 40.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=86.3 (8s)",
+  "  evaluated c0d450ccbead {'ukey': 'dTd_c4', 'cap': 40.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=65.7 (8s)",
+  "  evaluated 45246bfad01a {'ukey': 'bt7_c4', 'cap': 4.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=0.0 (5s)",
+  "  evaluated 4a241702dc6c {'ukey': 'bt7_c4', 'cap': 8.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=53.3 (5s)",
+  "  evaluated f6317a6f2182 {'ukey': 'bt7_c4', 'cap': 20.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=64.0 (5s)",
+  "  evaluated 2ba1fe13c7b8 {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 0.5, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=294.6 (27s)",
+  "  evaluated 6f2db42e2632 {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 1.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=237.8 (18s)",
+  "  evaluated 3a474b4d24cb {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 2.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=151.4 (11s)",
+  "  evaluated a275a77666bf {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 4.0, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=68.8 (8s)",
+  "  evaluated 014a787c589d {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 4.0, 'rho': 2.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=64.4 (9s)",
+  "  evaluated d89974920604 {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 4.0, 'rho': None, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=64.4 (6s)",
+  "  evaluated a37d070630d9 {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 4.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.5, 'decay': 0.9} h=64.4 (8s)",
+  " step 5: best change visible weight 0.5 score -57.14 (current -57.14)",
+  " step 1: best change cap 40 score -66.57 (current -73.59)",
+  " step 2: best change feature bt7_c4 score -61.72 (current -66.57)",
+  " step 3: best change k 4 score -55.27 (current -61.72)",
+  " step 4: best change cloud decay 0.9 score -52.88 (current -55.27)",
+  " step 5: best change visible weight 0.5 score -52.88 (current -52.88)",
+  " step 1: best change cap 40 score -65.74 (current -75.87)",
+  " step 2: best change feature bt7_c4 score -55.61 (current -65.74)",
+  " step 3: best change k 4 score -48.79 (current -55.61)",
+  " step 4: best change cloud decay 0.9 score -46.66 (current -48.79)",
+  " step 5: best change rho 1 score -45.64 (current -46.66)",
+  "  evaluated ea398990f6eb {'ukey': 'dT', 'cap': 40.0, 'k': 4.0, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=117.1 (8s)",
+  "  evaluated 13e4276c2585 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 4.0, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=83.0 (7s)",
+  "  evaluated da602cedec5f {'ukey': 'dTd', 'cap': 40.0, 'k': 4.0, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=95.6 (8s)",
+  "  evaluated b8854a2b0e0f {'ukey': 'dTd_c4', 'cap': 40.0, 'k': 4.0, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=71.8 (8s)",
+  "  evaluated 2fc1be336465 {'ukey': 'bt7_c4', 'cap': 4.0, 'k': 4.0, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=0.0 (8s)",
+  "  evaluated 1029848e3e6c {'ukey': 'bt7_c4', 'cap': 8.0, 'k': 4.0, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=58.7 (9s)",
+  "  evaluated 8dbf77f91517 {'ukey': 'bt7_c4', 'cap': 20.0, 'k': 4.0, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=67.2 (9s)",
+  "  evaluated 9dca31cc47bb {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 0.5, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=408.2 (41s)",
+  "  evaluated b6efd98d7d09 {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 1.0, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=322.0 (24s)",
+  "  evaluated 80dcab4ea85e {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 2.0, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=191.0 (13s)",
+  "  evaluated 2254984211b0 {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 2.84, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=123.2 (12s)",
+  "  evaluated 176438df1c0c {'ukey': 'bt7_c4', 'cap': 40.0, 'k': 4.0, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.5, 'decay': 0.9} h=68.8 (10s)",
+  " step 6: best change visible weight 0.5 score -45.64 (current -45.64)",
+  " step 1: best change cap 40 score -69.51 (current -83.22)",
+  " step 2: best change feature dT_c4 score -63.82 (current -69.51)",
+  "  evaluated eb758cb9bd1a {'ukey': 'dT_c4', 'cap': 4.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=30.9 (9s)",
+  "  evaluated ce644dfe4f27 {'ukey': 'dT_c4', 'cap': 20.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=119.9 (12s)",
+  "  evaluated b6c8fea4e3d6 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 0.5, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=206.5 (20s)",
+  "  evaluated dfb6475929dc {'ukey': 'dT_c4', 'cap': 40.0, 'k': 1.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=180.9 (9s)",
+  "  evaluated 228efaa33492 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 2.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=141.9 (7s)",
+  "  evaluated e7feba6459c8 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 2.84, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=131.2 (12s)",
+  "  evaluated 362d2d5c3b35 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 2.84, 'rho': 2.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=119.9 (11s)",
+  "  evaluated 6d35bc9f638c {'ukey': 'dT_c4', 'cap': 40.0, 'k': 2.84, 'rho': None, 'm': 1.0, 'vis_weight': 0.0, 'decay': 1.0} h=119.9 (10s)",
+  "  evaluated e5da0043e232 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.5, 'decay': 1.0} h=122.0 (13s)",
+  "  evaluated 7e71433719d9 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=101.3 (12s)",
+  " step 3: best change cloud decay 0.9 score -55.35 (current -63.82)",
+  "  evaluated bf7a8494988e {'ukey': 'dTd', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=106.9 (8s)",
+  "  evaluated 1c6fec7a2816 {'ukey': 'dTd_c4', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=81.5 (6s)",
+  "  evaluated a5d3b6966732 {'ukey': 'dT_c4', 'cap': 4.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=27.0 (5s)",
+  "  evaluated af2142b1f824 {'ukey': 'dT_c4', 'cap': 8.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=74.0 (10s)",
+  "  evaluated dae104d769f5 {'ukey': 'dT_c4', 'cap': 20.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=99.9 (10s)",
+  "  evaluated 8d4397014263 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 0.5, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=172.1 (33s)",
+  "  evaluated d4fb39f4b8a4 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 1.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=155.4 (20s)",
+  "  evaluated 723e9fbd5237 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 2.0, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=122.0 (10s)",
+  "  evaluated fc424a822f2f {'ukey': 'dT_c4', 'cap': 40.0, 'k': 2.84, 'rho': 1.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=116.8 (10s)",
+  "  evaluated d6af758fca70 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 2.84, 'rho': 2.0, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=101.3 (11s)",
+  "  evaluated dcb427f8f1d8 {'ukey': 'dT_c4', 'cap': 40.0, 'k': 2.84, 'rho': None, 'm': 1.0, 'vis_weight': 0.0, 'decay': 0.9} h=101.3 (10s)",
+  "  evaluated 86414af3647d {'ukey': 'dT_c4', 'cap': 40.0, 'k': 2.84, 'rho': 1.5, 'm': 1.0, 'vis_weight': 0.5, 'decay': 0.9} h=101.3 (12s)",
+  " step 4: best change visible weight 0.5 score -55.35 (current -55.35)",
+  " step 1: best change cap 40 score -63.22 (current -80.73)",
+  " step 2: best change visible weight 0.5 score -63.22 (current -63.22)",
+  " step 1: best change cap 40 score -67.33 (current -79.20)",
+  " step 2: best change feature bt7_c4 score -62.93 (current -67.33)",
+  " step 3: best change k 4 score -56.59 (current -62.93)",
+  " step 4: best change cloud decay 0.9 score -53.70 (current -56.59)",
+  " step 5: best change visible weight 0.5 score -53.70 (current -53.70)"
+ ],
+ "variant_note": ""
+}

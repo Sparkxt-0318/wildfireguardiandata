@@ -27,7 +27,10 @@ CURVE = [1e-6, 3e-6, 1e-5, 3e-5, 1e-4, 3e-4, 1e-3, 3e-3, 1e-2]
 
 
 def cfg_hash(cfg: dt.Config) -> str:
-    return hashlib.sha1(json.dumps(cfg.to_json(), sort_keys=True).encode()).hexdigest()[:12]
+    d = cfg.to_json()
+    if d.get("site_r", 1) == 1:
+        d.pop("site_r", None)          # keep the hashes of caches made before site_r existed
+    return hashlib.sha1(json.dumps(d, sort_keys=True).encode()).hexdigest()[:12]
 
 
 def fire_cached(fid, cfg, firms):

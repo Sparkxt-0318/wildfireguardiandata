@@ -31,6 +31,7 @@ class Config:
     m: float = 1.0
     vis_weight: float = 0.0
     decay: float = 1.0        # S multiplier on a frame with no value
+    site_r: int = 1           # a fire counts as caught by an alert at any pixel within site_r pixels of its site
 
     def to_json(self):
         d = asdict(self)
@@ -40,6 +41,7 @@ class Config:
     @staticmethod
     def from_json(d):
         d = dict(d)
+        d.setdefault("site_r", 1)
         if d.get("rho") is None:
             d["rho"] = math.inf
         return Config(**d)
@@ -63,6 +65,10 @@ def parse_ukey_full(ukey):
             opts["hot_keep"] = float(p[1:])
         elif p == "h":
             opts["history_fallback"] = True
+        elif p.startswith("w"):
+            opts["wide_fallback"] = int(p[1:])
+        elif p.startswith("o"):
+            opts["scene_hole"] = int(p[1:])
     return feat, compact, opts
 
 
@@ -72,12 +78,14 @@ def compute_u(series: dict, ukey: str) -> np.ndarray:
         from .replay import vis_u
         return vis_u(series)
     base = "dT" if feat == "dTd" else feat
-    f = sg.feature(series, base, **opts)
+    fopts = {k: v for k, v in opts.items() if k in ("hot_keep", "history_fallback")}
+    f = sg.feature(series, base, **fopts)
     r = sg.residual(f)
     if feat == "dTd":
         from .replay import sameday_ref
         r = r - sameday_ref(r)
-    z = sg.scene_filter(sg.zscore_all(r, NDAYS))
+    z = sg.scene_filter(sg.zscore_all(r, NDAYS, wide_fallback=opts.get("wide_fallback", 0)),
+                        hole=opts.get("scene_hole", 0))
     if compact is not None:
         z = sg.compact_filter(z, compact)
     return sg.site_u(z, cap=99.0)
@@ -236,7 +244,8 @@ def fire_eval(fid: str, cfg: Config, firms: FirmsClean, need_placebo=True, post_
     aW = base.get("availW")
     out = {"fid": fid, "info": info}
     # fire site: 9 site centres around the site pixel, day 0
-    cen = [(HALF + i, HALF + j) for i in (-1, 0, 1) for j in (-1, 0, 1)]
+    rr = range(-cfg.site_r, cfg.site_r + 1)
+    cen = [(HALF + i, HALF + j) for i in rr for j in rr]
     ci = np.array([c[0] for c in cen])
     cj = np.array([c[1] for c in cen])
     G = g_series(uE[0][:, ci, cj], uW[0][:, ci, cj] if uW is not None else None, cfg,
