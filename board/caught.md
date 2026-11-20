@@ -1,7 +1,7 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T18:00Z
-- current step: v1 pipeline built (scar finder, floors, standard-label join, HMS GOES/AVHRR/smoke, agency perimeters, placebos, truth set 10,065 polygons). Dev run v1 (S1 dev + dev truth) running; then improvement rounds, then S1 full.
-- blockers: FireCCI51 not reachable (dap.ceda.ac.uk resets TLS from this network); headline will say it was not checked unless it becomes reachable.
-- PRs open: none yet (first PR: scar module + protocol, within the hour)
+- last heartbeat (UTC): 2026-11-20T18:09Z
+- current step: dev run v1 (S1 California 2020 dev split: records, matched placebos, dev truth fires) in progress; DNB night look for CA 2020 extracting; then improvement rounds (<=12), sealed test once, S1 full.
+- blockers: FireCCI51 unreachable (dap.ceda.ac.uk); recorded in DECISIONS D-502 and protocol A1.
+- PRs open: #3 (protocol + v1 pipeline)
 - session: session_017vgyRQiyh93zKanxaWeyYP
