@@ -94,3 +94,27 @@ REVERTED.** Read: of the dev truth fires labelled only probable, most carry stan
 empty Sentinel-2 look. Change: also look in Landsat whenever Sentinel-2 is clear but finds no scar. Catches (a) 994
 -> 1,024, verified 461 -> 485, headline 31 -> 32; placebo probable 53 -> 61 (verified 2 -> 2). The placebo rate rose,
 so the change is reverted.
+
+**Round 3 — the same cause as round 2, narrowed to where it matters: a fire with heat evidence had no second kind
+when Sentinel-2 was clear and empty. KEPT.** Change: look in Landsat after a clear, empty Sentinel-2 look only in
+windows that already hold a heat detection. Catches (a) 994 -> 995, verified 461 -> 482, headline 31 -> 32; placebos
+verified 2 -> 2, probable 53 -> 53.
+
+## Frozen rules (v3 = v1 + D1 + D2 + round 1 + round 3), 2026-11-20 21:45Z
+
+Stopped after 3 rounds of the 12 allowed: each round now costs about 45 minutes of imagery reads (the dev window
+cache had to be cut to stay in the disk budget), and the US slices need about 30 hours of reads with these rules.
+The remaining dev misses are dominated by causes no rule here can reach without new false positives: prescribed
+understory burns under unchanged canopy (FRAP Rx: 62 % missed), fires below the 0.58-acre floor, and scars gone by
+the first clear post image.
+
+| measure (dev) | v1 | v3 (frozen) |
+|---|---|---|
+| placebo verified (same 1,194) | 15 (1.26 %) | 2 (0.17 %) |
+| placebo probable | 225 (18.8 %) | 53 (4.44 %) |
+| truth labelled / verified / standard (of 1,540) | 1,032 / 476 / 489 | 995 / 482 / 489 |
+| dev headline | 54 | 32 |
+
+Rules: scar N_min 8, T = max(0.10, median + 3 sd), NIR fall > 0.01, visible rise < 0.02, SWIR1 rise < 0.02; up to 10
+scenes before and after; Landsat when Sentinel-2 has no clear look, or is clear and empty in a window with heat;
+DNB excess >= max(15 sd, 100 nW cm-2 sr-1). Everything else as in the protocol.

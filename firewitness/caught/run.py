@@ -204,7 +204,7 @@ def scar_stage(name: str, w: pd.DataFrame, threads: int = 40, params=None, log_e
                 continue
     todo = w[w.searched & ~w.rid.isin(done)]
     p0 = dict(params or {})
-    lh = p0.pop("landsat_if_heat", False)
+    lh = p0.pop("landsat_if_heat", True)   # round 3 (kept)
 
     def prm(rid):
         if lh and heat_rids and rid in heat_rids:
