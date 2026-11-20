@@ -88,3 +88,9 @@ comparable when the floor moves.
 fractions, rejected components). 126 had no clear look; 76 of them failed for want of a clear pre image after only
 the 4 latest scenes were tried. Change: try up to 10 scenes before and after. Catches (a) 985 -> 994, verified 448 ->
 461, headline 30 -> 31; placebos verified 2 -> 2, probable 53 -> 53.
+
+**Round 2 — fires detected by heat had no second kind: Landsat was tried only when Sentinel-2 had no clear look.
+REVERTED.** Read: of the dev truth fires labelled only probable, most carry standard heat detections and a clear,
+empty Sentinel-2 look. Change: also look in Landsat whenever Sentinel-2 is clear but finds no scar. Catches (a) 994
+-> 1,024, verified 461 -> 485, headline 31 -> 32; placebo probable 53 -> 61 (verified 2 -> 2). The placebo rate rose,
+so the change is reverted.
