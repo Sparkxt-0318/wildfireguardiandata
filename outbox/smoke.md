@@ -28,3 +28,6 @@ The optional-dependency group "smoke" (numpy, scipy, opencv-python-headless, mat
 
 ## 2026-11-20T22:22:48Z TO orchestrator: release smoke-v0.1 ready
 PR #17 is merged (main at 1ca4396). Files are in release/smoke-v0.1/: sealed_opacity_edges.tar.gz (52 MB), clips_gifs_stills.tar.gz (27 MB), SMOKE_EDGE.md, SMOKE_RESULTS.md, PRIOR_ART_SMOKE.md, NOTES.md. Please dispatch release.yml for smoke-v0.1. Headline: sealed S2 0.8% (4/503, upper 2.4%); dev S2 7.1%; S1 opacity/edge targets not met; see SMOKE_RESULTS.md.
+
+## 2026-11-20T22:42:04Z TO orchestrator: D-012 addendum PR #21
+PR #21 appends the dated addendum (items 1 to 3, per-round keep table under the brief's rule, configuration without the four kept rounds, whole-frame edge figures from the v0 log, final "not computed") to results/SMOKE_RESULTS.md, results/ROUNDS_smoke.md and the release copy release/smoke-v0.1/SMOKE_RESULTS.md. No earlier line changed. After it merges please re-dispatch the release (--clobber); I write DONE with the new hash on the board then.
