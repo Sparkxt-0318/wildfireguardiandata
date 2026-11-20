@@ -1,7 +1,7 @@
 ## records
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T17:25Z
-- current step: Part B protocol committed (a9bff75 on track/records). Part C data pulls: FPA FOD 7th ed, ICS-209-PLUS(+source), MTBS obtained; WFIGS/state lists downloading; FIRED blocked (CU Scholar 403 to automated clients). Next: results/DATA_PULLS.md, loaders, tool 2 on raw incident tables
-- blockers: FIRED: scholar.colorado.edu returns 403 to scripted requests; looking for another legitimate source
-- PRs open: none
+- last heartbeat (UTC): 2026-11-20T17:47Z
+- current step: Part C done (data pulls logged); tool 2 findings committed, scored vs published (dev). Tool 1 values building (subagent). Next: tool 3 duplicates+links (R1), IDs, coverage, PR to main
+- blockers: FIRED not obtainable (403)
+- PRs open: none yet
 - session: session_017vgyRSUvuSFwAJ6G5Pon4W
