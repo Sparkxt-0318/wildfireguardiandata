@@ -185,4 +185,14 @@ afterwards. If it cannot be done: NOT RUN and why.
 
 ## Amendment log
 
-(none)
+**A1 (2026-11-20 18:10Z; no result seen, dev run still in progress).**
+1. Night look scope: the VIIRS DNB (VNP46A2) look is run for the California tiles in 2020 (slice S1 and the truth
+   fires there) only; it streams one 30-40 MB tile per day and a national three-year run would move ~300 GB. A DNB
+   item: a clear pixel in the disc brighter than its own baseline (median of the clear nights 30 to 3 days before
+   the window) by max(5 robust sd, 3 nW cm-2 sr-1).
+2. Raw GOES ABI FDC from the NOAA bucket is not used; GOES enters through HMS only (cost, DECISIONS D-503).
+3. FireCCI51 could not be fetched (DECISIONS D-502); the standard label is the other five products.
+4. Truth dates (DECISIONS D-508): polygons without a start date take the dates of the FPA FOD record of the same
+   year inside the polygon (+500 m), closest in size; undated polygons are left out. WFIGS perimeters are used as
+   PERIMETER evidence for records but are not truth (they duplicate NIFC history).
+5. Landsat 7 is used besides Landsat 8 (masked SLC-off gaps), to raise the number of clear 30 m looks.
