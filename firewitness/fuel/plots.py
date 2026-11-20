@@ -49,9 +49,12 @@ def compat_set(cls: str, H: float, Sh: float) -> set:
     return s
 
 
-def build_table(raw: Path | None = None, out: Path | None = None) -> pd.DataFrame:
+def build_base(raw: Path | None = None) -> pd.DataFrame:
+    """Eligible AIM plot locations (one per location, latest visit, 2019+), without tree cover."""
     raw = Path(raw or RAW_ROOT / "ldc")
-    out = Path(out or raw / "plots_eligible.pkl")
+    cache = raw / "plots_base.pkl"
+    if cache.exists():
+        return pd.read_pickle(cache)
     rows = []
     with open(raw / "geoIndicators.jsonl") as fh:
         for line in fh:
@@ -68,30 +71,71 @@ def build_table(raw: Path | None = None, out: Path | None = None) -> pd.DataFram
                            "AH_GraminoidCover", "AH_ForbCover"])
     df["FH_RockCover"] = df.FH_RockCover.fillna(0)
     df["FH_WaterCover"] = df.FH_WaterCover.fillna(0)
-    # tree cover: sum of tree species any-hit cover per plot visit
-    tree = {}
-    with open(raw / "geoSpecies_tree.jsonl") as fh:
-        for line in fh:
-            d = json.loads(line)
-            v = d.get("AH_SpeciesCover")
-            if v is not None:
-                tree[d["PrimaryKey"]] = tree.get(d["PrimaryKey"], 0.0) + float(v)
-    df["T"] = df.PrimaryKey.map(tree).fillna(0.0).clip(upper=100.0)
     from pyproj import Transformer
     t = Transformer.from_crs(4326, 5070, always_xy=True)
     df["x"], df["y"] = t.transform(df.Longitude_NAD83.values, df.Latitude_NAD83.values)
     df["loc"] = df.Latitude_NAD83.round(5).astype(str) + "_" + df.Longitude_NAD83.round(5).astype(str)
     df = df.sort_values("date").drop_duplicates("loc", keep="last").reset_index(drop=True)
     df["H"] = df.AH_GraminoidCover + df.AH_ForbCover
-    df["pclass"] = [plot_class(r.TotalFoliarCover, r.AH_ShrubCover, r.H, r.BareSoil, r.FH_RockCover, r.FH_WaterCover, r.T)
-                    for r in df.itertuples()]
-    df["compat"] = [",".join(sorted(compat_set(r.pclass, r.H, r.AH_ShrubCover))) for r in df.itertuples()]
-    df.to_pickle(out)
+    df.to_pickle(cache)
     return df
 
 
-def load_table(path: Path | None = None) -> pd.DataFrame:
-    p = Path(path or RAW_ROOT / "ldc" / "plots_eligible.pkl")
-    if not p.exists():
-        return build_table()
-    return pd.read_pickle(p)
+def fetch_tree_cover(keys, raw: Path | None = None, workers: int = 8) -> dict:
+    """Tree cover (sum of tree-species any-hit cover, capped 100) per PrimaryKey, queried per plot and cached."""
+    import requests
+    from concurrent.futures import ThreadPoolExecutor
+    raw = Path(raw or RAW_ROOT / "ldc")
+    cache_p = raw / "tree_cache.json"
+    cache = json.loads(cache_p.read_text()) if cache_p.exists() else {}
+    todo = [k for k in keys if k not in cache]
+
+    def one(k):
+        for a in range(5):
+            try:
+                r = requests.get("https://api.landscapedatacommons.org/api/v1/geoSpecies",
+                                 params={"PrimaryKey": k, "GrowthHabitSub": "Tree", "limit": 1000}, timeout=120)
+                r.raise_for_status()
+                seen, tot = set(), 0.0
+                for d in r.json():          # rows can repeat per species: count each species once
+                    if d["Species"] in seen or d.get("AH_SpeciesCover") is None:
+                        continue
+                    seen.add(d["Species"])
+                    tot += float(d["AH_SpeciesCover"])
+                return k, min(tot, 100.0)
+            except Exception:  # noqa: BLE001
+                import time
+                time.sleep(2 * (a + 1))
+        return k, None
+    with ThreadPoolExecutor(workers) as ex:
+        for k, v in ex.map(one, todo):
+            if v is not None:
+                cache[k] = v
+    cache_p.write_text(json.dumps(cache))
+    return cache
+
+
+def classify(df: pd.DataFrame) -> pd.DataFrame:
+    df = df.copy()
+    df["pclass"] = [plot_class(r.TotalFoliarCover, r.AH_ShrubCover, r.H, r.BareSoil, r.FH_RockCover, r.FH_WaterCover, r.T)
+                    for r in df.itertuples()]
+    df["compat"] = [",".join(sorted(compat_set(r.pclass, r.H, r.AH_ShrubCover))) for r in df.itertuples()]
+    return df
+
+
+def load_table(tiles, allow_sealed: bool = False) -> pd.DataFrame:
+    """Plots inside the given tiles with tree cover attached. Sealed tiles are refused here: use sealed.py."""
+    from .areas import SEALED, ORIGIN, TILE
+    if not allow_sealed and any(t in SEALED for t in tiles):
+        raise PermissionError("sealed areas are loaded only by the sealed-run command")
+    base = build_base()
+    parts = []
+    for t in tiles:
+        tx, ty = int(t[1:4]), int(t[5:8])
+        x0, y0 = ORIGIN[0] + tx * TILE, ORIGIN[1] + ty * TILE
+        parts.append(base[(base.x >= x0) & (base.x < x0 + TILE) & (base.y >= y0) & (base.y < y0 + TILE)])
+    df = pd.concat(parts, ignore_index=True)
+    tree = fetch_tree_cover(df.PrimaryKey.tolist())
+    df["T"] = df.PrimaryKey.map(tree)
+    df = df.dropna(subset=["T"])
+    return classify(df)

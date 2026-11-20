@@ -26,7 +26,7 @@ def _import():
         import pyretechnics.fuel_models as fm
         return sf, fm
     except Exception as e:  # noqa: BLE001
-        raise Unavailable("pyretechnics not found; run scripts/setup_pyretechnics.sh") from e
+        raise Unavailable("pyretechnics not found; run firewitness/fuel/scripts/setup_pyretechnics.sh") from e
 
 
 def available() -> bool:

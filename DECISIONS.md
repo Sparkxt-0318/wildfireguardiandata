@@ -44,6 +44,6 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 
 **D-535 — LANDFIRE disturbance codes are not decoded.** Protocol amendment A1: codes differ across releases and the LF2024 layer carries only 2 % of 2024 wildfire-perimeter cells. Staleness uses NIFC perimeter year and Hansen loss year. Reason: shown against NIFC perimeters in T010_033 before any plot was read.
 
-**D-536 — Rothermel implementation.** pyretechnics (Sig-GIS, https://github.com/pyregence/pyretechnics) is used for the surface-fire equations. It is licensed for non-commercial/research use and pinned to old numpy/Cython, so it is not vendored or declared as a hard dependency: `scripts/setup_pyretechnics.sh` downloads the sdist and the package is imported from its `src` folder in pure-Python mode; rule R3b is skipped (reported as not evaluated) if it is absent.
+**D-536 — Rothermel implementation.** pyretechnics (Sig-GIS, https://github.com/pyregence/pyretechnics) is used for the surface-fire equations. It is licensed for non-commercial/research use and pinned to old numpy/Cython, so it is not vendored or declared as a hard dependency: `firewitness/fuel/scripts/setup_pyretechnics.sh` downloads the sdist and the package is imported from its `src` folder in pure-Python mode; rule R3b is skipped (reported as not evaluated) if it is absent.
 
 **D-537 — Model.** Track runs on Sonnet 5.5 at high effort (orchestrator D-008). Helper subagents: Sonnet for the 29-fire data build.

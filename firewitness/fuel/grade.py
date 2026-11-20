@@ -9,7 +9,7 @@ import rasterio
 
 from . import metrics, plots
 from .agent import BIT_RULES, GROUP_NAMES, VERDICT_NAMES
-from .areas import DEV, SEALED, TILE, ORIGIN, tile_grid
+from .areas import DEV, SEALED, TILE, ORIGIN, area_dir, tile_grid
 from .grid import Grid
 from .runner import OUT_ROOT, region_cfg
 
@@ -36,7 +36,7 @@ def grade_tiles(tiles, map_key="M22", cfg=None, out_root=None, allow_sealed=Fals
         raise PermissionError("sealed areas can only be opened through the sealed-run command (protocol section 8)")
     cfg = cfg or region_cfg()
     glut = _group_of(cfg)
-    table = plots.load_table() if table is None else table
+    table = plots.load_table(tiles, allow_sealed=allow_sealed) if table is None else table
     rows = []
     for t in tiles:
         pt = plots_for_tile(table, t)
@@ -46,10 +46,7 @@ def grade_tiles(tiles, map_key="M22", cfg=None, out_root=None, allow_sealed=Fals
         out = Path(out_root or OUT_ROOT) / map_key / t
         with rasterio.open(out / "verdict.tif") as sv, rasterio.open(out / "rules.tif") as sr, rasterio.open(out / "suggest.tif") as ss:
             v, r, sg = sv.read(1), sr.read(1), ss.read(1)
-        import rasterio as _r
-        d = Path(OUT_ROOT).parent / "firewitness_raw" / "areas" / t
-        from .areas import area_dir
-        with _r.open(area_dir(t) / cfg["maps"][map_key]["file"]) as sf:
+        with rasterio.open(area_dir(t) / cfg["maps"][map_key]["file"]) as sf:
             fb = sf.read(1)
         row, col = g.cell_of(pt.x.values, pt.y.values)
         ok = g.inside(row, col)
@@ -88,3 +85,29 @@ def summarize(df: pd.DataFrame, label: str = "") -> dict:
 def wrong_verdicts(df: pd.DataFrame) -> pd.DataFrame:
     """Dev-loop helper: contradicted cells where the plot agrees, consistent cells where the plot disagrees."""
     return df[((df.verdict == "contradicted") & ~df.disagree) | ((df.verdict == "consistent") & df.disagree)]
+
+
+def verdict_lookup_factory(tiles, map_key="M22", out_root=None):
+    """Returns f(tile, x, y) -> verdict name at an arbitrary location (for the spatial placebo)."""
+    cache = {}
+    for t in tiles:
+        out = Path(out_root or OUT_ROOT) / map_key / t
+        with rasterio.open(out / "verdict.tif") as s:
+            cache[t] = (s.read(1), tile_grid(t))
+
+    def f(tile, x, y):
+        v, g = cache[tile]
+        r, c = g.cell_of(np.array([x]), np.array([y]))
+        if not g.inside(r, c)[0]:
+            return None
+        k = int(v[r[0], c[0]])
+        return VERDICT_NAMES[k] if k else None
+    return f
+
+
+def evaluate(tiles, map_key="M22", label="", out_root=None, allow_sealed=False, table=None, placebo=True) -> dict:
+    df = grade_tiles(tiles, map_key, out_root=out_root, allow_sealed=allow_sealed, table=table)
+    out = summarize(df, label)
+    if placebo and len(df):
+        out["F2b_spatial_placebo"] = metrics.spatial_placebo(df, verdict_lookup_factory(tiles, map_key, out_root))
+    return out, df
