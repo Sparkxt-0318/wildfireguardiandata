@@ -111,14 +111,15 @@ def score(evals, h, fids=None):
 
 # ---------------------------------------------------------------- candidates and forward selection
 def candidates(cur: dt.Config, k_label: float):
+    """One-step changes from the current settings (protocol §6 candidates)."""
     out = []
     for u in ("dT", "dT_c4", "dTd", "dTd_c4", "bt7_c4"):
         if u != cur.ukey:
             out.append(("feature " + u, replace(cur, ukey=u)))
-    for c in (4.0, 8.0, 12.0):
+    for c in (4.0, 8.0, 20.0, 40.0):
         if c != cur.cap:
             out.append((f"cap {c:g}", replace(cur, cap=c)))
-    for k in sorted({0.5, round(k_label, 2), 1.0}):
+    for k in sorted({0.5, 1.0, 2.0, 4.0, round(k_label, 2)}):
         if k != cur.k:
             out.append((f"k {k:g}", replace(cur, k=k)))
     for r in (1.0, 1.5, 2.0, math.inf):
@@ -283,3 +284,37 @@ def replay_cmd(a):
 def _iso(t):
     from .pipeline import iso
     return iso(t)
+
+
+def fit_dev(out: Path, labels_csv: Path, variant_note: str = "", budget=BUDGET, freeze=False, rounds_note=None):
+    """Fit Part B on dev: k from Part A labels, cross-validated forward selection, final selection on all dev,
+    curve and paired stats from held-out leads. Writes fit_dev.json; with freeze=True writes config/detector_us.json."""
+    out.mkdir(parents=True, exist_ok=True)
+    fires = load_fires("protocol/live_fires.csv")
+    fids = [f["fire_id"] for f in fires if f["split"] == "dev" and series_meta(f["fire_id"]) is not None]
+    firms = FirmsClean()
+    k_label, n_k = k_from_labels(labels_csv)
+    log_lines = []
+
+    def log(x):
+        print(x, flush=True)
+        log_lines.append(x)
+    E = Evaluator(fids, firms, budget, log=log)
+    base = dt.Config(ukey="dT", cap=8.0, k=round(k_label, 2), rho=1.5, m=1.0)
+    held, chosen = cross_validate(E, base, fids, k_label, log=log)
+    final, final_score, steps = forward_select(E, base, fids, k_label, log=log)
+    ev, h = E.get(final)
+    res = {"n_dev_fires": len(fids), "k_label": k_label, "n_k_label": n_k, "budget": budget, "base": base.to_json(),
+           "cv_folds": chosen, "cv_held_out_score": dt.clipped_mean(list(held.values())),
+           "cv_held_out_stats": paired_stats(held), "final_config": final.to_json(), "final_h": h,
+           "final_dev_score_in_sample": final_score, "selection_steps": steps,
+           "final_dev_stats_in_sample": paired_stats(leads(ev, h)), "curve_dev": curve(ev),
+           "false_rate_at_h": clustered_rate(ev, h), "unclustered_rate_at_h": unclustered_rate(ev, h),
+           "log": log_lines, "variant_note": variant_note}
+    (out / "fit_dev.json").write_text(json.dumps(res, indent=1, default=str))
+    if freeze:
+        doc = {"frozen": True, "note": rounds_note or "Frozen Part B settings fitted on dev fires (results/live/fit_dev.json).",
+               "config": final.to_json(), "h": h, "budget_per_pixel_site_day": budget,
+               "fitted_on": "dev fires and dev placebo series", "n_dev_fires": len(fids)}
+        (Path(__file__).parent / "config" / "detector_us.json").write_text(json.dumps(doc, indent=1))
+    return res

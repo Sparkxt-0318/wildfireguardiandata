@@ -59,7 +59,7 @@ def export_fire(fire: dict, out_root: Path, detections: list[dict]):
                 bp = nb[k] + med[k, HALF, HALF]
                 w.writerow([_iso(s["tscan"][0, k]), _r(s["BT7"][0, k, HALF, HALF]), _r(s["BT14"][0, k, HALF, HALF]),
                             _r(dT[k, HALF, HALF]), _r(bp), _r(z[k, HALF, HALF]), _r(u[k, HALF, HALF]), _r(S[k, 0]),
-                            int(not sg.clear_mask(cloud[k])[HALF, HALF]), int(s["FDC"][0, k, HALF, HALF])])
+                            int(not np.isfinite(f[0, k, HALF, HALF])), int(s["FDC"][0, k, HALF, HALF])])
     (d / "fire.json").write_text(json.dumps(info, indent=1))
     with open(d / "detections.csv", "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=["method", "sat", "t_utc", "note"])
