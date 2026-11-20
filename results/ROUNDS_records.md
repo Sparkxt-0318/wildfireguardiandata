@@ -17,3 +17,8 @@ Protocol section 7: read every failure, name one cause, change the rules for tha
 Eight of the twelve rounds were used. Gate R1 after round 8: FOD-MTBS meets precision 0.95 at recall 0.90 and beats the fixed rule with an interval excluding zero; FOD-ICS beats the fixed rule but reaches recall 0.795 at precision 0.95; ICS-FIRED beats the fixed rule by 0.024 (interval excludes zero) but at precision 0.31, because the FIRED download was blocked and only events already joined into ICS-209-PLUS can be candidates (no dates, no perimeters).
 
 Note on tuning: thresholds and radii above were chosen by looking at dev scores for several values (listed in the grid runs); that is the dev-tuning the protocol allows, and the sealed test years were not used.
+
+
+## Sealed test opening (appended 2026-11-20T21:10Z; earlier lines unchanged)
+
+The sealed test years (1995, 2001, 2007, 2013, 2019) were opened once, by `firewitness/records/sealed.py`, with the rules frozen at commit `69026c38a1be12c1d44c644b2e2bb91cb841dfa3` (recorded in `results/data/sealed_test_records.json`). No rule was changed after the opening. Results: `results/RECORDS_RESULTS.md` (links: FPA FOD to MTBS precision 0.955, recall 0.861, F1 0.906 vs 0.733; FPA FOD to ICS-209-PLUS 0.953, 0.811, F1 0.876 vs 0.798; ICS-209-PLUS to FIRED F1 0.328 vs 0.320, interval includes zero; location vs published cleaning, 43 documented, 27 flagged, 5 repaired, 4 within 5 km). Round 4 (peer witness) was not kept, the code stays switched off.

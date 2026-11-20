@@ -37,3 +37,34 @@ Addition 2026-11-20T20:40Z: satellite-only candidates, 2015 to 2023, are now run
 - Planted errors are gross, in corroborated records; they say nothing about subtle in-county errors.
 - Reference-clean records use the same evidence as the repair rules.
 - No trained model wrote any label or patch; likelihood ratios are fitted without labels by EM with placebo pairs.
+
+Addition 2026-11-20T21:10Z (intervals for rows that gave only a rate or a count; Wilson 95% interval; earlier lines unchanged):
+
+| quantity | k | n | rate | Wilson 95% interval |
+|---|---|---|---|---|
+| Duplicates removed, FPA FOD across systems | 888 | 2,661,383 | 0.0334% | 0.0312% to 0.0356% |
+| Duplicates removed, WA list | 42 | 70,070 | 0.0599% | 0.0444% to 0.0810% |
+| Duplicates removed, OK list | 1,260 | 39,235 | 3.2114% | 3.0415% to 3.3905% |
+| Duplicates removed, AK list | 3 | 5,943 | 0.0505% | 0.0172% to 0.1483% |
+| Duplicates removed, WFIGS feed | 4,157 | 432,379 | 0.9614% | 0.9328% to 0.9909% |
+| IDs merged (FPA FOD records) | 888 | 2,661,383 | 0.0334% | 0.0312% to 0.0356% |
+| Source IDs split, of complex parents | 2 | 1,425 | 0.1404% | 0.0385% to 0.5103% |
+| Locations repaired, raw ICS-209 rows | 108,921 | 161,661 | 67.3762% | 67.1472% to 67.6043% |
+| Locations repaired, FPA FOD | 0 | 2,661,383 | 0.0000% | 0.0000% to 0.0001% |
+| Times repaired, raw ICS-209 rows | 0 | 161,661 | 0.0000% | 0.0000% to 0.0024% |
+| Value-level patches, FPA FOD (all) | 64,873 | 2,661,383 | 2.4376% | 2.4191% to 2.4562% |
+| Name placeholders blanked, FPA FOD | 63,985 | 2,661,383 | 2.4042% | 2.3859% to 2.4227% |
+| Cosmetic patches, FPA FOD | 172,824 | 2,661,383 | 6.4938% | 6.4642% to 6.5234% |
+| Perimeters created, 40 validation fires | 37 | 40 | 92.5000% | 80.1355% to 97.4164% |
+| Validation fires where imagery beat the circle | 26 | 37 | 70.2703% | 54.2166% to 82.5107% |
+| Published coordinate errors flagged (dev) | 112 | 146 | 76.7123% | 69.2253% to 82.8297% |
+| Repairs within 5 km of published (dev) | 15 | 40 | 37.5000% | 24.2228% to 52.9678% |
+| Published coordinate errors flagged (test) | 27 | 43 | 62.7907% | 47.8595% to 75.6239% |
+| Repairs within 5 km of published (test) | 4 | 5 | 80.0000% | 37.5528% to 96.3777% |
+| Planted time-zone offsets recovered | 0 | 52 | 0.0000% | 0.0000% to 6.8795% |
+| Planted day-month swaps recovered | 26 | 300 | 8.6667% | 5.9828% to 12.3957% |
+
+Failures and partial gates, as reported and not re-tuned after the sealed opening: R1 FPA FOD to MTBS sealed-test recall 0.861 (target 0.90); R1 FPA FOD to ICS-209-PLUS recall 0.795 on dev, 0.811 on test (target 0.90); R1 ICS-209-PLUS to FIRED not met (FIRED not downloaded; test difference to the fixed rule 0.008, interval -0.012 to 0.022 includes zero); R3 planted time repairs 26/300 (day-month) and 0/52 (time zone); R3(c) value-level patches touch 2.44% of FPA FOD records, over the 1% limit (0.05% if the 63,985 name placeholders are not counted).
+
+
+Addition 2026-11-20T21:20Z (weather checked against gridded weather, tool 1; earlier lines unchanged): gridMET (University of Idaho, 4 km daily, public annual files `tmmx_<year>.nc` daily maximum temperature and `rmin_<year>.nc` daily minimum relative humidity, 2003 to 2013, listed in `firewitness_raw/INDEX.md`) was compared with the weather fields of the 97,923 raw ICS-209 reports of 2003 to 2013 (`C_TEMP`, `C_RH`), at the report's place and date (`firewitness/records/weather.py`, `values.clean_values(..., grid=...)`). Of 63,126 reports with a temperature, 58,575 could be checked against the grid (the rest have no valid place, date or grid cell) and 53,380 humidities. The median absolute gap between the reported temperature and the daily maximum is 4.6 F; 6,239 reports (10.7%) are more than 16 F from it, which is normal (readings are not daily maxima) and is not an error by itself. The check patches only a unit slip (Celsius written as Fahrenheit, or a humidity fraction written as a percent) and flags the rest: 44 patches, `val:weather_unit_slip`, 0.075% (0.056% to 0.101%) of checked temperatures (examples: `C_TEMP` 27 becomes 81 where the grid maximum is 89.9 F); 917 temperatures flagged "unexplained by a unit slip", 1.566% (1.468% to 1.669%). Planted Celsius-as-Fahrenheit slips in reports that agree with the grid: 300 of 300 recovered (Wilson 0.987 to 1.000), 0 wrong. What it does not show: the grid is 4 km and daily, so it cannot confirm a reading, only reject one that is off by a unit; wind speed and fuel fields were not checked against any grid; 2014 and later reports carry no weather fields in these tables. File: `results/data/weather_vs_gridmet.json`.
