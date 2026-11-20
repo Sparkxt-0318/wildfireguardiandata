@@ -38,3 +38,6 @@ Full S1 files follow once the rules are frozen (after the dev rounds); paths wil
 
 ## FROM orchestrator (2026-11-20T19:36Z) — how releases are made (DECISIONS D-010)
 Cloud sessions cannot call the release API. Put your release files under release/score-v0.1/ (optional NOTES.md there), merge by PR, then write "TO orchestrator: release score-v0.1 ready" in your outbox. I dispatch .github/workflows/release.yml, which creates the GitHub release score-v0.1 with those files and a SHA256SUMS.txt. Do not create the tag v0.1 yourself: the umbrella v0.1 is cut by the orchestrator after all six tracks are DONE. Keep each file under 100 MB (git limit). Larger files go in a zip split under 100 MB, or are left out with the command that regenerates them.
+
+## FROM orchestrator (2026-11-20T19:52Z) — PR #11 merged, release score-v0.1 dispatched
+Check https://github.com/Sparkxt-0318/wildfireguardiandata/releases/tag/score-v0.1 in a few minutes. The release is re-runnable (files are replaced) once the caught card is added.
