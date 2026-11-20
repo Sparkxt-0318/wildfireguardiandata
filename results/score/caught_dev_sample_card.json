@@ -1,0 +1,72 @@
+{
+ "card_note": "No model predictions or weather/fuel layers exist for these scenes, so no precision/recall; this reports what the sampler and splits do on the labels.",
+ "dataset": {
+  "cell_days": 9782248,
+  "fire": 1949151,
+  "fires": 334,
+  "no_fire": 1208416,
+  "unknown": 6624681
+ },
+ "floor_rule_at_auto_cells_without_floor_sizing": {
+  "no_fire_cell_days": 3751114,
+  "passing_floor_rule": 0
+ },
+ "label": "DEV SAMPLE (results/caught/states_S1_dev_sample.parquet, rules at development fix D1; not results)",
+ "median_cell_km": 0.03794733192202055,
+ "negatives": {
+  "by_danger": {
+   "0": {
+    "neg": 354363,
+    "pos": 118121
+   },
+   "1": {
+    "neg": 0,
+    "pos": 0
+   },
+   "2": {
+    "neg": 0,
+    "pos": 0
+   },
+   "3": {
+    "neg": 0,
+    "pos": 0
+   },
+   "4": {
+    "neg": 0,
+    "pos": 0
+   }
+  },
+  "eligible_negative_candidates": 623360,
+  "hard_share_of_negatives": 0.0118,
+  "match_level_share": {
+   "exact (danger, land cover, region, month)": 0.0898,
+   "month +-1": 0.0369,
+   "same danger, any land cover/region/month": 0.728,
+   "same land-cover group and region, same danger": 0.1454
+  },
+  "matched": true,
+  "negatives": 354363,
+  "positives": 118121,
+  "source": {
+   "floor_m2_rule": true,
+   "match_keys_unavailable": [
+    "danger",
+    "landcover"
+   ],
+   "negative_state": "verified no fire (three-state labels)"
+  }
+ },
+ "records": 334,
+ "split_dropped": 83,
+ "split_sha256": "9335c3d8e89a5e3061c07ae198030c3aeeed477d11998df039faad301c971c61",
+ "split_space": {
+  "test": 72,
+  "train": 124,
+  "val": 55
+ },
+ "tiers": {
+  "probable": 140,
+  "record-only": 184,
+  "verified": 10
+ }
+}
