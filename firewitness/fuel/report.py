@@ -113,7 +113,7 @@ def write_report(name: str, map_key: str, cfg: dict, manifest: dict, out: Path):
     """Map PNG + Markdown report with evidence-card examples for one run. Recomputes verdicts from the layers (deterministic)."""
     from .areas import area_dir
     from .layers import load
-    L = load(area_dir(name), map_key, cfg)
+    L = load(area_dir(name), map_key, cfg, cutoff_year=manifest.get("event_cutoff_year"))
     res = agent.check(L, cfg)
     map_png(res, Path(out) / "map.png", f"{name} {map_key}")
     rows, cols = np.nonzero(res.verdict == agent.CONTRADICTED)
