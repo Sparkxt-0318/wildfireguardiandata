@@ -1,0 +1,94 @@
+{
+ "example_id": "ex009",
+ "cluster_id": "FW-20170706-15580364-01",
+ "members": [
+  {
+   "source": "fpa_fod",
+   "record_id": "400013400",
+   "name": "PADDLE CREEK",
+   "date": "2017-07-06",
+   "lat": 65.8864,
+   "lon": -143.5686,
+   "acres": 1117.0,
+   "state": "AK",
+   "cluster_id": "FW-20170706-15580364-01"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2017_7354547_PADDLE CREEK",
+   "name": "Paddle Creek",
+   "date": "2017-07-06",
+   "lat": 65.8865,
+   "lon": -143.56883,
+   "acres": 1026.0,
+   "state": "AK",
+   "cluster_id": "FW-20170706-15580364-01"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "AK6588714356920170706",
+   "name": "PADDLE CREEK",
+   "date": "2017-07-06",
+   "lat": 65.88661142861811,
+   "lon": -143.57456128198393,
+   "acres": 1166.0,
+   "state": "AK",
+   "cluster_id": "FW-20170706-15580364-01"
+  }
+ ],
+ "pairs": [
+  {
+   "a": "400013400",
+   "b": "2017_7354547_PADDLE CREEK",
+   "probability": 0.9999958933977191,
+   "outcome": "link"
+  },
+  {
+   "a": "400013400",
+   "b": "AK6588714356920170706",
+   "probability": 0.9999999546377557,
+   "outcome": "link"
+  }
+ ],
+ "merged": {
+  "name": "PADDLE CREEK",
+  "date": "2017-07-06",
+  "lat": 65.88661142861811,
+  "lon": -143.57456128198393,
+  "acres": 1166.0,
+  "state": "AK",
+  "n_sources": 3
+ },
+ "raw_kept": [
+  {
+   "source": "fpa_fod",
+   "record_id": "400013400",
+   "name": "PADDLE CREEK",
+   "date": "2017-07-06",
+   "lat": 65.8864,
+   "lon": -143.5686,
+   "acres": 1117.0,
+   "state": "AK"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2017_7354547_PADDLE CREEK",
+   "name": "Paddle Creek",
+   "date": "2017-07-06",
+   "lat": 65.8865,
+   "lon": -143.56883,
+   "acres": 1026.0,
+   "state": "AK"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "AK6588714356920170706",
+   "name": "PADDLE CREEK",
+   "date": "2017-07-06",
+   "lat": 65.88661142861811,
+   "lon": -143.57456128198393,
+   "acres": 1166.0,
+   "state": "AK"
+  }
+ ]
+}

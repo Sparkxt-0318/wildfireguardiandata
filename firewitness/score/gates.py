@@ -246,8 +246,8 @@ def gate_n5(ds, sp, k=3, r_max=2.0, prox=False):
             "secondary_reading_fixed_0.5": secondary, **out}
 
 
-def run_all(ds: Dataset, seed: int = 54) -> dict:
-    sp = splits.make(ds, "space", seed=seed)
+def run_all(ds: Dataset, seed: int = 54, scheme: str = "space") -> dict:
+    sp = splits.make(ds, scheme, seed=seed)
     spr = splits.make(ds, "random_rows", seed=seed)
     tab = negatives.sample(ds, sp["folds"]["train"], k=3)
     honest = models.Logistic("wx+prox", prox=True).fit(ds, tab["table"], tab["fires"]).predict(ds, _fires(sp))
@@ -264,7 +264,7 @@ def run_all(ds: Dataset, seed: int = 54) -> dict:
 
 def main(a) -> int:
     ds = Dataset.load(a.dataset)
-    res = run_all(ds)
+    res = run_all(ds, scheme=getattr(a, "scheme", "space"))
     os.makedirs(os.path.dirname(a.out) or ".", exist_ok=True)
     with open(a.out, "w") as f:
         json.dump(res, f, indent=1, sort_keys=True, default=str)

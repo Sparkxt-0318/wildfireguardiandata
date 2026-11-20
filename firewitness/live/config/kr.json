@@ -1,0 +1,21 @@
+{
+  "region": "kr",
+  "label": "Republic of Korea: Himawari-9 AHI + GK-2A AMI. UNTESTED: no replay, no gate, no live run has used this file.",
+  "tested": false,
+  "bbox_lonlat": [124.5, 33.0, 131.0, 39.0],
+  "satellites": [
+    {"name": "H09", "role": "himawari", "bucket": "noaa-himawari9", "from": "2022-12-13T00:00:00Z", "to": null,
+     "sector": "Japan area (FLDK every 10 min; Japan area every 2.5 min)", "reader": "AHI HSD (satpy ahi_hsd)",
+     "bands": {"mir": 7, "tir": 14, "vis": 1}},
+    {"name": "GK2A", "role": "gk2a", "bucket": null, "from": "2019-07-25T00:00:00Z", "to": null,
+     "sector": "Korean peninsula local area (LA), every 2 min", "reader": "AMI L1B NetCDF (NMSC; access route to be confirmed)",
+     "bands": {"mir": "SW038", "tir": "IR112", "vis": "VI004"}}
+  ],
+  "cadence_s": 120,
+  "cloud_mask": {"H09": "AHI cloud mask (JMA) or the band-test fallback; to be decided when this region is tested",
+                 "GK2A": "GK-2A L2 CLD (cloud mask)"},
+  "fire_list": {"source": "Korea Forest Service fire statistics / data.go.kr (DATA_GO_KR_KEY)", "min_area_ha": 1},
+  "polar": {"url_pattern": "https://firms.modaps.eosdis.nasa.gov/data/country/{sensor}/{year}/{sensor}_{year}_Republic_of_Korea.csv",
+            "sensors": ["viirs-snpp", "modis"]},
+  "status": "UNTESTED. Kept so the detector can be pointed at Korea without code changes once readers for AHI HSD and GK-2A AMI are added."
+}

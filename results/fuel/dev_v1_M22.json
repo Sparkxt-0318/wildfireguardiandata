@@ -1,0 +1,143 @@
+{
+ "label": "v1",
+ "n_plots": 1935,
+ "verdict_counts": {
+  "consistent": 1615,
+  "unknown": 184,
+  "stale": 72,
+  "contradicted": 64
+ },
+ "disagree_overall": 0.09922480620155039,
+ "F1": {
+  "n_a": 64,
+  "dis_a": 47,
+  "n_b": 1615,
+  "dis_b": 112,
+  "clusters": 327,
+  "rate_a": 0.734375,
+  "rate_b": 0.0693498452012384,
+  "ratio": 10.589425223214285,
+  "lo": 8.29137297764796,
+  "hi": 13.57812049062049,
+  "boot_valid": 2000,
+  "evaluable": true,
+  "passed": true
+ },
+ "F2": {
+  "n_agree": 1743,
+  "k_contradicted": 17,
+  "share": 0.009753298909925417,
+  "wilson_lo": 0.00609837613870889,
+  "wilson_hi": 0.01556441340003394,
+  "limit": 0.1,
+  "boot_lo": 0.005484210491199509,
+  "boot_hi": 0.014680840548324336,
+  "passed": true
+ },
+ "F1_stale": {
+  "n_a": 72,
+  "dis_a": 8,
+  "n_b": 1615,
+  "dis_b": 112,
+  "clusters": 328,
+  "rate_a": 0.1111111111111111,
+  "rate_b": 0.0693498452012384,
+  "ratio": 1.6021825396825395,
+  "lo": 0.5657014511876505,
+  "hi": 2.876917388551406,
+  "boot_valid": 2000,
+  "evaluable": true,
+  "passed": false
+ },
+ "per_rule": {
+  "R1.1": {
+   "n_plots": 14,
+   "disagree": 0.9285714285714286
+  },
+  "R1.7": {
+   "n_plots": 7,
+   "disagree": 0.8571428571428571
+  },
+  "R1.9": {
+   "n_plots": 44,
+   "disagree": 0.6590909090909091
+  },
+  "S1": {
+   "n_plots": 72,
+   "disagree": 0.1111111111111111
+  },
+  "R3a": {
+   "n_plots": 1,
+   "disagree": 1.0
+  }
+ },
+ "per_tile": {
+  "T008_029": {
+   "n": 111,
+   "contradicted": 6,
+   "consistent": 100
+  },
+  "T010_033": {
+   "n": 217,
+   "contradicted": 10,
+   "consistent": 168
+  },
+  "T012_030": {
+   "n": 181,
+   "contradicted": 10,
+   "consistent": 151
+  },
+  "T012_036": {
+   "n": 107,
+   "contradicted": 7,
+   "consistent": 95
+  },
+  "T015_024": {
+   "n": 298,
+   "contradicted": 11,
+   "consistent": 226
+  },
+  "T016_026": {
+   "n": 183,
+   "contradicted": 0,
+   "consistent": 160
+  },
+  "T016_033": {
+   "n": 175,
+   "contradicted": 7,
+   "consistent": 164
+  },
+  "T016_037": {
+   "n": 232,
+   "contradicted": 1,
+   "consistent": 230
+  },
+  "T021_025": {
+   "n": 194,
+   "contradicted": 3,
+   "consistent": 159
+  },
+  "T021_028": {
+   "n": 237,
+   "contradicted": 9,
+   "consistent": 162
+  }
+ },
+ "F2b_spatial_placebo": {
+  "n_a": 90,
+  "dis_a": 5,
+  "n_b": 1520,
+  "dis_b": 149,
+  "clusters": 333,
+  "rate_a": 0.05555555555555555,
+  "rate_b": 0.09802631578947368,
+  "ratio": 0.5667412378821775,
+  "lo": 0.11689298486360612,
+  "hi": 1.1214449737507293,
+  "boot_valid": 2000,
+  "evaluable": true,
+  "passed": false
+ },
+ "code_hash": "90abbfcabc1b63ce6f6c63cb5dd14a1f80e420b820f8141f91b6c6c6055e5f55",
+ "map": "M22"
+}

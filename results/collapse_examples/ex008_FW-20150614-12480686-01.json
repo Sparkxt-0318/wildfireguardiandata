@@ -1,0 +1,94 @@
+{
+ "example_id": "ex008",
+ "cluster_id": "FW-20150614-12480686-01",
+ "members": [
+  {
+   "source": "fpa_fod",
+   "record_id": "300203981",
+   "name": "CAMILLO",
+   "date": "2015-06-14",
+   "lat": 34.91555556,
+   "lon": -111.39305556,
+   "acres": 23885.0,
+   "state": "AZ",
+   "cluster_id": "FW-20150614-12480686-01"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2015_2803850_CAMILLO",
+   "name": "CAMILLO",
+   "date": "2015-06-14",
+   "lat": 34.91,
+   "lon": -111.39,
+   "acres": 23885.0,
+   "state": "AZ",
+   "cluster_id": "FW-20150614-12480686-01"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "AZ3491611139320150614",
+   "name": "CAMILLO",
+   "date": "2015-06-14",
+   "lat": 34.854945191091694,
+   "lon": -111.3726433646447,
+   "acres": 24639.0,
+   "state": "AZ",
+   "cluster_id": "FW-20150614-12480686-01"
+  }
+ ],
+ "pairs": [
+  {
+   "a": "300203981",
+   "b": "2015_2803850_CAMILLO",
+   "probability": 0.9999963947075662,
+   "outcome": "link"
+  },
+  {
+   "a": "300203981",
+   "b": "AZ3491611139320150614",
+   "probability": 0.9999921853211097,
+   "outcome": "link"
+  }
+ ],
+ "merged": {
+  "name": "CAMILLO",
+  "date": "2015-06-14",
+  "lat": 34.854945191091694,
+  "lon": -111.3726433646447,
+  "acres": 24639.0,
+  "state": "AZ",
+  "n_sources": 3
+ },
+ "raw_kept": [
+  {
+   "source": "fpa_fod",
+   "record_id": "300203981",
+   "name": "CAMILLO",
+   "date": "2015-06-14",
+   "lat": 34.91555556,
+   "lon": -111.39305556,
+   "acres": 23885.0,
+   "state": "AZ"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2015_2803850_CAMILLO",
+   "name": "CAMILLO",
+   "date": "2015-06-14",
+   "lat": 34.91,
+   "lon": -111.39,
+   "acres": 23885.0,
+   "state": "AZ"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "AZ3491611139320150614",
+   "name": "CAMILLO",
+   "date": "2015-06-14",
+   "lat": 34.854945191091694,
+   "lon": -111.3726433646447,
+   "acres": 24639.0,
+   "state": "AZ"
+  }
+ ]
+}

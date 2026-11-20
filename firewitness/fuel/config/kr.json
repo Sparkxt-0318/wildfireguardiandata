@@ -1,0 +1,35 @@
+{
+  "region": "kr",
+  "STATUS": "STUB - UNTESTED. Written from the structure of the Korea Forest Service forest type map (imsangdo); no data was fetched, no rule was run, no gate was evaluated for Korea. Class codes and the translation table must be checked against the current map legend before use.",
+  "fuel_map": "Korea Forest Service forest type map (imsangdo, 1:5,000) translated to fuel groups; there is no national Scott & Burgan fuel model map",
+  "maps": {"KFS_FTM": {"map_year": null, "file": "forest_type_map.tif"}},
+  "forest_type_classes": {
+    "note": "stand type (imjong/imsang) values as commonly published; verify before use",
+    "coniferous": {"ko": "침엽수림", "examples": ["pine (Pinus densiflora)", "Korean pine", "larch"]},
+    "broadleaf": {"ko": "활엽수림", "examples": ["oak (Quercus)", "other broadleaf"]},
+    "mixed": {"ko": "혼효림"},
+    "bamboo": {"ko": "죽림"},
+    "non_stocked": {"ko": "무립목지", "examples": ["cutover", "burned", "bare"]},
+    "non_forest": {"ko": "비산림"}
+  },
+  "translation_to_fuel_groups": {
+    "note": "proposed mapping to the groups of firewitness/fuel/config/us.json; a first guess to be reviewed by a Korean fire-behaviour expert",
+    "coniferous": {"dense_crown": "TL", "open_crown": "TU"},
+    "broadleaf": {"dense_crown": "TL", "open_crown": "TU"},
+    "mixed": {"dense_crown": "TL", "open_crown": "TU"},
+    "bamboo": "SH",
+    "non_stocked": "GR",
+    "non_forest": "NB"
+  },
+  "crown_density_classes": {"note": "stand crown density classes A (dense) B (medium) C (sparse); A and B -> dense_crown, C -> open_crown is an assumption"},
+  "independent_layers_planned": {
+    "land_cover": "Ministry of Environment land cover map (토지피복도) or ESA WorldCover 2021 (global)",
+    "canopy_height": "Meta/WRI 1 m canopy height (global)",
+    "tree_loss": "Hansen Global Forest Change (global)",
+    "canopy_cover": "no NLCD equivalent: derive from WorldCover tree share and canopy height",
+    "fire_perimeters": "Korea Forest Service wildfire statistics / Sentinel-2 burned area (to be chosen)",
+    "field_plots": "National Forest Inventory (NFI) permanent plots via data.go.kr (key DATA_GO_KR_KEY in keys.env); coordinates and access terms not checked"
+  },
+  "rules": "reuse family 1-3 of us.json after the translation; thresholds NOT calibrated for Korea",
+  "grade_note": "In one Korean region 58 % of field plots matched no official fuel type (brief 53); this stub does not reproduce or test that figure."
+}

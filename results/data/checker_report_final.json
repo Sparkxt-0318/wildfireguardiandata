@@ -1,0 +1,174 @@
+{
+ "patch_file": "/home/user/wildfire 3 (1)/work/out/nat_final_a/patches.jsonl",
+ "gpkg": "/home/user/wildfire 3 (1)/work/fpafod/Data/FPA_FOD_20260615.gpkg",
+ "years": null,
+ "full": false,
+ "header": {
+  "_header": true,
+  "chain": "8d2903f0a6b50a5118c3515e283a0526235d3587b25beae4e0435d7f4f630419",
+  "input_sha256": "fb02fd49bb993e37d533d0ae1bc24570d4de2e78880946a8d303aea886b1d638",
+  "meta": {
+   "region": "us",
+   "years": null
+  },
+  "n": 353536,
+  "tool": "records.clean"
+ },
+ "n_patches_in_file": 353536,
+ "n_patches_checked": 353536,
+ "rows_loaded": 238444,
+ "checks": {
+  "1_schema": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {}
+  },
+  "2_strict_old": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {}
+  },
+  "3_cells_ids": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {
+    "rule_field_counts": {
+     "dup:fs_link|dup_of": 888,
+     "val:hidden_chars|COMPLEX_NAME": 114,
+     "val:hidden_chars|COUNTY": 78993,
+     "val:hidden_chars|FIRE_CODE": 4,
+     "val:hidden_chars|FIRE_NAME": 83602,
+     "val:hidden_chars|FPA_ID": 41458,
+     "val:hidden_chars|LOCAL_INCIDENT_ID": 78979,
+     "val:hidden_chars|NWCG_REPORTING_UNIT_ID": 38,
+     "val:hidden_chars|SOURCE_REPORTING_UNIT": 5440,
+     "val:hidden_chars|SOURCE_REPORTING_UNIT_NAME": 33,
+     "val:mojibake|FIRE_NAME": 2,
+     "val:placeholder|FIRE_CODE": 31,
+     "val:placeholder|FIRE_NAME": 63951,
+     "val:placeholder|LOCAL_INCIDENT_ID": 3
+    },
+    "patches_checked": 353536
+   }
+  },
+  "4_value_sanity": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {
+    "placeholder_old_tokens": {
+     "UNKNOWN": 31720,
+     "N/A": 24293,
+     "NA": 7514,
+     "NONE": 388,
+     "N/A                      ": 21,
+     "UNK": 14,
+     "UNKNOWN ": 11,
+     "NULL": 5,
+     "N/A ": 5,
+     "NAN": 4,
+     "?": 3,
+     "NONE                     ": 3,
+     "-": 1,
+     "na": 1,
+     "UNKNOWN                  ": 1,
+     "NAN ": 1
+    },
+    "loc_records": 0,
+    "dup_patches": 888,
+    "dup_max_km": 2.805470735039195,
+    "dup_max_days": 3.0
+   }
+  },
+  "5_alteration_budget": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {
+    "patched_cells": 353536,
+    "altered_cells": 353536,
+    "mode": "subset (rows named by patches + dup targets)",
+    "rows_loaded": 238444,
+    "note": "apply is this checker's own last-write-wins application; a violation means a patch is a no-op, repeats a cell or reverts another patch",
+    "shares": {
+     "universe_rows": 2661383,
+     "records_value_level": 64873,
+     "share_value_level": 0.024375672347798118,
+     "records_cosmetic": 172824,
+     "share_cosmetic": 0.06493766586770863,
+     "records_any": 237572,
+     "share_any": 0.0892663701541642,
+     "records_both": 125
+    }
+   }
+  },
+  "6_reversibility": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {
+    "cells_checked": 353536
+   }
+  },
+  "7_confidence": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {
+    "by_rule": {
+     "dup:fs_link": {
+      "n": 888,
+      "min": 0.9700656141324157,
+      "p05": 0.9715341808708912,
+      "median": 0.9879416266817557,
+      "mean": 0.9861941282551012,
+      "p95": 0.9987115588227728,
+      "max": 0.9992881072673623,
+      "n_lt_0.5": 0
+     },
+     "val:hidden_chars": {
+      "n": 288661,
+      "min": 0.97,
+      "p05": 0.97,
+      "median": 0.97,
+      "mean": 0.9699999999999998,
+      "p95": 0.97,
+      "max": 0.97,
+      "n_lt_0.5": 0
+     },
+     "val:mojibake": {
+      "n": 2,
+      "min": 0.9,
+      "p05": 0.9,
+      "median": 0.9,
+      "mean": 0.9,
+      "p95": 0.9,
+      "max": 0.9,
+      "n_lt_0.5": 0
+     },
+     "val:placeholder": {
+      "n": 63985,
+      "min": 0.75,
+      "p05": 0.75,
+      "median": 0.75,
+      "mean": 0.8070438383996251,
+      "p95": 0.9,
+      "max": 0.9,
+      "n_lt_0.5": 0
+     }
+    }
+   }
+  }
+ },
+ "hard_violations": {
+  "1_schema": 0,
+  "2_strict_old": 0,
+  "3_cells_ids": 0,
+  "5_alteration_budget": 0,
+  "6_reversibility": 0
+ },
+ "pass": true
+}

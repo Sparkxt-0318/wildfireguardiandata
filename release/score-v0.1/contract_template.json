@@ -1,0 +1,51 @@
+{
+ "area_ratio_warn": 3.0,
+ "bootstrap": {
+  "n": 1000,
+  "seed": 54
+ },
+ "event": {
+  "min_new_cells": 5,
+  "new_radius_cells": 1,
+  "tolerance": "mid"
+ },
+ "hard": {
+  "hard_km": 10.0
+ },
+ "horizon_days": 1,
+ "label_readings": [
+  "strict",
+  "interval"
+ ],
+ "leak": {
+  "auc": 0.9,
+  "front_auc": 0.95,
+  "min_positives": 30,
+  "radius_cells": 3
+ },
+ "name": "contract-template",
+ "threshold": {
+  "rule": "max_f1_on_validation",
+  "tolerance": "strict",
+  "value": null
+ },
+ "tolerances": {
+  "loose": {
+   "space_cells": 3,
+   "time_days": 3
+  },
+  "mid": {
+   "space_cells": 1,
+   "time_days": 1
+  },
+  "strict": {
+   "space_cells": 0,
+   "time_days": 0
+  }
+ },
+ "unit": {
+  "cell_km": 0.75,
+  "time": "day"
+ },
+ "version": 1
+}

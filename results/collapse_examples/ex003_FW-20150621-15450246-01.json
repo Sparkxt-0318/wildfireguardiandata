@@ -1,0 +1,94 @@
+{
+ "example_id": "ex003",
+ "cluster_id": "FW-20150621-15450246-01",
+ "members": [
+  {
+   "source": "fpa_fod",
+   "record_id": "300208153",
+   "name": "BRUNO CREEK",
+   "date": "2015-06-21",
+   "lat": 64.5808,
+   "lon": -155.3369,
+   "acres": 15131.7,
+   "state": "AK",
+   "cluster_id": "FW-20150621-15450246-01"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2015_2736254_BRUNO CREEK",
+   "name": "Bruno Creek",
+   "date": "2015-06-21",
+   "lat": 64.58,
+   "lon": -155.33,
+   "acres": 11383.0,
+   "state": "AK",
+   "cluster_id": "FW-20150621-15450246-01"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "AK6458115533720150622",
+   "name": "BRUNO CREEK",
+   "date": "2015-06-22",
+   "lat": 64.59488779521563,
+   "lon": -155.36585303603405,
+   "acres": 18615.0,
+   "state": "AK",
+   "cluster_id": "FW-20150621-15450246-01"
+  }
+ ],
+ "pairs": [
+  {
+   "a": "300208153",
+   "b": "2015_2736254_BRUNO CREEK",
+   "probability": 0.9999958933977191,
+   "outcome": "link"
+  },
+  {
+   "a": "300208153",
+   "b": "AK6458115533720150622",
+   "probability": 0.9999721376760404,
+   "outcome": "link"
+  }
+ ],
+ "merged": {
+  "name": "BRUNO CREEK",
+  "date": "2015-06-21",
+  "lat": 64.59488779521563,
+  "lon": -155.36585303603405,
+  "acres": 18615.0,
+  "state": "AK",
+  "n_sources": 3
+ },
+ "raw_kept": [
+  {
+   "source": "fpa_fod",
+   "record_id": "300208153",
+   "name": "BRUNO CREEK",
+   "date": "2015-06-21",
+   "lat": 64.5808,
+   "lon": -155.3369,
+   "acres": 15131.7,
+   "state": "AK"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2015_2736254_BRUNO CREEK",
+   "name": "Bruno Creek",
+   "date": "2015-06-21",
+   "lat": 64.58,
+   "lon": -155.33,
+   "acres": 11383.0,
+   "state": "AK"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "AK6458115533720150622",
+   "name": "BRUNO CREEK",
+   "date": "2015-06-22",
+   "lat": 64.59488779521563,
+   "lon": -155.36585303603405,
+   "acres": 18615.0,
+   "state": "AK"
+  }
+ ]
+}

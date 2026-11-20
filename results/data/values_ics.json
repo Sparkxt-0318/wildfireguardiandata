@@ -1,0 +1,27 @@
+{
+ "ics_sitreps_published": {
+  "rows": 182826,
+  "patches": 17021,
+  "by_rule": {
+   "val:hidden_chars": 15873,
+   "val:mojibake": 1024,
+   "val:placeholder": 76,
+   "val:sequence_glitch": 36,
+   "val:unit_slip": 12
+  },
+  "flags": 10633,
+  "seconds": 13.8
+ },
+ "ics_incidents_published": {
+  "rows": 34622,
+  "patches": 92,
+  "by_rule": {
+   "val:hidden_chars": 45,
+   "val:mojibake": 45,
+   "val:placeholder": 1,
+   "val:unit_slip": 1
+  },
+  "flags": 78,
+  "seconds": 1.7
+ }
+}

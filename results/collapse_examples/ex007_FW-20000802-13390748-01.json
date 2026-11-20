@@ -1,0 +1,94 @@
+{
+ "example_id": "ex007",
+ "cluster_id": "FW-20000802-13390748-01",
+ "members": [
+  {
+   "source": "fpa_fod",
+   "record_id": "358580",
+   "name": "PONDEROSA",
+   "date": "2000-08-02",
+   "lat": 43.9641,
+   "lon": -105.1341,
+   "acres": 1945.0,
+   "state": "WY",
+   "cluster_id": "FW-20000802-13390748-01"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2000_WY-CPX-005_PONDEROSA",
+   "name": "PONDEROSA",
+   "date": "2000-08-02",
+   "lat": 43.95,
+   "lon": -105.13333333333334,
+   "acres": 2500.0,
+   "state": "WY",
+   "cluster_id": "FW-20000802-13390748-01"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "WY4400010514820000802",
+   "name": "PONDEROSA",
+   "date": "2000-08-02",
+   "lat": 43.98485762520775,
+   "lon": -105.14750244353274,
+   "acres": 2627.0,
+   "state": "WY",
+   "cluster_id": "FW-20000802-13390748-01"
+  }
+ ],
+ "pairs": [
+  {
+   "a": "358580",
+   "b": "2000_WY-CPX-005_PONDEROSA",
+   "probability": 0.9999482348861368,
+   "outcome": "link"
+  },
+  {
+   "a": "358580",
+   "b": "WY4400010514820000802",
+   "probability": 0.9999969235507059,
+   "outcome": "link"
+  }
+ ],
+ "merged": {
+  "name": "PONDEROSA",
+  "date": "2000-08-02",
+  "lat": 43.98485762520775,
+  "lon": -105.14750244353274,
+  "acres": 2627.0,
+  "state": "WY",
+  "n_sources": 3
+ },
+ "raw_kept": [
+  {
+   "source": "fpa_fod",
+   "record_id": "358580",
+   "name": "PONDEROSA",
+   "date": "2000-08-02",
+   "lat": 43.9641,
+   "lon": -105.1341,
+   "acres": 1945.0,
+   "state": "WY"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2000_WY-CPX-005_PONDEROSA",
+   "name": "PONDEROSA",
+   "date": "2000-08-02",
+   "lat": 43.95,
+   "lon": -105.13333333333334,
+   "acres": 2500.0,
+   "state": "WY"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "WY4400010514820000802",
+   "name": "PONDEROSA",
+   "date": "2000-08-02",
+   "lat": 43.98485762520775,
+   "lon": -105.14750244353274,
+   "acres": 2627.0,
+   "state": "WY"
+  }
+ ]
+}

@@ -1,0 +1,28 @@
+{
+ "label": "STRETCH, not a gate",
+ "n_fires": 29,
+ "n_fires_with_replaced_cells": 28,
+ "mae_hours_scaled": {
+  "mean_diff": -0.42133305195405196,
+  "ci95": [
+   -1.4935309988011132,
+   0.4728775653058277
+  ],
+  "n_fires": 28,
+  "improved": 16,
+  "worse": 11
+ },
+ "spearman": {
+  "mean_diff": -0.008539468590108889,
+  "ci95": [
+   -0.01802752261768158,
+   -0.0020326787474348553
+  ],
+  "n_fires": 28,
+  "improved": 7,
+  "worse": 20
+ },
+ "total_cells_replaced": 309134,
+ "seed": 53055,
+ "orig_mae_median_h": 64.21971667086663
+}

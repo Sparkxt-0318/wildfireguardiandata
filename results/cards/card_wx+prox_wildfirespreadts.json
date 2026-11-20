@@ -1,0 +1,404 @@
+{
+ "card_sha256": "398548ef096c2c1cdd915902df8e3e3dc9f9f7ca1a6ee0e4a4374d4cb39856b5",
+ "contract": "gates",
+ "contract_sha256": "7cb5b4bda119a54c2de4e75c793110fc3b5e0cccdead772239b3c458d126ee32",
+ "dataset": "wildfirespreadts-750m",
+ "fold": "test",
+ "leak": {
+  "auc": 0.6953,
+  "detail": "declared horizon respected; AUC 0.695 on 4477 new-ignition cells (limit 0.9); front AUC 0.769 (limit 0.95). A screen, not a proof.",
+  "n_positives": 4477,
+  "status": "pass"
+ },
+ "lift": {
+  "wx+prox_minus_climatology": {
+   "loose": {
+    "interval": {
+     "ci95": [
+      0.8183,
+      0.941574
+     ],
+     "diff_f1": 0.873969,
+     "excludes_zero": true,
+     "n_fires": 35
+    },
+    "strict": {
+     "ci95": [
+      0.836709,
+      0.945508
+     ],
+     "diff_f1": 0.885476,
+     "excludes_zero": true,
+     "n_fires": 35
+    }
+   },
+   "mid": {
+    "interval": {
+     "ci95": [
+      0.900794,
+      0.962673
+     ],
+     "diff_f1": 0.929805,
+     "excludes_zero": true,
+     "n_fires": 35
+    },
+    "strict": {
+     "ci95": [
+      0.914526,
+      0.960543
+     ],
+     "diff_f1": 0.935551,
+     "excludes_zero": true,
+     "n_fires": 35
+    }
+   },
+   "strict": {
+    "interval": {
+     "ci95": [
+      0.798271,
+      0.849248
+     ],
+     "diff_f1": 0.829677,
+     "excludes_zero": true,
+     "n_fires": 35
+    },
+    "strict": {
+     "ci95": [
+      0.406182,
+      0.585353
+     ],
+     "diff_f1": 0.514376,
+     "excludes_zero": true,
+     "n_fires": 35
+    }
+   }
+  },
+  "wx+prox_minus_persistence": {
+   "loose": {
+    "interval": {
+     "ci95": [
+      -0.009624,
+      -0.002982
+     ],
+     "diff_f1": -0.004859,
+     "excludes_zero": true,
+     "n_fires": 35
+    },
+    "strict": {
+     "ci95": [
+      -0.01049,
+      -0.003313
+     ],
+     "diff_f1": -0.005411,
+     "excludes_zero": true,
+     "n_fires": 35
+    }
+   },
+   "mid": {
+    "interval": {
+     "ci95": [
+      -0.017601,
+      -0.006064
+     ],
+     "diff_f1": -0.009787,
+     "excludes_zero": true,
+     "n_fires": 35
+    },
+    "strict": {
+     "ci95": [
+      -0.025511,
+      -0.009999
+     ],
+     "diff_f1": -0.015058,
+     "excludes_zero": true,
+     "n_fires": 35
+    }
+   },
+   "strict": {
+    "interval": {
+     "ci95": [
+      -0.169358,
+      -0.114835
+     ],
+     "diff_f1": -0.134975,
+     "excludes_zero": true,
+     "n_fires": 35
+    },
+    "strict": {
+     "ci95": [
+      -0.037663,
+      0.004517
+     ],
+     "diff_f1": -0.014839,
+     "excludes_zero": false,
+     "n_fires": 35
+    }
+   }
+  }
+ },
+ "model": "wx+prox",
+ "models": {
+  "climatology": {
+   "area_ratio": 29.2349,
+   "event_level": {
+    "detected": 92,
+    "detection_rate": 0.471795,
+    "events": 195,
+    "lead_days_q25_median_q75": [
+     2.0,
+     2.0,
+     2.0
+    ]
+   },
+   "flags_dropped_on_unknown": 53099,
+   "hard_negative_cells": 2788404,
+   "hard_negative_false_alarm_rate": 0.083173,
+   "predicted_cells": 804896,
+   "tolerances": {
+    "loose": {
+     "interval": {
+      "f1": 0.120699,
+      "n_fire": 27532,
+      "n_pred": 804896,
+      "precision": 0.066727,
+      "recall": 0.631483,
+      "tp_fire": 17386,
+      "tp_pred": 53708
+     },
+     "strict": {
+      "f1": 0.10855,
+      "n_fire": 27532,
+      "n_pred": 804896,
+      "precision": 0.059481,
+      "recall": 0.620151,
+      "tp_fire": 17074,
+      "tp_pred": 47876
+     }
+    },
+    "mid": {
+     "interval": {
+      "f1": 0.057878,
+      "n_fire": 27532,
+      "n_pred": 804896,
+      "precision": 0.030897,
+      "recall": 0.45656,
+      "tp_fire": 12570,
+      "tp_pred": 24869
+     },
+     "strict": {
+      "f1": 0.046641,
+      "n_fire": 27532,
+      "n_pred": 804896,
+      "precision": 0.024621,
+      "recall": 0.441704,
+      "tp_fire": 12161,
+      "tp_pred": 19817
+     }
+    },
+    "strict": {
+     "interval": {
+      "f1": 0.027515,
+      "n_fire": 27532,
+      "n_pred": 804896,
+      "precision": 0.014504,
+      "recall": 0.267362,
+      "tp_fire": 7361,
+      "tp_pred": 11674
+     },
+     "strict": {
+      "f1": 0.017097,
+      "n_fire": 27532,
+      "n_pred": 804896,
+      "precision": 0.008841,
+      "recall": 0.258463,
+      "tp_fire": 7116,
+      "tp_pred": 7116
+     }
+    }
+   },
+   "true_fire_cells": 27532
+  },
+  "persistence": {
+   "area_ratio": 0.9642,
+   "event_level": {
+    "detected": 191,
+    "detection_rate": 0.979487,
+    "events": 195,
+    "lead_days_q25_median_q75": [
+     0.0,
+     0.0,
+     2.0
+    ]
+   },
+   "flags_dropped_on_unknown": 808,
+   "hard_negative_cells": 2788404,
+   "hard_negative_false_alarm_rate": 0.001092,
+   "predicted_cells": 26547,
+   "tolerances": {
+    "loose": {
+     "interval": {
+      "f1": 0.999528,
+      "n_fire": 27532,
+      "n_pred": 26547,
+      "precision": 1.0,
+      "recall": 0.999056,
+      "tp_fire": 27506,
+      "tp_pred": 26547
+     },
+     "strict": {
+      "f1": 0.999437,
+      "n_fire": 27532,
+      "n_pred": 26547,
+      "precision": 1.0,
+      "recall": 0.998874,
+      "tp_fire": 27501,
+      "tp_pred": 26547
+     }
+    },
+    "mid": {
+     "interval": {
+      "f1": 0.997469,
+      "n_fire": 27532,
+      "n_pred": 26547,
+      "precision": 1.0,
+      "recall": 0.994951,
+      "tp_fire": 27393,
+      "tp_pred": 26547
+     },
+     "strict": {
+      "f1": 0.99725,
+      "n_fire": 27532,
+      "n_pred": 26547,
+      "precision": 1.0,
+      "recall": 0.994515,
+      "tp_fire": 27381,
+      "tp_pred": 26547
+     }
+    },
+    "strict": {
+     "interval": {
+      "f1": 0.992166,
+      "n_fire": 27532,
+      "n_pred": 26547,
+      "precision": 1.0,
+      "recall": 0.984454,
+      "tp_fire": 27104,
+      "tp_pred": 26547
+     },
+     "strict": {
+      "f1": 0.546312,
+      "n_fire": 27532,
+      "n_pred": 26547,
+      "precision": 0.556447,
+      "recall": 0.536539,
+      "tp_fire": 14772,
+      "tp_pred": 14772
+     }
+    }
+   },
+   "true_fire_cells": 27532
+  },
+  "wx+prox": {
+   "area_ratio": 1.3168,
+   "event_level": {
+    "detected": 181,
+    "detection_rate": 0.928205,
+    "events": 195,
+    "lead_days_q25_median_q75": [
+     0.0,
+     1.0,
+     2.0
+    ]
+   },
+   "flags_dropped_on_unknown": 1437,
+   "hard_negative_cells": 2788404,
+   "hard_negative_false_alarm_rate": 0.001635,
+   "predicted_cells": 36253,
+   "tolerances": {
+    "loose": {
+     "interval": {
+      "f1": 0.994669,
+      "n_fire": 27532,
+      "n_pred": 36253,
+      "precision": 1.0,
+      "recall": 0.989394,
+      "tp_fire": 27240,
+      "tp_pred": 36253
+     },
+     "strict": {
+      "f1": 0.994026,
+      "n_fire": 27532,
+      "n_pred": 36253,
+      "precision": 1.0,
+      "recall": 0.988123,
+      "tp_fire": 27205,
+      "tp_pred": 36253
+     }
+    },
+    "mid": {
+     "interval": {
+      "f1": 0.987682,
+      "n_fire": 27532,
+      "n_pred": 36253,
+      "precision": 0.995724,
+      "recall": 0.979769,
+      "tp_fire": 26975,
+      "tp_pred": 36098
+     },
+     "strict": {
+      "f1": 0.982192,
+      "n_fire": 27532,
+      "n_pred": 36253,
+      "precision": 0.994125,
+      "recall": 0.970543,
+      "tp_fire": 26721,
+      "tp_pred": 36040
+     }
+    },
+    "strict": {
+     "interval": {
+      "f1": 0.857191,
+      "n_fire": 27532,
+      "n_pred": 36253,
+      "precision": 0.782887,
+      "recall": 0.94708,
+      "tp_fire": 26075,
+      "tp_pred": 28382
+     },
+     "strict": {
+      "f1": 0.531473,
+      "n_fire": 27532,
+      "n_pred": 36253,
+      "precision": 0.467548,
+      "recall": 0.615647,
+      "tp_fire": 16950,
+      "tp_pred": 16950
+     }
+    }
+   },
+   "true_fire_cells": 27532
+  }
+ },
+ "n_test_fires": 35,
+ "n_val_fires": 18,
+ "predictions_sha256": "efefd741f7837e78652eaea0ae12da7ca695cabcf2b56e8fda3700f8b702cf2e",
+ "split_scheme": "space",
+ "split_sha256": "d94a223cf441aab999d566d8e69bafe67e32c46d78c081853ee44434ac6d4557",
+ "threshold": {
+  "climatology": 0.00727004,
+  "persistence": 1.0,
+  "wx+prox": 0.98340696
+ },
+ "training_provenance": {
+  "overlap_with_test": null,
+  "status": "not declared"
+ },
+ "unknown_excluded": {
+  "cell_days_without_issue_state": 683973,
+  "reason": "fire=active>0; no_fire=no detection & M11,I2,I1>0 for all sub-cells; else unknown",
+  "scored_cell_days": 13849060,
+  "share_unknown": 0.054152,
+  "unknown_cells": 749953
+ },
+ "warnings": []
+}

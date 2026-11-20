@@ -1,0 +1,50 @@
+{
+ "wa": {
+  "records": 70070,
+  "pairs": 6294,
+  "linked": 42,
+  "undecided": 3000,
+  "duplicates_removed": 42
+ },
+ "planted_wa": {
+  "n": 300,
+  "recovered": 299,
+  "recall": 0.9966666666666667,
+  "ci": [
+   0.9813628354450568,
+   0.9994113574238593
+  ],
+  "linked_to_wrong_record": 1
+ },
+ "ok": {
+  "records": 39235,
+  "pairs": 283863,
+  "linked": 1743,
+  "undecided": 10858,
+  "duplicates_removed": 1260
+ },
+ "planted_ok": {
+  "n": 300,
+  "recovered": 294,
+  "recall": 0.98,
+  "ci": [
+   0.9570598132699448,
+   0.9908024939322287
+  ],
+  "linked_to_wrong_record": 2
+ },
+ "ak": {
+  "records": 5943,
+  "pairs": 236,
+  "linked": 3,
+  "undecided": 3,
+  "duplicates_removed": 3
+ },
+ "wfigs": {
+  "records": 432379,
+  "pairs": 137687,
+  "linked": 5578,
+  "undecided": 88775,
+  "duplicates_removed": 4157
+ }
+}
