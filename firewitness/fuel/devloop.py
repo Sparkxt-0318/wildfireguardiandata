@@ -8,7 +8,7 @@ from pathlib import Path
 from . import grade, runner
 from .areas import DEV
 
-RESULTS = Path(__file__).resolve().parents[2] / "results"
+RESULTS = Path(__file__).resolve().parents[2] / "results" / "fuel"   # data files; the write-ups stay in results/
 
 
 def run_dev(label: str, map_key: str = "M22", tiles=None, save=True):

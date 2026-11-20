@@ -8,7 +8,7 @@ from pathlib import Path
 from . import devloop, runner
 
 CFG_PATH = Path(__file__).parent / "config" / "us.json"
-LOG = devloop.RESULTS / "ROUNDS_fuel.md"
+LOG = devloop.RESULTS.parent / "ROUNDS_fuel.md"
 
 
 def _score(o):

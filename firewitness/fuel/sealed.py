@@ -11,7 +11,7 @@ from ..core.hashing import hash_inputs, hash_obj
 from . import grade, runner
 from .areas import SEALED, area_dir
 
-RESULTS = Path(__file__).resolve().parents[2] / "results"
+RESULTS = Path(__file__).resolve().parents[2] / "results" / "fuel"
 
 
 def _sha(p):
@@ -21,12 +21,12 @@ def _sha(p):
 def run_sealed():
     lock = RESULTS / "sealed_opened.json"
     if lock.exists():
-        raise SystemExit("sealed areas were already opened (results/sealed_opened.json); this command runs once")
+        raise SystemExit("sealed areas were already opened (results/fuel/sealed_opened.json); this command runs once")
     frozen = json.loads((RESULTS / "RULES_FROZEN.json").read_text())
     cfg = runner.region_cfg()
     if runner.code_hash() != frozen["code_hash"] or hash_obj(cfg) != frozen["config_hash"]:
         raise SystemExit("rules differ from the frozen version; refusing to open the sealed areas")
-    commit = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=RESULTS.parent).stdout.strip()
+    commit = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True, cwd=RESULTS.parents[1]).stdout.strip()
     lock.write_text(json.dumps({"opened_utc": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%MZ"), "commit": commit,
                                 "code_hash": frozen["code_hash"], "config_hash": frozen["config_hash"]}, indent=1))
     out = {}

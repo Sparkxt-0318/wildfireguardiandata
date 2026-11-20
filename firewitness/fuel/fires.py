@@ -68,6 +68,6 @@ def run_all(out_json: Path | None = None):
         except Exception:  # noqa: BLE001
             rows.append({"id": fid, "error": traceback.format_exc()[-400:]})
             print("FAILED", fid, flush=True)
-    out_json = out_json or Path(__file__).resolve().parents[2] / "results" / "stretch_fires.json"
+    out_json = out_json or Path(__file__).resolve().parents[2] / "results" / "fuel" / "stretch_fires.json"
     out_json.write_text(json.dumps(rows, indent=1, default=str))
     return rows
