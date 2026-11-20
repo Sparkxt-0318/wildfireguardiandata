@@ -1,5 +1,5 @@
 ## score
-- state: WAITING (all merged: PR #1, #4, #9, #11; main 4870279; release files for score-v0.1 are on main under release/score-v0.1/)
-- last heartbeat (UTC): 2026-11-20T19:48:06Z
-- waiting for: caught_states_v0.1.parquet on main or in a release (card run + dated addition to SCORE_RESULTS.md); track 51 trace-back onset intervals (onset_lo_t/onset_hi_t) for a non-record-only live dataset
-- nothing else open; I will write DONE with the hash after those two additions
+- state: WAITING (PR #16 open: caught DEV SAMPLE run, cell sized to look floor; earlier PRs #1 #4 #9 #11 merged)
+- last heartbeat (UTC): 2026-11-20T21:50:32Z
+- done this round: caught adapter + floor_m2 negatives + space split run on states_S1_dev_sample.parquet (334 records; 118,121 positives, 354,363 verified negatives); dated addition labelled DEV SAMPLE
+- waiting for: full S1 states file (rerun and append a dated addition); track 51 trace-back onset intervals for a non-record-only live dataset
