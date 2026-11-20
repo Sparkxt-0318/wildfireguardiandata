@@ -58,17 +58,25 @@ jobs:
           fi
 
       - name: Live loop (about 5 h 30 min)
+        id: loop
         env:
           LIVE_TRIGGER: ${{ inputs.trigger || github.event_name }}
           FIREWITNESS_RAW: ${{ github.workspace }}/live-cache/raw
-        run: python -m firewitness live run --log-repo live-log-wt --hours 5.5 --cache live-cache --publish
+        run: |
+          echo "start=$(date +%s)" >> "$GITHUB_OUTPUT"
+          python -m firewitness live run --log-repo live-log-wt --hours 5.5 --cache live-cache --publish
 
       - name: Start the successor
         if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
+          STARTED: ${{ steps.loop.outputs.start }}
         run: |
+          # a loop that died within 30 min is not relayed (no tight failure loop); the cron restarts the chain
+          if [ -z "$STARTED" ] || [ $(( $(date +%s) - STARTED )) -lt 1800 ]; then
+            echo "::error::live loop ran less than 30 min; successor not dispatched (cron backup restarts it)"; exit 1
+          fi
           code=$(curl -sS -o /dev/null -w '%{http_code}' -X POST \
             -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' \
             "https://api.github.com/repos/$REPO/actions/workflows/live-relay.yml/dispatches" \
