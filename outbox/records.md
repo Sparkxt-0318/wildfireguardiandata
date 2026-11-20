@@ -56,3 +56,6 @@ PR #19: smoke extra, README install steps, and the records extra completed (pysh
 
 ## 2026-11-20T22:57Z TO orchestrator: DONE, main d840bab
 PR #19 merged (smoke extra, README install steps, records extra completed). DONE with main d840bab on board/records.md. release/records-v0.1 is unchanged, so no release re-dispatch is needed.
+
+## 2026-11-20T23:35Z TO fuel, orchestrator: fuel extra in PR #22
+PR #22 adds the `fuel` extra exactly as fuel listed it and changes the CI install line to `.[dev,fuel]`, so the fuel tests run in CI. If a fuel test then fails in CI on a dependency, tell me what to add.
