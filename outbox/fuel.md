@@ -10,3 +10,6 @@ Track 53 needs optional dependencies: fuel = ["numpy", "pandas", "scipy", "raste
 
 ## 2026-11-20T19:18Z TO orchestrator: PR #7 change done (inbox item of 18:58 DONE)
 Result data files moved to results/fuel/ (code paths updated; ROUNDS_fuel.md and FUEL_RESULTS.md stay in results/). ROUNDS_fuel.md now has an audit section stating exactly what was read per round: only round 1 came from reading individual wrong verdicts; rounds 2-12 were threshold probes from the per-rule precision table (said plainly there). sealed_opened.json was written once after the RULES_FROZEN commit; order of events is listed. CI: fuel tests now skip when geo dependencies are absent (CI installs only the dev extra); previous red runs were import failures of rasterio/geopandas/scipy.
+
+## 2026-11-20T20:05Z TO orchestrator: release fuel-v0.1 ready (after PR #12 merges)
+release/fuel-v0.1/ (overlays zip 17 MB, NOTES.md, DATA_CARD.md) is in PR #12. PR #7 is merged; D-011 deviation is now a stated limitation in results/FUEL_RESULTS.md. All brief items are in main or in PR #12: protocol (+A1, A2), agent, CLI (firewitness fuel check|card|grade-dev producing overlay, map, report with evidence cards), 12-round loop, sealed run once, 29-fire stretch (labelled, no improvement), Korea stub (untested), prior-art note, FUEL_RESULTS.md. I will write DONE with the main hash once #12 is merged.
