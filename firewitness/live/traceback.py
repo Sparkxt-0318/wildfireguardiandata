@@ -53,14 +53,23 @@ def fdc_clean(fdc_day: np.ndarray, i: int, j: int) -> bool:
     return not (((w >= 10) & (w <= 15)) | ((w >= 30) & (w <= 35))).any()
 
 
-def process_fire_sat(meta: dict, sat: str, firms: FirmsClean, nboot: int = 200, seed: int = 0, feat: str = "dT"):
+VARIANTS = {"A0": "dT", "A1": "dTd", "A2": "dT_c4"}
+
+
+def process_fire_sat(meta: dict, sat: str, firms: FirmsClean, nboot: int = 200, seed: int = 0, variant: str = "A0"):
     """Compute site series, the fire's CUSUM evidence, placebo anchors and the bootstrap. Returns a dict."""
     s = load_series(meta["fire_id"], sat)
     sm = meta["sats"][sat]
-    f = sg.feature(s, feat)
+    ukey = VARIANTS[variant]
+    f = sg.feature(s, "dT")
     r = sg.residual(f)
+    if ukey.startswith("dTd"):
+        from .replay import sameday_ref
+        r = r - sameday_ref(r)
     z_raw = sg.zscore_all(r, NDAYS)
     z = sg.scene_filter(z_raw)
+    if ukey.endswith("_c4"):
+        z = sg.compact_filter(z, 4)
     scene_drop = np.isfinite(z_raw) & ~np.isfinite(z)
     u = sg.site_u(z)
     c = HALF
@@ -141,9 +150,10 @@ def series_meta(fid: str):
     return json.loads(p.read_text()) if p.is_file() else None
 
 
-def run_fire(fid: str, firms: FirmsClean, out_dir: Path = DERIVED / "traceback", force=False):
+def run_fire(fid: str, firms: FirmsClean, out_dir: Path = None, force=False, variant: str = "A0"):
     """Process every satellite of one extracted fire; save a pickle per fire-satellite."""
     import pickle
+    out_dir = out_dir or (DERIVED / "traceback" / variant)
     meta = series_meta(fid)
     if meta is None:
         return None
@@ -154,15 +164,16 @@ def run_fire(fid: str, firms: FirmsClean, out_dir: Path = DERIVED / "traceback",
         if f.is_file() and not force:
             recs[sat] = pickle.loads(f.read_bytes())
             continue
-        rec = process_fire_sat(meta, sat, firms)
+        rec = process_fire_sat(meta, sat, firms, variant=variant)
         rec["meta"] = {k: v for k, v in meta.items() if k != "sats"}
         f.write_bytes(pickle.dumps(rec))
         recs[sat] = rec
     return recs
 
 
-def load_records(fids, out_dir: Path = DERIVED / "traceback"):
+def load_records(fids, out_dir: Path = None, variant: str = "A0"):
     import pickle
+    out_dir = out_dir or (DERIVED / "traceback" / variant)
     out = []
     for fid in fids:
         for f in sorted(out_dir.glob(f"{fid}_G*.pkl")):

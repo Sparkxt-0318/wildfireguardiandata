@@ -176,7 +176,7 @@ Reason: on the Bedrock placebo series (dev), single warm patches of 30–56 cont
 counted as dozens of false alerts under per-pixel counting; with the per-pixel count, no threshold could meet any
 budget below 10⁻² without the fire being missed. Reported as a per-pixel curve as well, so nothing is hidden.
 
-**Amendment 4 — 2026-11-20T18:24Z, Part A variants declared before they are run.** A first dev run on the 11 dev fires
+**Amendment 4 — 2026-11-20T18:20Z, Part A variants declared before they are run.** A first dev run on the 11 dev fires
 extracted so far (pipeline check) found an earlier onset in 1 of 11 fires per satellite: before the anchor, fires showed
 S ≈ 15–21 on both satellites while h_A was 36 (East) and 29 (West), the placebo tail being set by hours-long non-fire
 anomalies. Once at least 60 dev fires are extracted, three Part A variants are run on dev only: A0 = protocol (feature

@@ -14,6 +14,7 @@ def register(parser):
     p.add_argument("--fires", default="protocol/live_fires.csv")
     p.add_argument("--split", default="dev", choices=["dev", "test", "all"])
     p.add_argument("--extract", action="store_true", help="read GOES series first (network, ~3 min per fire)")
+    p.add_argument("--variant", default="A0", choices=["A0", "A1", "A2"], help="protocol amendment 4")
     p.add_argument("--out", default="results/live")
     p.set_defaults(func=cmd_traceback)
     p = sub.add_parser("replay", help="Part B: causal replay of the detector on dev or sealed-test fires")

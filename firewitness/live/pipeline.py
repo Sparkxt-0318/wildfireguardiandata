@@ -44,15 +44,16 @@ def boot_median(x, n=2000, seed=0):
 def _proc(fid):
     firms = _proc.firms
     try:
-        tb.run_fire(fid, firms)
+        tb.run_fire(fid, firms, variant=_proc.variant)
         return fid, None
     except Exception as e:  # noqa: BLE001
         return fid, repr(e)
 
 
-def process_fires(fids, procs=3):
+def process_fires(fids, procs=3, variant="A0"):
     from multiprocessing import get_context
     _proc.firms = tb.FirmsClean()
+    _proc.variant = variant
     todo = [f for f in fids if tb.series_meta(f) is not None]
     with get_context("fork").Pool(procs) as pool:
         errs = [r for r in pool.imap_unordered(_proc, todo) if r[1]]
@@ -201,17 +202,19 @@ def traceback_main(a):
         with get_context("fork").Pool(44) as pool:
             for f in fires:
                 extract.extract_fire(f, cfg, pool)
-    done, errs = process_fires(fids)
-    recs = tb.load_records(done)
+    variant = getattr(a, "variant", "A0")
+    done, errs = process_fires(fids, variant=variant)
+    recs = tb.load_records(done, variant=variant)
     thr = threshold_by_role(recs)
     rows = traceback_table(recs, thr)
     labels = fire_labels(rows, {f["fire_id"]: f for f in fires})
     out = Path(a.out)
-    write_csv(out / f"traceback_{a.split}_by_satellite.csv", rows)
-    write_csv(out / f"onset_labels_{a.split}.csv", labels)
-    summ = {"split": a.split, "n_fires_listed": len(fids), "n_fires_processed": len(done), "errors": errs,
+    sfx = f"{a.split}_{variant}"
+    write_csv(out / f"traceback_{sfx}_by_satellite.csv", rows)
+    write_csv(out / f"onset_labels_{sfx}.csv", labels)
+    summ = {"split": a.split, "variant": variant, "feature": tb.VARIANTS[variant], "n_fires_listed": len(fids), "n_fires_processed": len(done), "errors": errs,
             "thresholds": thr, "E1": e1_cv(recs), "E2": e2_stats(labels), "made": iso(time.time())}
-    (out / f"traceback_{a.split}_summary.json").write_text(json.dumps(summ, indent=1, default=str))
+    (out / f"traceback_{sfx}_summary.json").write_text(json.dumps(summ, indent=1, default=str))
     print(json.dumps({k: summ[k] for k in ("n_fires_processed", "thresholds", "E1", "E2")}, indent=1, default=str))
     return 0
 
