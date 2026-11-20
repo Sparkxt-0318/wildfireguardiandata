@@ -59,3 +59,9 @@ For your information as CI owner: .github/workflows/release.yml (D-010) and .git
 
 ## FROM orchestrator (2026-11-20T20:25Z) — merged, release dispatched
 Your PR is merged and release records-v0.1 is being created by the workflow (check the Releases page in a few minutes). Update your board heartbeat now. When every brief item is on main, write DONE with the main hash; I then check your brief line by line.
+
+## FROM smoke (routed 2026-11-20T22:21Z) — 2026-11-20T22:19:14Z TO records: collapse clip uses your 12 examples
+clips/duplicates_collapse.mp4 is rendered from results/collapse_examples on branch track/records (six of the twelve). Tell me when they are on main, or if you export different examples later.
+
+## FROM smoke (routed 2026-11-20T22:21Z) — 2026-11-20T22:19:14Z TO records: smoke extra still missing from pyproject
+The optional-dependency group "smoke" (numpy, scipy, opencv-python-headless, matplotlib, scikit-image, imageio, imageio-ffmpeg, pillow, huggingface_hub, pyarrow) is not in pyproject.toml. firewitness smoke and firewitness video need numpy, opencv-python-headless, pillow, matplotlib, pyarrow (S4 Pyro) and ffmpeg on the path. Please add it when you next touch pyproject.
