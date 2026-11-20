@@ -30,6 +30,8 @@ def cfg_hash(cfg: dt.Config) -> str:
     d = cfg.to_json()
     if d.get("site_r", 1) == 1:
         d.pop("site_r", None)          # keep the hashes of caches made before site_r existed
+    if not d.get("recur"):
+        d.pop("recur", None)
     return hashlib.sha1(json.dumps(d, sort_keys=True).encode()).hexdigest()[:12]
 
 

@@ -32,6 +32,8 @@ class Config:
     vis_weight: float = 0.0
     decay: float = 1.0        # S multiplier on a frame with no value
     site_r: int = 1           # a fire counts as caught by an alert at any pixel within site_r pixels of its site
+    recur: float = 0.0        # round candidate: no alert at a pixel whose G reached `recur` (within 1 px) on any of
+                              # the 7 previous days (recurring non-fire heat); 0 = off
 
     def to_json(self):
         d = asdict(self)
@@ -42,6 +44,7 @@ class Config:
     def from_json(d):
         d = dict(d)
         d.setdefault("site_r", 1)
+        d.setdefault("recur", 0.0)
         if d.get("rho") is None:
             d["rho"] = math.inf
         return Config(**d)
@@ -230,6 +233,23 @@ def run_maxima(G):
     return np.concatenate(out) if out else np.zeros(0, np.float32)
 
 
+def recur_masks(uE, uW, cfg: Config):
+    """[D, H, W] bool: pixel suppressed on day d because G reached cfg.recur within 1 px on one of the 7 days before."""
+    from scipy.ndimage import maximum_filter
+    D, T, H, W = uE.shape
+    gmax = np.zeros((D, H, W), np.float32)
+    for d in range(D):
+        G = g_series(uE[d].reshape(T, -1), uW[d].reshape(T, -1) if uW is not None else None, cfg)
+        gmax[d] = G.max(0).reshape(H, W)
+    hit = maximum_filter(gmax >= cfg.recur, size=(1, 3, 3))
+    out = np.zeros((D, H, W), bool)
+    for d in range(D):
+        prev = list(range(d + 1, min(d + 8, D)))
+        if prev:
+            out[d] = hit[prev].any(0)
+    return out
+
+
 def fire_eval(fid: str, cfg: Config, firms: FirmsClean, need_placebo=True, post_h=2.0):
     """Per fire: placebo run maxima and site-days; the fire site's running max of G with alert times."""
     base = ensure_base(fid, firms)
@@ -250,6 +270,9 @@ def fire_eval(fid: str, cfg: Config, firms: FirmsClean, need_placebo=True, post_
     cj = np.array([c[1] for c in cen])
     G = g_series(uE[0][:, ci, cj], uW[0][:, ci, cj] if uW is not None else None, cfg,
                  vE[0][:, ci, cj] if vE is not None else None)
+    if cfg.recur:
+        rm0 = recur_masks(uE, uW, cfg)[0]
+        G = np.where(rm0[ci, cj][None, :], 0, G)
     g = G.max(1)
     tav = aE[0].copy()
     if aW is not None:
@@ -370,8 +393,10 @@ def placebo_episodes(fid, cfg, firms, base=None, floor=None):
     vE = ensure_u(fid, "vis", base)[0] if cfg.vis_weight else None
     floor = 2.0 if floor is None else floor
     days, sd = [], 0.0
+    rmask = recur_masks(uE, uW, cfg) if cfg.recur else None
     for d in range(NDAYS):
-        idx = np.argwhere(base["clean"][d])
+        ok = base["clean"][d] if rmask is None else (base["clean"][d] & ~rmask[d])
+        idx = np.argwhere(ok)
         if not len(idx):
             continue
         Gp = g_series(uE[d][:, idx[:, 0], idx[:, 1]], uW[d][:, idx[:, 0], idx[:, 1]] if uW is not None else None,

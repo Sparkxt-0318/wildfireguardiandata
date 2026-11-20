@@ -224,6 +224,51 @@
     "sites_per_day_median": 5.0
    },
    "time": "2026-11-20T23:34Z"
+  },
+  {
+   "round": 6,
+   "cause": "fire under ACM-flagged cloud edge with clear 3.9 um excess (thin cloud)",
+   "change": "keep a cloud-flagged pixel >= 10 K hotter at 3.9 um than its annulus",
+   "before": {
+    "ukey": "bt7_c4_w6",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2
+   },
+   "after": {
+    "ukey": "bt7_c4_w6_x10",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2
+   },
+   "score_before": -39.59826388888889,
+   "score_after": -47.90208333333334,
+   "h_before": 67.05959375,
+   "h_after": 92.885765625,
+   "earlier_before": 16,
+   "earlier_after": 13,
+   "n": 96,
+   "no_alert_before": 47,
+   "no_alert_after": 48,
+   "false_rate_after": 9.884828647735201e-05,
+   "kept": false,
+   "false_alerts_after": {
+    "n_days_with_false": 41,
+    "kinds": {
+     "previous days": 38,
+     "day0 (fire day, far sites)": 3
+    },
+    "sites_per_day_median": 2.0
+   },
+   "time": "2026-11-20T23:51Z"
   }
  ],
  "final_config": {
