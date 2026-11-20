@@ -98,6 +98,8 @@ def run_national(out_dir: Path, years=None, region="us", fit_models=None, skip_v
     ps.extend(lp)
     res["location"] = info | {"patches": len(lp)}
     T.lap("tool 2 location")
+    del fod, ev
+    import gc; gc.collect()
     # 3 duplicates within FOD
     fc = pd.read_parquet(paths.CANON / "fod.parquet")
     if years:

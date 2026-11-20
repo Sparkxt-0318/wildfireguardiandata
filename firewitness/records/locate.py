@@ -41,6 +41,9 @@ class Params:
     scar_tol_km: float = 1.0
     scar_win: int = 30
     time_tol: int = 3
+    normalise_time: bool = True
+    det_min_acres: float = 0.0
+    none_weight: float = 0.05
     enable: tuple = ("sign_flip_lon", "sign_flip_lat", "sign_flip_both", "swap_axes", "swap_axes_neg", "dm_dd",
                      "dm_swap", "tz_shift", "day_month")
 
@@ -337,7 +340,7 @@ def make_time_candidates(start: pd.Series, state_abbr, enable) -> pd.DataFrame:
     return pd.concat(rows, ignore_index=True)
 
 
-def observe_time(ev: Evidence, cand: pd.DataFrame, lat, lon, report: pd.Series, params: Params) -> np.ndarray:
+def observe_time(ev: Evidence, cand: pd.DataFrame, lat, lon, report: pd.Series, params: Params, area=None) -> np.ndarray:
     i = cand["i"].to_numpy()
     sd = ((pd.to_datetime(cand["start"]) - EPOCH) / pd.Timedelta(days=1)).to_numpy(float)
     obs = np.full((len(cand), 3), -1, dtype=np.int8)
@@ -360,6 +363,9 @@ def observe_time(ev: Evidence, cand: pd.DataFrame, lat, lon, report: pd.Series, 
         near400 = ev.scars.near(la, lo, sd, 1.0, 400)
         obs[okd & near3, 2] = 1
         obs[okd & ~near3 & near400, 2] = 0
+    if area is not None and params.det_min_acres > 0:
+        small = np.nan_to_num(area[i], nan=0.0) < params.det_min_acres
+        obs[small, 1:] = -1          # satellites cannot be expected to see a small fire: no evidence either way
     return obs
 
 
@@ -373,7 +379,8 @@ def repair_times(df: pd.DataFrame, ev: Evidence, lat, lon, cfg: dict, params: Pa
     ab = st.where(st.str.len() == 2, None)
     ab = ab.where(~ab.str.fullmatch(r"\d{2}", na=False), None).fillna(st.map(lambda x: ev.admin.fips_to_abbr.get(x) if isinstance(x, str) else None)).to_numpy(dtype=object)
     cand = make_time_candidates(start, ab, params.enable)
-    obs = observe_time(ev, cand, lat, lon, report, params)
+    area = area_acres_of(df)
+    obs = observe_time(ev, cand, lat, lon, report, params, area)
     grp = (cand["kind"] != "as_reported").astype(int).to_numpy()
     if fitted is None:
         rng = np.random.default_rng(seed)
@@ -383,7 +390,7 @@ def repair_times(df: pd.DataFrame, ev: Evidence, lat, lon, cfg: dict, params: Pa
         shift = pd.to_timedelta(rng.choice([-1, 1], len(base)) * rng.integers(20, 200, len(base)), unit="D")
         plc = pd.DataFrame({"i": base["i"].to_numpy(), "kind": "placebo", "start": (pd.to_datetime(base["start"]) + shift).to_numpy()})
         pair = pd.concat([base, plc], ignore_index=True)
-        o2 = observe_time(ev, pair, lat, lon, report, params)
+        o2 = observe_time(ev, pair, lat, lon, report, params, area)
         g2 = np.where(pair["kind"] == "as_reported", 0, 2)
         wit, pri = em.fit_grouped(o2, g2, TIME_WITNESSES, init_priors={0: 0.97}, fixed={2: 1e-4})
         pri = {0: min(pri.get(0, 0.97), 0.995), 1: 0.03}
@@ -391,6 +398,12 @@ def repair_times(df: pd.DataFrame, ev: Evidence, lat, lon, cfg: dict, params: Pa
         wit, pri = fitted
     prior = np.where(grp == 0, pri.get(0, 0.97), pri.get(1, 0.03))
     cand["post"] = em.posterior(obs, wit, prior)
+    if params.normalise_time:
+        # one reading of the date is true: compare the candidates of a record with each other (odds), keeping a small
+        # weight for "none of these", so that evidence against the date as reported also counts for its alternatives
+        odds = cand["post"] / (1 - cand["post"]).clip(lower=1e-9)
+        tot = odds.groupby(cand["i"]).transform("sum") + params.none_weight
+        cand["post"] = (odds / tot).clip(0, 1)
     for j, w in enumerate(TIME_WITNESSES):
         cand[w] = obs[:, j]
     return cand, (wit, pri), (start, report)

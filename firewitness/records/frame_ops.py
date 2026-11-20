@@ -60,20 +60,20 @@ def revert_frame(df: pd.DataFrame, patches, id_col: str, orig_columns, strict: b
     return out[list(orig_columns)]
 
 
-def to_csv_bytes(df: pd.DataFrame) -> bytes:
+def to_csv_bytes(df: pd.DataFrame, encoding: str = "latin-1") -> bytes:
     buf = io.StringIO()
     w = csv.writer(buf, quoting=csv.QUOTE_MINIMAL, lineterminator="\n")
     w.writerow(list(df.columns))
     w.writerows(df.astype(str).to_numpy().tolist())
-    return buf.getvalue().encode("utf-8")
+    return buf.getvalue().encode(encoding)
 
 
-def sha256_frame(df: pd.DataFrame) -> str:
-    return hashlib.sha256(to_csv_bytes(df)).hexdigest()
+def sha256_frame(df: pd.DataFrame, encoding: str = "latin-1") -> str:
+    return hashlib.sha256(to_csv_bytes(df, encoding)).hexdigest()
 
 
-def write_csv(df: pd.DataFrame, path) -> str:
-    b = to_csv_bytes(df)
+def write_csv(df: pd.DataFrame, path, encoding: str = "latin-1") -> str:
+    b = to_csv_bytes(df, encoding)
     Path(path).write_bytes(b)
     return hashlib.sha256(b).hexdigest()
 

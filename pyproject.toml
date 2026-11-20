@@ -13,6 +13,7 @@ dependencies = []
 
 [project.optional-dependencies]
 records = ["numpy", "pandas", "pyarrow", "scipy", "pyproj", "shapely", "requests"]
+live = ["numpy", "scipy", "h5py", "requests"]
 caught = ["numpy", "pandas", "pyarrow", "scipy", "pyproj", "shapely", "geopandas", "rasterio", "pystac-client", "planetary-computer", "requests"]
 dev = ["pytest", "numpy", "pandas"]
 
