@@ -1,0 +1,94 @@
+{
+ "example_id": "ex011",
+ "cluster_id": "FW-20020812-12710717-01",
+ "members": [
+  {
+   "source": "fpa_fod",
+   "record_id": "297163",
+   "name": "CHERRY CRE",
+   "date": "2002-08-12",
+   "lat": 37.1722,
+   "lon": -108.2423,
+   "acres": 1360.0,
+   "state": "CO",
+   "cluster_id": "FW-20020812-12710717-01"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2002_CO-SUA-27027_CHERRY CREEK",
+   "name": "CHERRY CREEK",
+   "date": "2002-08-12",
+   "lat": 37.173333,
+   "lon": -108.237222,
+   "acres": 1335.0,
+   "state": "CO",
+   "cluster_id": "FW-20020812-12710717-01"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "CO3716610821520020812",
+   "name": "CHERRY CRE",
+   "date": "2002-08-12",
+   "lat": 37.16623258615027,
+   "lon": -108.21480847158684,
+   "acres": 1547.0,
+   "state": "CO",
+   "cluster_id": "FW-20020812-12710717-01"
+  }
+ ],
+ "pairs": [
+  {
+   "a": "297163",
+   "b": "2002_CO-SUA-27027_CHERRY CREEK",
+   "probability": 0.999921277749739,
+   "outcome": "link"
+  },
+  {
+   "a": "297163",
+   "b": "CO3716610821520020812",
+   "probability": 0.9999969235507059,
+   "outcome": "link"
+  }
+ ],
+ "merged": {
+  "name": "CHERRY CRE",
+  "date": "2002-08-12",
+  "lat": 37.16623258615027,
+  "lon": -108.21480847158684,
+  "acres": 1547.0,
+  "state": "CO",
+  "n_sources": 3
+ },
+ "raw_kept": [
+  {
+   "source": "fpa_fod",
+   "record_id": "297163",
+   "name": "CHERRY CRE",
+   "date": "2002-08-12",
+   "lat": 37.1722,
+   "lon": -108.2423,
+   "acres": 1360.0,
+   "state": "CO"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2002_CO-SUA-27027_CHERRY CREEK",
+   "name": "CHERRY CREEK",
+   "date": "2002-08-12",
+   "lat": 37.173333,
+   "lon": -108.237222,
+   "acres": 1335.0,
+   "state": "CO"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "CO3716610821520020812",
+   "name": "CHERRY CRE",
+   "date": "2002-08-12",
+   "lat": 37.16623258615027,
+   "lon": -108.21480847158684,
+   "acres": 1547.0,
+   "state": "CO"
+  }
+ ]
+}

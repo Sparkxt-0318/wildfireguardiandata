@@ -1,0 +1,94 @@
+{
+ "example_id": "ex005",
+ "cluster_id": "FW-20051115-11730826-01",
+ "members": [
+  {
+   "source": "fpa_fod",
+   "record_id": "362755",
+   "name": "DAISY",
+   "date": "2005-11-15",
+   "lat": 27.37019,
+   "lon": -97.33771,
+   "acres": 10003.0,
+   "state": "TX",
+   "cluster_id": "FW-20051115-11730826-01"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2005_TX-PAP-B88Q_DAISY",
+   "name": "DAISY",
+   "date": "2005-11-15",
+   "lat": 27.433333,
+   "lon": -97.3,
+   "acres": 7000.0,
+   "state": "TX",
+   "cluster_id": "FW-20051115-11730826-01"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "TX2736709733720051115",
+   "name": "DAISY",
+   "date": "2005-11-15",
+   "lat": 27.36709364239351,
+   "lon": -97.3366853903586,
+   "acres": 10552.0,
+   "state": "TX",
+   "cluster_id": "FW-20051115-11730826-01"
+  }
+ ],
+ "pairs": [
+  {
+   "a": "362755",
+   "b": "2005_TX-PAP-B88Q_DAISY",
+   "probability": 0.9728615029442921,
+   "outcome": "link"
+  },
+  {
+   "a": "362755",
+   "b": "TX2736709733720051115",
+   "probability": 0.9999999546377557,
+   "outcome": "link"
+  }
+ ],
+ "merged": {
+  "name": "DAISY",
+  "date": "2005-11-15",
+  "lat": 27.36709364239351,
+  "lon": -97.3366853903586,
+  "acres": 10552.0,
+  "state": "TX",
+  "n_sources": 3
+ },
+ "raw_kept": [
+  {
+   "source": "fpa_fod",
+   "record_id": "362755",
+   "name": "DAISY",
+   "date": "2005-11-15",
+   "lat": 27.37019,
+   "lon": -97.33771,
+   "acres": 10003.0,
+   "state": "TX"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2005_TX-PAP-B88Q_DAISY",
+   "name": "DAISY",
+   "date": "2005-11-15",
+   "lat": 27.433333,
+   "lon": -97.3,
+   "acres": 7000.0,
+   "state": "TX"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "TX2736709733720051115",
+   "name": "DAISY",
+   "date": "2005-11-15",
+   "lat": 27.36709364239351,
+   "lon": -97.3366853903586,
+   "acres": 10552.0,
+   "state": "TX"
+  }
+ ]
+}

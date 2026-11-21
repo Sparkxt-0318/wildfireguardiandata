@@ -1,0 +1,94 @@
+{
+ "example_id": "ex006",
+ "cluster_id": "FW-20070701-10990242-01",
+ "members": [
+  {
+   "source": "fpa_fod",
+   "record_id": "300305508",
+   "name": NaN,
+   "date": "2007-07-01",
+   "lat": 19.907751,
+   "lon": -155.77165,
+   "acres": 9138.0,
+   "state": "HI",
+   "cluster_id": "FW-20070701-10990242-01"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2007_HI-07-0018_WAIKOLOA FIRE",
+   "name": "WAIKOLOA FIRE",
+   "date": "2007-07-01",
+   "lat": 19.909167,
+   "lon": -155.78972199999995,
+   "acres": 9139.0,
+   "state": "HI",
+   "cluster_id": "FW-20070701-10990242-01"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "HI1987815576820070701",
+   "name": "WAIKOLOA FIRE",
+   "date": "2007-07-01",
+   "lat": 19.87789721505369,
+   "lon": -155.76817365829302,
+   "acres": 8802.0,
+   "state": "HI",
+   "cluster_id": "FW-20070701-10990242-01"
+  }
+ ],
+ "pairs": [
+  {
+   "a": "300305508",
+   "b": "2007_HI-07-0018_WAIKOLOA FIRE",
+   "probability": 0.9981375781041183,
+   "outcome": "link"
+  },
+  {
+   "a": "300305508",
+   "b": "HI1987815576820070701",
+   "probability": 0.9992361832072104,
+   "outcome": "link"
+  }
+ ],
+ "merged": {
+  "name": "WAIKOLOA FIRE",
+  "date": "2007-07-01",
+  "lat": 19.909167,
+  "lon": -155.78972199999995,
+  "acres": 9139.0,
+  "state": "HI",
+  "n_sources": 3
+ },
+ "raw_kept": [
+  {
+   "source": "fpa_fod",
+   "record_id": "300305508",
+   "name": NaN,
+   "date": "2007-07-01",
+   "lat": 19.907751,
+   "lon": -155.77165,
+   "acres": 9138.0,
+   "state": "HI"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2007_HI-07-0018_WAIKOLOA FIRE",
+   "name": "WAIKOLOA FIRE",
+   "date": "2007-07-01",
+   "lat": 19.909167,
+   "lon": -155.78972199999995,
+   "acres": 9139.0,
+   "state": "HI"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "HI1987815576820070701",
+   "name": "WAIKOLOA FIRE",
+   "date": "2007-07-01",
+   "lat": 19.87789721505369,
+   "lon": -155.76817365829302,
+   "acres": 8802.0,
+   "state": "HI"
+  }
+ ]
+}

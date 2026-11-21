@@ -38,6 +38,31 @@ def fod_big_index(all_fod: pd.DataFrame) -> PointIndex:
                       [t - timedelta(days=1) for t in b.t1])
 
 
+def dnb_hits(slice_name: str, params=None) -> dict:
+    """DNB night-look items (California 2020 scope, protocol A1); recomputed when DNB parameters change."""
+    import json as _j
+    from .fetch import RAW_ROOT
+    from . import dnb
+
+    p = params or {}
+    ks, me = p.get("dnb_k_sigma", dnb.K_SIGMA), p.get("dnb_min_excess", dnb.MIN_EXCESS)
+    if p.get("dnb_off"):
+        return {}
+    f = RAW_ROOT / "derived_caught" / f"dnb_hits_S1_k{ks:g}_m{me:g}_{p.get('dnb_rule', 'v1')}.json"
+    if f.exists():
+        return _j.loads(f.read_text())
+    wp = RAW_ROOT / "derived_caught" / "dnb_windows_S1.parquet"
+    if not wp.exists():
+        return {}
+    w = pd.read_parquet(wp)
+    for c in ("t0", "t1"):
+        w[c] = pd.to_datetime(w[c]).dt.date
+    ex = dnb.extract(w, "S1")
+    hits = dnb.detect(w, ex, k_sigma=ks, min_excess=me, rule=p.get("dnb_rule", "v1"))
+    f.write_text(_j.dumps(hits))
+    return hits
+
+
 def slice_placebos(slice_name, cfg, src, all_fod) -> pd.DataFrame:
     """Placebo windows for every record of a slice (deterministic per record); cached once per slice."""
     from . import perimeters
@@ -73,8 +98,9 @@ def run_slice(slice_name: str, threads: int = 40, params=None, tag: str = "v1", 
     plc = slice_placebos(slice_name, cfg, src, all_fod)
     plc = plc[plc.of_rid.isin(set(rec.rid))]
     plc = prepare_windows(plc, cfg)
-    lab_r = evaluate(name + "/records", rec, src, big, True, threads, params)
-    lab_p = evaluate(name + "/placebo", plc, src, big, True, threads, params)
+    extra = dnb_hits(slice_name, params)
+    lab_r = evaluate(name + "/records", rec, src, big, True, threads, params, extra)
+    lab_p = evaluate(name + "/placebo", plc, src, big, True, threads, params, extra)
     return rec, plc, lab_r, lab_p
 
 
@@ -87,7 +113,7 @@ def run_truth(split: str, tag: str = "v1", threads: int = 40, params=None, strat
     tr = pd.read_parquet(tp) if tp.exists() else T.build(cfg)
     if not tp.exists():
         tr.to_parquet(tp)
-    tr = tr[tr.split == split]
+    tr = tr[tr.split == split].drop_duplicates("rid")   # FACTS ids repeat across polygons; first kept
     if strata:
         tr = tr[tr.stratum.isin(strata)]
     for c in ("t0", "t1", "disc_date"):
@@ -96,7 +122,7 @@ def run_truth(split: str, tag: str = "v1", threads: int = 40, params=None, strat
     src = sources(cfg)
     all_fod = fod_years(cfg, [2017, 2018, 2019, 2020, 2021])
     lab = evaluate(f"truth_{split}_{tag}", w, src, fod_big_index(all_fod), perimeter_on=False, threads=threads,
-                   params=params)
+                   params=params, extra_points=dnb_hits("S1", params))
     return caught_truth(lab, tr)
 
 
@@ -152,8 +178,10 @@ def summarize(lab_r: pd.DataFrame | None, lab_p: pd.DataFrame | None, lab_t: pd.
         out["placebo_witnesses"] = p[p.tier != "record-only"].witnesses.value_counts().to_dict()
     if lab_t is not None:
         t = lab_t[lab_t.stratum == "primary_small"]
-        out["truth_by_class"] = t.groupby("FIRE_SIZE_CLASS")[["caught_ours", "caught_std", "caught_verified"]].agg(
-            ["mean", "sum", "count"]).round(3).to_dict()
+        g = t.groupby("FIRE_SIZE_CLASS")[["caught_ours", "caught_std", "caught_verified"]].agg(["mean", "count"]).round(3)
+        g.columns = ["_".join(c) for c in g.columns]
+        out["truth_by_class"] = g.to_dict()
+        out["truth_verified_recall"] = float(t.caught_verified.mean()) if len(t) else None
         out["truth_n"] = len(t)
         out["truth_recall_ours"] = float(t.caught_ours.mean()) if len(t) else None
         out["truth_recall_std"] = float(t.caught_std.mean()) if len(t) else None

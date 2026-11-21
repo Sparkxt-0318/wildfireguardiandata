@@ -1,0 +1,3 @@
+# Prior art (three sentences)
+
+Probabilistic record linkage with match probabilities fitted without labels is the Fellegi-Sunter method (1969) and is available in general tools such as Splink; wildfire records have been matched by hand and by fixed rules (Short 2014 for the FPA FOD; St. Denis et al. 2023 for ICS-209-PLUS, which also publishes links to MTBS and FIRED). What this repository adds is a reusable, patch-based and revertible implementation of those steps for fire records, with county, satellite-detection and burn-scar evidence and its gates published, not a first automated linking or cleaning of fire records. No claim here is made that the published hand cleaning is wrong; it is used as an answer key and as the thing to reproduce.

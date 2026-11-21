@@ -32,6 +32,22 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 
 **D-104 — Part A pushed straight to main.** The brief and orchestrator allow it because the other five tracks wait for core/.
 
+## Track 53 (fuel)
+
+**D-531 — Where the keys are.** `keys.env` was written at `/home/user/wildfire 3 (1)/keys/keys.env` (outside the repo, mode 600) as the brief says. This track needs none of the keys: LANDFIRE, NLCD, WorldCover, Hansen, Meta canopy height, NIFC and Landscape Data Commons are keyless; Open-Meteo is keyless. No key value is used in code, logs or the coord branch.
+
+**D-532 — 29 fires and LANDFIRE rasters.** Attaching the old `wildfireguardian` repo with `add_repo` was denied by the permission classifier, so the original 29 fires could not be fetched. The set is rebuilt from public sources (NIFC/GeoMAC daily perimeters 2017-2019, LANDFIRE LF2016 fuels via LFPS, Open-Meteo ERA5 wind); selection rule and differences are in `firewitness/fuel/fires29/NOTES.md`. It is a different set of fires from the original 29 and arrival times are interpolated from daily perimeters, so the stretch is weaker than the original design.
+
+**D-533 — Field plots.** The only public source with exact coordinates and structural vegetation measurements at scale is BLM AIM via the Landscape Data Commons API (47,606 CONUS plot locations, 2019+). FIA public coordinates are perturbed up to 1 mile; NRI is obscured by design; LandPKS is user-located. So grading is on rangeland/woodland plots of the interior West, with a documented structural-proxy crosswalk (protocol section 4), not on official fuel-model determinations. This limits what the results can claim and is stated in FUEL_RESULTS.md.
+
+**D-534 — Fuel map versions.** M22 (LF2022) is primary; M16 (LF2016) is a pre-registered secondary run that exposes more post-map events for the staleness rules. Reason: with LF2022 only 2023-2025 events count and few plots lie in them.
+
+**D-535 — LANDFIRE disturbance codes are not decoded.** Protocol amendment A1: codes differ across releases and the LF2024 layer carries only 2 % of 2024 wildfire-perimeter cells. Staleness uses NIFC perimeter year and Hansen loss year. Reason: shown against NIFC perimeters in T010_033 before any plot was read.
+
+**D-536 — Rothermel implementation.** pyretechnics (Sig-GIS, https://github.com/pyregence/pyretechnics) is used for the surface-fire equations. It is licensed for non-commercial/research use and pinned to old numpy/Cython, so it is not vendored or declared as a hard dependency: `firewitness/fuel/scripts/setup_pyretechnics.sh` downloads the sdist and the package is imported from its `src` folder in pure-Python mode; rule R3b is skipped (reported as not evaluated) if it is absent.
+
+**D-537 — Model.** Track runs on Sonnet 5.5 at high effort (orchestrator D-008). Helper subagents: Sonnet for the 29-fire data build.
+
 ## Track 50 (caught)
 
 **D-501 — Records are FPA FOD 7th edition.** RDS-2013-0009.7 (1992-2024) is the latest edition; it is read raw (track 49's cleaned records are not merged yet). Reason: the brief needs agency-recorded fires with discovery and containment dates, size class and location for the whole US; FPA FOD is the national compilation.
@@ -62,6 +78,17 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 **D-546 — Events are new-front events.** In a one-day-ahead spread benchmark every fire is trivially "detected" by persistence, so an event is a (fire, day) with at least `min_new_cells` newly burning cells farther than `new_radius_cells` from the previous day's fire. Lead time is bounded by horizon plus time tolerance by construction, and the card says so.
 **D-547 — Curated hard-negative catalogue is approximate.** Coordinates in `firewitness/score/data/hard_negatives.csv` are from public site descriptions at stated precision, not from a validated static-source mask. Derived classes (hot bare ground) are computed; agricultural burns and old burn scars cannot be derived from this benchmark's bands and are listed as absent.
 
+## Track 52 (smoke)
+
+**D-521 — Working size 512 x 384.** FIgLib frames (2048 x 1536) are decoded with JPEG DCT scaling to 1/4 size; all distances in tests are at that size. Reason: deterministic, fast (80 frames in under a second), and smoke edges are tens of pixels wide.
+**D-522 — Opacity is measured against a smoke colour fitted from the plume, with a grey fallback.** Over uniform sky the smoke colour and the opacity cannot be separated, so the fallback is stated (dark grey if the pixel got darker, light grey if lighter) and S1 reports the error by true smoke colour. Reason: an honest, reproducible definition; no claim of physical optical depth.
+**D-523 — Noise bar is per pixel, the named level is scalar.** L0 = median over pixels of N(x), the largest opacity a pixel showed while smoke-free; a pixel is above the noise when it reaches max(L0, N(x)); the bar for pre-ignition frames is built without their own block. Reason: a pooled quantile is dominated by clouds, shadows and glints (L0 reached 1.0 on cloudy days); a per-pixel bar lets faint smoke over quiet sky be seen while glints raise the bar only at their own pixels. Replaced two earlier definitions (pooled quantile; MAD spread) after the dev placebo showed 51% false frames; see results/ROUNDS_smoke.md rounds 0a-0d.
+**D-524 — Classes by lineage, one parent per region.** A region links to the earlier region that feeds it with the most area; a lineage is a root and its descendants. Reason: small noise regions swallowed by a growing plume made the plume impure under a "set of roots" rule and almost no plume was ever confirmed (S1 detection 22%).
+**D-525 — Shadows are not smoke by a stated clause.** The smoke rule needs a texture loss of 15% or a chromaticity shift of 0.02 measured on the opacity core; a shadow keeps both. Reason: a moving tower shadow produced 13 of 36 false pre-ignition frames in one dev sequence.
+**D-526 — Pyro-SDIS is S4-only with a relaxed background rule (protocol A2).** Only 1 of 1,007 events had the specified background; the relaxed rule gives about 10 events. Reason: it is the only way to put any Pyro human boxes on the opacity scale; the small n is stated everywhere.
+**D-527 — HPWREN boxes copied into the repo.** Nine small CSVs (40 KB) under `firewitness/smoke/data/hpwren_bb/` with credit and no stated licence. Reason: S4 must be reproducible without a network call.
+**D-528 — Opus not used.** The track runs on Sonnet at high effort as set by the orchestrator (D-008); the depth bar is held by the protocol gates, not by the model.
+
 ## Track 51 (live)
 
 **D-501 — Raw files are read as windows and not stored.** GOES files are read with HTTP range requests (only the HDF5 chunks covering a 40 × 40 pixel box); the decoded box series are saved as compressed npz under `firewitness_raw/live/series/` and indexed in `firewitness_raw/INDEX.md`. Reason: the brief asks to read only the windows needed and delete raw files once series are extracted; storing whole files would cost ~3.7 GB per fire.
@@ -87,3 +114,17 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 **D-511 — Part A label variant A2 (amendment 4 rule).** On the 120 dev fires every variant passed E1 (cross-validated placebo false-onset upper bound ≤ 1.4 %). Onset rates over fire-satellite traces: A0 26/196, A1 16/196, A2 27/196. A2 (ΔT with the compactness filter) is the highest and is used for the labels; A0 is reported alongside. E2 failed on dev for all three (only 2–4 fires with an onset on both satellites; 1 agreeing).
 
 **D-512 — Long jobs run as tracked background tasks, with atomic, resumable writes.** The container was reclaimed twice (21:04Z, 21:36Z) while jobs started with nohup were running. Long jobs now run as tracked background tasks re-armed before their 2-hour limit; every cache file is written atomically and a truncated one is deleted and rebuilt, so any job resumes where it stopped.
+
+**D-010 — Releases are made by a workflow (19:35Z).** Cloud build sessions get HTTP 403 from the GitHub release API. The orchestrator added `.github/workflows/release.yml`. Each track commits its release files under `release/<track>-v0.1/` (with an optional NOTES.md), then asks the orchestrator, who dispatches the workflow with that tag. The workflow attaches the files with a SHA256SUMS.txt. The umbrella `v0.1` release is cut by the orchestrator after all six tracks are DONE and collects every `release/*-v0.1/` directory. Tracks do not create the tag `v0.1` themselves.
+
+**D-011 — Track 53 improvement loop (19:35Z).** Track 53 reports in results/ROUNDS_fuel.md that only round 1 came from reading individual wrong verdicts. Rounds 2–12 were threshold probes from a per-rule precision table. The sealed areas were already opened once after the rules were frozen. Re-opening them would break the protocol, so the loop is not redone. The deviation is reported as is, in FUEL_RESULTS.md and in the final report.
+
+**D-012 — Track 52 loop keep rule and S1 edge metric (22:45Z).** The depth check of smoke DONE 1ca4396 found three problems. (1) Amendment A3 (538e61e) loosened the keep rule after R1 had run: the brief's rule is "S1 improves and S2 does not worsen"; A3 made it "S1 improves or S2 false frames improve". R2 and R3 were then kept under the looser rule. (2) Amendment A2, item 3, narrowed the S1 edge-error definition to a window around the plume, after round 0e had shown a whole-frame error of 50–65 px. (3) Some rounds record no frames viewed. No S1–S5 target or threshold was changed, and the sealed set was opened only once, after the freeze. Re-opening it would break the protocol, so the loop is not redone. Smoke must append a dated addition stating these points and saying which kept rounds would have failed the brief's rule, using logged dev numbers only. They are reported as is in the final report.
+
+**D-105 (records) — FIRMS_MAP_KEY.** The FIRMS key was copied from the git history of the old wildfireguardian repository (live/config/firms_map_key.txt, deleted in the commit "live: delete the temporary FIRMS key file") into keys.env outside the repo, as the brief says. It was not needed: the FIRMS country archives (MODIS 2000 to 2024, VIIRS S-NPP 2012 to 2024, United States) are public files on firms.modaps.eosdis.nasa.gov and were downloaded without a key. The key is unused and never appears in the repo (`scripts/check_keys.py` checks for it in CI and pre-commit).
+
+**D-106 (records) — Interval additions and append-only results.** Result files on main are append-only (orchestrator rule): later numbers, intervals and corrections are added as dated additions below earlier lines; earlier lines are never edited.
+
+**D-510 (caught) — DNB night look only for California 2020** (protocol amendment A1). Streaming a 30-40 MB tile per day for the whole US over three years would move about 300 GB.
+
+**D-511 (caught) — Disk budget overrun, and the cap that followed.** At 21:00Z the window cache for the dev rounds reached 46 GB and filled the disk (budget: half of the 61 GB free at start). The cache was deleted at once; the rounds re-read their windows from the network. Since then the cache writes only while more than 30 GB stay free, and no prefetch runs beside a round.

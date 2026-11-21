@@ -91,6 +91,9 @@ def build(cfg=None, y0=2018, y1=2020) -> pd.DataFrame:
     p.loc[facts, "d0"] = p.loc[facts, "d1"] - pd.Timedelta(days=3)
     p.loc[facts, "start_src"] = "date_completed - 3 days"
     p = p[p.d0.notna()].copy()
+    # unique ids: a FACTS id can repeat over several polygons
+    dup = p.pid.duplicated(keep=False)
+    p.loc[dup, "pid"] = p.loc[dup, "pid"] + "#" + p[dup].groupby("pid").cumcount().astype(str)
     rows = []
     dflt = cfg["default_duration_days"]
     for r in p.itertuples():

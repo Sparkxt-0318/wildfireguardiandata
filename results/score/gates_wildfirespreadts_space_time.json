@@ -1,0 +1,726 @@
+{
+ "N1": {
+  "blocked_lift_cells_where_memoriser_clearly_better": [],
+  "blocked_lift_strict_strict": {
+   "ci95": [
+    -0.658077,
+    -0.411535
+   ],
+   "diff_f1": -0.605137,
+   "excludes_zero": true,
+   "n_fires": 14
+  },
+  "blocked_memoriser_f1_strict": 0.005638,
+  "blocked_persistence_f1_strict": 0.610776,
+  "claim": "a model that memorises location is no better than persistence under blocked splits",
+  "gate": "N1",
+  "inflation_ratio_random_over_blocked_f1": 29.23,
+  "interpolator_beats_persistence_on_random_rows": false,
+  "interpolator_blocked_f1_strict": 0.005638,
+  "interpolator_blocked_lift_cells_where_clearly_better": [],
+  "interpolator_blocked_lift_strict_strict": {
+   "ci95": [
+    -0.658077,
+    -0.411535
+   ],
+   "diff_f1": -0.605137,
+   "excludes_zero": true,
+   "n_fires": 14
+  },
+  "interpolator_random_rows": {
+   "area_ratio": 3.017,
+   "f1": 0.4271,
+   "precision": 0.2843,
+   "recall": 0.8577,
+   "threshold": 1.5
+  },
+  "memoriser_beats_persistence_on_random_rows": false,
+  "passed": true,
+  "random_rows_memoriser": {
+   "area_ratio": 2.793,
+   "f1": 0.1648,
+   "precision": 0.1119,
+   "recall": 0.3125,
+   "threshold": 0.09195402264595032
+  },
+  "random_rows_persistence": {
+   "area_ratio": 0.959,
+   "f1": 0.5174,
+   "precision": 0.5285,
+   "recall": 0.5069,
+   "threshold": 1.0
+  }
+ },
+ "N2": {
+  "area_ratio": 353.7128,
+  "claim": "a model that flags everything loses on the card",
+  "f1_flag_everything_loose": 0.048488,
+  "f1_flag_everything_strict": 0.005638,
+  "f1_persistence_loose": 0.999339,
+  "f1_persistence_strict": 0.610776,
+  "gate": "N2",
+  "over_prediction_warning_printed": true,
+  "passed": true
+ },
+ "N3": {
+  "claim": "a model fed information from after the fire is caught by the leak check (and an honest model is not)",
+  "front_peek_lying_declaration": {
+   "auc": 1.0,
+   "detail": "AUC 1.000 on 4194 cells newly burning within 3 cells of the previous day's fire exceeds 0.95",
+   "status": "FLAG: implausible foresight at the fire front"
+  },
+  "gate": "N3",
+  "honest_model": {
+   "auc": 0.655,
+   "status": "pass"
+  },
+  "next_day_lying_declaration": {
+   "auc": null,
+   "detail": "AUC 1.000 on 4194 cells newly burning within 3 cells of the previous day's fire exceeds 0.95",
+   "status": "FLAG: implausible foresight at the fire front"
+  },
+  "passed": true,
+  "scar_honest_declaration": {
+   "auc": null,
+   "detail": "fires ['fire_25084892', 'fire_25086466', 'fire_25205363', 'fire_25294977', 'fire_25295816']",
+   "status": "FAIL: info_until later than the issue day"
+  },
+  "scar_lying_declaration": {
+   "auc": 0.9917,
+   "detail": "AUC 0.992 on 2233 cells with no fire within 3 cells the day before exceeds 0.9",
+   "status": "FLAG: implausible foresight"
+  }
+ },
+ "N4": {
+  "claim": "same predictions give the same card in any order and on a re-run",
+  "gate": "N4",
+  "hashes": {
+   "csv_orders": [
+    "48989438c9054850",
+    "48989438c9054850",
+    "48989438c9054850"
+   ],
+   "dense_first_run": "6f7b8414247a80ca",
+   "dense_second_run": "6f7b8414247a80ca",
+   "dense_shuffled_order": "6f7b8414247a80ca"
+  },
+  "passed": true
+ },
+ "N5": {
+  "claim": "matched negatives do not over-predict in top-danger periods where random negatives do",
+  "gate": "N5",
+  "matched": {
+   "fixed_0.5": {
+    "area_ratio_top_danger": 17.87,
+    "pred_cells_top_danger": 236475,
+    "threshold": 0.5,
+    "true_cells_top_danger": 13233
+   },
+   "negatives_stats": {
+    "by_danger": {
+     "0": {
+      "neg": 216,
+      "pos": 72
+     },
+     "1": {
+      "neg": 180,
+      "pos": 54
+     },
+     "2": {
+      "neg": 1353,
+      "pos": 445
+     },
+     "3": {
+      "neg": 22884,
+      "pos": 7624
+     },
+     "4": {
+      "neg": 17219,
+      "pos": 4042
+     }
+    },
+    "hard_share_of_negatives": 0.25,
+    "match_level_share": {
+     "exact (danger, land cover, region, month)": 0.8772,
+     "hard top-up (not matched)": 0.1228
+    },
+    "negatives": 41852,
+    "positives": 12237
+   },
+   "validation_threshold": {
+    "area_ratio_top_danger": 54.071,
+    "pred_cells_top_danger": 715518,
+    "threshold": 0.33013,
+    "true_cells_top_danger": 13233
+   }
+  },
+  "model_uses_proximity_features": false,
+  "passed": false,
+  "pre_registered_ratio_limit": 2.0,
+  "primary_reading_validation_threshold": false,
+  "random": {
+   "fixed_0.5": {
+    "area_ratio_top_danger": 33.251,
+    "pred_cells_top_danger": 440005,
+    "threshold": 0.5,
+    "true_cells_top_danger": 13233
+   },
+   "negatives_stats": {
+    "by_danger": {
+     "0": {
+      "neg": 2349,
+      "pos": 72
+     },
+     "1": {
+      "neg": 3096,
+      "pos": 54
+     },
+     "2": {
+      "neg": 4756,
+      "pos": 445
+     },
+     "3": {
+      "neg": 12591,
+      "pos": 7624
+     },
+     "4": {
+      "neg": 13919,
+      "pos": 4042
+     }
+    },
+    "hard_share_of_negatives": 0.202,
+    "match_level_share": {
+     "random (unmatched)": 1.0
+    },
+    "negatives": 36711,
+    "positives": 12237
+   },
+   "validation_threshold": {
+    "area_ratio_top_danger": 73.54,
+    "pred_cells_top_danger": 973151,
+    "threshold": 0.330167,
+    "true_cells_top_danger": 13233
+   }
+  },
+  "secondary_reading_fixed_0.5": false
+ },
+ "N5_prox": {
+  "claim": "matched negatives do not over-predict in top-danger periods where random negatives do",
+  "gate": "N5",
+  "matched": {
+   "fixed_0.5": {
+    "area_ratio_top_danger": 3.835,
+    "pred_cells_top_danger": 50745,
+    "threshold": 0.5,
+    "true_cells_top_danger": 13233
+   },
+   "negatives_stats": {
+    "by_danger": {
+     "0": {
+      "neg": 216,
+      "pos": 72
+     },
+     "1": {
+      "neg": 180,
+      "pos": 54
+     },
+     "2": {
+      "neg": 1353,
+      "pos": 445
+     },
+     "3": {
+      "neg": 22884,
+      "pos": 7624
+     },
+     "4": {
+      "neg": 17219,
+      "pos": 4042
+     }
+    },
+    "hard_share_of_negatives": 0.25,
+    "match_level_share": {
+     "exact (danger, land cover, region, month)": 0.8772,
+     "hard top-up (not matched)": 0.1228
+    },
+    "negatives": 41852,
+    "positives": 12237
+   },
+   "validation_threshold": {
+    "area_ratio_top_danger": 0.818,
+    "pred_cells_top_danger": 10822,
+    "threshold": 0.999483,
+    "true_cells_top_danger": 13233
+   }
+  },
+  "model_uses_proximity_features": true,
+  "passed": false,
+  "pre_registered_ratio_limit": 2.0,
+  "primary_reading_validation_threshold": false,
+  "random": {
+   "fixed_0.5": {
+    "area_ratio_top_danger": 6.078,
+    "pred_cells_top_danger": 80432,
+    "threshold": 0.5,
+    "true_cells_top_danger": 13233
+   },
+   "negatives_stats": {
+    "by_danger": {
+     "0": {
+      "neg": 2349,
+      "pos": 72
+     },
+     "1": {
+      "neg": 3096,
+      "pos": 54
+     },
+     "2": {
+      "neg": 4756,
+      "pos": 445
+     },
+     "3": {
+      "neg": 12591,
+      "pos": 7624
+     },
+     "4": {
+      "neg": 13919,
+      "pos": 4042
+     }
+    },
+    "hard_share_of_negatives": 0.202,
+    "match_level_share": {
+     "random (unmatched)": 1.0
+    },
+    "negatives": 36711,
+    "positives": 12237
+   },
+   "validation_threshold": {
+    "area_ratio_top_danger": 0.829,
+    "pred_cells_top_danger": 10964,
+    "threshold": 0.999971,
+    "true_cells_top_danger": 13233
+   }
+  },
+  "secondary_reading_fixed_0.5": false
+ },
+ "dataset": "wildfirespreadts-750m",
+ "honest_model_card": {
+  "card_sha256": "0793c30c1742b774a9271447683a885c108c26c2bb9a612bedc86462c0973308",
+  "contract": "gates",
+  "contract_sha256": "7cb5b4bda119a54c2de4e75c793110fc3b5e0cccdead772239b3c458d126ee32",
+  "dataset": "wildfirespreadts-750m",
+  "fold": "test",
+  "leak": {
+   "auc": 0.655,
+   "detail": "declared horizon respected; AUC 0.655 on 2233 new-ignition cells (limit 0.9); front AUC 0.770 (limit 0.95). A screen, not a proof.",
+   "n_positives": 2233,
+   "status": "pass"
+  },
+  "lift": {
+   "wx+prox_minus_climatology": {
+    "loose": {
+     "interval": {
+      "ci95": [
+       0.836926,
+       0.912642
+      ],
+      "diff_f1": 0.870313,
+      "excludes_zero": true,
+      "n_fires": 14
+     },
+     "strict": {
+      "ci95": [
+       0.845176,
+       0.910766
+      ],
+      "diff_f1": 0.875379,
+      "excludes_zero": true,
+      "n_fires": 14
+     }
+    },
+    "mid": {
+     "interval": {
+      "ci95": [
+       0.868201,
+       0.931885
+      ],
+      "diff_f1": 0.913203,
+      "excludes_zero": true,
+      "n_fires": 14
+     },
+     "strict": {
+      "ci95": [
+       0.852503,
+       0.928744
+      ],
+      "diff_f1": 0.912919,
+      "excludes_zero": true,
+      "n_fires": 14
+     }
+    },
+    "strict": {
+     "interval": {
+      "ci95": [
+       0.747065,
+       0.889928
+      ],
+      "diff_f1": 0.86359,
+      "excludes_zero": true,
+      "n_fires": 14
+     },
+     "strict": {
+      "ci95": [
+       0.318906,
+       0.629472
+      ],
+      "diff_f1": 0.56465,
+      "excludes_zero": true,
+      "n_fires": 14
+     }
+    }
+   },
+   "wx+prox_minus_persistence": {
+    "loose": {
+     "interval": {
+      "ci95": [
+       -0.042872,
+       -0.005938
+      ],
+      "diff_f1": -0.014314,
+      "excludes_zero": true,
+      "n_fires": 14
+     },
+     "strict": {
+      "ci95": [
+       -0.059284,
+       -0.00899
+      ],
+      "diff_f1": -0.019993,
+      "excludes_zero": true,
+      "n_fires": 14
+     }
+    },
+    "mid": {
+     "interval": {
+      "ci95": [
+       -0.090895,
+       -0.015667
+      ],
+      "diff_f1": -0.031691,
+      "excludes_zero": true,
+      "n_fires": 14
+     },
+     "strict": {
+      "ci95": [
+       -0.108479,
+       -0.02147
+      ],
+      "diff_f1": -0.040705,
+      "excludes_zero": true,
+      "n_fires": 14
+     }
+    },
+    "strict": {
+     "interval": {
+      "ci95": [
+       -0.21582,
+       -0.071445
+      ],
+      "diff_f1": -0.101509,
+      "excludes_zero": true,
+      "n_fires": 14
+     },
+     "strict": {
+      "ci95": [
+       -0.114124,
+       -0.0128
+      ],
+      "diff_f1": -0.030988,
+      "excludes_zero": true,
+      "n_fires": 14
+     }
+    }
+   }
+  },
+  "model": "wx+prox",
+  "models": {
+   "climatology": {
+    "area_ratio": 55.7662,
+    "event_level": {
+     "detected": 86,
+     "detection_rate": 0.788991,
+     "events": 109,
+     "lead_days_q25_median_q75": [
+      2.0,
+      2.0,
+      2.0
+     ]
+    },
+    "flags_dropped_on_unknown": 134022,
+    "hard_negative_cells": 1305078,
+    "hard_negative_false_alarm_rate": 0.302087,
+    "predicted_cells": 885958,
+    "tolerances": {
+     "loose": {
+      "interval": {
+       "f1": 0.114933,
+       "n_fire": 15887,
+       "n_pred": 885958,
+       "precision": 0.061525,
+       "recall": 0.871027,
+       "tp_fire": 13838,
+       "tp_pred": 54509
+      },
+      "strict": {
+       "f1": 0.103966,
+       "n_fire": 15887,
+       "n_pred": 885958,
+       "precision": 0.055298,
+       "recall": 0.867061,
+       "tp_fire": 13775,
+       "tp_pred": 48992
+      }
+     },
+     "mid": {
+      "interval": {
+       "f1": 0.050902,
+       "n_fire": 15887,
+       "n_pred": 885958,
+       "precision": 0.026369,
+       "recall": 0.731038,
+       "tp_fire": 11614,
+       "tp_pred": 23362
+      },
+      "strict": {
+       "f1": 0.041505,
+       "n_fire": 15887,
+       "n_pred": 885958,
+       "precision": 0.021378,
+       "recall": 0.709511,
+       "tp_fire": 11272,
+       "tp_pred": 18940
+      }
+     },
+     "strict": {
+      "interval": {
+       "f1": 0.023151,
+       "n_fire": 15887,
+       "n_pred": 885958,
+       "precision": 0.011875,
+       "recall": 0.458803,
+       "tp_fire": 7289,
+       "tp_pred": 10521
+      },
+      "strict": {
+       "f1": 0.015138,
+       "n_fire": 15887,
+       "n_pred": 885958,
+       "precision": 0.007705,
+       "recall": 0.429659,
+       "tp_fire": 6826,
+       "tp_pred": 6826
+      }
+     }
+    },
+    "true_fire_cells": 15887
+   },
+   "persistence": {
+    "area_ratio": 0.9498,
+    "event_level": {
+     "detected": 107,
+     "detection_rate": 0.981651,
+     "events": 109,
+     "lead_days_q25_median_q75": [
+      0.0,
+      0.0,
+      2.0
+     ]
+    },
+    "flags_dropped_on_unknown": 770,
+    "hard_negative_cells": 1305078,
+    "hard_negative_false_alarm_rate": 0.000824,
+    "predicted_cells": 15090,
+    "tolerances": {
+     "loose": {
+      "interval": {
+       "f1": 0.999559,
+       "n_fire": 15887,
+       "n_pred": 15090,
+       "precision": 1.0,
+       "recall": 0.999119,
+       "tp_fire": 15873,
+       "tp_pred": 15090
+      },
+      "strict": {
+       "f1": 0.999339,
+       "n_fire": 15887,
+       "n_pred": 15090,
+       "precision": 1.0,
+       "recall": 0.998678,
+       "tp_fire": 15866,
+       "tp_pred": 15090
+      }
+     },
+     "mid": {
+      "interval": {
+       "f1": 0.995797,
+       "n_fire": 15887,
+       "n_pred": 15090,
+       "precision": 1.0,
+       "recall": 0.991628,
+       "tp_fire": 15754,
+       "tp_pred": 15090
+      },
+      "strict": {
+       "f1": 0.99513,
+       "n_fire": 15887,
+       "n_pred": 15090,
+       "precision": 1.0,
+       "recall": 0.990307,
+       "tp_fire": 15733,
+       "tp_pred": 15090
+      }
+     },
+     "strict": {
+      "interval": {
+       "f1": 0.98825,
+       "n_fire": 15887,
+       "n_pred": 15090,
+       "precision": 1.0,
+       "recall": 0.976773,
+       "tp_fire": 15518,
+       "tp_pred": 15090
+      },
+      "strict": {
+       "f1": 0.610776,
+       "n_fire": 15887,
+       "n_pred": 15090,
+       "precision": 0.626905,
+       "recall": 0.595455,
+       "tp_fire": 9460,
+       "tp_pred": 9460
+      }
+     }
+    },
+    "true_fire_cells": 15887
+   },
+   "wx+prox": {
+    "area_ratio": 0.7944,
+    "event_level": {
+     "detected": 84,
+     "detection_rate": 0.770642,
+     "events": 109,
+     "lead_days_q25_median_q75": [
+      0.0,
+      0.0,
+      2.0
+     ]
+    },
+    "flags_dropped_on_unknown": 612,
+    "hard_negative_cells": 1305078,
+    "hard_negative_false_alarm_rate": 0.000636,
+    "predicted_cells": 12620,
+    "tolerances": {
+     "loose": {
+      "interval": {
+       "f1": 0.985245,
+       "n_fire": 15887,
+       "n_pred": 12620,
+       "precision": 1.0,
+       "recall": 0.97092,
+       "tp_fire": 15425,
+       "tp_pred": 12620
+      },
+      "strict": {
+       "f1": 0.979345,
+       "n_fire": 15887,
+       "n_pred": 12620,
+       "precision": 1.0,
+       "recall": 0.959527,
+       "tp_fire": 15244,
+       "tp_pred": 12620
+      }
+     },
+     "mid": {
+      "interval": {
+       "f1": 0.964105,
+       "n_fire": 15887,
+       "n_pred": 12620,
+       "precision": 1.0,
+       "recall": 0.930698,
+       "tp_fire": 14786,
+       "tp_pred": 12620
+      },
+      "strict": {
+       "f1": 0.954424,
+       "n_fire": 15887,
+       "n_pred": 12620,
+       "precision": 1.0,
+       "recall": 0.912822,
+       "tp_fire": 14502,
+       "tp_pred": 12620
+      }
+     },
+     "strict": {
+      "interval": {
+       "f1": 0.886741,
+       "n_fire": 15887,
+       "n_pred": 12620,
+       "precision": 0.954992,
+       "recall": 0.827595,
+       "tp_fire": 13148,
+       "tp_pred": 12052
+      },
+      "strict": {
+       "f1": 0.579787,
+       "n_fire": 15887,
+       "n_pred": 12620,
+       "precision": 0.654834,
+       "recall": 0.520174,
+       "tp_fire": 8264,
+       "tp_pred": 8264
+      }
+     }
+    },
+    "true_fire_cells": 15887
+   }
+  },
+  "n_test_fires": 14,
+  "n_val_fires": 10,
+  "predictions_sha256": "f695e0b3c6350c08032c892d6c48496b210fbc6abd6979f5333aa1d13c9fb78a",
+  "split_scheme": "space_time",
+  "split_sha256": "b352300088adf6b24f34c66e73f183a1db934062fa0efc4ab58a86b9b161f9a2",
+  "threshold": {
+   "climatology": 0.00154971,
+   "persistence": 1.0,
+   "wx+prox": 0.99948293
+  },
+  "training_provenance": {
+   "overlap_with_test": null,
+   "status": "not declared"
+  },
+  "unknown_excluded": {
+   "cell_days_without_issue_state": 272643,
+   "reason": "fire=active>0; no_fire=no detection & M11,I2,I1>0 for all sub-cells; else unknown",
+   "scored_cell_days": 6276560,
+   "share_unknown": 0.104695,
+   "unknown_cells": 657125
+  },
+  "warnings": []
+ },
+ "split": {
+  "dropped": 112,
+  "folds": {
+   "test": 14,
+   "train": 32,
+   "val": 10
+  },
+  "sha256": "b352300088adf6b24f34c66e73f183a1db934062fa0efc4ab58a86b9b161f9a2"
+ },
+ "summary": {
+  "cell_days": 68872831,
+  "fire": 115550,
+  "fires": 168,
+  "no_fire": 65036280,
+  "unknown": 3721001
+ }
+}

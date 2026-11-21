@@ -150,3 +150,52 @@ def scar_pairs(lab: pd.DataFrame, out: str, n: int = 40, seed: int = 0) -> Path:
         done.append(r.rid)
     (outd / "INDEX.json").write_text(json.dumps(done))
     return outd
+
+
+def states_table(run: str, labels: pd.DataFrame | None = None) -> "gpd.GeoDataFrame":
+    """Three states per searched record disc: fire, no_fire (with floor), unknown; record-only discs as unknown."""
+    import geopandas as gpd
+    from pyproj import Transformer
+    from shapely import wkt
+    from shapely.geometry import Point, shape
+    from shapely.ops import transform
+
+    from .standard import local_crs
+
+    rd = run_dir(run)
+    lab = labels if labels is not None else pd.read_parquet(rd / "labels.parquet")
+    unk = {}
+    ck = rd / "scar.jsonl"
+    if ck.exists():
+        for line in ck.read_text().splitlines():
+            j = json.loads(line)
+            st = j.get("states") or {}
+            unk[j["rid"]] = shape(st["unknown"]) if st.get("unknown") else None
+    rows = []
+    for r in lab.itertuples():
+        if pd.isna(r.LATITUDE):
+            continue
+        tr = Transformer.from_crs("EPSG:4326", local_crs(r.LATITUDE, r.LONGITUDE), always_xy=True).transform
+        inv = Transformer.from_crs(local_crs(r.LATITUDE, r.LONGITUDE), "EPSG:4326", always_xy=True).transform
+        disc = Point(0, 0).buffer(r.r_m, 64)
+        looked = isinstance(r.scar_pre, str) and r.scar_status in ("scar", "no_scar_clear", "rejected")
+        fire = transform(tr, wkt.loads(r.geometry_wkt)).intersection(disc) if (r.tier != "record-only" and r.pixel_label) else None
+        u = transform(tr, unk[r.rid]).intersection(disc) if looked and unk.get(r.rid) is not None else None
+        base = {"rid": r.rid, "tier": r.tier, "std_label": bool(r.std_label)}
+        if fire is not None and not fire.is_empty:
+            rows.append({**base, "state": "fire", "t0": r.label_t0, "t1": r.label_t1, "floor_m2": None,
+                         "geometry": transform(inv, fire)})
+        if looked:
+            nf = disc.difference(fire) if fire is not None else disc
+            if u is not None and not u.is_empty:
+                nf = nf.difference(u)
+                rows.append({**base, "state": "unknown", "t0": r.scar_pre, "t1": r.scar_post, "floor_m2": None,
+                             "geometry": transform(inv, u)})
+            if not nf.is_empty:
+                rows.append({**base, "state": "no_fire", "t0": r.scar_pre, "t1": r.scar_post,
+                             "floor_m2": r.scar_floor_m2, "geometry": transform(inv, nf)})
+        else:
+            rest = disc.difference(fire) if fire is not None and not fire.is_empty else disc
+            rows.append({**base, "state": "unknown", "t0": str(r.t0), "t1": str(r.t1), "floor_m2": None,
+                         "geometry": transform(inv, rest)})
+    return gpd.GeoDataFrame(rows, geometry="geometry", crs="EPSG:4326")

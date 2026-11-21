@@ -1,0 +1,94 @@
+{
+ "example_id": "ex000",
+ "cluster_id": "FW-20181016-13330611-01",
+ "members": [
+  {
+   "source": "fpa_fod",
+   "record_id": "400314192",
+   "name": "RED",
+   "date": "2018-10-16",
+   "lat": 43.35187,
+   "lon": -118.82736,
+   "acres": 2303.0,
+   "state": "OR",
+   "cluster_id": "FW-20181016-13330611-01"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2018_9085978_RED",
+   "name": "Red",
+   "date": "2018-10-16",
+   "lat": 43.35,
+   "lon": -118.82,
+   "acres": 2303.0,
+   "state": "OR",
+   "cluster_id": "FW-20181016-13330611-01"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "OR4335511882520181016",
+   "name": "RED",
+   "date": "2018-10-16",
+   "lat": 43.34643684719046,
+   "lon": -118.86073000781076,
+   "acres": 2311.0,
+   "state": "OR",
+   "cluster_id": "FW-20181016-13330611-01"
+  }
+ ],
+ "pairs": [
+  {
+   "a": "400314192",
+   "b": "2018_9085978_RED",
+   "probability": 0.9999963947075662,
+   "outcome": "link"
+  },
+  {
+   "a": "400314192",
+   "b": "OR4335511882520181016",
+   "probability": 0.9999994721993019,
+   "outcome": "link"
+  }
+ ],
+ "merged": {
+  "name": "RED",
+  "date": "2018-10-16",
+  "lat": 43.34643684719046,
+  "lon": -118.86073000781076,
+  "acres": 2311.0,
+  "state": "OR",
+  "n_sources": 3
+ },
+ "raw_kept": [
+  {
+   "source": "fpa_fod",
+   "record_id": "400314192",
+   "name": "RED",
+   "date": "2018-10-16",
+   "lat": 43.35187,
+   "lon": -118.82736,
+   "acres": 2303.0,
+   "state": "OR"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2018_9085978_RED",
+   "name": "Red",
+   "date": "2018-10-16",
+   "lat": 43.35,
+   "lon": -118.82,
+   "acres": 2303.0,
+   "state": "OR"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "OR4335511882520181016",
+   "name": "RED",
+   "date": "2018-10-16",
+   "lat": 43.34643684719046,
+   "lon": -118.86073000781076,
+   "acres": 2311.0,
+   "state": "OR"
+  }
+ ]
+}

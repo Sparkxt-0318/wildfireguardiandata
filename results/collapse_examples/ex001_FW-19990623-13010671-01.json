@@ -1,0 +1,94 @@
+{
+ "example_id": "ex001",
+ "cluster_id": "FW-19990623-13010671-01",
+ "members": [
+  {
+   "source": "fpa_fod",
+   "record_id": "241446",
+   "name": "PONY ROAD",
+   "date": "1999-06-23",
+   "lat": 40.0869,
+   "lon": -112.8114,
+   "acres": 2528.0,
+   "state": "UT",
+   "cluster_id": "FW-19990623-13010671-01"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "1999_UT-SLD-Q196_PONY ROAD",
+   "name": "PONY ROAD",
+   "date": "1999-06-23",
+   "lat": 40.0,
+   "lon": -112.76666666666668,
+   "acres": 1028.0,
+   "state": "UT",
+   "cluster_id": "FW-19990623-13010671-01"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "UT4010111281319990623",
+   "name": "PONY ROAD",
+   "date": "1999-06-23",
+   "lat": 40.10110157353402,
+   "lon": -112.81277475776416,
+   "acres": 3535.0,
+   "state": "UT",
+   "cluster_id": "FW-19990623-13010671-01"
+  }
+ ],
+ "pairs": [
+  {
+   "a": "241446",
+   "b": "1999_UT-SLD-Q196_PONY ROAD",
+   "probability": 0.974317051285737,
+   "outcome": "link"
+  },
+  {
+   "a": "241446",
+   "b": "UT4010111281319990623",
+   "probability": 0.9999993239232404,
+   "outcome": "link"
+  }
+ ],
+ "merged": {
+  "name": "PONY ROAD",
+  "date": "1999-06-23",
+  "lat": 40.10110157353402,
+  "lon": -112.81277475776416,
+  "acres": 3535.0,
+  "state": "UT",
+  "n_sources": 3
+ },
+ "raw_kept": [
+  {
+   "source": "fpa_fod",
+   "record_id": "241446",
+   "name": "PONY ROAD",
+   "date": "1999-06-23",
+   "lat": 40.0869,
+   "lon": -112.8114,
+   "acres": 2528.0,
+   "state": "UT"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "1999_UT-SLD-Q196_PONY ROAD",
+   "name": "PONY ROAD",
+   "date": "1999-06-23",
+   "lat": 40.0,
+   "lon": -112.76666666666668,
+   "acres": 1028.0,
+   "state": "UT"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "UT4010111281319990623",
+   "name": "PONY ROAD",
+   "date": "1999-06-23",
+   "lat": 40.10110157353402,
+   "lon": -112.81277475776416,
+   "acres": 3535.0,
+   "state": "UT"
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+name: release (create a GitHub release from release/<tag>/)
+
+# Cloud build sessions cannot call the GitHub release API, so releases are made here.
+# Convention: each track commits its release files under release/<tag>/ (for example release/records-v0.1/),
+# optionally with NOTES.md, then the orchestrator dispatches this workflow with that tag.
+# The umbrella tag v0.1 collects every release/*-v0.1/ directory as one zip per track.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'release tag, e.g. records-v0.1 or v0.1'
+        required: true
+      target:
+        description: 'branch or commit to tag'
+        default: main
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.target }}
+      - name: Collect assets and create the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ inputs.tag }}
+          TARGET: ${{ inputs.target }}
+        run: |
+          set -euo pipefail
+          mkdir -p _assets
+          if [ "$TAG" = "v0.1" ]; then
+            for d in release/*-v0.1; do
+              [ -d "$d" ] || continue
+              n=$(basename "$d")
+              (cd release && zip -qr "../_assets/$n.zip" "$n")
+            done
+            notes=release/NOTES-v0.1.md
+          else
+            d="release/$TAG"
+            [ -d "$d" ] || { echo "::error::$d does not exist"; exit 1; }
+            find "$d" -type f ! -name NOTES.md -exec cp {} _assets/ \;
+            notes="$d/NOTES.md"
+          fi
+          (cd _assets && sha256sum * > SHA256SUMS.txt)
+          [ -f "$notes" ] || { echo "Release $TAG. Files and checksums attached." > _notes.md; notes=_notes.md; }
+          sha=$(git rev-parse HEAD)
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" _assets/* --clobber
+          else
+            gh release create "$TAG" _assets/* --target "$sha" --title "$TAG" --notes-file "$notes"
+          fi

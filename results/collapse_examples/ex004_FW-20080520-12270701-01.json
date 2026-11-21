@@ -1,0 +1,94 @@
+{
+ "example_id": "ex004",
+ "cluster_id": "FW-20080520-12270701-01",
+ "members": [
+  {
+   "source": "fpa_fod",
+   "record_id": "27555",
+   "name": "FRYE MESA",
+   "date": "2008-05-20",
+   "lat": 32.75777778,
+   "lon": -109.82888889,
+   "acres": 3094.0,
+   "state": "AZ",
+   "cluster_id": "FW-20080520-12270701-01"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2008_AZ-CNF-000036_FRYE MESA",
+   "name": "FRYE MESA",
+   "date": "2008-05-20",
+   "lat": 32.764444,
+   "lon": -109.819167,
+   "acres": 3100.0,
+   "state": "AZ",
+   "cluster_id": "FW-20080520-12270701-01"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "AZ3274610982720080520",
+   "name": "FRYE MESA",
+   "date": "2008-05-20",
+   "lat": 32.74631371356535,
+   "lon": -109.82742486939674,
+   "acres": 3203.0,
+   "state": "AZ",
+   "cluster_id": "FW-20080520-12270701-01"
+  }
+ ],
+ "pairs": [
+  {
+   "a": "27555",
+   "b": "2008_AZ-CNF-000036_FRYE MESA",
+   "probability": 0.9999963947075662,
+   "outcome": "link"
+  },
+  {
+   "a": "27555",
+   "b": "AZ3274610982720080520",
+   "probability": 0.9999998840113905,
+   "outcome": "link"
+  }
+ ],
+ "merged": {
+  "name": "FRYE MESA",
+  "date": "2008-05-20",
+  "lat": 32.74631371356535,
+  "lon": -109.82742486939674,
+  "acres": 3203.0,
+  "state": "AZ",
+  "n_sources": 3
+ },
+ "raw_kept": [
+  {
+   "source": "fpa_fod",
+   "record_id": "27555",
+   "name": "FRYE MESA",
+   "date": "2008-05-20",
+   "lat": 32.75777778,
+   "lon": -109.82888889,
+   "acres": 3094.0,
+   "state": "AZ"
+  },
+  {
+   "source": "ics209plus",
+   "record_id": "2008_AZ-CNF-000036_FRYE MESA",
+   "name": "FRYE MESA",
+   "date": "2008-05-20",
+   "lat": 32.764444,
+   "lon": -109.819167,
+   "acres": 3100.0,
+   "state": "AZ"
+  },
+  {
+   "source": "mtbs",
+   "record_id": "AZ3274610982720080520",
+   "name": "FRYE MESA",
+   "date": "2008-05-20",
+   "lat": 32.74631371356535,
+   "lon": -109.82742486939674,
+   "acres": 3203.0,
+   "state": "AZ"
+  }
+ ]
+}
