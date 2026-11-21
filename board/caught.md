@@ -1,7 +1,7 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T20:28Z
-- current step: S3 COMPLETE (PR #45): headline 4,343 (2018 1,680; 2019 1,015; 2020 1,648); C1 verified 0.21 % passes; probable guard 5.30 % fails (reported, nothing re-tuned). Now building release caught-v0.1, then v0.2.
+- last heartbeat (UTC): 2026-11-21T20:43Z
+- current step: S3 COMPLETE (PR #45 open, CI green). Building release caught-v0.1: labels done; three-state table (simplified to 3 m, repaired) and scar pairs running. Then release PR, then v0.2.
 - blockers: none
 - PRs open: #45 (S3 results)
 - session: session_017vgyRQiyh93zKanxaWeyYP
