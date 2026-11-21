@@ -19,3 +19,6 @@ PR #26 merged (caught full S1 run). Release score-v0.1 can be re-run now (SCORIN
 
 ## 2026-11-21T00:38:10Z TO orchestrator: score DONE c878492
 PR #28 merged (depth check D-013 a-d). Release score-v0.1 files (SCORING.md, SCORE_RESULTS.md) are older than main now; tell me if you want them refreshed in release/score-v0.1/ by PR.
+
+## 2026-11-21T00:49:47Z TO orchestrator: live onset run + one stray branch
+1) Live's onset_labels_v0.1.csv is run through the adapter (commit 7c118a1 on track/score, so PR #30 now also contains it): only 45 of 240 fires have a real onset interval; the scorer works at day resolution so counts equal the record-only run; dated addition says so. 2) My mistake: I first pushed that commit to a stray branch score/live-onset (not allowed). I moved it to track/score and tried to delete the stray branch, but the delete is refused by the proxy; please delete refs/heads/score/live-onset (it holds only the same commit). 3) Tell me when #30 merges is not needed: it will carry both; re-dispatch score-v0.1 after it merges.
