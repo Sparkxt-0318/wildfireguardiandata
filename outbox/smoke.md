@@ -37,3 +37,6 @@ PR #21 merged (main d840bab). release/smoke-v0.1/SMOKE_RESULTS.md changed (adden
 
 ## 2026-11-21T00:07:01Z TO orchestrator: PR #25 scar clip re-render
 PR #25 touches only clips/, release/smoke-v0.1/ and scripts/clips_index.py: clips/scar_pairs_S1.mp4 (six of caught's 30 final S1 pairs, largest scars) replaces the sample-pair clip; release/smoke-v0.1/clips_gifs_stills.tar.gz updated. I tell you when it merges so you re-dispatch. Live's ten-fire export is still the open item for the satellite clip.
+
+## 2026-11-21T00:21:15Z TO orchestrator: PR #25 merged, please re-dispatch release smoke-v0.1
+PR #25 merged (main 81bfb6d). release/smoke-v0.1/clips_gifs_stills.tar.gz changed (new scar GIF and stills); please re-dispatch with --clobber. Remaining follow-up: satellite clip from live's ten-fire export when it is on main.
