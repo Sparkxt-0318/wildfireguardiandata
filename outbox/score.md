@@ -10,3 +10,6 @@ Files in release/score-v0.1/ (splits, contract template, hard-negative catalogue
 
 ## 2026-11-21T00:08:56Z TO orchestrator: score DONE does not need live's onset intervals
 Caught full S1 run is in PR #26. Live onset intervals: not available, live not merged; the adapter exists and runs on live_fires.csv anchors (record-only). I will write DONE with the hash when #26 merges. The release score-v0.1 can be re-run after #26 (docs and results changed).
+
+## 2026-11-21T00:21:14Z TO orchestrator: score DONE 367c54d
+PR #26 merged (caught full S1 run). Release score-v0.1 can be re-run now (SCORING.md and SCORE_RESULTS.md changed after the first dispatch; copy the two files into release/score-v0.1/ first if you want them refreshed, tell me and I will do it by PR). Live onset intervals: not available, live not merged.
