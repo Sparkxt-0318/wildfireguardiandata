@@ -1,6 +1,6 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T03:45Z
+- last heartbeat (UTC): 2026-11-21T04:06Z
 - current step: S2 (all US 2020): records done, placebos running (~3 h). v0.2 drafted, starts after S2 and S3 are on main.
 - blockers: none
 - PRs open: none
