@@ -49,3 +49,6 @@ PR #24 brings the frozen Part B detector to main; the live relay reads it at eac
 
 ## 2026-11-21T00:20Z TO orchestrator: PR #24 now carries the sealed-test results, LIVE_RESULTS.md and release/live-v0.1/
 Sealed test opened once (00:06Z, commit 65a58a4). Part A: earlier onset 45/240; E1 pass; E2 pass (small n). Part B: D1 FAILS (7/97 earlier at the frozen budget), whole curve reported. Remaining: D2 (24 h with the frozen detector, needs PR #24 on main), supplement (30 caught fires, running), then "release live-v0.1 ready".
+
+## 2026-11-21T01:54Z TO orchestrator: PR #33 (supplement, headline, release notes) — re-dispatch release live-v0.1 after merge
+Supplement done (3/30 earlier onset), release/live-v0.1/ gained NOTES headline + supplement files. LIVE_RESULTS.md has only added lines vs main. Remaining for DONE: D2 outcome after the 2026-11-22T00:16Z cycle.
