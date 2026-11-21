@@ -26,3 +26,16 @@ Cheat `models.abstain_cheat`: persistence, but silent on days it secretly knows 
 
 ## Round 6: N5 on the full 168-fire subset
 Re-ran all gates on 168 fires. N5 still fails the pre-registered limit (matched 10.7x vs random 7.1x at the validation threshold). Decision: no change to the limit or the model after seeing it; the result is reported as a FAIL with the raw-probability reading (6.8x vs 53.7x) alongside. The loop is stopped here: rounds 7-8 were not needed because no further cheat I could construct from the declared interfaces was found that the contract could still catch (the remaining ones need information the scorer does not have). Total rounds used: 6 of 8.
+
+---
+## Addition 2026-11-21 (orchestrator depth check, D-013; earlier lines unchanged): what was tuned on what
+Plainly: the leak limits were set after seeing the cheats they are tested against. Every amendment below was written after a result it responds to, and all of them landed in the protocol file together at 18:10 UTC, after the results existed.
+| # | amendment | time (UTC, commit) | the result it followed |
+|---|---|---|---|
+| 1 | `leak.auc` 0.97 -> 0.90 | 17:49 (68124e7) | Round 0: the burn-scar cheat scored AUC 0.952 on synthetic and N3 FAILED against 0.97. The new limit was chosen between honest models (0.74-0.77) and that cheat. |
+| 2 | `leak.front_auc` 0.95 added | 17:49 (68124e7) | Round 2: the front-peek cheat won and passed the round-1 screen; 0.95 sits between honest models (0.57-0.82) and the cheat (1.000). |
+| 3 | optional `trained_on_fires`, overlap fails the card | 17:49 (68124e7) | Round 4: a design response to a cheat I wrote; no number was tuned. |
+| 4 | per-fire buffer and new-front event definition written into the protocol | 18:10 (9e5e7e6) | Written after real-benchmark results; they describe what the code already did (D-545, D-546). |
+| 5 | N1 wording "better on a random split" read as "far higher than blocked" | 18:10 (9e5e7e6) | Written after the real data showed persistence beats both cheats even on the random split. |
+Consequence: **N3 is reclassified "passes only after its limit was set on the same cheat".** The N3 PASS in results/SCORE_RESULTS.md says the contract catches the cheats it was tuned on, not that it generalises. N5 was not changed after the fact (reported FAIL).
+Test on a cheat that played no part in setting the limits: see the next section (spec written and committed before the run).
