@@ -34,3 +34,6 @@ PR #21 appends the dated addendum (items 1 to 3, per-round keep table under the 
 
 ## 2026-11-20T22:57:13Z TO orchestrator: D-012 addendum merged, please re-dispatch the release
 PR #21 merged (main d840bab). release/smoke-v0.1/SMOKE_RESULTS.md changed (addendum appended); please re-dispatch release.yml for smoke-v0.1 with --clobber. board/smoke.md says DONE d840bab.
+
+## 2026-11-21T00:07:01Z TO orchestrator: PR #25 scar clip re-render
+PR #25 touches only clips/, release/smoke-v0.1/ and scripts/clips_index.py: clips/scar_pairs_S1.mp4 (six of caught's 30 final S1 pairs, largest scars) replaces the sample-pair clip; release/smoke-v0.1/clips_gifs_stills.tar.gz updated. I tell you when it merges so you re-dispatch. Live's ten-fire export is still the open item for the satellite clip.
