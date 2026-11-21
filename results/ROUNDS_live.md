@@ -17,3 +17,4 @@ improves at the same false-alert budget (1 clustered false alert per 10,000 pixe
 | R9 | late fires with moderate, persistent signal accumulate too slowly | reference value k 4 -> 3 | -39.6 → -47.5 (earlier 16 → 14 of 96; no alert 47 → 50; h 67 → 106) | 9.88e-05 | no |
 | R10 | single-frame spikes (glint, transient hot surfaces) jump straight to the threshold | cap 40 -> 20 | -39.6 → -43.1 (earlier 16 → 16 of 96; no alert 47 → 49; h 67 → 66) | 9.88e-05 | no |
 | R11 | both satellites see weak early signal that neither alone carries over the threshold | two-witness divisor rho 1.5 -> 1.25 | -39.6 → -40.2 (earlier 16 → 16 of 96; no alert 47 → 48; h 67 → 70) | 9.88e-05 | no |
+| R12 | intermittent cloud during onset: evidence decays by 10 % per cloudy frame and is lost before the fire clears the threshold | cloud decay 0.9 -> 0.97 | -39.6 → -40.9 (earlier 16 → 16 of 96; no alert 47 → 48; h 67 → 71) | 9.88e-05 | no |
