@@ -32,6 +32,7 @@ class Config:
     vis_weight: float = 0.0
     decay: float = 1.0        # S multiplier on a frame with no value
     site_r: int = 1           # a fire counts as caught by an alert at any pixel within site_r pixels of its site
+    cal: str = ""             # v0.2 candidate: path of a local-hour empirical-null table (calib.py); "" = off
     recur: float = 0.0        # round candidate: no alert at a pixel whose G reached `recur` (within 1 px) on any of
                               # the 7 previous days (recurring non-fire heat); 0 = off
 
@@ -45,6 +46,7 @@ class Config:
         d = dict(d)
         d.setdefault("site_r", 1)
         d.setdefault("recur", 0.0)
+        d.setdefault("cal", "")
         if d.get("rho") is None:
             d["rho"] = math.inf
         return Config(**d)
@@ -164,6 +166,24 @@ def clean_sites_recent(sR, sO, meta, firms):
     return ok
 
 
+_CAL = {}
+
+
+def apply_cal(u, base, cal_path):
+    """Map u through the local-hour empirical null (v0.2 candidate)."""
+    if u is None or not cal_path:
+        return u
+    from .calib import transform
+    if cal_path not in _CAL:
+        _CAL[cal_path] = json.loads(Path(cal_path).read_text())
+    cal = _CAL[cal_path]
+    ts = base["tscanE"]
+    lon = base["lon"].astype(float)
+    lh = (ts[:, :, None, None] / 3600 + lon[None, None] / 15) % 24
+    lh = np.where(np.isfinite(lh), lh, 0)
+    return transform(u.astype(float), lh, cal)
+
+
 def ensure_u(fid: str, ukey: str, base: dict) -> tuple[np.ndarray, np.ndarray | None]:
     d = fire_dir(fid)
     fe, fw = d / f"uE_{ukey}.npy", d / f"uW_{ukey}.npy"
@@ -256,6 +276,7 @@ def fire_eval(fid: str, cfg: Config, firms: FirmsClean, need_placebo=True, post_
     if base is None:
         return None
     uE, uW = ensure_u(fid, cfg.ukey, base)
+    uE, uW = apply_cal(uE, base, cfg.cal), apply_cal(uW, base, cfg.cal)
     vE = None
     if cfg.vis_weight:
         vE, _ = ensure_u(fid, "vis", base)
@@ -390,6 +411,7 @@ def placebo_episodes(fid, cfg, firms, base=None, floor=None):
     plus site-days."""
     base = base or ensure_base(fid, firms)
     uE, uW = ensure_u(fid, cfg.ukey, base)
+    uE, uW = apply_cal(uE, base, cfg.cal), apply_cal(uW, base, cfg.cal)
     vE = ensure_u(fid, "vis", base)[0] if cfg.vis_weight else None
     floor = 2.0 if floor is None else floor
     days, sd = [], 0.0
