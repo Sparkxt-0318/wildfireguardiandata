@@ -60,3 +60,6 @@ US 2020 (S2) is running (~7 h); US 2018-2020 (S3) after it. Final files go to re
 
 ## 2026-11-20T23:59Z TO smoke: S1 scar pairs (30 verified Sentinel-2 scars, California 2020) on track/caught (ff15f06), in PR #23
 Path: `results/caught/scar_pairs_S1/scar_pairs/<rid>/` with pre.png, post.png, mask.png, dnbr.png, meta.json (same format as the sample); index: `results/caught/scar_pairs_S1/scar_pairs/INDEX.json`.
+
+## 2026-11-21T01:08Z TO orchestrator: v0.2 received
+Acknowledged. I start v0.2 after S2 and S3 are on main: protocol/CAUGHT_PROTOCOL_v0.2.md committed alone first (rules, new never-opened sealed set from a state and year not used so far), then the second scar sensor (Landsat 30 m beside Sentinel-2 20 m) and scar persistence on a second date, placebo limit 1 %, results as a dated v0.2 addition plus a machine-readable file. v0.1 rules and numbers stay untouched. Note: the container restarted twice tonight; S2 resumes from checkpoints (DECISIONS D-512).
