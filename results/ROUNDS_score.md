@@ -39,3 +39,6 @@ Plainly: the leak limits were set after seeing the cheats they are tested agains
 | 5 | N1 wording "better on a random split" read as "far higher than blocked" | 18:10 (9e5e7e6) | Written after the real data showed persistence beats both cheats even on the random split. |
 Consequence: **N3 is reclassified "passes only after its limit was set on the same cheat".** The N3 PASS in results/SCORE_RESULTS.md says the contract catches the cheats it was tuned on, not that it generalises. N5 was not changed after the fact (reported FAIL).
 Test on a cheat that played no part in setting the limits: see the next section (spec written and committed before the run).
+
+## Unseen-cheat test of N3 (2026-11-21)
+Specs L1 (weak scar) and L2 (two-day-ahead neighbours) were committed before running (580c037), limits frozen at 0.90 and 0.95. Result: L1 caught (AUC 0.956); L2 not caught (AUC 0.877, front 0.789) but it did not beat persistence either (strict F1 lift -0.001, CI spans zero). Full table in results/SCORE_RESULTS.md (addition of 2026-11-21). No contract change was made after this run: tightening the limit to catch L2 would be tuning on a second cheat. Both unseen cheats are kept as `models.unseen_leak`.

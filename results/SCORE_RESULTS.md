@@ -75,3 +75,13 @@ Input: `results/caught/states_S1.parquet` (track 50, PR #23, main daaad5e): 13,6
 - *L1 weak scar:* score = honest probability + 0.2 x (number of cells within 2 cells that burn on any day of the scene, divided by 25). Different from the tuned scar cheat: it is a weak additive leak on top of an honest model.
 - *L2 two-day-ahead neighbours:* score = honest probability + 0.5 x 1[a fire cell on day t+2 lies within 5 cells]. Different feature (labels two days ahead, spatially smoothed) and weaker spatial precision than any cheat used to set the limits.
 Outcome (reported either way) will follow in the next section.
+
+### Outcome of the pre-registered unseen-cheat test (run after the specs above were committed in 580c037; limits frozen at 0.90 / 0.95)
+Data: results/score/n3_unseen_cheats.json. WildfireSpreadTS, space split, 35 test fires.
+| model | leak check | far-from-fire AUC | strict F1 | persistence strict F1 | F1 lift vs persistence (95% CI) |
+|---|---|---|---|---|---|
+| honest base | pass | 0.6953 | 0.531473 | 0.546312 | -0.014839 (-0.037663, 0.004517) |
+| L1 weak scar | **FLAG: implausible foresight** | 0.9556 | 0.5437 | 0.546312 | -0.002612 (-0.023725, 0.03128) |
+| L2 two-day-ahead neighbours | **pass** | 0.8774 | 0.545188 | 0.546312 | -0.001124 (-0.024616, 0.012928) |
+Reading: the frozen screen caught one of the two unseen cheats (L1, AUC 0.956 over 0.90) and **missed the other** (L2, AUC 0.877 under 0.90, front AUC 0.789 under 0.95). Neither cheat improved strict F1 over persistence (both lifts are about zero with intervals spanning zero), so neither "won" under the contract, but L2 is a leak the screen did not flag. N3's claim therefore holds for strong leaks and for the cheats it was tuned on, not for a leak of L2's strength. The screen is a screen.
+**Command names.** `firewitness negatives sample`, `firewitness splits make` and `firewitness score --dataset ... --predictions ...` now work at top level (new packages `firewitness/negatives`, `firewitness/splits`; bare `firewitness score` with card arguments scores a file); the nested `firewitness score ...` forms remain. `splits make` now defaults to the `space_time` scheme. Test: tests/score/test_cli_aliases.py.
