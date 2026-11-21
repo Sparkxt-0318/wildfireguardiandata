@@ -159,3 +159,42 @@ on these 30). Never part of the sealed test. Sources: `protocol/live_fires_suppl
 What this does not show: these records carry only a discovery date, so no lead against the agency time is reported; with
 n = 3 onsets the lead is anecdotal. The verified records were selected by track 50 for evidence of a fire, not for
 being visible to GOES, so a low onset rate is expected for small fires.
+
+## Addition 2026-11-21T07:30Z — trace-back v0.2 (test run once): smoke witness FAILED (V2), size calibration passed (S1)
+
+Protocol `protocol/LIVE_PROTOCOL_v0.2.md` (committed alone at 03441b2; amendment 1, results seen: dev only, 07031ff),
+frozen settings `firewitness/live/config/traceback_v02_us.json` (89361ee) committed before the test. Test: 100 new
+fires never used before (25 per size class, WFIGS 2023-01-10 to 2025-04-05, not dev, not the sealed 240, not the 30-fire
+supplement; `protocol/live_fires_v02_test.csv`, SHA-256 ae0ac7b3…), 151 fire-satellites (GOES-16 east, GOES-18 west), run
+once (`results/live/v02/TEST_OPENED.md`). Thermal onset = frozen v0.1 variant A2 with h_A from the 240 v0.1 fires (East
+35.52, West 31.28). Source files: `results/live/v02/` (`v02_test_summary.json`, `onset_labels_v02_test.csv`,
+`traceback_v02_test_by_satellite.csv`, `smoke_support_by_fire.csv`, `smoke_support_by_satellite.csv`,
+`size_at_onset.csv`, `size_calibration_fdc.csv`).
+
+- **Earlier thermal onset:** 12 of 100 fires (12 %, 95 % CI 7.0–19.8 %); median lead over the first standard detection
+  43.7 min (bootstrap 28.9–197.7, n = 12), over the GOES fire product 145 min (35–618, n = 12), over the first polar
+  detection 138 min (44–607), over the agency discovery time 115 min (−37–877; 8 of 12 before discovery). By size
+  class: 0 of 25 (class 0), 4 of 25 (1), 5 of 25 (2), 3 of 25 (3).
+- **E1 passed** (both satellites): East placebo false onset 71/7417 = 0.96 % (95 % upper 1.21 %) vs fire onset 10/100
+  (lower 5.5 %); West 40/3896 = 1.03 % (upper 1.39 %) vs 4/51 (lower 3.1 %).
+- **E2 failed:** 2 fires had an onset on both satellites; both agree by interval overlap, but the median absolute
+  difference is 102.5 min (> 30 min). n = 2 is too few to say more.
+- **V1 passed (smoke false support):** 16 of 877 test placebo windows with a plume present (1.8 %, 95 % CI 1.1–2.9 %).
+- **V2 FAILED (smoke support):** 1 of 10 fires with a daytime thermal onset is supported by a visible-band plume (10 %,
+  95 % CI 1.8–40.4 %); the lower bound is not above V1's 2.9 %. In the one supported case the plume came 15 min after the
+  thermal onset (0 of 10 plume first). The smoke witness as specified does not confirm thermal onsets.
+- **S1 passed (size calibration):** our FRP at each satellite's first operational detection frame vs the GOES fire
+  product's FRP: median ratio 1.49 (fire bootstrap 1.24–1.81), Spearman ρ = 0.72, n = 49 fire-satellites (37 fires);
+  75 of 124 first detections had no comparison (65 outside the extracted day-0 window, the rest without a valid product
+  FRP). Our estimate runs about 1.5× high (likely the 3 × 3 sum of positive background noise; not corrected).
+- **Size at onset** (no gate; no independent truth): 14 fire-satellite onsets, FRP median 59 MW (bootstrap 24–113;
+  quartiles 28–108 MW); implied burning area at 800 K median 2,600 m² (quartiles 1,240–4,750 m²), each with a wide
+  interval (600–1200 K and the background uncertainty, e.g. 2023-OKOSA-000738: 7 MW, 0–20 MW, area 0–2,950 m²). One onset
+  frame has FRP 0 (2024-NVELD-040185: the 3 × 3 excess is not above the background at t_D).
+
+What this does not show: the smoke witness was amended once on dev (amendment 1: best of 18 variants on dev support,
+4/32); on the test it supported 1 of 10, so the amendment did not rescue it. The daytime-onset sample is small (10).
+FRP at onset has no independent check; S1 checks our FRP only at the product's first detection frame, where fires are
+already larger, and says nothing about the onset frame itself. The thermal onset rate (12 %, 7.0–19.8 %) is lower than in v0.1
+(18.8 %, 14.3–24.2 %; same size balance, 60 per class); the intervals overlap, and no smallest-class fire had an onset. Release:
+`release/live-v0.2/`.

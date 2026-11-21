@@ -1,0 +1,159 @@
+{
+ "protocol": "protocol/LIVE_PROTOCOL_v0.2.md",
+ "frozen_utc": "2026-11-21T05:53Z",
+ "code_commit": "07031ffe6fe7733e54bf16ed5c7d5c2f55a5e8ef",
+ "thermal": {
+  "variant": "A2",
+  "h_A": {
+   "east": 35.51684249877931,
+   "west": 31.283151206970196
+  },
+  "k": 0.5
+ },
+ "smoke": {
+  "band": 1,
+  "z_bright": 3.0,
+  "radius_km": 3,
+  "scale_floor": 0.005,
+  "sza_max_deg": 80,
+  "window_min": [
+   -60,
+   15
+  ],
+  "min_day_frames": 6,
+  "placebo_clock_offset_min": -30,
+  "p_star": 15,
+  "p_star_dev_windows": [
+   43,
+   2263
+  ],
+  "max_dev_share": 0.02,
+  "cloud_mode": "acm",
+  "cloud_buf": 2,
+  "cap": 50
+ },
+ "size": {
+  "a_band7": {
+   "G16": 4.580972659985443e-09,
+   "G17": 4.5793566712155014e-09,
+   "G18": 4.58416821168906e-09
+  },
+  "a_fit_K": [
+   650,
+   1350
+  ],
+  "Tf_K": [
+   600,
+   800,
+   1200
+  ],
+  "approx_pct": 10,
+  "site": "3x3"
+ },
+ "dev_summary": {
+  "fires": "240 v0.1 fires (dev for v0.2)",
+  "n_fire_satellites": 380,
+  "placebo_curve_p1_to_p*": [
+   [
+    1,
+    190,
+    2263
+   ],
+   [
+    2,
+    145,
+    2263
+   ],
+   [
+    3,
+    126,
+    2263
+   ],
+   [
+    4,
+    107,
+    2263
+   ],
+   [
+    5,
+    92,
+    2263
+   ],
+   [
+    6,
+    83,
+    2263
+   ],
+   [
+    7,
+    78,
+    2263
+   ],
+   [
+    8,
+    70,
+    2263
+   ],
+   [
+    9,
+    66,
+    2263
+   ],
+   [
+    10,
+    61,
+    2263
+   ],
+   [
+    11,
+    58,
+    2263
+   ],
+   [
+    12,
+    56,
+    2263
+   ],
+   [
+    13,
+    52,
+    2263
+   ],
+   [
+    14,
+    50,
+    2263
+   ],
+   [
+    15,
+    43,
+    2263
+   ]
+  ],
+  "smoke_dev_support_by_fire": [
+   4,
+   32,
+   0.125,
+   0.04970053844474301,
+   0.2806864978482796
+  ],
+  "smoke_dev_plume_leads_min": [
+   15.0,
+   60.0,
+   20.0,
+   -0.0
+  ],
+  "size_dev_S1_descriptive": {
+   "n": 118,
+   "n_fires": 91,
+   "median_ratio": 1.489174921045243,
+   "ci": [
+    1.3722640146202558,
+    1.5857892908946047
+   ],
+   "spearman": 0.5979369395286869,
+   "verdict": "PASS (dev, descriptive)"
+  },
+  "note": "amendment 1 chose the smoke settings as the best of 18 variants on dev support; optimistic"
+ }
+}

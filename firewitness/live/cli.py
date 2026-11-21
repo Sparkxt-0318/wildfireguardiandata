@@ -17,6 +17,11 @@ def register(parser):
     p.add_argument("--variant", default="A0", choices=["A0", "A1", "A2"], help="protocol amendment 4")
     p.add_argument("--out", default="results/live")
     p.set_defaults(func=cmd_traceback)
+    p = sub.add_parser("traceback-v02", help="trace-back v0.2: smoke witness and fire size at onset (protocol v0.2)")
+    p.add_argument("--out", default="results/live/v02")
+    p.add_argument("--i-am-opening-the-v02-test", action="store_true", dest="open_test",
+                   help="run the v0.2 test once (needs config/traceback_v02_us.json committed)")
+    p.set_defaults(func=cmd_traceback_v02)
     p = sub.add_parser("replay", help="Part B: causal replay of the detector on dev or sealed-test fires")
     p.add_argument("--split", default="dev", choices=["dev", "test"])
     p.add_argument("--detector", default=None, help="detector JSON (default config/detector_us.json)")
@@ -44,6 +49,21 @@ def register(parser):
 def cmd_traceback(a):
     from .pipeline import traceback_main
     return traceback_main(a)
+
+
+def cmd_traceback_v02(a):
+    import subprocess
+    from . import traceback_v02 as v
+    if not a.open_test:
+        print("refusing: pass --i-am-opening-the-v02-test (the v0.2 test is run once)")
+        return 2
+    tracked = subprocess.run(["git", "ls-files", "--error-unmatch", str(v.CFG_FILE)], capture_output=True).returncode == 0
+    if not tracked or subprocess.run(["git", "diff", "--quiet", "HEAD", "--", str(v.CFG_FILE)]).returncode:
+        print("refusing: the frozen config must be committed first")
+        return 2
+    summ = v.run_test(Path(a.out))
+    print(json.dumps({k: summ[k] for k in ("E1", "E2", "V1", "V2", "S1")}, indent=1, default=str))
+    return 0
 
 
 def cmd_replay(a):

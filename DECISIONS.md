@@ -158,6 +158,15 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 frozen v0.1; other k/cap combinations −60 to −103). No candidate beat v0.1 on dev, so no v0.2 was declared and no new
 test fires were opened. The option stays in code, off (`Config.cal`), and v0.1 is unchanged.
 
+**D-515 — Trace-back v0.2 implementation choices (before p\* and before the test).** (1) V2 is judged per fire on the
+satellite that gives the fire's onset label (v0.1 label rule); the per-satellite table is also released. (2) The plume
+lead is measured from the first frame of the run of consecutive daytime frames with a plume *present* (the second of
+the two frames above p\*), not from the first frame above p\*. (3) The FRP background uncertainty s_L is the v0.1
+robust scale of the BT7 background difference (K, floor 0.5 K) times dL/dT at the background temperature (first order),
+rather than a separate MAD in radiance. (4) For S1, a satellite whose first operational detection falls outside the
+extracted day-0 window (T0 − 12 h to T0 + 2 h) has no FRP estimate and is left out; the count is reported. (5) The
+live detector stays closed (D1 failed); v0.2 touches Part A only.
+
 **D-107 (records v0.2) — Time estimator replaced, margins and window fixed on dev only.** The first lower-tail estimator was unusable on dev data, so it was replaced by the share of first detections in a -2 to +24 hour lag window under local time versus UTC; margins and the window were set from dev negative controls. All three changes are in the amendment log of `protocol/RECORDS_PROTOCOL_v0.2.md`, each marked "results seen: dev only", and were made before the sealed set was opened.
 
 **D-108 (records v0.2) — Sealed v0.2 set opened once, at eafeb99.** `firewitness/records/sealed_v02.py` ran once; results are in `results/data/sealed_v02*`. Sealed offsets are reported and not applied; the unexplained -12 hour calls on OK Forestry 2016, 2020 and 2022 are reported as unexplained. The day-month hypothesis (H2) was not built in v0.2 and that part of gate T3 is reported as not met. No rule was changed after the opening.
