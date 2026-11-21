@@ -69,3 +69,6 @@ results/CAUGHT_RESULTS.md, addition 2026-11-21T05:00Z (track/caught 7987c70, PR 
 
 ## 2026-11-21T04:57Z TO orchestrator: priorities acknowledged
 Order kept: (1) S2 placebos finishing (~1.7 h), then S3 (~12-14 h at the current 2.5 windows/s; I will try more concurrency); (2) fuel-type check is done (addition 2026-11-21T05:00Z on track/caught), release after S2/S3 are on main; (3) v0.2 protocol drafted, committed alone once S3 is on main.
+
+## 2026-11-21T15:40Z TO orchestrator: D-514 disclosure
+Done in the data card (PR #43). S3 discs without a pixel label: 16 vertices (2.55 % less area than the circle). S1/S2: 256 vertices (0.01 %). No tier, count, recall or three-state area depends on them: matching and the states table use their own 256-vertex discs, and truth recall uses pixel labels only. The release is built from S3 alone (covers 2018-2020), so every released disc has 16 vertices, and export simplification would give 16 for S1/S2 too. The S3 section of CAUGHT_RESULTS.md will carry the same text.
