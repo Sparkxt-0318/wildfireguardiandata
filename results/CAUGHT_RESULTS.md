@@ -43,6 +43,37 @@ area or cause is right; probable labels carry a placebo-measured false rate near
 probable S1 labels (5 % of 4,037 searched windows) can be expected to be false; a few placebo windows hold FIRMS detections, i.e. real fires no
 agency recorded, which count here as false positives.
 
+## Slice S2: all US 2020 (complete; addition 2026-11-21T06:45Z, frozen v0.1 rules)
+
+74,530 FPA FOD records; 32,340 searched with imagery; 70,163 matched placebos (30,992 searched). DNB night look only
+inside California (protocol A1). Source: `results/caught/S2_headline.csv`, `S2_placebo.csv`,
+`S2_record_only_reasons.csv`, `S2_witnesses.csv`, `S2_summary.json`, `verified_S2.csv`. The run survived three
+container restarts by resuming from its checkpoints (DECISIONS D-512, D-513); wall time of the last resume
+2.1 h, about 7 h in all.
+
+| class | records | standard label | no standard label | of these, now verified (95 % CI of share) | now probable | record-only |
+|---|---|---|---|---|---|---|
+| A | 35,665 | 303 | 35,362 | **5** (0.00-0.03 % of no-label) | 869 | 34,488 |
+| B | 30,808 | 1,327 | 29,481 | **612** (1.92-2.25 % of no-label) | 4,436 | 24,433 |
+| C | 5,960 | 1,400 | 4,560 | **765** (15.70-17.89 % of no-label) | 1,597 | 2,198 |
+| D | 996 | 485 | 511 | **169** (29.00-37.34 % of no-label) | 153 | 189 |
+| E | 562 | 357 | 205 | **90** (37.00-50.99 % of no-label) | 53 | 62 |
+| F | 343 | 299 | 44 | **6** (5.17-27.35 % of no-label) | 18 | 20 |
+| G | 196 | 192 | 4 | **1** (0.63-80.59 % of no-label) | 2 | 1 |
+| all | 74,530 | 4,363 | 70,167 | **1,648** (2.24-2.46 % of no-label) | 7,128 | 61,391 |
+
+**Headline S2: 1,648 recorded fires with no standard label now carry a verified label** (A 5,
+B 612, C 765, D 169, E 90, F 6, G 1).
+
+**C1 placebo (S2):** verified 51 / 30,992 = 0.16 % (0.12-0.22) of searched placebos and 53 / 70,163 = 0.08 % (0.06-0.10) of all
+matched placebos: **passes** (<= 1 %). Probable 1524 / 30,992 = 4.92 % (4.68-5.16) of searched placebos: under this track's
+5 % guard in point estimate, with an interval that reaches it.
+
+What S2 does not show: outside California there is no night look; agency perimeters (NIFC history, WFIGS) carry
+many of the verified labels (PERIM in 1,126 of the 4,795 verified records), so the share verified depends on how
+much a state maps; the probable tier carries a false rate near 5 % of searched windows (about 1,600 of the 8,344
+probable labels can be expected to be false).
+
 ## C2: recall on the sealed small fires (opened once: run 21:48-22:53Z on 2026-11-20, rules frozen at 530a3d5)
 
 Truth: mapped fires and prescribed burns 2018-2020 below 300 acres (CAL FIRE FRAP wildfire and Rx perimeters, NIFC
