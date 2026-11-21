@@ -78,7 +78,8 @@ not gated, n = 1,497; polygon = planned unit): 0.816 vs 0.670. Files `C2_sealed_
 **Fixed margin, held-out miss rate: run, inconclusive.** wildfireguardian Main, research/kcf-margin, with its own code
 (score_gofer.py, calibrate.lofo, reach.component_reach, 5 km separate-fire rule) on GOFER v0.2 (28 California fires,
 2019-2021, sha256 matching the repo's). Baseline reproduced exactly: leave-one-fire-out miss 6.2 % (0.6-22.1) at 5 h
-(R = 3.75 km), 6.6 % (0.7-22.8) at 8 h (R = 5.03 km). The S1 verified labels were added as newly burned 375 m cells
+(R = 3.75 km), 6.6 % (0.7-22.8) at 8 h (R = 5.03 km). The S1 verified labels (California 2020, frozen rules; S3's 2018-2019 California labels did not exist yet, and the
+check is not repeated) were added as newly burned 375 m cells
 (within 5 km of the known set); 70 labels lie within 5 km of a GOFER fire during its span (31 at the August Complex).
 Because a label has dates, not hours, two bounds were computed:
 
