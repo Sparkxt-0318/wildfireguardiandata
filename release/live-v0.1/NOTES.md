@@ -6,9 +6,11 @@ test, the frozen detector settings, and a ten-fire export for the video tool. Re
 
 Files: `onset_labels.csv` (one row per fire), `traceback_by_satellite.csv`, `replay_test.csv` / `replay_test.json`
 (sealed test, opened once), `replay_dev.csv`, `detector_us.json` (frozen), `live_fires.csv` (fire list and splits),
-`live_export_v0.1.tar.gz` (ten fires: frames, pixel signal, detection times per method).
+`live_export_v0.1.tar.gz` (ten fires: frames, pixel signal, detection times per method),
+`supplement_caught_fires.csv` and `supplement_caught_onset_labels.csv` (30 of prompt 50's verified California 2020 fires;
+earlier onset for 3 of 30).
 
-Headline: an earlier onset for 45 of 240 fires (median 42 min before the first standard detection, 120 min before the
+Headline: gate D1 FAILED (7 of 97 sealed-test fires earlier than the operational product at the frozen budget). Also: an earlier onset for 45 of 240 fires (median 42 min before the first standard detection, 120 min before the
 operational GOES fire product, n = 34); the live detector does not beat the operational product at the frozen
 false-alert budget (gate D1 fails: 7 of 97 sealed-test fires earlier).
 
