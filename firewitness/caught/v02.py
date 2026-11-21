@@ -154,35 +154,47 @@ WFIGS = ("https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/WFI
          "FeatureServer/0/query")
 
 
-def build_sealed_v02(state: str = "US-MN", year: int = 2021) -> pd.DataFrame:
-    """Record-like windows for the v0.2 sealed set (protocol v0.2 section 4). Called once, after the protocol."""
+def build_sealed_v02(state: str | None = "US-MN", year: int = 2021, cap: int | None = None) -> pd.DataFrame:
+    """Record-like windows for the v0.2 sealed set (protocol v0.2 section 4; amendment A1: state None = every US
+    state, at most `cap` perimeters chosen by the smallest sha256 of the IRWIN id). Called once, after the protocol."""
+    import hashlib
     import math
     from .perimeters import _ms, _query
     from .records import ACRE_M2, region, size_class, split_of
 
     cfg = region()
-    where = (f"attr_POOState = '{state}' AND attr_FireDiscoveryDateTime >= DATE '{year}-01-01' AND "
+    where = ((f"attr_POOState = '{state}' AND " if state else "") +
+             f"attr_FireDiscoveryDateTime >= DATE '{year}-01-01' AND "
              f"attr_FireDiscoveryDateTime < DATE '{year + 1}-01-01' AND poly_GISAcres < 300")
-    g = _query(f"wfigs_v02_{state}_{year}", WFIGS, where,
+    g = _query(f"wfigs_v02_{state or 'US'}_{year}", WFIGS, where,
                "OBJECTID,poly_IncidentName,poly_GISAcres,attr_FireDiscoveryDateTime,attr_ContainmentDateTime,"
-               "attr_FireOutDateTime,attr_IncidentTypeCategory,attr_IrwinID")
+               "attr_FireOutDateTime,attr_IncidentTypeCategory,attr_IrwinID,attr_POOState")
     g = g[g.geometry.notna() & (g.poly_GISAcres > 0)].copy()
     g = g.drop_duplicates("attr_IrwinID", keep="first")
+    if cap is not None and len(g) > cap:
+        key = [hashlib.sha256(str(i).upper().encode()).hexdigest() for i in g.attr_IrwinID]
+        g = g.assign(_k=key).sort_values("_k").head(cap).drop(columns="_k")
     d0 = _ms(g.attr_FireDiscoveryDateTime)
     d1 = _ms(g.attr_ContainmentDateTime).fillna(_ms(g.attr_FireOutDateTime))
     dflt = cfg["default_duration_days"]
     rows = []
+    def _d(x):   # the two date columns can come back as date or Timestamp; a missing one as None or NaT
+        return None if x is None or pd.isna(x) else pd.Timestamp(x).date()
+
     for r, a0, a1 in zip(g.itertuples(), d0, d1):
+        a0, a1 = _d(a0), _d(a1)
+        if a0 is None:
+            continue
         c = r.geometry.representative_point()
         k = size_class(r.poly_GISAcres, cfg)
-        e = a1 if (a1 is not None and not pd.isna(a1) and a1 >= a0 and (a1 - a0).days <= 180) else a0 + timedelta(days=dflt[k])
+        e = a1 if (a1 is not None and a1 >= a0 and (a1 - a0).days <= 180) else a0 + timedelta(days=dflt[k])
         a = r.poly_GISAcres * ACRE_M2
         pid = f"wfigs:{r.OBJECTID}"
         rows.append({"rid": "V02_" + pid, "truth_id": pid, "truth_source": "wfigs", "stratum": "primary_small",
                      "truth_kind": "rx" if str(r.attr_IncidentTypeCategory) == "RX" else "wildfire",
                      "LATITUDE": c.y, "LONGITUDE": c.x, "r_loc_m": 250.0, "r_fire_m": math.sqrt(a / math.pi),
                      "r_m": 250.0 + math.sqrt(a / math.pi), "area_m2": a, "FIRE_SIZE": r.poly_GISAcres,
-                     "FIRE_SIZE_CLASS": k, "FIRE_YEAR": year, "STATE": state[-2:], "disc_date": a0,
+                     "FIRE_SIZE_CLASS": k, "FIRE_YEAR": year, "STATE": str(r.attr_POOState)[-2:], "disc_date": a0,
                      "t0": a0 - timedelta(days=1), "t1": e + timedelta(days=1), "split": "sealed_v02",
                      "geometry_wkt": r.geometry.wkt})
     return pd.DataFrame(rows)
