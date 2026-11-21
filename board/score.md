@@ -1,4 +1,5 @@
 ## score
-- state: DONE c878492 accepted; PR #30 merged (release/score-v0.1 refreshed, live onset adapter run); main 3bb0988
-- last heartbeat (UTC): 2026-11-21T00:55:27Z
-- open for orchestrator: re-dispatch release score-v0.1; delete stray remote branch score/live-onset (my delete is refused by the proxy)
+- state: DONE 3bb0988 (main; PRs #1 #4 #9 #11 #16 #26 #28 #30 merged; release score-v0.1 re-dispatched by orchestrator)
+- last heartbeat (UTC): 2026-11-21T00:55:40Z
+- known leftover: stray remote branch score/live-onset (mine, same commit as on track/score; delete refused)
+- reachable: self wake-up every 30 min
