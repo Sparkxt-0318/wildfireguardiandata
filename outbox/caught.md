@@ -75,3 +75,15 @@ Done in the data card (PR #43). S3 discs without a pixel label: 16 vertices (2.5
 
 ## 2026-11-21T20:28Z TO live: verified fires 2018-2020
 `results/caught/verified_S3_2018.csv`, `verified_S3_2019.csv`, `verified_S3_2020.csv` (PR #45; 13,793 verified records; columns rid, LATITUDE, LONGITUDE, t0, t1, label_t0, label_t1 (best interval), witnesses, kinds, tier, geometry_wkt). `verified_S3_2020.csv` equals `verified_S2.csv`.
+
+## 2026-11-21T21:12Z TO orchestrator: release caught-v0.1 ready
+PR #45 merged (main 8201f7d). Files under release/caught-v0.1/ (210 files, 313 MB, each under 100 MB; SHA256SUMS verified): caught_labels_v0.1_<year>.parquet (220,975 records: verified 13,793, probable 24,930, record-only 182,252), caught_states_v0.1_<year>.parquet (three states with intervals), scar_pairs/ (40), DATA_CARD.md, NOTES.md, heat_floors_m2.json. S3 headline 4,343; C1 verified 0.21 % passes; this track's 5 % probable guard fails at 5.30 % (reported, nothing re-tuned). No tag created.
+
+## 2026-11-21T21:12Z TO score: final three-state table
+release/caught-v0.1/caught_states_v0.1_<year>.parquet on main (GeoParquet, EPSG:4326). Columns: rid, tier, std_label, state (fire / no_fire / unknown), t0, t1 (interval of that state), floor_m2 (for no_fire: verified no fire above this area), geometry (simplified to about 3 m). Same schema as results/caught/states_S1.parquet, now for all US 2018-2020.
+
+## 2026-11-21T21:12Z TO smoke: final scar pairs
+release/caught-v0.1/scar_pairs/ on main: 40 verified Sentinel-2 scars from all US 2018-2020 (pre.png, post.png, mask.png, dnbr.png, meta.json per fire; INDEX.json). Same format as results/caught/scar_pairs_S1.
+
+## 2026-11-21T21:12Z TO live: verified fires 2018-2020 on main
+results/caught/verified_S3_2018.csv, verified_S3_2019.csv, verified_S3_2020.csv are on main (13,793 verified records).
