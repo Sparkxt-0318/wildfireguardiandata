@@ -45,7 +45,8 @@ def iso(t):
 
 
 def load_detector(region="us") -> tuple[Config, float, dict]:
-    p = HERE / "config" / f"detector_{region}.json"
+    p = Path(os.environ["FIREWITNESS_LIVE_DETECTOR"]) if os.environ.get("FIREWITNESS_LIVE_DETECTOR") \
+        else HERE / "config" / f"detector_{region}.json"
     d = json.loads(p.read_text())
     return Config.from_json(d["config"]), float(d["h"]), d
 
@@ -95,6 +96,15 @@ class SatStream:
         RR, CC = np.mgrid[r0:r1, c0:c1]
         self.lon, self.lat = goes.rc_to_lonlat(RR, CC, self.g)
         self.inside = np.isfinite(self.lat) & (self.lon >= lon0) & (self.lon <= lon1) & (self.lat >= lat0) & (self.lat <= lat1)
+        # land of the region only (Natural Earth 50 m country polygon rasterised on this grid; config/us_land_mask_*.npz)
+        mf = HERE / "config" / f"us_land_mask_{self.name}.npz"
+        self.land_mask_used = False
+        if mf.is_file():
+            z = np.load(mf)
+            if tuple(z["box"]) == tuple(self.box):
+                land = np.unpackbits(z["bits"])[: int(np.prod(z["shape"]))].reshape(tuple(z["shape"])).astype(bool)
+                self.inside &= land
+                self.land_mask_used = True
         self.cfg = cfg
         self.ring = {}       # slot epoch (int, rounded to 60 s) -> residual float16
         self.S = np.zeros(self.lat.shape, np.float32)
@@ -128,7 +138,11 @@ class SatStream:
             f["sha256"] = hashlib.sha256(raws[k]).hexdigest()
         ref = sg.bt14_spatial_ref(bt14[None], acm[None])[0]
         clear = sg.clear_from_cloud(sg.effective_cloud(acm, bt14, ref))
-        f = np.where(clear, bt7 - bt14, np.nan).astype(np.float32)
+        from .detector import parse_ukey_full
+        feat, _, _ = parse_ukey_full(self.cfg.ukey)
+        if feat not in ("dT", "bt7"):
+            raise ValueError(f"live service supports features dT and bt7, not {feat}")
+        f = np.where(clear, (bt7 - bt14) if feat == "dT" else bt7, np.nan).astype(np.float32)
         r = residual_fast(f)
         return r, files
 
@@ -160,24 +174,41 @@ def residual_fast(f):
     return out
 
 
-def zscore_live(stream: SatStream, t, r_now):
-    """z of the current frame against 7 previous days at t-5, t, t+5 min (protocol §3)."""
-    hist = []
-    for d in range(1, 8):
-        for dk in (-300, 0, 300):
-            h = stream.residual_hist(t - d * 86400 + dk)
-            if h is not None:
-                hist.append(h.astype(np.float32))
-    if len(hist) < sg.MIN_HIST:
-        return None, len(hist)
+def _stats(hist):
     st = np.stack(hist, 0)
     med, cnt = sg.nanmedian0(st)
     mad, _ = sg.nanmedian0(np.abs(st - med))
     sc = np.maximum(sg.S_FLOOR, 1.4826 * mad)
     med[cnt < sg.MIN_HIST] = np.nan
+    return med, sc
+
+
+def zscore_live(stream: SatStream, t, r_now, wide: int = 0, hole: int = 0):
+    """z of the current frame against 7 previous days at t-5, t, t+5 min (protocol §3); with wide = W, where that
+    gives fewer than MIN_HIST values, t-5W .. t+5W min (round R3); scene filter with the optional hole."""
+    hist, histw = [], []
+    for d in range(1, 8):
+        for k in range(-max(1, wide), max(1, wide) + 1):
+            h = stream.residual_hist(t - d * 86400 + k * 300)
+            if h is None:
+                continue
+            h = h.astype(np.float32)
+            if abs(k) <= 1:
+                hist.append(h)
+            histw.append(h)
+    if len(hist) < sg.MIN_HIST and len(histw) < sg.MIN_HIST:
+        return None, len(hist)
+    if len(hist) >= sg.MIN_HIST:
+        med, sc = _stats(hist)
+    else:
+        med, sc = np.full_like(r_now, np.nan), np.full_like(r_now, np.nan)
+    if wide:
+        med_w, sc_w = _stats(histw)
+        miss = ~np.isfinite(med)
+        med, sc = np.where(miss, med_w, med), np.where(miss, sc_w, sc)
     z = (r_now - med) / sc
-    z = sg.scene_filter(z[None])[0]
-    return z, len(hist)
+    z = sg.scene_filter(z[None], hole=hole)[0]
+    return z, len(histw if wide else hist)
 
 
 # ---------------------------------------------------------------- recent-fire mask from FIRMS NRT
@@ -249,6 +280,7 @@ class LiveService:
             ok = np.isfinite(r) & np.isfinite(c) & (r >= 0) & (r < self.W.lat.shape[0]) & (c >= 0) & (c < self.W.lat.shape[1])
             self.mapW = (np.where(ok, r, 0).astype(np.int32), np.where(ok, c, 0).astype(np.int32), ok)
         self.alerted = np.zeros(self.E.lat.shape, bool)
+        self.daymax = {}      # UTC date -> max G map (recurrence mask)
         self.active = []      # candidates: dict(id, pixels set, last_t, first_t)
         self.log_dir, self.cache_dir = Path(log_dir), Path(cache_dir)
         self.last_slot = None
@@ -257,9 +289,11 @@ class LiveService:
     # -- state handoff
     def save_state(self, path: Path):
         path.parent.mkdir(parents=True, exist_ok=True)
-        np.savez_compressed(path, SE=self.E.S, SW=self.W.S if self.W else np.zeros(0), alerted=self.alerted,
-                            meta=np.array(json.dumps({"last_slot": self.last_slot, "active": [
-                                {**a, "pixels": sorted(a["pixels"])} for a in self.active], "det_hash": self.det_hash})))
+        dm = {f"daymax_{k}": v for k, v in self.daymax.items()}
+        from .goes import atomic_savez
+        atomic_savez(path, SE=self.E.S, SW=self.W.S if self.W else np.zeros(0), alerted=self.alerted,
+                     meta=np.array(json.dumps({"last_slot": self.last_slot, "active": [
+                         {**a, "pixels": sorted(a["pixels"])} for a in self.active], "det_hash": self.det_hash})), **dm)
 
     def load_state(self, path: Path) -> bool:
         if not path.is_file():
@@ -274,6 +308,7 @@ class LiveService:
         if self.W is not None and z["SW"].shape == self.W.S.shape:
             self.W.S = z["SW"]
         self.alerted = z["alerted"]
+        self.daymax = {k[len("daymax_"):]: z[k] for k in z.files if k.startswith("daymax_")}
         self.last_slot = meta["last_slot"]
         self.active = [{**a, "pixels": {tuple(p) for p in a["pixels"]}} for a in meta["active"]]
         return True
@@ -300,12 +335,12 @@ class LiveService:
                 rec["satellites"][st.name] = {"status": "missing frame"}
                 continue
             st.ring[int(round(t / 60))] = r_now.astype(np.float16)
-            z, nh = zscore_live(st, t, r_now)
+            from .detector import parse_ukey_full
+            feat, compact, opts = parse_ukey_full(self.det.ukey)
+            z, nh = zscore_live(st, t, r_now, wide=opts.get("wide_fallback", 0), hole=opts.get("scene_hole", 0))
             if z is None:
                 rec["satellites"][st.name] = {"status": f"history too short ({nh} frames)"}
                 continue
-            from .detector import parse_ukey
-            feat, compact = parse_ukey(self.det.ukey)
             if compact is not None:
                 z = sg.compact_filter(z[None], compact)[0]
             u = sg.site_u(z[None], cap=99.0)[0]
@@ -330,12 +365,30 @@ class LiveService:
             SW = np.zeros_like(SE)
             G = SE
         mask = recent_mask(self.E, self.firms_pts, t)
-        G = np.where(mask | ~self.E.inside, 0, G)
+        # recurrence mask (round R7 candidate): daily maxima of G kept per UTC date
+        day = datetime.fromtimestamp(t, timezone.utc).strftime("%Y-%m-%d")
+        prev = self.daymax.get(day)
+        self.daymax[day] = (G if prev is None else np.maximum(prev, G)).astype(np.float16)
+        rmask = np.zeros_like(mask)
+        if getattr(self.det, "recur", 0):
+            from scipy.ndimage import maximum_filter
+            d0 = datetime.fromtimestamp(t, timezone.utc).date()
+            keys = [(d0 - timedelta(days=i)).strftime("%Y-%m-%d") for i in range(1, 8)]
+            hits = [self.daymax[k] >= self.det.recur for k in keys if k in self.daymax]
+            if hits:
+                rmask = maximum_filter(np.any(hits, 0), size=3)
+            rec["recurrence_masked_pixels"] = int((rmask & self.E.inside).sum())
+        for k in [k for k in self.daymax if k < (datetime.fromtimestamp(t, timezone.utc).date() - timedelta(days=8)).strftime("%Y-%m-%d")]:
+            del self.daymax[k]
+        G = np.where(mask | rmask | ~self.E.inside, 0, G)
         self.alerted &= G > 0                       # episode over -> may alert again later
         new = (G >= self.h) & ~self.alerted
         self.alerted |= new
         rec["masked_recent_fire_pixels"] = int((mask & self.E.inside).sum())
+        rec["G_summary"] = {"max": round(float(G.max()), 2), "n_ge_half_h": int((G >= self.h / 2).sum()),
+                            "n_ge_quarter_h": int((G >= self.h / 4).sum()), "n_in_episode": int((G > 0).sum())}
         rec["evaluated_pixels"] = int(self.E.inside.sum())
+        rec["land_mask"] = "US land (Natural Earth 50 m)" if self.E.land_mask_used else "lat/lon box only"
         rec["candidates"] = self._candidates(new, G, SE, SW, t)
         rec["processed_at"] = iso(time.time())
         rec["processing_s"] = round(time.time() - t_start, 1)

@@ -60,7 +60,7 @@ def clear_mask(acm, cloudy_min=2, buf=None):
     return ~near
 
 
-def scene_filter(z: np.ndarray, zthr: float = None, frac: float = None, win: int = None) -> np.ndarray:
+def scene_filter(z: np.ndarray, zthr: float = None, frac: float = None, win: int = None, hole: int = 0) -> np.ndarray:
     """Remove (NaN) z where more than `frac` of the clear pixels in the local win x win window exceed zthr.
 
     A fire is local; a large share of anomalous pixels at once means unmasked cloud, haze or a scene-wide effect."""
@@ -71,8 +71,13 @@ def scene_filter(z: np.ndarray, zthr: float = None, frac: float = None, win: int
     fin = np.isfinite(z)
     hi = fin & (z > zthr)
     size = [1] * (z.ndim - 2) + [win, win]
-    a = uniform_filter(hi.astype(np.float32), size=size, mode="constant")
-    b = uniform_filter(fin.astype(np.float32), size=size, mode="constant")
+    a = uniform_filter(hi.astype(np.float32), size=size, mode="constant") * win * win
+    b = uniform_filter(fin.astype(np.float32), size=size, mode="constant") * win * win
+    if hole:
+        # round candidate: the central hole x hole pixels (the fire itself, its smoke) do not count
+        hs = [1] * (z.ndim - 2) + [hole, hole]
+        a = a - uniform_filter(hi.astype(np.float32), size=hs, mode="constant") * hole * hole
+        b = b - uniform_filter(fin.astype(np.float32), size=hs, mode="constant") * hole * hole
     with np.errstate(all="ignore"):
         f = a / b
     return np.where(f > frac, np.nan, z)
@@ -215,10 +220,17 @@ def bg_days(day: int, ndays: int = 9, k: int = 7):
     return [d for d in range(1, ndays) if d != day][:k]
 
 
-def zscore_all(r: np.ndarray, ndays: int = 9) -> np.ndarray:
+def zscore_all(r: np.ndarray, ndays: int = 9, wide_fallback: int = 0) -> np.ndarray:
+    """z for every day against its background days. wide_fallback = W (round candidate): where fewer than MIN_HIST
+    history values exist at +-5 min, use +-W slots instead."""
     z = np.full_like(r, np.nan)
     for d in range(r.shape[0]):
         med, sc = history_stats(r, bg_days(d, ndays))
+        if wide_fallback:
+            med_w, sc_w = history_stats(r, bg_days(d, ndays), slot_halfwidth=wide_fallback)
+            miss = ~np.isfinite(med)
+            med = np.where(miss, med_w, med)
+            sc = np.where(miss, sc_w, sc)
         z[d] = (r[d] - med) / sc
     return z
 

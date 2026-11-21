@@ -222,3 +222,37 @@ def traceback_main(a):
 def replay_main(a):
     from .fit import replay_cmd
     return replay_cmd(a)
+
+
+def open_sealed_test(out=Path("results/live"), variant="A2"):
+    """Protocol §6: the sealed test, opened once. Part A on the test fires (labels with h_A from all fires'
+    placebos; E1 on test placebos with h_A from dev placebos only), then the Part B replay with the frozen detector."""
+    out.mkdir(parents=True, exist_ok=True)
+    fires = load_fires("protocol/live_fires.csv")
+    byid = {f["fire_id"]: f for f in fires}
+    dev = [f["fire_id"] for f in fires if f["split"] == "dev"]
+    test = [f["fire_id"] for f in fires if f["split"] == "test"]
+    done, errs = process_fires(test, variant=variant)
+    rd = tb.load_records(dev, variant=variant)
+    rt = tb.load_records(done, variant=variant)
+    thr_all = threshold_by_role(rd + rt)
+    thr_dev = threshold_by_role(rd)
+    rows_all = traceback_table(rd + rt, thr_all)
+    labels_all = fire_labels(rows_all, byid)
+    write_csv(out / f"traceback_all_{variant}_by_satellite.csv", rows_all)
+    write_csv(out / f"onset_labels_all_{variant}.csv", labels_all)
+    e1 = {}
+    for role in ("east", "west"):
+        h = thr_dev[role]["h"]
+        pl = [p["S_pre"] for r in rt if r["role"] == role for p in r["placebo"]]
+        kf = sum(1 for v in pl if v >= h)
+        fr = [tb.finalize(r, h)["onset"] for r in rt if r["role"] == role]
+        fp, on = wilson(kf, len(pl)), wilson(sum(fr), len(fr))
+        e1[role] = {"h_from_dev": h, "placebo_false_onset": [kf, len(pl), *fp], "fire_onset": [sum(fr), len(fr), *on],
+                    "pass": bool(len(pl) and fp[2] <= 0.02 and on[1] > fp[2])}
+    labels_test = [l for l in labels_all if l["split"] == "test"]
+    summ = {"split": "test", "variant": variant, "n_fires_processed": len(done), "errors": errs,
+            "thresholds_all": thr_all, "thresholds_dev": thr_dev, "E1_test": e1, "E2_test": e2_stats(labels_test),
+            "E2_all": e2_stats(labels_all), "made": iso(time.time())}
+    (out / f"traceback_test_{variant}_summary.json").write_text(json.dumps(summ, indent=1, default=str))
+    return summ
