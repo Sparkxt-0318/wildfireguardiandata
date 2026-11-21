@@ -1,0 +1,40 @@
+# Records protocol v0.2 (track 49)
+
+Written and committed alone, before any v0.2 result. Version 0.1 (`protocol/RECORDS_PROTOCOL.md`, `results/*` of v0.1) is untouched: no frozen rule and no reported number of v0.1 is edited; v0.2 adds modules, results as dated additions marked "v0.2", and `release/records-v0.2/`. Amendments to this file are logged at the bottom with reason and whether v0.2 results had been seen.
+
+## 1. Scope of v0.2
+1. **Time repair as a table-wide convention.** Zero per-record time repairs (v0.1) is not the end state. As location was fixed by finding one table-wide convention (west-positive longitude), time is tested the same way: one systematic offset per (source system x table x year), estimated against satellite first detections, applied per table and never per record.
+2. **Perimeters.** The v0.1 first look of 31 fires (seed 0, `results/data/coverage/created_perimeters*`) is completed to its declared 100 (`create_missing(100, seed=0)`, years 2016 to 2023, 1,000 acres or more, no MTBS link, not inside a WFIGS perimeter of the same year), same code, no tuning.
+3. **Place-name gazetteer for missing coordinates.** For the incidents whose raw ICS-209 coordinates are missing or zero but whose place description exists (the 459 of `TOOL2_VS_PUBLISHED.md`), match the place to a public gazetteer (USGS GNIS Domestic Names), apply the described offset (distance and direction) when present, and give each match an uncertainty radius.
+
+## 2. Method: time offsets
+Unit: a **group** = source system x table x year. Groups: raw ICS-209 incident tables (`ics209_info` 1999-2002, `ics209_imsr` 2001-2013, `ics209_2014` 2014-2021) by file year; FPA FOD by `SOURCE_SYSTEM` x fire year (date plus `DISCOVERY_TIME`); the state lists and the national feed (WA, OK, AK, WFIGS) by year where they carry a time.
+Evidence (independent of the record): FIRMS MODIS and VIIRS detections (UTC date and time, `acq_date`, `acq_time`), 2000-11 onward, within 5 km of the located point and from 2 days before to 10 days after the recorded start. For each fire with at least one detection and recorded area of 300 acres or more (smaller fires are not reliably seen), `d_i` = first detection time in UTC.
+Hypotheses, each a single table-wide rule:
+- **H0 local time** (recorded as local clock time at the fire, offset by the state's standard/daylight offset in the region config).
+- **H1 UTC** (recorded as UTC: equivalent to a table-wide shift of the state's UTC offset).
+- **H2 day-month order swapped** (for records whose day is 12 or less): the table was read month-first or day-first the wrong way.
+Statistic for the clock hypotheses: residual `r_i` = `d_i` minus the start implied by H0, in hours. A fire cannot be detected before it starts, so under the true convention the lower tail of `r_i` sits at or above about zero; the offset estimate is `s = -q05(r_i)` rounded to the hour when `q05` is below -3 hours (a table whose start times run earlier than the detections by that many hours), else "no offset found". Interval: bootstrap by incident (1000 resamples, 95%). For H2: the share of eligible records whose date, swapped, explains the first detection (detection within -1 to +3 days of the swapped start) and not the original.
+Apply a table offset only if all hold: (a) at least 30 fires with detections in the group; (b) the bootstrap interval of `s` excludes 0 and its width is at most 3 hours (H2: share at least 0.6 with Wilson lower bound above 0.5); (c) split-half agreement: estimated on the odd-numbered half and on the even-numbered half of incidents, both halves give the same rounded offset (H2: both above 0.5); (d) after applying, the share of fires whose first detection precedes the implied start falls by at least half and never rises. Otherwise the group is reported "no offset found" (or "insufficient fires"). Applying means one patch per record of the group on `start_raw` (`rule` = `time_offset:<hours>` or `time_offset:day_month`), with the group, n, estimate and interval as evidence, never a per-record choice.
+Reported per group: the offset found, n, the interval, and the number of records the offset moves (records whose calendar date changes; all records get new clock times).
+
+## 3. Method: gazetteer
+Source: USGS GNIS Domestic Names (national text file). Matching: place name from the description text (words before a state abbreviation, or after "of"), distance in miles or kilometres and compass direction when present ("5 miles NE of Sumatra"); candidate features are populated places, summits, streams, valleys, civil areas in the record's state (county if named). One candidate within 15 km of every other candidate = **matched**; two or more candidates farther apart than the match radius = **ambiguous** (no coordinate is written); none = **unmatched**. Radius per match: feature extent floor of 2 km, plus 25% of the described distance plus 2 km when an offset is applied, plus 5 km when the offset has no distance; never smaller than 2 km. Written as new fields (`lat_gaz`, `lon_gaz`, `radius_km`, `match_class`), a patch per record, never over an existing coordinate.
+Score against the published hand-geocoded coordinates (`lat_c`, `long_c`), read by the scorer only: a matched point is correct if the published point lies within its radius; report matched, ambiguous, unmatched, correct-of-matched with Wilson intervals.
+
+## 4. Splits and sealed set (new, never opened)
+v0.1 sealed years (1995, 2001, 2007, 2013, 2019) were opened once and stay as reported. The **v0.2 sealed set** is: (i) every group (source x table x year) of the years **2004, 2010, 2016 and 2022**; (ii) the state lists and the national feed (WA, OK, AK, WFIGS) in full (tables never used for time); (iii) for the gazetteer, the incidents whose `hash(number|year) mod 10` is 0, 1 or 2. The method (hypotheses, thresholds in section 2, matching rules in section 3) is designed and tuned only on the other groups and incidents; the sealed set is opened once, at the end, by `firewitness/records/sealed_v02.py`, which refuses to run twice and records the frozen-rules commit.
+
+## 5. Gates
+- **T1** each group has a reported outcome (offset with n and interval, "no offset found", or "insufficient fires"); no offset is applied that fails (a) to (d).
+- **T2** do no harm: a second run changes nothing; revert restores the input byte for byte; the offsets applied on dev groups do not raise the share of detections before implied start on the held-out half; on sealed groups the same four conditions are reported, failures included.
+- **T3 (planted)** a known offset (+/-8 hours; day-month swap) planted into a copy of a clean group is recovered by the estimator in at least 90% of 30 planted trials per group size class; false offsets on unplanted clean groups reported.
+- **G1** gazetteer: matched, ambiguous and unmatched counts; correct-of-matched with Wilson interval on dev and, once, on the sealed share.
+- **P1** perimeter completion: outcome classes fixed now: created and consistent (scar area 0.2 to 5 times the recorded area), created and disagreeing, no scar although the look was clear, no clear look, rejected or error; counts with Wilson intervals; no tuning.
+- Independent checker: the v0.1 checker (`tests/records/independent_checker.py`, written from the patch format alone) verifies the v0.2 time patches too (field `start_raw`).
+- Failures and partial gates stay in the report as failures; nothing is re-tuned after the sealed opening.
+
+## Amendment log (v0.2)
+| date (UTC) | change | reason | results seen? |
+|---|---|---|---|
+| (none yet) | | | |
