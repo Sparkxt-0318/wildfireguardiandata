@@ -1,6 +1,6 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T06:39Z
+- last heartbeat (UTC): 2026-11-21T06:56Z
 - current step: S2 (all US 2020) complete: 1,648 no-label fires now verified; placebo verified 0.16 %, probable 4.92 %. PR #39 (S2 + fuel check + downstream). S3 (US 2018-2020) running (~12 h). Then release caught-v0.1, then v0.2.
 - blockers: none
 - PRs open: #39
