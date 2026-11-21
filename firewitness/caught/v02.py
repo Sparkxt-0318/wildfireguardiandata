@@ -147,3 +147,42 @@ def tier_v02(labels: pd.DataFrame, checks: pd.DataFrame) -> pd.DataFrame:
     lift = out.route_v02.isin(["second_sensor", "persistence", "second_sensor+persistence"])
     out["tier_v02"] = np.where((out.tier_v01 == "probable") & lift, "verified", out.tier_v01)
     return out
+
+
+# ------------------------------------------------------------------ v0.2 sealed set (Minnesota 2021, WFIGS)
+WFIGS = ("https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/WFIGS_Interagency_Perimeters/"
+         "FeatureServer/0/query")
+
+
+def build_sealed_v02(state: str = "US-MN", year: int = 2021) -> pd.DataFrame:
+    """Record-like windows for the v0.2 sealed set (protocol v0.2 section 4). Called once, after the protocol."""
+    import math
+    from .perimeters import _ms, _query
+    from .records import ACRE_M2, region, size_class, split_of
+
+    cfg = region()
+    where = (f"attr_POOState = '{state}' AND attr_FireDiscoveryDateTime >= DATE '{year}-01-01' AND "
+             f"attr_FireDiscoveryDateTime < DATE '{year + 1}-01-01' AND poly_GISAcres < 300")
+    g = _query(f"wfigs_v02_{state}_{year}", WFIGS, where,
+               "OBJECTID,poly_IncidentName,poly_GISAcres,attr_FireDiscoveryDateTime,attr_ContainmentDateTime,"
+               "attr_FireOutDateTime,attr_IncidentTypeCategory,attr_IrwinID")
+    g = g[g.geometry.notna() & (g.poly_GISAcres > 0)].copy()
+    g = g.drop_duplicates("attr_IrwinID", keep="first")
+    d0 = _ms(g.attr_FireDiscoveryDateTime)
+    d1 = _ms(g.attr_ContainmentDateTime).fillna(_ms(g.attr_FireOutDateTime))
+    dflt = cfg["default_duration_days"]
+    rows = []
+    for r, a0, a1 in zip(g.itertuples(), d0, d1):
+        c = r.geometry.representative_point()
+        k = size_class(r.poly_GISAcres, cfg)
+        e = a1 if (a1 is not None and not pd.isna(a1) and a1 >= a0 and (a1 - a0).days <= 180) else a0 + timedelta(days=dflt[k])
+        a = r.poly_GISAcres * ACRE_M2
+        pid = f"wfigs:{r.OBJECTID}"
+        rows.append({"rid": "V02_" + pid, "truth_id": pid, "truth_source": "wfigs", "stratum": "primary_small",
+                     "truth_kind": "rx" if str(r.attr_IncidentTypeCategory) == "RX" else "wildfire",
+                     "LATITUDE": c.y, "LONGITUDE": c.x, "r_loc_m": 250.0, "r_fire_m": math.sqrt(a / math.pi),
+                     "r_m": 250.0 + math.sqrt(a / math.pi), "area_m2": a, "FIRE_SIZE": r.poly_GISAcres,
+                     "FIRE_SIZE_CLASS": k, "FIRE_YEAR": year, "STATE": state[-2:], "disc_date": a0,
+                     "t0": a0 - timedelta(days=1), "t1": e + timedelta(days=1), "split": "sealed_v02",
+                     "geometry_wkt": r.geometry.wkt})
+    return pd.DataFrame(rows)
