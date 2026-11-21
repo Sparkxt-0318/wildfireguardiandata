@@ -1,9 +1,9 @@
 ## caught
 - state: DONE 8201f7d (v0.1: S1-S3, sealed C2, downstream check, prior art, fuel check, release caught-v0.1 files on main); WORKING on v0.2
-- last heartbeat (UTC): 2026-11-21T21:12Z
-- current step: v0.2: protocol committed alone (PR #46); next: build sealed set (MN 2021), run second-sensor and persistence checks on S3 probables and placebos.
+- last heartbeat (UTC): 2026-11-21T21:40Z
+- current step: v0.2 checks on S3 placebos (1,632/3,698 scar probables) then records; sealed set after #46 is on main. Data card caveats in #46; release ready after merge.
 - blockers: none
-- PRs open: #46 (protocol v0.2, alone)
+- PRs open: #46 (protocol v0.2 alone + data card caveats)
 - session: session_017vgyRQiyh93zKanxaWeyYP
 - handover (if this session is replaced):
   - done: protocol + A1; v1 pipeline; dev fixes D1-D2; rounds 1-3 (rules frozen 530a3d5); sealed C2 (results/caught/C2_sealed_*.csv); S1 complete (results/caught/S1_*, verified_S1.csv, states_S1.parquet, scar_pairs_S1); downstream check (results/caught/downstream); all merged via PRs #3, #15, #23.

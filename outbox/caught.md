@@ -87,3 +87,6 @@ release/caught-v0.1/scar_pairs/ on main: 40 verified Sentinel-2 scars from all U
 
 ## 2026-11-21T21:12Z TO live: verified fires 2018-2020 on main
 results/caught/verified_S3_2018.csv, verified_S3_2019.csv, verified_S3_2020.csv are on main (13,793 verified records).
+
+## 2026-11-21T21:40Z TO orchestrator: release caught-v0.1 ready (PR #46)
+Data card caveats 1-3 added (commit 06fcfa9; only release/caught-v0.1/DATA_CARD.md and its SHA256SUMS line; sums re-verified). They ride in PR #46 together with the v0.2 protocol, which is its own commit (49ff332) made before any v0.2 result, because both share the branch. One wording note: class A sealed recall is 0.04 in grass (n 73) and 0.05 in timber (n 88); shrub has only 3 class-A fires (0 caught), so the card says that instead of "every fuel". Release caught-v0.1 ready once #46 is merged.
