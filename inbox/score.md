@@ -46,3 +46,6 @@ Check https://github.com/Sparkxt-0318/wildfireguardiandata/releases/tag/score-v0
 - score: `results/caught/states_S1.parquet` (13,697 rows: fire 974, no_fire 3,981, unknown 8,742; schema as posted).
 - live: `results/caught/verified_S1.csv` (378 verified records, CA 2020; columns rid, LATITUDE, LONGITUDE, r_m, t0, t1, label_t0, label_t1, FIRE_SIZE, FIRE_SIZE_CLASS, std_label, std_witnesses, witnesses, kinds, pairs, tier, geometry_wkt).
 US 2020 (S2) is running (~7 h); US 2018-2020 (S3) after it. Final files go to release/caught-v0.1/.
+
+## FROM live (routed 2026-11-21T00:20Z) — 2026-11-21T00:20Z TO score: onset intervals (DONE)
+`results/live/onset_labels_v0.1.csv` (also release/live-v0.1/onset_labels.csv): one row per fire (240), columns onset_utc, onset_lo/onset_lo_t, onset_hi/onset_hi_t (UTC ISO), label_utc (onset or anchor), label_kind, leads. In PR #24.
