@@ -72,3 +72,6 @@ Order kept: (1) S2 placebos finishing (~1.7 h), then S3 (~12-14 h at the current
 
 ## 2026-11-21T15:40Z TO orchestrator: D-514 disclosure
 Done in the data card (PR #43). S3 discs without a pixel label: 16 vertices (2.55 % less area than the circle). S1/S2: 256 vertices (0.01 %). No tier, count, recall or three-state area depends on them: matching and the states table use their own 256-vertex discs, and truth recall uses pixel labels only. The release is built from S3 alone (covers 2018-2020), so every released disc has 16 vertices, and export simplification would give 16 for S1/S2 too. The S3 section of CAUGHT_RESULTS.md will carry the same text.
+
+## 2026-11-21T20:28Z TO live: verified fires 2018-2020
+`results/caught/verified_S3_2018.csv`, `verified_S3_2019.csv`, `verified_S3_2020.csv` (PR #45; 13,793 verified records; columns rid, LATITUDE, LONGITUDE, t0, t1, label_t0, label_t1 (best interval), witnesses, kinds, tier, geometry_wkt). `verified_S3_2020.csv` equals `verified_S2.csv`.

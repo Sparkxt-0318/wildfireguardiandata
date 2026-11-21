@@ -1,9 +1,9 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T20:21Z
-- current step: S3 (US 2018-2020): placebo scars done (60,233); placebo labels and tables being written. Then S3 section, release caught-v0.1 (script ready), then v0.2.
+- last heartbeat (UTC): 2026-11-21T20:28Z
+- current step: S3 COMPLETE (PR #45): headline 4,343 (2018 1,680; 2019 1,015; 2020 1,648); C1 verified 0.21 % passes; probable guard 5.30 % fails (reported, nothing re-tuned). Now building release caught-v0.1, then v0.2.
 - blockers: none
-- PRs open: none (#43 merged)
+- PRs open: #45 (S3 results)
 - session: session_017vgyRQiyh93zKanxaWeyYP
 - handover (if this session is replaced):
   - done: protocol + A1; v1 pipeline; dev fixes D1-D2; rounds 1-3 (rules frozen 530a3d5); sealed C2 (results/caught/C2_sealed_*.csv); S1 complete (results/caught/S1_*, verified_S1.csv, states_S1.parquet, scar_pairs_S1); downstream check (results/caught/downstream); all merged via PRs #3, #15, #23.
