@@ -99,5 +99,13 @@ class Gazetteer:
                 radius += 0.25 * dist_km + 2.0
             else:
                 radius += 5.0
-        out.update({"match_class": "matched", "lat_gaz": la, "lon_gaz": lo, "radius_km": radius, "n_candidates": int(len(pts)), "spread_km": spread})
+        classes = set(cand.feature_class)
+        if re.search(r"\b(county|parish|borough)$", key):
+            ptype = "county"
+        elif classes & {"Populated Place", "Census"}:
+            ptype = "populated place"
+        else:
+            ptype = "named feature"
+        out.update({"match_class": "matched", "lat_gaz": la, "lon_gaz": lo, "radius_km": radius, "n_candidates": int(len(pts)), "spread_km": spread,
+                    "place_type": ptype, "offset_applied": bool(bearing is not None and dist_km is not None)})
         return out
