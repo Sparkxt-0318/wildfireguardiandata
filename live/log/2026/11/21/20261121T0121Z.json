@@ -1,0 +1,146 @@
+{
+ "schema": "firewitness.live.record/1",
+ "cycle_scan_start": "2026-11-21T01:21:18Z",
+ "processed_at": "2026-11-21T01:25:08Z",
+ "region": "us",
+ "detector": {
+  "config": {
+   "ukey": "bt7_c4_w6",
+   "cap": 40.0,
+   "k": 4.0,
+   "rho": 1.5,
+   "m": 1.0,
+   "vis_weight": 0.0,
+   "decay": 0.9,
+   "site_r": 2,
+   "recur": 0.0
+  },
+  "h": 67.05959375,
+  "sha256": "69081030f02d078cb61b119c2559cbf592252a78ec38a30f55d787012253cf8a",
+  "frozen": true,
+  "note": "Frozen Part B detector: first version by cross-validated forward selection on dev (results/live/fit_dev.json), then improvement rounds R1-R12 on dev (results/ROUNDS_live.md; kept R1 site radius 2, R3 history fallback +-30 min). Threshold h from dev placebo series at the budget. Fails D1 on dev."
+ },
+ "code_commit": "a23518370b5288d6efddb12dd463a9cf7e59b5ef",
+ "inputs": [
+  {
+   "sat": "G19",
+   "product": "C07",
+   "key": "ABI-L1b-RadC/2026/325/01/OR_ABI-L1b-RadC-M6C07_G19_s20263250121182_e20263250123566_c20263250124014.nc",
+   "scan_start": "2026-11-21T01:21:18Z",
+   "s3_last_modified": "2026-11-21T01:24:11Z",
+   "sha256": "7d08f3a04354232f48b68eae6e5b8eb0aef361b4f381200b595169e9ad4b0325"
+  },
+  {
+   "sat": "G19",
+   "product": "C14",
+   "key": "ABI-L1b-RadC/2026/325/01/OR_ABI-L1b-RadC-M6C14_G19_s20263250121182_e20263250123555_c20263250124001.nc",
+   "scan_start": "2026-11-21T01:21:18Z",
+   "s3_last_modified": "2026-11-21T01:24:07Z",
+   "sha256": "4f012fa14285c6f85b20c73900e3a6818125066365f3e9824ea2fcc6f313ea9a"
+  },
+  {
+   "sat": "G19",
+   "product": "ACM",
+   "key": "ABI-L2-ACMC/2026/325/01/OR_ABI-L2-ACMC-M6_G19_s20263250121182_e20263250123555_c20263250124282.nc",
+   "scan_start": "2026-11-21T01:21:18Z",
+   "s3_last_modified": "2026-11-21T01:24:37Z",
+   "sha256": "5fea6697d5a9ad5bbc659a080fd7221c27355259c5d7fce70c4d930f3d24b96c"
+  },
+  {
+   "sat": "G18",
+   "product": "C07",
+   "key": "ABI-L1b-RadC/2026/325/01/OR_ABI-L1b-RadC-M6C07_G18_s20263250121189_e20263250123574_c20263250124010.nc",
+   "scan_start": "2026-11-21T01:21:18Z",
+   "s3_last_modified": "2026-11-21T01:24:08Z",
+   "sha256": "8889cd8d50e120a5b0b4a6d8bd0c1199a63488232a285a477a493352c1a389e6"
+  },
+  {
+   "sat": "G18",
+   "product": "C14",
+   "key": "ABI-L1b-RadC/2026/325/01/OR_ABI-L1b-RadC-M6C14_G18_s20263250121189_e20263250123562_c20263250124011.nc",
+   "scan_start": "2026-11-21T01:21:18Z",
+   "s3_last_modified": "2026-11-21T01:24:10Z",
+   "sha256": "769d99c11566c9dc8a3435a73a82a6e26f39a16925f3d5b6743713f119aca2ff"
+  },
+  {
+   "sat": "G18",
+   "product": "ACM",
+   "key": "ABI-L2-ACMC/2026/325/01/OR_ABI-L2-ACMC-M6_G18_s20263250121189_e20263250123562_c20263250124297.nc",
+   "scan_start": "2026-11-21T01:21:18Z",
+   "s3_last_modified": "2026-11-21T01:24:45Z",
+   "sha256": "8c0af19b141372a7e6b2b022e8e9978fa1ed8d60bbcde9130dc882564d234d0a"
+  }
+ ],
+ "satellites": {
+  "G19": {
+   "status": "ok",
+   "history_frames": 91,
+   "clear_fraction": 0.5065166500765297,
+   "avail_latest": 1795224277.0
+  },
+  "G18": {
+   "status": "ok",
+   "history_frames": 91,
+   "clear_fraction": 0.44360625017363,
+   "avail_latest": 1795224285.0
+  }
+ },
+ "candidates": [
+  {
+   "lat": 44.7533,
+   "lon": -75.335,
+   "n_pixels": 9,
+   "G": 67.98,
+   "S_east": 67.98,
+   "S_west": 0.0,
+   "witnesses": [
+    "G19"
+   ],
+   "pixel_rc_east": [
+    179,
+    1797
+   ],
+   "kind": "new",
+   "id": "L20261121T0121Z-001",
+   "first_alert_scan": "2026-11-21T01:21:18Z"
+  }
+ ],
+ "notes": [],
+ "firms_nrt": {
+  "VIIRS_NOAA20": {
+   "ok": true,
+   "n": 11977,
+   "sha256": "645beb9638d4e326713e793624c36f638a2531821409f3d2d731ca372a2a58d5"
+  },
+  "VIIRS_NOAA21": {
+   "ok": true,
+   "n": 11829,
+   "sha256": "f2e1d36df309618f9f1fd8cf59f927c2a960d3ad7cd30482bf11141d8e2a7721"
+  },
+  "VIIRS_SNPP": {
+   "ok": true,
+   "n": 0,
+   "sha256": "fe0401e40606fd90dd4cf24dff508a93539089a4aecf701e2a3c85851fe9bf40"
+  },
+  "MODIS": {
+   "ok": true,
+   "n": 1716,
+   "sha256": "85f649e9aedcb7bfea8d3faaa6efcf0736bdd00e4e02d23584a1aef83d49dd58"
+  }
+ },
+ "masked_recent_fire_pixels": 96388,
+ "G_summary": {
+  "max": 419.64,
+  "n_ge_half_h": 19,
+  "n_ge_quarter_h": 79,
+  "n_in_episode": 5198
+ },
+ "evaluated_pixels": 1053839,
+ "land_mask": "US land (Natural Earth 50 m)",
+ "processing_s": 30.2,
+ "published_at": "2026-11-21T01:25:08Z",
+ "run": {
+  "trigger": "manual",
+  "run_id": "44843353052"
+ }
+}
