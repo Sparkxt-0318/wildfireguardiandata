@@ -81,3 +81,16 @@ Restarts: none.
 Decisions since the last report: none by the orchestrator (track decision D-514, accepted with the disclosure above).
 
 Restarts: none.
+
+## 2026-11-21 23:00Z
+
+| Track | State |
+|---|---|
+| 50 caught | S3 (all US 2018-2020) merged (#45, 8201f7d): **4,343 recorded fires with no standard label now carry a verified label** (A 16, B 1,522, C 2,104, D 449, E 232, F 19, G 1; 2018 1,680, 2019 1,015, 2020 1,648). C1 verified placebo 0.21 % of searched windows: passes. This track's 5 % probable guard **FAILED** at 5.30 % (2018 5.67 %, 2019 5.28 %, 2020 4.92 %); nothing re-tuned. Data card caveats added (#46): probable false rate, scar floor by fuel and sensor (0.58-0.73 acre Sentinel-2, 1.30-1.65 acre Landsat), sealed recall by fuel (labelled: grass 0.76, shrub 0.79, timber 0.50). Release caught-v0.1 published 22:13Z; its scar pairs uploaded flat and collapsed to one set, so the release workflow was fixed (D-020, #48) and caught-v0.1 re-dispatched |
+| 50 caught v0.2 | Protocol committed alone (21:10Z, before any v0.2 result); amendment A1 committed alone before opening widened the sealed set to all US 2021 perimeters under 300 acres (795; #47). C1 v0.2 **FAILED**: 1.80 % of searched placebos reach verified by any new route (persistence 1.57 %, second sensor 0.62 %); nothing re-tuned. Sealed set opened once 22:23Z; record checks running, then the v0.2 report |
+| 51 live | D2 268 records from 00:16Z to 22:31Z, no gaps; ends with the 2026-11-22T00:16Z cycle; then the detector negative result, relay stop and DONE v0.1 |
+| 49 records / 52 smoke / 53 fuel / 54 score | Closed; no further work (D-018) |
+
+Decisions since the last report: D-020 (release workflow keeps subfolders). Track decisions D-515, D-516.
+
+Restarts: none.
