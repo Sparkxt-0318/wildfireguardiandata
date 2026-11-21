@@ -1,7 +1,7 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T14:23Z
-- current step: S3 (US 2018-2020): record scars nearly done, then labels and placebos (~5 h). Relaunched on a lean label stage (D-514). Then release caught-v0.1, then v0.2.
+- last heartbeat (UTC): 2026-11-21T14:47Z
+- current step: S3 (US 2018-2020): record labels done; placebo scars 4,409/60,233 (2.7/s, ~5.7 h left), then placebo labels and tables. Then release caught-v0.1, then v0.2.
 - blockers: none
 - PRs open: none (#39 merged)
 - session: session_017vgyRQiyh93zKanxaWeyYP
