@@ -1,0 +1,69 @@
+{
+ "dataset": {
+  "cell_days": 2762588,
+  "fire": 1072048,
+  "fires": 240,
+  "no_fire": 536024,
+  "unknown": 1154516
+ },
+ "fires": 240,
+ "interval_slack_days_histogram_real_intervals": [
+  0,
+  45
+ ],
+ "label_kinds": {
+  "no earlier onset (anchor kept)": 195,
+  "one witness": 24,
+  "one witness (other satellite: no onset)": 13,
+  "two witnesses": 5,
+  "witnesses disagree": 3
+ },
+ "negatives": {
+  "by_danger": {
+   "0": {
+    "neg": 190036,
+    "pos": 760144
+   },
+   "1": {
+    "neg": 0,
+    "pos": 0
+   },
+   "2": {
+    "neg": 0,
+    "pos": 0
+   },
+   "3": {
+    "neg": 0,
+    "pos": 0
+   },
+   "4": {
+    "neg": 0,
+    "pos": 0
+   }
+  },
+  "eligible_negative_candidates": 190036,
+  "hard_share_of_negatives": 0.0005,
+  "match_level_share": {
+   "exact (danger, land cover, region, month)": 0.2131,
+   "same danger, any land cover/region/month": 0.7869
+  },
+  "matched": true,
+  "negatives": 190036,
+  "positives": 760144,
+  "source": {
+   "floor_m2_rule": false,
+   "match_keys_unavailable": [
+    "danger",
+    "landcover"
+   ],
+   "negative_state": "verified no fire (three-state labels)"
+  }
+ },
+ "record_only_fires": 195,
+ "split_dropped": 9,
+ "split_space": {
+  "test": 48,
+  "train": 147,
+  "val": 36
+ }
+}
