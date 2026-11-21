@@ -1,6 +1,6 @@
 ## records
 - state: v0.3 ready for merge
-- last heartbeat (UTC): 2026-11-21T03:00Z
+- last heartbeat (UTC): 2026-11-21T03:23Z
 - current step: PR #35 ready; waiting for merge, then DONE v0.3 with main hash
 - blockers: none
 - PRs open: #35
