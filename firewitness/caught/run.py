@@ -48,7 +48,7 @@ def _years_of(w: pd.DataFrame):
 class Sources:
     """All non-imagery evidence sources for a set of years, loaded once."""
 
-    def __init__(self, cfg, years=(2018, 2019, 2020)):
+    def __init__(self, cfg, years=(2018, 2019, 2020), perimeters_on: bool = True):
         y = list(years)
         self.cfg = cfg
         self.firms = standard.load_firms(y, cfg)
@@ -56,7 +56,8 @@ class Sources:
         self.mtbs = standard.load_mtbs(cfg)
         self.hms = hms.load_fire(min(y), max(y))
         self.smoke = hms.load_smoke(min(y), max(y))
-        self.perims = perimeters.load_all(min(y), max(y))
+        # agency perimeters are evidence only when perimeter_on; the v0.2 sealed run (perimeter evidence off) skips them
+        self.perims = perimeters.load_all(min(y), max(y)) if perimeters_on else None
         self.idx = {}
         for w in ["MODIS", "VIIRS_SNPP", "VIIRS_NOAA20"]:
             f = self.firms[self.firms.witness == w].reset_index(drop=True)
@@ -74,13 +75,15 @@ class Sources:
         mt["d1"] = pd.to_datetime(mt.ig_date) + pd.Timedelta(days=1)
         self.mtbs_idx = standard.PolygonIndex(mt.reset_index(drop=True), "d0", "d1", "Event_ID")
         self.mtbs_geom = dict(zip(mt.Event_ID, zip(mt.geometry, mt.d0, mt.d1)))
-        pr = self.perims[self.perims.source != "facts_bb"].copy()
-        yr0 = pd.to_datetime(pr["year"].astype("Int64").astype(str) + "-01-01", errors="coerce")
-        pr["e0"] = pr.d0.fillna(np.maximum(pr.d1 - pd.Timedelta(days=120), yr0)).fillna(yr0)
-        pr["e1"] = pr.d1.fillna(pr.d0 + pd.Timedelta(days=60)).fillna(yr0 + pd.Timedelta(days=365))
-        pr = pr.dropna(subset=["e0", "e1"]).reset_index(drop=True)
-        self.perim_idx = standard.PolygonIndex(pr, "e0", "e1", "pid")
-        self.perim_geom = dict(zip(pr.pid, zip(pr.geometry, pr.e0, pr.e1)))
+        self.perim_idx, self.perim_geom = None, {}
+        if self.perims is not None:
+            pr = self.perims[self.perims.source != "facts_bb"].copy()
+            yr0 = pd.to_datetime(pr["year"].astype("Int64").astype(str) + "-01-01", errors="coerce")
+            pr["e0"] = pr.d0.fillna(np.maximum(pr.d1 - pd.Timedelta(days=120), yr0)).fillna(yr0)
+            pr["e1"] = pr.d1.fillna(pr.d0 + pd.Timedelta(days=60)).fillna(yr0 + pd.Timedelta(days=365))
+            pr = pr.dropna(subset=["e0", "e1"]).reset_index(drop=True)
+            self.perim_idx = standard.PolygonIndex(pr, "e0", "e1", "pid")
+            self.perim_geom = dict(zip(pr.pid, zip(pr.geometry, pr.e0, pr.e1)))
         # all heat points by day for the smoke rule
         hp = pd.concat([self.firms[["lat", "lon", "date"]], self.hms[["lat", "lon", "date"]]], ignore_index=True)
         self.heat_all = PointIndex(hp.lat, hp.lon, np.zeros(len(hp)), hp.date, hp.date)
