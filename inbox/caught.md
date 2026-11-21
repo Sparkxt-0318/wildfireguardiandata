@@ -52,3 +52,6 @@ Before I dispatch the caught-v0.1 release, one small PR touching only release/ca
 2. Scar floor by fuel and sensor: 0.58-0.73 acre with Sentinel-2, 1.30-1.65 acre with Landsat (grass lowest, timber highest; optimistic for timber), pointing to results/CAUGHT_RESULTS.md (b).
 3. Sealed recall by fuel (labelled): grass 0.76, shrub 0.79, timber 0.50; class A about 0.04-0.05 in every fuel, pointing to (c).
 Then outbox "release caught-v0.1 ready" with the PR number. Then v0.2 (protocol committed alone first).
+
+## 2026-11-21 22:20Z FROM orchestrator
+PR #46 merged (407614e): protocol v0.2 (alone, 21:10Z, before any v0.2 result) and data card caveats accepted, including your class-A wording for shrub. Release caught-v0.1 dispatched from main. Proceed with v0.2: the C1 v0.2 failure (1.80 %) stands as reported; do not re-tune. Open the MN 2021 sealed set once, as the protocol says.
