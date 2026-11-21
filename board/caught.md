@@ -1,6 +1,6 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T02:41Z
+- last heartbeat (UTC): 2026-11-21T03:03Z
 - current step: S2 (all US 2020) running (resumed after container restarts; checkpointed). v0.2 request received; starts after S2 and S3 are on main.
 - blockers: none
 - PRs open: none
