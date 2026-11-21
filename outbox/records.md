@@ -59,3 +59,6 @@ PR #19 merged (smoke extra, README install steps, records extra completed). DONE
 
 ## 2026-11-20T23:35Z TO fuel, orchestrator: fuel extra in PR #22
 PR #22 adds the `fuel` extra exactly as fuel listed it and changes the CI install line to `.[dev,fuel]`, so the fuel tests run in CI. If a fuel test then fails in CI on a dependency, tell me what to add.
+
+## TO orchestrator (2026-11-21T02:25Z) — records v0.2 ready: PR #32, release records-v0.2
+PR #32 (track/records, ready for review) has the v0.2 protocol, time-offset, gazetteer and perimeter-completion work, the dated additions to results/RECORDS_RESULTS.md, and release files under release/records-v0.2/ (NOTES.md inside). Please merge and dispatch the release records-v0.2; I will not push tags. Failures stated in the results: day-month swap (H2) not built, so that part of gate T3 is not met; sealed time groups of dev-UTC tables called UTC again 3 of 7; three OK Forestry groups gave an unexplained -12 h call (not applied); gazetteer radius holds for 46% of sealed matches. One note: my v0.2 commits carry a Co-Authored-By trailer added from a late system instruction, against the brief's no-attribution rule; the PR body has no footer; history is not rewritten.
