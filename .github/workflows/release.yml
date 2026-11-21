@@ -43,7 +43,14 @@ jobs:
           else
             d="release/$TAG"
             [ -d "$d" ] || { echo "::error::$d does not exist"; exit 1; }
-            find "$d" -type f ! -name NOTES.md -exec cp {} _assets/ \;
+            # top-level files go up as they are; each subfolder goes up as one zip that keeps its paths
+            # (a flat copy would let same-named files in different subfolders overwrite each other)
+            find "$d" -maxdepth 1 -type f ! -name NOTES.md -exec cp {} _assets/ \;
+            for sub in "$d"/*/; do
+              [ -d "$sub" ] || continue
+              s=$(basename "$sub")
+              (cd "$d" && zip -qr "$OLDPWD/_assets/$s.zip" "$s")
+            done
             notes="$d/NOTES.md"
           fi
           (cd _assets && sha256sum * > SHA256SUMS.txt)
@@ -51,6 +58,10 @@ jobs:
           sha=$(git rev-parse HEAD)
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" _assets/* --clobber
+            # a re-release mirrors the folder: drop assets no longer produced
+            for a in $(gh release view "$TAG" --json assets -q '.assets[].name'); do
+              [ -f "_assets/$a" ] || gh release delete-asset "$TAG" "$a" -y
+            done
           else
             gh release create "$TAG" _assets/* --target "$sha" --title "$TAG" --notes-file "$notes"
           fi
