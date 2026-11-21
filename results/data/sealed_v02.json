@@ -1,0 +1,31 @@
+{
+ "frozen_rules_commit": "eafeb999c58e9bcd63e605a6fc3a6ac00f862771",
+ "time_groups": 83,
+ "time_outcomes": {
+  "insufficient fires": 47,
+  "offset: recorded in UTC": 15,
+  "no offset found (not clear)": 13,
+  "no offset found (local clock time fits)": 5,
+  "offset: corrected by -12 h": 3
+ },
+ "groups_with_30_fires": 36,
+ "agree_with_dev_convention": 13,
+ "agree_ci": [
+  0.2247538679218132,
+  0.5242521960916802
+ ],
+ "gazetteer": {
+  "incidents": 137,
+  "classes": {
+   "unmatched": 69,
+   "matched": 65,
+   "ambiguous": 3
+  },
+  "matched_published_inside_radius": 30,
+  "matched_ci": [
+   0.34590137149936684,
+   0.5814681260137647
+  ],
+  "matched_within_5km": 26
+ }
+}
