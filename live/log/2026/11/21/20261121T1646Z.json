@@ -1,0 +1,128 @@
+{
+ "schema": "firewitness.live.record/1",
+ "cycle_scan_start": "2026-11-21T16:46:18Z",
+ "processed_at": "2026-11-21T16:50:15Z",
+ "region": "us",
+ "detector": {
+  "config": {
+   "ukey": "bt7_c4_w6",
+   "cap": 40.0,
+   "k": 4.0,
+   "rho": 1.5,
+   "m": 1.0,
+   "vis_weight": 0.0,
+   "decay": 0.9,
+   "site_r": 2,
+   "cal": "",
+   "recur": 0.0
+  },
+  "h": 67.05959375,
+  "sha256": "69081030f02d078cb61b119c2559cbf592252a78ec38a30f55d787012253cf8a",
+  "frozen": true,
+  "note": "Frozen Part B detector: first version by cross-validated forward selection on dev (results/live/fit_dev.json), then improvement rounds R1-R12 on dev (results/ROUNDS_live.md; kept R1 site radius 2, R3 history fallback +-30 min). Threshold h from dev placebo series at the budget. Fails D1 on dev."
+ },
+ "code_commit": "9b55e38ba176f8284935b4e7f9556311be1a1eed",
+ "inputs": [
+  {
+   "sat": "G19",
+   "product": "C07",
+   "key": "ABI-L1b-RadC/2026/325/16/OR_ABI-L1b-RadC-M6C07_G19_s20263251646183_e20263251648567_c20263251649004.nc",
+   "scan_start": "2026-11-21T16:46:18Z",
+   "s3_last_modified": "2026-11-21T16:49:13Z",
+   "sha256": "b7e0490fb788c24966455eb588e5e32824560e50375aeaaa639b26bacaa01c2e"
+  },
+  {
+   "sat": "G19",
+   "product": "C14",
+   "key": "ABI-L1b-RadC/2026/325/16/OR_ABI-L1b-RadC-M6C14_G19_s20263251646183_e20263251648556_c20263251649040.nc",
+   "scan_start": "2026-11-21T16:46:18Z",
+   "s3_last_modified": "2026-11-21T16:49:17Z",
+   "sha256": "a17bda43932b0a59a0e8919624a7a0843c4c4e48c08e82244500f9864331a08a"
+  },
+  {
+   "sat": "G19",
+   "product": "ACM",
+   "key": "ABI-L2-ACMC/2026/325/16/OR_ABI-L2-ACMC-M6_G19_s20263251646183_e20263251648556_c20263251649309.nc",
+   "scan_start": "2026-11-21T16:46:18Z",
+   "s3_last_modified": "2026-11-21T16:49:46Z",
+   "sha256": "6e0810f95cf60c4cbceae45ebc51784ae2dd26bd15226fcf1fa1e83b3c0aa334"
+  },
+  {
+   "sat": "G18",
+   "product": "C07",
+   "key": "ABI-L1b-RadC/2026/325/16/OR_ABI-L1b-RadC-M6C07_G18_s20263251646190_e20263251648574_c20263251649013.nc",
+   "scan_start": "2026-11-21T16:46:19Z",
+   "s3_last_modified": "2026-11-21T16:49:34Z",
+   "sha256": "33de582428956d7b04cc5da197ab12e871ae6bb399d678401c163ed26de4f0b5"
+  },
+  {
+   "sat": "G18",
+   "product": "C14",
+   "key": "ABI-L1b-RadC/2026/325/16/OR_ABI-L1b-RadC-M6C14_G18_s20263251646190_e20263251648563_c20263251649009.nc",
+   "scan_start": "2026-11-21T16:46:19Z",
+   "s3_last_modified": "2026-11-21T16:49:13Z",
+   "sha256": "0d274bc2541def4db29311c223ec154a9e0998fe65f15f22b4134c4799c479e3"
+  },
+  {
+   "sat": "G18",
+   "product": "ACM",
+   "key": "ABI-L2-ACMC/2026/325/16/OR_ABI-L2-ACMC-M6_G18_s20263251646190_e20263251648563_c20263251649328.nc",
+   "scan_start": "2026-11-21T16:46:19Z",
+   "s3_last_modified": "2026-11-21T16:49:40Z",
+   "sha256": "3d4c8b0bda6da3d4afdb2edbbab251e2f4c7cbf9eec9bd15d9360ab40f334b17"
+  }
+ ],
+ "satellites": {
+  "G19": {
+   "status": "ok",
+   "history_frames": 91,
+   "clear_fraction": 0.35740563786308915,
+   "avail_latest": 1795279786.0
+  },
+  "G18": {
+   "status": "ok",
+   "history_frames": 91,
+   "clear_fraction": 0.41177703639536617,
+   "avail_latest": 1795279780.0
+  }
+ },
+ "candidates": [],
+ "notes": [],
+ "firms_nrt": {
+  "VIIRS_NOAA20": {
+   "ok": true,
+   "n": 11767,
+   "sha256": "93c2c412daf2e13f517d0419ae434bdd70dac3842b6e3e73ca148fd7e338ca80"
+  },
+  "VIIRS_NOAA21": {
+   "ok": true,
+   "n": 11323,
+   "sha256": "fdac89d02b899d4e1dd3623aec95ffc82c29e22499ff9093f8249c6f1cbd5004"
+  },
+  "VIIRS_SNPP": {
+   "ok": true,
+   "n": 0,
+   "sha256": "fe0401e40606fd90dd4cf24dff508a93539089a4aecf701e2a3c85851fe9bf40"
+  },
+  "MODIS": {
+   "ok": true,
+   "n": 1656,
+   "sha256": "3c2961811dc425902ec5fd2ee396f3508f73ad06b60407d6b46aef0304d85b3b"
+  }
+ },
+ "masked_recent_fire_pixels": 89678,
+ "G_summary": {
+  "max": 256.52,
+  "n_ge_half_h": 98,
+  "n_ge_quarter_h": 254,
+  "n_in_episode": 25712
+ },
+ "evaluated_pixels": 1053839,
+ "land_mask": "US land (Natural Earth 50 m)",
+ "processing_s": 37.9,
+ "published_at": "2026-11-21T16:50:15Z",
+ "run": {
+  "trigger": "relay",
+  "run_id": "44899037846"
+ }
+}
