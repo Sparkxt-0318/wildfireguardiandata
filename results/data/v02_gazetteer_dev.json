@@ -1,0 +1,19 @@
+{
+ "split": "dev (hash mod 10 in 3..9)",
+ "incidents": 322,
+ "classes": {
+  "unmatched": 167,
+  "matched": 144,
+  "ambiguous": 11
+ },
+ "matched_published_inside_radius": 74,
+ "matched_ci": [
+  0.43295963848279717,
+  0.5940963457597975
+ ],
+ "matched_within_5km": 69,
+ "median_error_km": 5.919321124473757,
+ "median_radius_km": 6.01168,
+ "county_only_matches": 17,
+ "county_only_inside_radius": 0
+}

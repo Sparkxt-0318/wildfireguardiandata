@@ -53,8 +53,9 @@ def group_row(fd, g, dev_conv):
     return r
 
 
-def run():
-    if OUT.exists():
+def run(dry_dev: bool = False):
+    """dry_dev=True exercises the same code on DEV years only (no sealed data scored, nothing written)."""
+    if not dry_dev and OUT.exists():
         raise SystemExit(f"{OUT} exists: the v0.2 sealed set was already opened once")
     commit = subprocess.run(["git", "rev-parse", "HEAD"], cwd=paths.REPO, capture_output=True, text=True).stdout.strip()
     cfg = load_region(paths.REPO / "firewitness" / "records", "us")
@@ -64,7 +65,10 @@ def run():
     frames = [R.ics_frame(cfg), R.fod_frame(300.0), statelist_frames(cfg)]
     allr = pd.concat(frames, ignore_index=True)
     allr = allr[(allr.year >= 2001) & (allr.acres >= 300) & allr.state.notna() & allr.lat.notna() & allr.start.notna()]
-    sealed = allr[allr.year.isin(R.SEALED_YEARS) | allr.table.isin(["wa_dnr", "ok_forestry", "wfigs"])]
+    if dry_dev:
+        sealed = allr[(allr.year == 2005) & ~allr.table.isin(["wa_dnr", "ok_forestry", "wfigs"])]
+    else:
+        sealed = allr[allr.year.isin(R.SEALED_YEARS) | allr.table.isin(["wa_dnr", "ok_forestry", "wfigs"])]
     fd = T.FirstDetection(sorted(sealed.year.unique().astype(int)))
     rows = []
     for (sysm, tab, yr), g in sealed.groupby(["system", "table", "year"]):
@@ -74,6 +78,8 @@ def run():
         dev = conv.get((sysm, tab), "table not in dev")
         rows.append({"system": sysm, "table": tab, "year": int(yr), "records_in_group": int(len(g)), "dev_table_outcome": dev, **r})
     tab = pd.DataFrame(rows)
+    if dry_dev:
+        return {"dry_dev_groups": int(len(tab)), "cols": list(tab.columns), "outcomes": tab.outcome.value_counts().to_dict() if len(tab) else {}}
     tab.to_json(paths.RESULTS / "data" / "sealed_v02_time_groups.json", orient="records", indent=1)
     res["time_groups"] = int(len(tab))
     res["time_outcomes"] = tab.outcome.value_counts().to_dict()
