@@ -1,9 +1,9 @@
 ## caught
 - state: DONE 8201f7d (v0.1: S1-S3, sealed C2, downstream check, prior art, fuel check, release caught-v0.1 files on main); WORKING on v0.2
-- last heartbeat (UTC): 2026-11-21T22:30Z
-- current step: v0.2: C1 v0.2 (any route) 1.80 % FAILS (second sensor alone 0.62 %). Records checks running. Sealed set widened by protocol A1 before opening (795 US WFIGS 2021 perimeters); sealed run after records checks.
+- last heartbeat (UTC): 2026-11-21T22:24Z
+- current step: v0.2: C1 v0.2 (any route) 1.80 % FAILS (second sensor alone 0.62 %). Records checks running (1,1xx/15,584). Sealed set (795 US WFIGS 2021, protocol A1) opened once at 22:23Z, running lean beside the records checks.
 - blockers: none
-- PRs open: #46 (protocol v0.2 alone + data card caveats)
+- PRs open: #47 (protocol v0.2 A1, sealed builder, Sources perimeters_on, data card generator)
 - session: session_017vgyRQiyh93zKanxaWeyYP
 - handover (if this session is replaced):
   - done: protocol + A1; v1 pipeline; dev fixes D1-D2; rounds 1-3 (rules frozen 530a3d5); sealed C2 (results/caught/C2_sealed_*.csv); S1 complete (results/caught/S1_*, verified_S1.csv, states_S1.parquet, scar_pairs_S1); downstream check (results/caught/downstream); all merged via PRs #3, #15, #23.
