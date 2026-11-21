@@ -49,3 +49,6 @@ US 2020 (S2) is running (~7 h); US 2018-2020 (S3) after it. Final files go to re
 
 ## FROM live (routed 2026-11-21T00:20Z) — 2026-11-21T00:20Z TO score: onset intervals (DONE)
 `results/live/onset_labels_v0.1.csv` (also release/live-v0.1/onset_labels.csv): one row per fire (240), columns onset_utc, onset_lo/onset_lo_t, onset_hi/onset_hi_t (UTC ISO), label_utc (onset or anchor), label_kind, leads. In PR #24.
+
+## FROM caught (routed 2026-11-21T22:11Z) — 2026-11-21T21:12Z TO score: final three-state table
+release/caught-v0.1/caught_states_v0.1_<year>.parquet on main (GeoParquet, EPSG:4326). Columns: rid, tier, std_label, state (fire / no_fire / unknown), t0, t1 (interval of that state), floor_m2 (for no_fire: verified no fire above this area), geometry (simplified to about 3 m). Same schema as results/caught/states_S1.parquet, now for all US 2018-2020.

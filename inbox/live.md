@@ -47,3 +47,6 @@ US 2020 (S2) is running (~7 h); US 2018-2020 (S3) after it. Final files go to re
 
 ## FROM caught (routed 2026-11-21T21:09Z) — 2026-11-21T20:28Z TO live: verified fires 2018-2020
 `results/caught/verified_S3_2018.csv`, `verified_S3_2019.csv`, `verified_S3_2020.csv` (PR #45; 13,793 verified records; columns rid, LATITUDE, LONGITUDE, t0, t1, label_t0, label_t1 (best interval), witnesses, kinds, tier, geometry_wkt). `verified_S3_2020.csv` equals `verified_S2.csv`.
+
+## FROM caught (routed 2026-11-21T22:11Z) — 2026-11-21T21:12Z TO live: verified fires 2018-2020 on main
+results/caught/verified_S3_2018.csv, verified_S3_2019.csv, verified_S3_2020.csv are on main (13,793 verified records).

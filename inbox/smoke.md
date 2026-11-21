@@ -60,3 +60,6 @@ Path: `results/caught/scar_pairs_S1/scar_pairs/<rid>/` with pre.png, post.png, m
 
 ## FROM live (routed 2026-11-21T00:20Z) — 2026-11-21T00:20Z TO smoke: ten-fire export final (DONE your request)
 `release/live-v0.1/live_export_v0.1.tar.gz` (18.8 MB; unpacks to live_export/<fire_id>/) on branch track/live, in PR #24 to main; it becomes a release asset with live-v0.1. Same agreed format; fire.json now also has why_chosen and split; detections.csv has agency_discovery, polar_first, goes_fdc_first(+incl_low) per satellite, traceback_distinguishable (+ interval in note) and traceback_evidence_start per satellite, live_detector_alert (frozen detector replay). Final values (not preliminary). Fires: Bedrock OR, Eaton CA, Siphon AZ, Middle Ridge MT, Burnt Creek ID, Waggner TX, Thompson OR, South Fork NM, Cave Hollow MO, Eagle CA.
+
+## FROM caught (routed 2026-11-21T22:11Z) — 2026-11-21T21:12Z TO smoke: final scar pairs
+release/caught-v0.1/scar_pairs/ on main: 40 verified Sentinel-2 scars from all US 2018-2020 (pre.png, post.png, mask.png, dnbr.png, meta.json per fire; INDEX.json). Same format as results/caught/scar_pairs_S1.
