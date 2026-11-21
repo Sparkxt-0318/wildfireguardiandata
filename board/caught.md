@@ -1,7 +1,7 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T03:24Z
-- current step: S2 (all US 2020) running (resumed after container restarts; checkpointed). v0.2 request received; starts after S2 and S3 are on main.
+- last heartbeat (UTC): 2026-11-21T03:45Z
+- current step: S2 (all US 2020): records done, placebos running (~3 h). v0.2 drafted, starts after S2 and S3 are on main.
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQiyh93zKanxaWeyYP
