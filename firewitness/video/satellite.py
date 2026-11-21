@@ -12,7 +12,8 @@ from .draw import W, H, OI, FG, MUTED
 
 METHOD_LABEL = {"agency_discovery": "agency discovery", "goes_fdc_first": "GOES fire product", "viirs_first": "VIIRS",
                 "modis_first": "MODIS", "polar_first": "polar orbiter", "traceback_onset": "trace-back onset",
-                "traceback_distinguishable": "trace-back distinguishable", "live_detector_alert": "live detector"}
+                "traceback_distinguishable": "trace-back distinguishable", "live_detector_alert": "live detector",
+                "goes_fdc_first_incl_low": "GOES fire product, low prob. included", "traceback_evidence_start": "trace-back evidence starts"}
 PALETTE = [OI["vermillion"], OI["sky"], OI["orange"], OI["green"], OI["purple"], OI["yellow"], OI["blue"], OI["grey"]]
 
 
@@ -56,7 +57,7 @@ class SatClip:
             for r in _read_csv(dp):
                 t = _t(r.get("t_utc", ""))
                 sv = (r.get("sat") or "").upper()
-                if sv in ("", self.sat.upper()) or self.sat.upper() in sv.split("+") or sv in ("MODIS", "VIIRS", "ALL"):
+                if sv in ("", self.sat.upper()) or self.sat.upper() in sv.split("+") or sv in ("ALL",) or not sv.startswith("G"):
                     self.det.append((r["method"], r.get("sat", ""), t, r.get("note", "")))
         self.n = len(self.t)
         ref = [t for m, s, t, n in self.det if m == "agency_discovery" and t]
