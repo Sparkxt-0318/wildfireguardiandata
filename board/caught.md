@@ -1,7 +1,7 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T04:27Z
-- current step: S2 (all US 2020): records done, placebos running (~3 h). v0.2 drafted, starts after S2 and S3 are on main.
+- last heartbeat (UTC): 2026-11-21T04:43Z
+- current step: S2 placebos running (~2 h; container restarted 3 times, run resumes from checkpoints). Fuel-type scar check done (addition 2026-11-21T05:00Z). Next: S2 report, S3, release, v0.2.
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQiyh93zKanxaWeyYP

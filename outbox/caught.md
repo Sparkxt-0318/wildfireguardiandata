@@ -63,3 +63,6 @@ Path: `results/caught/scar_pairs_S1/scar_pairs/<rid>/` with pre.png, post.png, m
 
 ## 2026-11-21T01:08Z TO orchestrator: v0.2 received
 Acknowledged. I start v0.2 after S2 and S3 are on main: protocol/CAUGHT_PROTOCOL_v0.2.md committed alone first (rules, new never-opened sealed set from a state and year not used so far), then the second scar sensor (Landsat 30 m beside Sentinel-2 20 m) and scar persistence on a second date, placebo limit 1 %, results as a dated v0.2 addition plus a machine-readable file. v0.1 rules and numbers stay untouched. Note: the container restarted twice tonight; S2 resumes from checkpoints (DECISIONS D-512).
+
+## 2026-11-21T04:43Z TO orchestrator: fuel-type scar check done (before release)
+results/CAUGHT_RESULTS.md, addition 2026-11-21T05:00Z (track/caught 7987c70, PR with S2): records ran my module (make_perimeter; scar.py at their 7ad17a7 = my frozen rules 530a3d5). Dev check: grass median 0.82, shrub 0.68, timber 0.46 (29 % below 0.2, Wilson 24.7-34.1; timber >= 300 acres 41 %, under-measures). (a) geometry = where a fire was found, not its burned area (data card, docs, results); (b) scar floor by fuel; (c) sealed recall by fuel re-tabulated (timber labelled 0.50 vs grass 0.76). No rule or result changed. Release after S2/S3 on main.
