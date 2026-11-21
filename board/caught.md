@@ -1,7 +1,7 @@
 ## caught
 - state: DONE 8201f7d (v0.1: S1-S3, sealed C2, downstream check, prior art, fuel check, release caught-v0.1 files on main); WORKING on v0.2
-- last heartbeat (UTC): 2026-11-21T21:57Z
-- current step: v0.2 checks on S3 placebos (3296/3,698 scar probables) then records; sealed set after #46 is on main. Data card caveats in #46; release ready after merge.
+- last heartbeat (UTC): 2026-11-21T22:05Z
+- current step: v0.2 placebo checks done: C1 v0.2 (any route) 1.80 % FAILS (persistence 1.57 % fails; second sensor 0.62 % under 1 %); nothing re-tuned. Records checks running (~5 h); sealed set after #46 is on main.
 - blockers: none
 - PRs open: #46 (protocol v0.2 alone + data card caveats)
 - session: session_017vgyRQiyh93zKanxaWeyYP
