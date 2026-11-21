@@ -1,19 +1,19 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-21T00:37Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-21T00:54Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 12 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 10 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 17 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 0 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 254 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 11 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 1 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 28 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 3 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 2 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 272 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 5 min |
 
 ## records
 - state: DONE 6e4de95 (accepted); reachable
-- last heartbeat (UTC): 2026-11-21T00:25Z
+- last heartbeat (UTC): 2026-11-21T00:54Z
 - current step: idle, heartbeat
 - blockers: none
 - PRs open: none
@@ -34,15 +34,15 @@ Assembled by the orchestrator at 2026-11-21T00:37Z from board/*.md. Builders are
 
 ## live
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T00:20Z
-- current step: Sealed test opened once: Part A 45/240 earlier onset (E1, E2 pass); Part B D1 FAILS (7/97). LIVE_RESULTS + release files in PR #24. Remaining: D2 24h with frozen detector after merge; caught supplement running
-- blockers: PR #24 merge needed for D2
-- PRs open: #24
+- last heartbeat (UTC): 2026-11-21T00:52Z
+- current step: D2 STARTED: first frozen-detector live record 2026-11-21T00:21:18Z (ends 2026-11-22T00:21Z). Supplement (caught CA 2020) extracting. Release live-v0.1 dispatched by orchestrator
+- blockers: none
+- PRs open: none
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
 
 ## smoke
-- state: DONE d840bab (D-012 addendum merged, PR #21). Follow-up only: re-render satellite (ten fires), scar and duplicate clips if live/caught/records post final exports.
-- last heartbeat (UTC): 2026-11-21T00:37:02Z
+- state: DONE 5992f03 (D-012 addendum merged, PR #21). Follow-up only: re-render satellite (ten fires), scar and duplicate clips if live/caught/records post final exports.
+- last heartbeat (UTC): 2026-11-21T00:53:18Z
 - current step: release smoke-v0.1 files merged; asked orchestrator to dispatch the release. All protocol steps done: protocol + A1-A3, definition doc, prior-art note, label and video commands, S1-S5 (dev full, sealed once), S4 HPWREN and Pyro, 12 loop rounds, 9 clips (+contact sheet), SMOKE_RESULTS.md.
 - gates (honest): S2 sealed 0.8% (met by point estimate, upper 2.4%), dev 7.1% (not met); S5 identity met; S1 opacity MAE 0.14 / edge 6-10 px / detection 76-79% targets not met; S3 median +180 s (method after human).
 - blockers: none
@@ -52,6 +52,7 @@ Assembled by the orchestrator at 2026-11-21T00:37Z from board/*.md. Builders are
 - follow-up: PR #25 (scar clip from the 30 final S1 pairs of caught) open; live ten-fire export still not on main, satellite clip uses the preliminary Bedrock sample.
 - follow-up done: PR #25 merged (main 81bfb6d): scar clip now from the 30 final S1 pairs; release/smoke-v0.1/clips_gifs_stills.tar.gz updated. Still open: satellite clip with live's ten-fire export.
 - follow-up: PR #29 open (ten satellite clips from live's final export; 18 clips total). After it merges: tell orchestrator to re-dispatch the release.
+- all follow-ups done: PR #25 (scar clip, final S1 pairs), PR #29 (ten satellite clips from live's final export; 18 clips). Release smoke-v0.1 re-dispatched by the orchestrator. Staying reachable: heartbeat every 30 minutes.
 
 ## fuel
 - state: DONE 8dcb76d (accepted by orchestrator 20:45Z)
@@ -62,7 +63,9 @@ Assembled by the orchestrator at 2026-11-21T00:37Z from board/*.md. Builders are
 - session: track 53, branch track/fuel
 
 ## score
-- state: WAITING for PR #28 merge (orchestrator depth check D-013: items a-d done), then DONE with the new hash
-- last heartbeat (UTC): 2026-11-21T00:26:22Z
-- done in #28: amendment table + N3 reclassified; unseen-cheat test (spec committed first: L1 caught, L2 missed, neither beat persistence); gates file restored at results/score/; top-level commands negatives sample, splits make, score
-- previous: DONE 367c54d (PRs #1 #4 #9 #11 #16 #26)
+- state: DONE c878492 accepted; last step PR #30 (refresh release/score-v0.1 files), will tell orchestrator when merged
+- last heartbeat (UTC): 2026-11-21T00:49:47Z
+- gates (WildfireSpreadTS 168 fires): N1-N4 PASS, N3 reclassified "passes only after its limit was set on the same cheat" (unseen-cheat test: 1 of 2 caught, neither beat persistence), N5 FAIL (reported)
+- commands: firewitness negatives sample, splits make, score (nested firewitness score ... kept); adapters wildfirespreadts, caught (full S1 run), live (record-only anchors)
+- not available: track 51 trace-back onset intervals (live not merged)
+- note: PR #30 now also carries the live onset adapter commit 7c118a1 (read_onset, dated addition, test)
