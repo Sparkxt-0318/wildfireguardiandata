@@ -117,12 +117,20 @@ def fdc_frp(meta_sat: dict, scan_t: float, cfg: dict):
 
 
 # ---------------------------------------------------------------- smoke witness
-def plume_series(series, lat, lon, cfg=None, z_bright=3.0, radius_px=3):
-    """Plume score P[day, slot] (bright pixels in components within radius_px of the site) and a daytime flag."""
+def plume_z(series, cloud_mode="override", buf=0, floor=0.005):
+    """Band-1 z against the pixel's own history (protocol v0.2 §3). cloud_mode: 'override' = v0.1 effective cloud
+    (ACM with the 11 um override); 'acm' = ACM probably-cloudy/cloudy or missing, no override. buf: cloud buffer (px, 2 km)."""
     ref = series["REF1"].astype(np.float32)
     D, T = ref.shape[:2]
-    ref_ = sg.bt14_spatial_ref(series["BT14"], series["ACM"])
-    cloud2 = sg.effective_cloud(series["ACM"], series["BT14"], ref_)
+    if cloud_mode == "override":
+        ref_ = sg.bt14_spatial_ref(series["BT14"], series["ACM"])
+        cloud2 = sg.effective_cloud(series["ACM"], series["BT14"], ref_)
+    elif cloud_mode == "acm":
+        cloud2 = ~(series["ACM"] < 2)
+    else:
+        raise ValueError(cloud_mode)
+    if buf:
+        cloud2 = ~sg.clear_from_cloud(cloud2, buf)
     q = HALF // 2   # the 1 km box covers 2 km box indices HALF-10 .. HALF+9
     c1 = np.repeat(np.repeat(cloud2[:, :, HALF - q:HALF + q, HALF - q:HALF + q], 2, 2), 2, 3)
     rho = np.where(c1, np.nan, ref)
@@ -140,8 +148,15 @@ def plume_series(series, lat, lon, cfg=None, z_bright=3.0, radius_px=3):
                 samples.append(x)
         st = np.stack(samples)
         mad, _ = sg.nanmedian0(np.abs(st - med))
-        s = np.maximum(0.005, 1.4826 * mad)
+        s = np.maximum(floor, 1.4826 * mad)
         z[d] = (rho[d] - med) / s
+    return z
+
+
+def plume_P(z, z_bright=3.0, radius_px=3, cap=None):
+    """P[day, slot]: bright pixels in the 8-connected bright components reaching within radius_px of the site.
+    cap: components larger than cap pixels are not counted (round candidate; None = protocol v0.2 as committed)."""
+    D, T = z.shape[:2]
     yy, xx = np.mgrid[0:z.shape[2], 0:z.shape[3]]
     near = (yy - HALF) ** 2 + (xx - HALF) ** 2 <= radius_px ** 2
     P = np.zeros((D, T), np.int32)
@@ -153,14 +168,29 @@ def plume_series(series, lat, lon, cfg=None, z_bright=3.0, radius_px=3):
             lab, n = label(b, structure=np.ones((3, 3)))
             ids = np.unique(lab[near & b])
             ids = ids[ids > 0]
-            P[d, k] = int(np.isin(lab, ids).sum())
-    day = np.zeros((D, T), bool)
+            if cap is not None:
+                sizes = np.bincount(lab.ravel())
+                ids = ids[sizes[ids] <= cap]
+            P[d, k] = int(np.isin(lab, ids).sum()) if len(ids) else 0
+    return P
+
+
+def daytime(series, lat, lon, sza_max=80.0):
     ts = series["tscan"]
-    for d in range(D):
-        for k in range(T):
+    day = np.zeros(ts.shape, bool)
+    for d in range(ts.shape[0]):
+        for k in range(ts.shape[1]):
             if np.isfinite(ts[d, k]):
-                day[d, k] = solar_zenith(lat, lon, float(ts[d, k])) < 80
-    return P, day
+                day[d, k] = solar_zenith(lat, lon, float(ts[d, k])) < sza_max
+    return day
+
+
+def plume_series(series, lat, lon, cfg=None, z_bright=3.0, radius_px=3):
+    """Plume score P[day, slot] and the daytime flag, with the settings of cfg (default: protocol v0.2 as committed)."""
+    c = (cfg or {}).get("smoke", {})
+    z = plume_z(series, c.get("cloud_mode", "override"), int(c.get("cloud_buf", 0)))
+    P = plume_P(z, float(c.get("z_bright", z_bright)), int(c.get("radius_km", radius_px)), c.get("cap"))
+    return P, daytime(series, lat, lon)
 
 
 def plume_present(P, day, p):
