@@ -1,6 +1,6 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T11:12Z
+- last heartbeat (UTC): 2026-11-21T11:33Z
 - current step: S3 (US 2018-2020) running, records ~6 h left then placebos (~5 h). v0.2 code written (not run). Release after S3 on main.
 - blockers: none
 - PRs open: none (#39 merged)
