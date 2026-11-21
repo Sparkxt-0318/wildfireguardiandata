@@ -1,0 +1,304 @@
+{
+ "records_n": 220975,
+ "tiers": {
+  "record-only": 182252,
+  "probable": 24930,
+  "verified": 13793
+ },
+ "headline_no_std_verified": 4343,
+ "no_std_probable": 20913,
+ "std_label_n": 13467,
+ "by_class": {
+  "h": {
+   "A": 16,
+   "B": 1522,
+   "C": 2104,
+   "D": 449,
+   "E": 232,
+   "F": 19,
+   "G": 1
+  },
+  "p": {
+   "A": 1579,
+   "B": 13380,
+   "C": 5205,
+   "D": 507,
+   "E": 178,
+   "F": 54,
+   "G": 10
+  },
+  "s": {
+   "A": 1058,
+   "B": 4274,
+   "C": 4329,
+   "D": 1395,
+   "E": 1020,
+   "F": 866,
+   "G": 525
+  }
+ },
+ "reasons": {
+  "below_floor": 122413,
+  "clear_look_nothing_found": 56469,
+  "no_clear_look": 2821,
+  "location_too_uncertain": 548,
+  "no_clear_look (read error)": 1
+ },
+ "placebo_n": 220975,
+ "placebo_searched_n": 91224,
+ "placebo_verified": 205,
+ "placebo_probable": 5428,
+ "placebo_probable_searched": 4837,
+ "placebo_verified_rate_searched": 0.0020937472594931158,
+ "placebo_probable_rate_searched": 0.053023327194597916,
+ "placebo_witnesses": {
+  "S2_SCAR": 3604,
+  "HMS_SMOKE": 511,
+  "GOES": 465,
+  "HMS_ANALYST": 186,
+  "S2_AF": 99,
+  "MODIS": 93,
+  "VIIRS_SNPP": 48,
+  "MCD64A1": 42,
+  "GOES,S2_SCAR": 41,
+  "GOES,MODIS": 39,
+  "GOES,HMS_ANALYST": 39,
+  "LANDSAT_SCAR": 38,
+  "VIIRS_NOAA20": 32,
+  "VIIRS_NOAA20,VIIRS_SNPP": 32,
+  "HMS_SMOKE,S2_SCAR": 26,
+  "HMS_ANALYST,S2_SCAR": 24,
+  "HMS_ANALYST,MODIS": 15,
+  "S2_AF,S2_SCAR": 13,
+  "HMS_ANALYST,HMS_SMOKE": 10,
+  "AVHRR": 9,
+  "GOES,LANDSAT_SCAR": 9,
+  "LANDSAT_AF": 8,
+  "AVHRR,GOES": 8,
+  "GOES,VIIRS_SNPP": 8,
+  "GOES,MCD64A1": 7,
+  "GOES,S2_SCAR,VIIRS_SNPP": 7,
+  "GOES,HMS_SMOKE": 7,
+  "MCD64A1,S2_SCAR": 6,
+  "MODIS,VIIRS_SNPP": 6,
+  "MODIS,VIIRS_NOAA20,VIIRS_SNPP": 6,
+  "GOES,HMS_ANALYST,MODIS": 6,
+  "HMS_ANALYST,VIIRS_SNPP": 5,
+  "GOES,MCD64A1,MODIS,VIIRS_NOAA20,VIIRS_SNPP": 5,
+  "GOES,MCD64A1,MODIS": 5,
+  "DNB": 5,
+  "GOES,VIIRS_NOAA20": 4,
+  "AVHRR,GOES,MODIS": 4,
+  "AVHRR,GOES,S2_SCAR": 4,
+  "MODIS,VIIRS_NOAA20": 4,
+  "HMS_ANALYST,S2_SCAR,VIIRS_SNPP": 3,
+  "HMS_ANALYST,MODIS,VIIRS_NOAA20,VIIRS_SNPP": 3,
+  "S2_SCAR,VIIRS_NOAA20": 3,
+  "HMS_ANALYST,LANDSAT_SCAR": 3,
+  "GOES,MODIS,S2_SCAR": 3,
+  "HMS_ANALYST,MODIS,VIIRS_NOAA20": 3,
+  "HMS_ANALYST,VIIRS_NOAA20,VIIRS_SNPP": 3,
+  "S2_AF,VIIRS_NOAA20,VIIRS_SNPP": 3,
+  "S2_SCAR,VIIRS_NOAA20,VIIRS_SNPP": 3,
+  "MODIS,S2_SCAR,VIIRS_NOAA20,VIIRS_SNPP": 3,
+  "MCD64A1,MODIS": 3,
+  "GOES,HMS_ANALYST,MODIS,VIIRS_NOAA20,VIIRS_SNPP": 3,
+  "LANDSAT_SCAR,MODIS": 3,
+  "S2_SCAR,VIIRS_SNPP": 3,
+  "AVHRR,S2_SCAR": 2,
+  "GOES,HMS_ANALYST,MODIS,S2_SCAR,VIIRS_NOAA20,VIIRS_SNPP": 2,
+  "GOES,HMS_ANALYST,LANDSAT_SCAR": 2,
+  "AVHRR,GOES,MODIS,S2_SCAR,VIIRS_SNPP": 2,
+  "GOES,HMS_ANALYST,S2_SCAR,VIIRS_SNPP": 2,
+  "GOES,S2_SCAR,VIIRS_NOAA20,VIIRS_SNPP": 2,
+  "HMS_SMOKE,MODIS": 2,
+  "GOES,HMS_ANALYST,HMS_SMOKE": 2,
+  "HMS_ANALYST,MODIS,VIIRS_SNPP": 2,
+  "MODIS,S2_SCAR": 2,
+  "GOES,MODIS,VIIRS_NOAA20": 2,
+  "GOES,LANDSAT_SCAR,MCD64A1": 2,
+  "GOES,HMS_SMOKE,S2_SCAR": 2,
+  "GOES,HMS_ANALYST,MODIS,S2_SCAR": 2,
+  "MODIS,S2_SCAR,VIIRS_NOAA20": 2,
+  "GOES,HMS_ANALYST,MODIS,S2_SCAR,VIIRS_SNPP": 2,
+  "HMS_ANALYST,S2_SCAR,VIIRS_NOAA20,VIIRS_SNPP": 2,
+  "GOES,HMS_ANALYST,VIIRS_NOAA20": 2,
+  "HMS_SMOKE,S2_AF": 2,
+  "GOES,HMS_ANALYST,MODIS,VIIRS_NOAA20": 2,
+  "GOES,S2_SCAR,VIIRS_NOAA20": 2,
+  "GOES,HMS_ANALYST,VIIRS_SNPP": 2,
+  "GOES,MODIS,S2_SCAR,VIIRS_NOAA20,VIIRS_SNPP": 2,
+  "GOES,HMS_ANALYST,MCD64A1,MODIS,S2_SCAR,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "GOES,HMS_ANALYST,S2_SCAR": 1,
+  "GOES,LANDSAT_AF,MODIS": 1,
+  "GOES,HMS_ANALYST,HMS_SMOKE,VIIRS_NOAA20": 1,
+  "AVHRR,GOES,HMS_ANALYST,MCD64A1,MODIS,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "LANDSAT_AF,VIIRS_NOAA20": 1,
+  "GOES,HMS_ANALYST,MCD64A1,MODIS,S2_SCAR,VIIRS_SNPP": 1,
+  "AVHRR,HMS_ANALYST,S2_AF,VIIRS_SNPP": 1,
+  "GOES,S2_AF": 1,
+  "GOES,HMS_ANALYST,MODIS,VIIRS_SNPP": 1,
+  "AVHRR,GOES,HMS_SMOKE,MODIS,S2_SCAR": 1,
+  "GOES,HMS_ANALYST,HMS_SMOKE,S2_SCAR": 1,
+  "AVHRR,GOES,HMS_ANALYST,LANDSAT_AF,MCD64A1,MODIS,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "AVHRR,GOES,HMS_ANALYST,S2_SCAR,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "HMS_ANALYST,MCD64A1": 1,
+  "AVHRR,HMS_ANALYST": 1,
+  "GOES,MCD64A1,MODIS,S2_AF,S2_SCAR,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "GOES,MODIS,VIIRS_SNPP": 1,
+  "AVHRR,GOES,HMS_ANALYST,MODIS,S2_SCAR": 1,
+  "GOES,MCD64A1,MODIS,VIIRS_NOAA20": 1,
+  "LANDSAT_AF,MODIS": 1,
+  "GOES,HMS_SMOKE,MCD64A1": 1,
+  "GOES,MCD64A1,MODIS,S2_AF,VIIRS_SNPP": 1,
+  "HMS_ANALYST,LANDSAT_AF,VIIRS_SNPP": 1,
+  "GOES,LANDSAT_SCAR,MODIS,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "GOES,MCD64A1,S2_SCAR": 1,
+  "MCD64A1,MODIS,VIIRS_SNPP": 1,
+  "GOES,MCD64A1,MODIS,S2_AF": 1,
+  "GOES,HMS_SMOKE,MODIS,S2_SCAR,VIIRS_NOAA20": 1,
+  "HMS_SMOKE,S2_SCAR,VIIRS_SNPP": 1,
+  "LANDSAT_AF,S2_AF,VIIRS_NOAA20": 1,
+  "LANDSAT_AF,MODIS,S2_AF": 1,
+  "GOES,HMS_ANALYST,MODIS,S2_AF,VIIRS_SNPP": 1,
+  "AVHRR,GOES,MCD64A1,MODIS,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "GOES,LANDSAT_SCAR,MODIS": 1,
+  "AVHRR,HMS_ANALYST,MODIS": 1,
+  "GOES,HMS_SMOKE,S2_AF,S2_SCAR": 1,
+  "S2_AF,S2_SCAR,VIIRS_SNPP": 1,
+  "HMS_SMOKE,LANDSAT_SCAR": 1,
+  "HMS_SMOKE,LANDSAT_AF,LANDSAT_SCAR": 1,
+  "HMS_SMOKE,MODIS,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "GOES,HMS_ANALYST,LANDSAT_SCAR,MCD64A1,MODIS": 1,
+  "GOES,HMS_ANALYST,S2_SCAR,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "LANDSAT_AF,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "HMS_SMOKE,MCD64A1": 1,
+  "HMS_SMOKE,MODIS,S2_SCAR,VIIRS_NOAA20": 1,
+  "LANDSAT_SCAR,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "GOES,HMS_ANALYST,MCD64A1,MODIS,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "GOES,HMS_ANALYST,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "HMS_SMOKE,VIIRS_NOAA20": 1,
+  "LANDSAT_SCAR,VIIRS_SNPP": 1,
+  "GOES,HMS_ANALYST,MCD64A1,MODIS,VIIRS_SNPP": 1,
+  "MCD64A1,S2_AF,S2_SCAR,VIIRS_SNPP": 1,
+  "MCD64A1,MODIS,S2_SCAR": 1,
+  "MCD64A1,MODIS,S2_SCAR,VIIRS_NOAA20": 1,
+  "HMS_ANALYST,MCD64A1,MODIS,VIIRS_SNPP": 1,
+  "HMS_ANALYST,LANDSAT_SCAR,VIIRS_SNPP": 1,
+  "HMS_ANALYST,VIIRS_NOAA20": 1,
+  "MCD64A1,MODIS,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "HMS_ANALYST,MCD64A1,VIIRS_SNPP": 1,
+  "HMS_ANALYST,MODIS,S2_SCAR,VIIRS_SNPP": 1,
+  "GOES,HMS_ANALYST,HMS_SMOKE,MCD64A1,MODIS,VIIRS_NOAA20": 1,
+  "AVHRR,GOES,HMS_ANALYST,S2_AF,S2_SCAR,VIIRS_SNPP": 1,
+  "GOES,HMS_ANALYST,LANDSAT_AF,MODIS,VIIRS_NOAA20": 1,
+  "GOES,HMS_ANALYST,MCD64A1,VIIRS_NOAA20,VIIRS_SNPP": 1
+ },
+ "wall_s": 24062.723444223404,
+ "inputs": {
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2021_Puerto_Rico.csv": {
+   "sha256": "cd5919c5c6ce91a63fe114f14fd1cc90e6994f141a0d6ad5775360ef254c8075",
+   "bytes": 4408
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2020_Puerto_Rico.csv": {
+   "sha256": "76cf2e566215e7b6599ccf177f9cca81e9e60bdb0ffac458badbf922acd9cc98",
+   "bytes": 16955
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2018_United_States.csv": {
+   "sha256": "2239e26a8eb8378d20b69beaf307ab49315b19e3ccf8db076a33c32280a75f8f",
+   "bytes": 37835646
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2021_Puerto_Rico.csv": {
+   "sha256": "4cd3388f7264e3040f0e2c1bbc4eefb3d676182cc9467188a70c035d157fd0cf",
+   "bytes": 20884
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2021_United_States.csv": {
+   "sha256": "4130c8ce327424bb9b1a54e09667f56fbe52d20649a09dcdd8f64d5e5689b9a9",
+   "bytes": 53156381
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2020_United_States.csv": {
+   "sha256": "665dccf07cc84acb3e23e128886394c2b7ece6f165f66569040685e98d0fd7a1",
+   "bytes": 54537603
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2019_United_States.csv": {
+   "sha256": "368ddcfce96b63e6a61791809b959ea7e1d0322ff3de04bbd241a8fe75a43eef",
+   "bytes": 36202018
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2020_Puerto_Rico.csv": {
+   "sha256": "b0157698d27c25a51f4ee8cb6e49471bd75f753f7e610879d054ee10829a90ff",
+   "bytes": 14115
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2018_United_States.csv": {
+   "sha256": "5e6bf58957d2735abde985f9bbc205973f2dd5cea8705968b70c6e60afe23855",
+   "bytes": 10488759
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2018_Puerto_Rico.csv": {
+   "sha256": "b913810925b5cbadd61a9c9874f79e36951459df9f3a8952c1e202c607311099",
+   "bytes": 27499
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2019_United_States.csv": {
+   "sha256": "a478e23cd205e1367aaa3d543da00f15036ee5e0d81071c530ee78cd1368555e",
+   "bytes": 8554573
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2018_United_States.csv": {
+   "sha256": "38963a7315959b2d6db42246c88ba06735e280507e47a70b16ead0620f967b79",
+   "bytes": 44442753
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2020_Puerto_Rico.csv": {
+   "sha256": "9eeb00070dd00cf390c4307badfd156bea494fd75f888e6d54cd52d624a7a3a6",
+   "bytes": 3290
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2018_Puerto_Rico.csv": {
+   "sha256": "5d3519a45f37df9c6fcba02610265fef67a9d200f92c681c5ca2c03a41e0e89b",
+   "bytes": 4645
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2020_United_States.csv": {
+   "sha256": "309c1c97f0d81013a4ed28768c3078aafcf1cd49bc453b4591d66a5227dc8128",
+   "bytes": 53815954
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2018_Puerto_Rico.csv": {
+   "sha256": "86b25547d2bc1aa167e8d98dfe98e28854dc61d6b6f31c5cfaf56681940b9305",
+   "bytes": 19473
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2020_United_States.csv": {
+   "sha256": "466e2c7616fe1d813a7bfa66971160b64d6baf341fab22ffe8fac06dfbf7961a",
+   "bytes": 12343543
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2019_Puerto_Rico.csv": {
+   "sha256": "39c7a5093e87c458c04354bc221b6a3f464fc54d68d97f6768f276367c46519d",
+   "bytes": 7974
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2021_United_States.csv": {
+   "sha256": "9abbe7b1f7b58926b3b6a242c9b3ee9d59ba7c98b08ddc1e019d517fb8a6be21",
+   "bytes": 54976027
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2021_Puerto_Rico.csv": {
+   "sha256": "491506477dc53f1f9d7ddaf3cf3c37690cfce7f2743130f5516f74e9fc662d66",
+   "bytes": 16370
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2021_United_States.csv": {
+   "sha256": "bc227a3c85f03fe847d5b96da87cc67588774043c0efa4f0c85179c12187f897",
+   "bytes": 13123878
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2019_United_States.csv": {
+   "sha256": "e72e16e2cc21f1448ad16e3d70e2bdc2f9566065bd31d928a010b4987ac7f545",
+   "bytes": 36948805
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2019_Puerto_Rico.csv": {
+   "sha256": "bc72bcde5b6f8a07145927b05816a0f198bd4ab07a4fa26193d4fa2b4cad9a1e",
+   "bytes": 36733
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2019_Puerto_Rico.csv": {
+   "sha256": "be3d2296ad7ffda055d655599dcbf0b4b6aea7da54449265b386cad66f56d118",
+   "bytes": 38611
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/fpafod/RDS-2013-0009.7_Data_Format4_SQLITE.zip": {
+   "sha256": "a5d691bdbcf5a3de6a7e0d94380df311dd2c552645395312e55510424a7483fb",
+   "bytes": 230273073
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/mtbs/mtbs_perimeter_data.zip": {
+   "sha256": "3ea5526f0a6c466687be670bb13b214535aefd2a5fa7db29a465a3c86f9fa619",
+   "bytes": 420877956
+  }
+ }
+}

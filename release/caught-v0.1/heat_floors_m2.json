@@ -1,0 +1,10 @@
+{
+ "MODIS_day": 1921.2,
+ "MODIS_night": 3421.6,
+ "VIIRS_day": 327.5,
+ "VIIRS_night": 65.4,
+ "AVHRR_day": 3037.7,
+ "AVHRR_night": 3516.8,
+ "GOES_day": 4018.8,
+ "GOES_night": 3489.8
+}
