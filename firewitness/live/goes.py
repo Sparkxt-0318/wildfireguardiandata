@@ -53,6 +53,28 @@ def utc(x) -> datetime:
     return datetime.fromisoformat(str(x).replace("Z", "+00:00")).astimezone(timezone.utc)
 
 
+# ---------------------------------------------------------------- atomic files (containers can be reclaimed mid-write)
+def atomic_write_bytes(path, data: bytes):
+    path = Path(path)
+    tmp = path.with_name(path.name + f".{os.getpid()}.tmp")
+    tmp.write_bytes(data)
+    os.replace(tmp, path)
+
+
+def atomic_np_save(path, arr):
+    import io as _io
+    b = _io.BytesIO()
+    np.save(b, arr)
+    atomic_write_bytes(path, b.getvalue())
+
+
+def atomic_savez(path, **arrays):
+    import io as _io
+    b = _io.BytesIO()
+    np.savez_compressed(b, **arrays)
+    atomic_write_bytes(path, b.getvalue())
+
+
 # ---------------------------------------------------------------- HTTP
 _tl = threading.local()
 
@@ -326,9 +348,15 @@ def read_job(job: dict) -> dict:
                     v = np.where(valid, v, np.nan).astype(np.float32)
                     res.append(v)
             elif kind == "acm":
-                ds = h["ACM"]
+                # older ACMC files (e.g. 2020) carry only the binary mask BCM (0 clear, 1 cloudy): mapped to 0 / 3
+                binary = "ACM" not in h
+                ds = h["BCM"] if binary else h["ACM"]
                 for (r0, c0, n, m) in job["boxes"]:
                     raw, (a0, a1, b0, b1) = _box(ds, r0, c0, n, m)
+                    raw = raw.astype(np.int16)
+                    if binary:
+                        raw = np.where(raw == 1, 3, np.where(raw == 0, 0, 255))
+                    raw = np.where((raw >= 0) & (raw <= 3), raw, 255).astype(np.uint8)
                     v = np.full((n, m), 255, np.uint8)
                     v[a0 - r0:a1 - r0, b0 - c0:b1 - c0] = raw[a0 - r0:a1 - r0, b0 - c0:b1 - c0]
                     res.append(v)

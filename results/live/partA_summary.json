@@ -1,0 +1,319 @@
+{
+ "dev": {
+  "n": 120,
+  "n_onset": 24,
+  "share_onset": [
+   0.2,
+   0.13824380919983048,
+   0.2803683534337273
+  ],
+  "lead_vs_T0_min": {
+   "n": 24,
+   "median_ci": [
+    25.85,
+    16.35,
+    80.7
+   ],
+   "q25_q75": [
+    10.95,
+    91.95
+   ],
+   "n_positive": 24
+  },
+  "lead_vs_fdc_min": {
+   "n": 18,
+   "median_ci": [
+    47.5,
+    12.5,
+    452.5
+   ],
+   "q25_q75": [
+    8.75,
+    523.75
+   ],
+   "n_positive": 18
+  },
+  "lead_vs_polar_min": {
+   "n": 24,
+   "median_ci": [
+    83.2,
+    41.7,
+    220.04999999999808
+   ],
+   "q25_q75": [
+    25.7,
+    274.95
+   ],
+   "n_positive": 24
+  },
+  "lead_vs_discovery_min": {
+   "n": 24,
+   "median_ci": [
+    -15.75,
+    -84.3,
+    340.7
+   ],
+   "q25_q75": [
+    -88.8,
+    381.475
+   ],
+   "n_positive": 11
+  },
+  "by_class": {
+   "0": {
+    "n": 30,
+    "n_onset": 4,
+    "median_lead_vs_T0": [
+     14.2,
+     5.0,
+     25.0
+    ]
+   },
+   "1": {
+    "n": 30,
+    "n_onset": 7,
+    "median_lead_vs_T0": [
+     26.7,
+     17.7,
+     423.7
+    ]
+   },
+   "2": {
+    "n": 30,
+    "n_onset": 8,
+    "median_lead_vs_T0": [
+     61.2,
+     17.5,
+     537.7
+    ]
+   },
+   "3": {
+    "n": 30,
+    "n_onset": 5,
+    "median_lead_vs_T0": [
+     20.0,
+     5.0,
+     273.7
+    ]
+   }
+  },
+  "label_kinds": {
+   "no earlier onset (anchor kept)": 96,
+   "two witnesses": 2,
+   "one witness (other satellite: no onset)": 8,
+   "one witness": 11,
+   "witnesses disagree": 3
+  }
+ },
+ "test": {
+  "n": 120,
+  "n_onset": 21,
+  "share_onset": [
+   0.175,
+   0.11740448670592563,
+   0.25275868948042857
+  ],
+  "lead_vs_T0_min": {
+   "n": 21,
+   "median_ci": [
+    52.7,
+    23.7,
+    114.7
+   ],
+   "q25_q75": [
+    21.7,
+    130.0
+   ],
+   "n_positive": 21
+  },
+  "lead_vs_fdc_min": {
+   "n": 16,
+   "median_ci": [
+    130.0,
+    30.0,
+    445.0
+   ],
+   "q25_q75": [
+    26.25,
+    516.25
+   ],
+   "n_positive": 16
+  },
+  "lead_vs_polar_min": {
+   "n": 21,
+   "median_ci": [
+    98.7,
+    41.7,
+    140.7
+   ],
+   "q25_q75": [
+    24.7,
+    176.7
+   ],
+   "n_positive": 21
+  },
+  "lead_vs_discovery_min": {
+   "n": 21,
+   "median_ci": [
+    43.0,
+    8.0,
+    180.7
+   ],
+   "q25_q75": [
+    7.2,
+    193.7
+   ],
+   "n_positive": 16
+  },
+  "by_class": {
+   "0": {
+    "n": 30,
+    "n_onset": 5,
+    "median_lead_vs_T0": [
+     21.7,
+     10.0,
+     130.0
+    ]
+   },
+   "1": {
+    "n": 30,
+    "n_onset": 6,
+    "median_lead_vs_T0": [
+     93.7,
+     21.200000000000003,
+     565.7
+    ]
+   },
+   "2": {
+    "n": 30,
+    "n_onset": 6,
+    "median_lead_vs_T0": [
+     48.85,
+     18.85,
+     243.35
+    ]
+   },
+   "3": {
+    "n": 30,
+    "n_onset": 4,
+    "median_lead_vs_T0": [
+     62.7,
+     10.0,
+     445.0
+    ]
+   }
+  },
+  "label_kinds": {
+   "no earlier onset (anchor kept)": 99,
+   "one witness (other satellite: no onset)": 5,
+   "one witness": 13,
+   "two witnesses": 3
+  }
+ },
+ "all": {
+  "n": 240,
+  "n_onset": 45,
+  "share_onset": [
+   0.1875,
+   0.14318572407835667,
+   0.2416608320466031
+  ],
+  "lead_vs_T0_min": {
+   "n": 45,
+   "median_ci": [
+    41.7,
+    21.7,
+    83.7
+   ],
+   "q25_q75": [
+    15.0,
+    116.7
+   ],
+   "n_positive": 45
+  },
+  "lead_vs_fdc_min": {
+   "n": 34,
+   "median_ci": [
+    120.0,
+    25.0,
+    310.0
+   ],
+   "q25_q75": [
+    16.25,
+    557.5
+   ],
+   "n_positive": 34
+  },
+  "lead_vs_polar_min": {
+   "n": 45,
+   "median_ci": [
+    96.7,
+    52.42500000000002,
+    124.7
+   ],
+   "q25_q75": [
+    24.7,
+    273.7
+   ],
+   "n_positive": 45
+  },
+  "lead_vs_discovery_min": {
+   "n": 45,
+   "median_ci": [
+    33.7,
+    -29.0,
+    106.2
+   ],
+   "q25_q75": [
+    -51.4,
+    368.7
+   ],
+   "n_positive": 27
+  },
+  "by_class": {
+   "0": {
+    "n": 60,
+    "n_onset": 9,
+    "median_lead_vs_T0": [
+     21.7,
+     5.7,
+     114.7
+    ]
+   },
+   "1": {
+    "n": 60,
+    "n_onset": 13,
+    "median_lead_vs_T0": [
+     65.0,
+     20.0,
+     423.7
+    ]
+   },
+   "2": {
+    "n": 60,
+    "n_onset": 14,
+    "median_lead_vs_T0": [
+     48.85,
+     30.0,
+     176.7
+    ]
+   },
+   "3": {
+    "n": 60,
+    "n_onset": 9,
+    "median_lead_vs_T0": [
+     23.7,
+     5.0,
+     273.7
+    ]
+   }
+  },
+  "label_kinds": {
+   "no earlier onset (anchor kept)": 195,
+   "two witnesses": 5,
+   "one witness (other satellite: no onset)": 13,
+   "one witness": 24,
+   "witnesses disagree": 3
+  }
+ }
+}

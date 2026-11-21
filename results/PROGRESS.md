@@ -28,3 +28,31 @@ Failed gates reported by the tracks so far (as reported, not re-verified):
 Departures from a brief recorded as decisions: D-011 (fuel loop), D-012 (smoke loop keep rule and S1 edge metric).
 
 Next: caught and live DONE and depth checks; score rerun on the full S1 file; then umbrella release v0.1, deletion of the coordination branch (local copy kept), and the independent audit (brief 55).
+
+## 2026-11-21 05:00Z
+
+| Track | State |
+|---|---|
+| 49 records | DONE v0.1 (6e4de95), v0.2 (8ca704e), v0.3 (87dc2a9); releases records-v0.1, -v0.2, -v0.3. v0.4 (time only: pooled years, AM/PM test on the -12 h shift) in progress (D-018) |
+| 50 caught | S1 (California 2020) on main: 92 verified fires with no label; placebo 0.26% verified, 5.05% probable. Sealed C2: classes B, C and D pass, class A fails. S2 (all US 2020) placebos finishing, then S3 (2018-2020, about 12 to 14 h). Fuel-type scar check done on dev (D-017; under-measures in timber), in its next PR. Then caught-v0.1, then v0.2 verified tier (D-014) |
+| 51 live | v0.1 sealed test done: Part B D1 FAILED (7/97 earlier); Part A 45/240 earlier onset; supplement 3/30. D2 (24 h with the frozen detector) runs to the 2026-11-22T00:16Z cycle. Then the detector stops (negative result) and trace-back v0.2 runs (D-018) |
+| 52 smoke | DONE (5992f03); no further work (D-018) |
+| 53 fuel | DONE (8dcb76d); no further work (D-018) |
+| 54 score | DONE (3bb0988); no further work (D-018) |
+
+Decisions since the last report: D-012 to D-018.
+
+Restarts: none.
+
+Housekeeping: a stray branch `score/live-onset` exists (same commit as merged work), left in place.
+
+Open finding: OK Forestry -12 h shift (2016, 2020, 2022), cause unknown, not repaired.
+
+Failed gates, as reported by the tracks:
+- records: R1 recall on sealed; R3(c); v0.2 sealed UTC re-calls 3/7; gazetteer coverage below its preset rule.
+- smoke: S1 opacity and edge targets.
+- caught: C2 class A.
+- live: D1.
+- score: N5; N3 passes only after its limit was set on the same cheat (D-013).
+
+Next: the work above; then umbrella release v0.1, deletion of the coordination branch (local copy kept), and the audit with briefs/55_audit_addition.md.

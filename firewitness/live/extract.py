@@ -189,7 +189,7 @@ def extract_fire(fire: dict, cfg: dict, pool, out_dir: Path = SERIES_DIR, force=
         lon_g, lat_g = goes.rc_to_lonlat(*np.meshgrid(np.arange(r0, r0 + BOX), np.arange(c0, c0 + BOX), indexing="ij"),
                                          goes.grid_info(s["bucket"], p["C07"]["prefix"], 7, name))
         f_out = out_dir / f"{fid}_{name}.npz"
-        np.savez_compressed(f_out, tscan=tscan, tavail=tavail, avail_C14=avail["C14"], avail_ACM=avail["ACM"],
+        goes.atomic_savez(f_out, tscan=tscan, tavail=tavail, avail_C14=avail["C14"], avail_ACM=avail["ACM"],
                             avail_FDC=avail["FDC"], avail_C01=avail["C01"], lat=lat_g.astype(np.float32),
                             lon=lon_g.astype(np.float32), **arr)
         sm.update({"n_jobs": len(jobs), "n_fail": nfail, "bytes_read": nbytes, "file": f_out.name,

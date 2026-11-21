@@ -82,3 +82,21 @@ def test_caught_cell_is_sized_to_the_look_floor():
     assert s.cell_km >= (90000.0 ** 0.5) / 1000.0 - 1e-9          # largest finite floor sets the minimum cell
     f = s.static["floor_m2"]
     assert ((s.state == NO_FIRE).any(0) <= (f <= (s.cell_km * 1000) ** 2)).all()
+
+
+def test_live_onset_table_with_iso_intervals(tmp_path):
+    onset = tmp_path / "onset.csv"
+    fires = tmp_path / "fires.csv"
+    onset.write_text("fire_id,acres,label_kind,onset_lo_t,onset_hi_t,label_utc,T0\n"
+                     "F1,60,two witnesses,2023-07-02T03:00:00Z,2023-07-03T01:00:00Z,2023-07-03T01:00:00Z,2023-07-03T20:00:00Z\n"
+                     "F2,50,no earlier onset (anchor kept),,,2023-07-05T12:00:00Z,2023-07-05T12:00:00Z\n")
+    fires.write_text("fire_id,lat,lon,acres\nF1,36.0,-119.9,60\nF2,37.0,-120.1,50\n")
+    ds = live.read_onset(str(onset), str(fires))
+    a, b = ds.scenes["F1"], ds.scenes["F2"]
+    assert not a.meta["record_only"] and b.meta["record_only"]
+    assert a.interval_slack >= 1
+    fire_day = lambda s: int(np.argmax([(s.state[t] == FIRE).any() for t in range(len(s.dates))]))
+    # fire starts on the day of onset_hi (July 3) for F1, on the anchor day for F2
+    import datetime as dt
+    assert dt.date.fromordinal(int(a.dates[fire_day(a)])) == dt.date(2023, 7, 3)
+    assert dt.date.fromordinal(int(b.dates[fire_day(b)])) == dt.date(2023, 7, 5)

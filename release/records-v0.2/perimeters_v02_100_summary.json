@@ -1,0 +1,43 @@
+{
+ "sample": 100,
+ "seed": 0,
+ "status": {
+  "scar": 53,
+  "no_scar_clear": 31,
+  "no_clear_look": 11,
+  "rejected": 5
+ },
+ "scar": 53,
+ "consistent": 12,
+ "disagreeing": 41,
+ "disagreeing_scar_smaller_than_0.2x": 41,
+ "disagreeing_scar_larger_than_5x": 0,
+ "median_ratio_scar": 0.003953682608244417,
+ "overlap_with_prereg200_seed1": 25,
+ "intervals": {
+  "scar": [
+   0.4328868313724773,
+   0.6248934801789626
+  ],
+  "consistent": [
+   0.06999337365267776,
+   0.1981226800290837
+  ],
+  "disagreeing": [
+   0.31867157095664655,
+   0.5079874943890338
+  ],
+  "no_scar_clear": [
+   0.22779563206132378,
+   0.40626239477955695
+  ],
+  "no_clear_look": [
+   0.06254131955225124,
+   0.18631463027903025
+  ],
+  "rejected": [
+   0.021543361456313564,
+   0.11175196527208817
+  ]
+ }
+}

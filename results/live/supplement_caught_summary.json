@@ -1,0 +1,52 @@
+{
+ "n_listed": 30,
+ "n_processed": 30,
+ "errors": [],
+ "thresholds_from_main_240": {
+  "east": {
+   "h": 35.51684249877931,
+   "n_placebo": 17958
+  },
+  "west": {
+   "h": 31.283151206970196,
+   "n_placebo": 10743
+  }
+ },
+ "n_onset": 3,
+ "share": [
+  0.1,
+  0.03459925995971615,
+  0.25621441315266624
+ ],
+ "lead_vs_T0_min": [
+  55.6,
+  43.8,
+  106.7
+ ],
+ "lead_vs_fdc_min": [
+  NaN,
+  NaN,
+  NaN
+ ],
+ "E2": {
+  "n_dual_onset": 2,
+  "n_agree": 1,
+  "share": [
+   0.5,
+   0.09452865480086614,
+   0.9054713451991339
+  ],
+  "median_abs_diff_min": [
+   27.55,
+   20.0,
+   35.1
+  ],
+  "pass": false
+ },
+ "label_kinds": {
+  "no earlier onset (anchor kept)": 27,
+  "one witness (other satellite: no onset)": 1,
+  "two witnesses": 1,
+  "witnesses disagree": 1
+ }
+}

@@ -1,0 +1,34 @@
+[
+ {
+  "system":"IA-ICS209",
+  "table":"fpafod",
+  "rows":4038,
+  "rows_with_usable_time_and_state":2216,
+  "records_changed_clock_time":2216,
+  "records_calendar_date_moved":95
+ },
+ {
+  "system":"IA-INFORM",
+  "table":"fpafod",
+  "rows":341869,
+  "rows_with_usable_time_and_state":309329,
+  "records_changed_clock_time":309329,
+  "records_calendar_date_moved":19379
+ },
+ {
+  "system":"ST-NASF",
+  "table":"fpafod",
+  "rows":1060900,
+  "rows_with_usable_time_and_state":666195,
+  "records_changed_clock_time":666195,
+  "records_calendar_date_moved":31006
+ },
+ {
+  "system":"ics209_2014",
+  "table":"ics209_2014",
+  "rows":39213,
+  "rows_with_usable_time_and_state":39145,
+  "records_changed_clock_time":39145,
+  "records_calendar_date_moved":2922
+ }
+]

@@ -1,0 +1,53 @@
+{
+ "L1_weak_scar": {
+  "auc_far": 0.9556,
+  "auc_front": null,
+  "leak_detail": "AUC 0.956 on 4477 cells with no fire within 3 cells the day before exceeds 0.9",
+  "leak_status": "FLAG: implausible foresight",
+  "lift_strict": {
+   "ci95": [
+    -0.023725,
+    0.03128
+   ],
+   "diff_f1": -0.002612,
+   "excludes_zero": false,
+   "n_fires": 35
+  },
+  "persistence_strict_f1": 0.546312,
+  "strict_f1": 0.5437
+ },
+ "L2_two_day": {
+  "auc_far": 0.8774,
+  "auc_front": null,
+  "leak_detail": "declared horizon respected; AUC 0.877 on 4477 new-ignition cells (limit 0.9); front AUC 0.789 (limit 0.95). A screen, not a proof.",
+  "leak_status": "pass",
+  "lift_strict": {
+   "ci95": [
+    -0.024616,
+    0.012928
+   ],
+   "diff_f1": -0.001124,
+   "excludes_zero": false,
+   "n_fires": 35
+  },
+  "persistence_strict_f1": 0.546312,
+  "strict_f1": 0.545188
+ },
+ "honest": {
+  "auc_far": 0.6953,
+  "auc_front": null,
+  "leak_detail": "declared horizon respected; AUC 0.695 on 4477 new-ignition cells (limit 0.9); front AUC 0.769 (limit 0.95). A screen, not a proof.",
+  "leak_status": "pass",
+  "lift_strict": {
+   "ci95": [
+    -0.037663,
+    0.004517
+   ],
+   "diff_f1": -0.014839,
+   "excludes_zero": false,
+   "n_fires": 35
+  },
+  "persistence_strict_f1": 0.546312,
+  "strict_f1": 0.531473
+ }
+}
