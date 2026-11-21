@@ -20,7 +20,11 @@ COLUMNS = ["rid", "FOD_ID", "STATE", "FIRE_YEAR", "FIRE_SIZE", "FIRE_SIZE_CLASS"
 
 
 def load_labels(tag: str, slice_name: str) -> pd.DataFrame:
-    return pd.read_parquet(run_dir(f"{slice_name}_{tag}") / "records" / "labels.parquet")
+    """Only the released columns (the standard-label geometry is not released and is large)."""
+    import pyarrow.parquet as pq
+    f = run_dir(f"{slice_name}_{tag}") / "records" / "labels.parquet"
+    have = pq.ParquetFile(f).schema_arrow.names
+    return pd.read_parquet(f, columns=[c for c in COLUMNS if c in have])
 
 
 def _slim_geom(g, tier, r_m):
@@ -175,25 +179,36 @@ def scar_pairs(lab: pd.DataFrame, out: str, n: int = 40, seed: int = 0) -> Path:
     return outd
 
 
-def states_table(run: str, labels: pd.DataFrame | None = None) -> "gpd.GeoDataFrame":
+def _unknowns(ck: Path, rids=None) -> dict:
+    """Unknown-area geometry per rid from a scar checkpoint (JSON lines), streamed; only rids in `rids` kept."""
+    from shapely.geometry import shape
+    unk = {}
+    if not ck.exists():
+        return unk
+    with open(ck) as f:
+        for line in f:
+            j = json.loads(line)
+            if rids is not None and j["rid"] not in rids:
+                continue
+            st = j.get("states") or {}
+            unk[j["rid"]] = shape(st["unknown"]) if st.get("unknown") else None
+    return unk
+
+
+def states_table(run: str, labels: pd.DataFrame | None = None, unk: dict | None = None) -> "gpd.GeoDataFrame":
     """Three states per searched record disc: fire, no_fire (with floor), unknown; record-only discs as unknown."""
     import geopandas as gpd
     from pyproj import Transformer
     from shapely import wkt
-    from shapely.geometry import Point, shape
+    from shapely.geometry import Point
     from shapely.ops import transform
 
     from .standard import local_crs
 
     rd = run_dir(run)
     lab = labels if labels is not None else pd.read_parquet(rd / "labels.parquet")
-    unk = {}
-    ck = rd / "scar.jsonl"
-    if ck.exists():
-        for line in ck.read_text().splitlines():
-            j = json.loads(line)
-            st = j.get("states") or {}
-            unk[j["rid"]] = shape(st["unknown"]) if st.get("unknown") else None
+    if unk is None:
+        unk = _unknowns(rd / "scar.jsonl", set(lab.rid))
     rows = []
     for r in lab.itertuples():
         if pd.isna(r.LATITUDE):
@@ -222,3 +237,40 @@ def states_table(run: str, labels: pd.DataFrame | None = None) -> "gpd.GeoDataFr
             rows.append({**base, "state": "unknown", "t0": str(r.t0), "t1": str(r.t1), "floor_m2": None,
                          "geometry": transform(inv, rest)})
     return gpd.GeoDataFrame(rows, geometry="geometry", crs="EPSG:4326")
+
+
+def _write_split(g, outd: Path, stem: str, max_mb: float) -> list:
+    """Write g as one GeoParquet file, or as K interleaved parts when one file would pass max_mb."""
+    n_parts = 1
+    while True:
+        files, size = [], 0
+        for k in range(n_parts):
+            f = outd / (f"{stem}.parquet" if n_parts == 1 else f"{stem}_part{k + 1}of{n_parts}.parquet")
+            g.iloc[k::n_parts].to_parquet(f, compression="zstd")
+            files.append(f)
+            size = max(size, f.stat().st_size)
+        if size <= max_mb * 1e6:
+            return files
+        for f in files:
+            f.unlink()
+        n_parts += 1
+
+
+def states_export(run: str, out: str, max_mb: float = 90.0) -> list:
+    """Three-state table for a whole slice, one year at a time (the scar checkpoint is streamed once per year)."""
+    import pyarrow.parquet as pq
+    rd = run_dir(run)
+    outd = Path(out)
+    outd.mkdir(parents=True, exist_ok=True)
+    cols = ["rid", "LATITUDE", "LONGITUDE", "r_m", "t0", "t1", "tier", "std_label", "pixel_label", "geometry_wkt",
+            "scar_pre", "scar_post", "scar_status", "scar_floor_m2", "label_t0", "label_t1", "FIRE_YEAR"]
+    years = sorted(pq.read_table(rd / "labels.parquet", columns=["FIRE_YEAR"]).column(0).unique().to_pylist())
+    files = []
+    for y in years:
+        lab = pd.read_parquet(rd / "labels.parquet", columns=cols, filters=[("FIRE_YEAR", "==", y)])
+        g = states_table(run, lab, _unknowns(rd / "scar.jsonl", set(lab.rid)))
+        for c in ("t0", "t1"):
+            g[c] = g[c].astype(str)
+        files += _write_split(g, outd, f"caught_states_v0.1_{y}", max_mb)
+        del lab, g
+    return files
