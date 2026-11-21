@@ -61,7 +61,6 @@ LA-KIF-00013,2000,31.615733554054053,-93.0862749,34.0,"suggested location, unver
 MD-MDS-1020,2002,39.72535837297298,-78.7625185,34.0,"suggested location, unverified",Cumberland,populated place,True
 MI-MIS-002,1999,46.0924965,-85.4475966,72.5,"suggested location, unverified",Naubinway,populated place,False
 MN-MNS-,1999,48.8460926,-95.7627661,72.5,"suggested location, unverified",Roseau,populated place,False
-MN-MNS-,1999,48.8460926,-95.7627661,72.5,"suggested location, unverified",Roseau,populated place,False
 MN-MNS-116-050,1999,47.5216231,-95.3983491,72.5,"suggested location, unverified",Bagley,populated place,False
 MN-MNS-123-133,2000,48.7005324,-96.1816816,72.5,"suggested location, unverified",Greenbush,populated place,False
 MN-MNS-123-46,2000,48.8460926,-95.7627661,72.5,"suggested location, unverified",Roseau,populated place,False
@@ -92,7 +91,6 @@ MT-S2S-121,2000,46.872146,-113.1456666125306,34.0,"suggested location, unverifie
 MT-SOS-89009,1999,45.8349395,-109.9554647,72.5,"suggested location, unverified",Big Timber,populated place,False
 NC-NCS-,1999,35.8580358,-82.7057583,57.0,"suggested location, unverified",Madison County,county,False
 NJ-NJS-,1999,39.8777514,-74.6681417,57.0,"suggested location, unverified",Burlington County,county,False
-NJ-NJS-,1999,39.8777514,-74.6681417,57.0,"suggested location, unverified",Burlington County,county,False
 NM-N4S-,1999,35.5939325,-105.2238969,72.5,"suggested location, unverified",LAS VEGAS,populated place,False
 NM-ROD-L794,2000,33.3942655,-104.5230242,72.5,"suggested location, unverified",Roswell,populated place,False
 NM-SNF-117,1999,35.7686356,-106.692258,72.5,"suggested location, unverified",JEMEZ SPRINGS,populated place,False
@@ -121,9 +119,7 @@ TX-MCR-,2000,29.7632836,-94.61168876507284,34.0,"suggested location, unverified"
 TX-RGR-,2000,26.5645074,-98.1211185,72.5,"suggested location, unverified",San Manuel,populated place,False
 TX-TXS-00004,1999,30.9823928,-98.7075397,72.5,"suggested location, unverified",CHEROKEE,populated place,False
 TX-TXS-00019,2000,35.2219971,-101.8312969,72.5,"suggested location, unverified",Amarillo,populated place,False
-TX-TXS-00019,2000,35.2219971,-101.8312969,72.5,"suggested location, unverified",Amarillo,populated place,False
 TX-TXS-00042,1999,32.581693664864865,-98.9022898,34.0,"suggested location, unverified",BRECKENRIDGE,populated place,True
-TX-TXS-99049,1999,30.06702497277756,-100.26455787101204,34.0,"suggested location, unverified",ROCKSPRINGS,populated place,True
 TX-TXS-99049,1999,30.06702497277756,-100.26455787101204,34.0,"suggested location, unverified",ROCKSPRINGS,populated place,True
 UT-NWS-204,1999,40.452722,-112.4179428753975,34.0,"suggested location, unverified",Stockton,populated place,True
 UT-NWS-325,1999,41.521018,-113.0820227,57.0,"suggested location, unverified",Box Elder County,county,False
@@ -157,7 +153,6 @@ CA-SCU-3081,2004,38.0049214,-121.805789,72.5,"suggested location, unverified",An
 CA-SKU-003583,2006,41.5285893,-122.3647255,72.5,"suggested location, unverified",Lake Shastina,populated place,False
 CA-SQF-1423,2002,36.18148677277756,-118.75468334995922,34.0,"suggested location, unverified",Springville,populated place,True
 CA-TGU-004575,2003,39.6051574,-122.5391598,72.5,"suggested location, unverified",ELK CREEK,populated place,False
-CO-ARF-047,2002,40.5852602,-105.084423,72.5,"suggested location, unverified",Fort Collins,populated place,False
 ID-BOF-P41519,2002,44.14115427277756,-115.88069541609954,34.0,"suggested location, unverified",Garden Valley,populated place,True
 ID-SCF-4199,2004,44.57988786486486,-114.938582,34.0,"suggested location, unverified",Stanley,populated place,True
 ID-SCF-4278,2004,44.463472309332296,-115.28189133267918,34.0,"suggested location, unverified",Stanley,populated place,True
