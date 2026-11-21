@@ -1,0 +1,34 @@
+{
+ "groups_total": 83,
+ "groups_n_ge_30": 36,
+ "dev_UTC_tables": {
+  "groups_n_ge_30": 7,
+  "called_UTC": 3,
+  "not_clear": 3,
+  "called_local": 1
+ },
+ "dev_local_tables": {
+  "groups_n_ge_30": 9,
+  "called_UTC_or_shift": 0,
+  "local_or_not_clear": 9
+ },
+ "new_tables": {
+  "wfigs_groups": 11,
+  "wfigs_UTC": 11,
+  "ok_groups": 8,
+  "ok_outcomes": {
+   "no offset found (not clear)": 4,
+   "offset: corrected by -12 h": 3,
+   "offset: recorded in UTC": 1
+  },
+  "wa_groups_n_ge_30": 1
+ },
+ "dev_local_no_false_utc_ci": [
+  0.7008472464490406,
+  1.0
+ ],
+ "dev_UTC_called_ci": [
+  0.1582169222626268,
+  0.7495457695909742
+ ]
+}

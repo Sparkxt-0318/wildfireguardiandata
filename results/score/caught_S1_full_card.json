@@ -1,0 +1,71 @@
+{
+ "dataset": {
+  "cell_days": 235200350,
+  "fire": 57104469,
+  "fires": 10360,
+  "no_fire": 18107806,
+  "unknown": 159988075
+ },
+ "extent_sized_cells_without_floor_sizing": {
+  "no_fire_cell_days": 72023445,
+  "passing_floor_rule": 46592
+ },
+ "label": "FULL S1 (results/caught/states_S1.parquet, track 50 PR #23)",
+ "median_cell_km": 0.02,
+ "negatives": {
+  "by_danger": {
+   "0": {
+    "neg": 2024742,
+    "pos": 1996635
+   },
+   "1": {
+    "neg": 0,
+    "pos": 0
+   },
+   "2": {
+    "neg": 0,
+    "pos": 0
+   },
+   "3": {
+    "neg": 0,
+    "pos": 0
+   },
+   "4": {
+    "neg": 0,
+    "pos": 0
+   }
+  },
+  "eligible_negative_candidates": 2024742,
+  "hard_share_of_negatives": 0.007,
+  "match_level_share": {
+   "exact (danger, land cover, region, month)": 0.1566,
+   "month +-1": 0.1829,
+   "same danger, any land cover/region/month": 0.5493,
+   "same land-cover group and region, same danger": 0.1112
+  },
+  "matched": true,
+  "negatives": 2024742,
+  "positives": 1996635,
+  "source": {
+   "floor_m2_rule": true,
+   "match_keys_unavailable": [
+    "danger",
+    "landcover"
+   ],
+   "negative_state": "verified no fire (three-state labels)"
+  }
+ },
+ "records": 10360,
+ "split_dropped": 4722,
+ "split_sha256": "b7b9057682af8f44c07fe8fab73c0416b1597a79817dbaea1504cc4e6f57f5af",
+ "split_space": {
+  "test": 2342,
+  "train": 2292,
+  "val": 1004
+ },
+ "tiers": {
+  "probable": 633,
+  "record-only": 9349,
+  "verified": 378
+ }
+}

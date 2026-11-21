@@ -1,0 +1,164 @@
+{
+ "records_n": 10360,
+ "tiers": {
+  "record-only": 9349,
+  "probable": 633,
+  "verified": 378
+ },
+ "headline_no_std_verified": 92,
+ "no_std_probable": 522,
+ "std_label_n": 397,
+ "by_class": {
+  "h": {
+   "A": 1,
+   "B": 26,
+   "C": 45,
+   "D": 16,
+   "E": 3,
+   "F": 0,
+   "G": 1
+  },
+  "p": {
+   "A": 134,
+   "B": 315,
+   "C": 51,
+   "D": 11,
+   "E": 6,
+   "F": 4,
+   "G": 1
+  },
+  "s": {
+   "A": 71,
+   "B": 103,
+   "C": 70,
+   "D": 34,
+   "E": 32,
+   "F": 37,
+   "G": 50
+  }
+ },
+ "reasons": {
+  "below_floor": 5951,
+  "clear_look_nothing_found": 3255,
+  "location_too_uncertain": 111,
+  "no_clear_look": 32
+ },
+ "placebo_n": 10360,
+ "placebo_searched_n": 3526,
+ "placebo_verified": 10,
+ "placebo_probable": 217,
+ "placebo_probable_searched": 178,
+ "placebo_verified_rate_searched": 0.0025524673851389677,
+ "placebo_probable_rate_searched": 0.05048213272830403,
+ "placebo_witnesses": {
+  "S2_SCAR": 124,
+  "HMS_SMOKE": 26,
+  "GOES": 13,
+  "S2_AF": 10,
+  "HMS_ANALYST": 7,
+  "MODIS": 7,
+  "LANDSAT_SCAR": 5,
+  "DNB": 5,
+  "HMS_SMOKE,S2_SCAR": 4,
+  "VIIRS_NOAA20,VIIRS_SNPP": 3,
+  "VIIRS_NOAA20": 3,
+  "GOES,S2_SCAR": 3,
+  "VIIRS_SNPP": 3,
+  "S2_AF,S2_SCAR": 2,
+  "HMS_SMOKE,MODIS,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "GOES,HMS_SMOKE": 1,
+  "HMS_ANALYST,MODIS": 1,
+  "HMS_ANALYST,HMS_SMOKE": 1,
+  "GOES,MODIS,VIIRS_NOAA20": 1,
+  "MCD64A1,MODIS": 1,
+  "GOES,MODIS,S2_SCAR,VIIRS_NOAA20,VIIRS_SNPP": 1,
+  "S2_SCAR,VIIRS_SNPP": 1,
+  "GOES,HMS_ANALYST": 1,
+  "HMS_ANALYST,VIIRS_NOAA20": 1,
+  "GOES,VIIRS_SNPP": 1,
+  "MCD64A1": 1
+ },
+ "wall_s": 3330.3574430942535,
+ "inputs": {
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2020_Puerto_Rico.csv": {
+   "sha256": "76cf2e566215e7b6599ccf177f9cca81e9e60bdb0ffac458badbf922acd9cc98",
+   "bytes": 16955
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2018_United_States.csv": {
+   "sha256": "2239e26a8eb8378d20b69beaf307ab49315b19e3ccf8db076a33c32280a75f8f",
+   "bytes": 37835646
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2020_United_States.csv": {
+   "sha256": "665dccf07cc84acb3e23e128886394c2b7ece6f165f66569040685e98d0fd7a1",
+   "bytes": 54537603
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2019_United_States.csv": {
+   "sha256": "368ddcfce96b63e6a61791809b959ea7e1d0322ff3de04bbd241a8fe75a43eef",
+   "bytes": 36202018
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2020_Puerto_Rico.csv": {
+   "sha256": "b0157698d27c25a51f4ee8cb6e49471bd75f753f7e610879d054ee10829a90ff",
+   "bytes": 14115
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2018_United_States.csv": {
+   "sha256": "5e6bf58957d2735abde985f9bbc205973f2dd5cea8705968b70c6e60afe23855",
+   "bytes": 10488759
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2018_Puerto_Rico.csv": {
+   "sha256": "b913810925b5cbadd61a9c9874f79e36951459df9f3a8952c1e202c607311099",
+   "bytes": 27499
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2019_United_States.csv": {
+   "sha256": "a478e23cd205e1367aaa3d543da00f15036ee5e0d81071c530ee78cd1368555e",
+   "bytes": 8554573
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2018_United_States.csv": {
+   "sha256": "38963a7315959b2d6db42246c88ba06735e280507e47a70b16ead0620f967b79",
+   "bytes": 44442753
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2020_Puerto_Rico.csv": {
+   "sha256": "9eeb00070dd00cf390c4307badfd156bea494fd75f888e6d54cd52d624a7a3a6",
+   "bytes": 3290
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2018_Puerto_Rico.csv": {
+   "sha256": "5d3519a45f37df9c6fcba02610265fef67a9d200f92c681c5ca2c03a41e0e89b",
+   "bytes": 4645
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2020_United_States.csv": {
+   "sha256": "309c1c97f0d81013a4ed28768c3078aafcf1cd49bc453b4591d66a5227dc8128",
+   "bytes": 53815954
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2018_Puerto_Rico.csv": {
+   "sha256": "86b25547d2bc1aa167e8d98dfe98e28854dc61d6b6f31c5cfaf56681940b9305",
+   "bytes": 19473
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2020_United_States.csv": {
+   "sha256": "466e2c7616fe1d813a7bfa66971160b64d6baf341fab22ffe8fac06dfbf7961a",
+   "bytes": 12343543
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/modis_2019_Puerto_Rico.csv": {
+   "sha256": "39c7a5093e87c458c04354bc221b6a3f464fc54d68d97f6768f276367c46519d",
+   "bytes": 7974
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2019_United_States.csv": {
+   "sha256": "e72e16e2cc21f1448ad16e3d70e2bdc2f9566065bd31d928a010b4987ac7f545",
+   "bytes": 36948805
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-jpss1_2019_Puerto_Rico.csv": {
+   "sha256": "bc72bcde5b6f8a07145927b05816a0f198bd4ab07a4fa26193d4fa2b4cad9a1e",
+   "bytes": 36733
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/firms/viirs-snpp_2019_Puerto_Rico.csv": {
+   "sha256": "be3d2296ad7ffda055d655599dcbf0b4b6aea7da54449265b386cad66f56d118",
+   "bytes": 38611
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/fpafod/RDS-2013-0009.7_Data_Format4_SQLITE.zip": {
+   "sha256": "a5d691bdbcf5a3de6a7e0d94380df311dd2c552645395312e55510424a7483fb",
+   "bytes": 230273073
+  },
+  "/home/user/wildfire 3 (1)/firewitness_raw/mtbs/mtbs_perimeter_data.zip": {
+   "sha256": "3ea5526f0a6c466687be670bb13b214535aefd2a5fa7db29a465a3c86f9fa619",
+   "bytes": 420877956
+  }
+ }
+}

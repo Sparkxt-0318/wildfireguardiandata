@@ -12,7 +12,8 @@ from .draw import W, H, OI, FG, MUTED
 
 METHOD_LABEL = {"agency_discovery": "agency discovery", "goes_fdc_first": "GOES fire product", "viirs_first": "VIIRS",
                 "modis_first": "MODIS", "polar_first": "polar orbiter", "traceback_onset": "trace-back onset",
-                "traceback_distinguishable": "trace-back distinguishable", "live_detector_alert": "live detector"}
+                "traceback_distinguishable": "trace-back distinguishable", "live_detector_alert": "live detector",
+                "goes_fdc_first_incl_low": "GOES fire product, low prob. included", "traceback_evidence_start": "trace-back evidence starts"}
 PALETTE = [OI["vermillion"], OI["sky"], OI["orange"], OI["green"], OI["purple"], OI["yellow"], OI["blue"], OI["grey"]]
 
 
@@ -56,7 +57,7 @@ class SatClip:
             for r in _read_csv(dp):
                 t = _t(r.get("t_utc", ""))
                 sv = (r.get("sat") or "").upper()
-                if sv in ("", self.sat.upper()) or self.sat.upper() in sv.split("+") or sv in ("MODIS", "VIIRS", "ALL"):
+                if sv in ("", self.sat.upper()) or self.sat.upper() in sv.split("+") or sv in ("ALL",) or not sv.startswith("G"):
                     self.det.append((r["method"], r.get("sat", ""), t, r.get("note", "")))
         self.n = len(self.t)
         ref = [t for m, s, t, n in self.det if m == "agency_discovery" and t]
@@ -117,16 +118,16 @@ class SatClip:
             tm = tt0 + hh * (tt1 - tt0)
             draw.text(cv, (X(tm), y1 + 10), datetime.fromtimestamp(tm, timezone.utc).strftime("%H:%M"), 26, MUTED, anchor="ma")
         # detection strip
-        draw.text(cv, (780, 612), "when each method sees the fire (minutes from agency discovery)", 34, FG, True)
+        draw.text(cv, (780, 606), "when each method sees the fire (minutes from agency discovery)", 32, FG, True)
         rows = sorted([(t, m, s) for m, s, t, n in self.det if t is not None], key=lambda r: r[0])
-        for j, (t, m, s) in enumerate(rows[:7]):
-            y = 668 + j * 46
+        for j, (t, m, s) in enumerate(rows[:8]):
+            y = 652 + j * 36
             col = PALETTE[list(METHOD_LABEL).index(m) % len(PALETTE)] if m in METHOD_LABEL else OI["grey"]
-            cv2.rectangle(cv, (780, y + 6), (820, y + 36), col, -1)
+            cv2.rectangle(cv, (780, y + 4), (812, y + 28), col, -1)
             lab = METHOD_LABEL.get(m, m) + (f" ({s})" if s and s not in ("", "all") else "")
             reached = t <= self.t[k]
-            draw.text(cv, (836, y), lab, 32, FG if reached else MUTED, reached)
-            draw.text(cv, (1860, y), f"{self.rel_min(t):+.0f} min", 32, FG if reached else MUTED, reached, anchor="ra")
+            draw.text(cv, (826, y), lab, 27, FG if reached else MUTED, reached)
+            draw.text(cv, (1860, y), f"{self.rel_min(t):+.0f} min", 27, FG if reached else MUTED, reached, anchor="ra")
         sub = f"Final size {self.fire['final_acres']:,.0f} acres" + (f", {self.fire['state']}" if self.fire.get("state") else "") + ". " if self.fire.get("final_acres") else ""
         draw.caption(cv, draw.wrap(sub + "Each coloured line is the time a method first flags this fire; the white cursor is the frame shown.", 32, W - 80), 30, 940, 32)
         draw.footer(cv, credit="Satellite data: NOAA GOES-R ABI (public domain); detection times from the live track")
