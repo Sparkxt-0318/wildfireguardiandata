@@ -73,6 +73,32 @@ Reference stratum (>= 300 acres, n = 1,008): labelled 0.940 vs standard 0.852. F
 not gated, n = 1,497; polygon = planned unit): 0.816 vs 0.670. Files `C2_sealed_reference_large.csv`,
 `C2_sealed_secondary_facts.csv`.
 
+## Downstream check (once, after the labels were tagged; nothing changed afterwards)
+
+**Fixed margin, held-out miss rate: run, inconclusive.** wildfireguardian Main, research/kcf-margin, with its own code
+(score_gofer.py, calibrate.lofo, reach.component_reach, 5 km separate-fire rule) on GOFER v0.2 (28 California fires,
+2019-2021, sha256 matching the repo's). Baseline reproduced exactly: leave-one-fire-out miss 6.2 % (0.6-22.1) at 5 h
+(R = 3.75 km), 6.6 % (0.7-22.8) at 8 h (R = 5.03 km). The S1 verified labels were added as newly burned 375 m cells
+(within 5 km of the known set); 70 labels lie within 5 km of a GOFER fire during its span (31 at the August Complex).
+Because a label has dates, not hours, two bounds were computed:
+
+| h | labels counted when | miss at the published R (95 % CI) | R re-derived by LOFO |
+|---|---|---|---|
+| 5 | whole label interval inside the window (lower) | 5.7 % (unchanged; 0 issue-hours changed) | 3.75 km, 6.2 % |
+| 5 | label interval overlaps the window (upper) | 50.9 % (31.5-70.2) | 19.3 km, 6.1 % |
+| 8 | lower | 6.0 % (unchanged) | 5.03 km, 6.6 % |
+| 8 | upper | 39.9 % (22.0-60.1) | 19.3 km, 6.2 % |
+
+The lower bound cannot change by construction (every label interval is at least a day long); the upper bound counts
+a label as burning in every hour its interval overlaps (median interval 3 days, a quarter 50 days or more), so its
+jump is mostly that artefact. These labels cannot say whether the margin fails: hour-level timing would be needed.
+n = 28 fires, 20,161 (5 h) and 20,077 (8 h) fire-hours. Files: `results/caught/downstream/` (report, numbers,
+script).
+
+**Forecast against persistence: NOT RUN.** Its held-out set is six 2024 US fires scored on NIROPS survey polygons
+with 375 m covariates and a frozen checkpoint; 2020 fires are its training data and these labels cover 2018-2020
+only, so no held-out fire overlaps them.
+
 ## Prior art
 
 Agency records were compared with MODIS active fire before: detection rises steeply with fire size and most small
