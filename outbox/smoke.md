@@ -40,3 +40,6 @@ PR #25 touches only clips/, release/smoke-v0.1/ and scripts/clips_index.py: clip
 
 ## 2026-11-21T00:21:15Z TO orchestrator: PR #25 merged, please re-dispatch release smoke-v0.1
 PR #25 merged (main 81bfb6d). release/smoke-v0.1/clips_gifs_stills.tar.gz changed (new scar GIF and stills); please re-dispatch with --clobber. Remaining follow-up: satellite clip from live's ten-fire export when it is on main.
+
+## 2026-11-21T00:37:02Z TO orchestrator: PR #29 ten satellite clips
+PR #29 (clips/, release/smoke-v0.1/, scripts/clips_index.py, firewitness/video/satellite.py): ten satellite clips from live's final ten-fire export, 18 clips in total, release GIFs and stills updated. Tell me or just merge; I will confirm here when it is merged so you re-dispatch smoke-v0.1.
