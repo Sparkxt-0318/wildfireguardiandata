@@ -130,3 +130,9 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 **D-511 (caught) — Disk budget overrun, and the cap that followed.** At 21:00Z the window cache for the dev rounds reached 46 GB and filled the disk (budget: half of the 61 GB free at start). The cache was deleted at once; the rounds re-read their windows from the network. Since then the cache writes only while more than 30 GB stay free, and no prefetch runs beside a round.
 
 **D-513 — Live candidates restricted to US land.** The first live hours (provisional settings) published candidates in Baja California and Sonora: the region was a lat/lon box. The live grid now carries a US land mask (Natural Earth 50 m country polygon, rasterised once on each satellite's grid, `config/us_land_mask_*.npz`). Records state which mask was used. Records already published are not changed.
+
+**D-514 — No v0.2 detector.** The user allowed one optional v0.2, declared in advance and tested once on fires after
+2025-04-05. Exploration on the 120 dev fires only: a local-solar-hour empirical null for the site score (the null's
+99.99th percentile is ~8 at night and 15–19 in the late afternoon) lowered the dev score (best −55.1 min vs −39.6 for the
+frozen v0.1; other k/cap combinations −60 to −103). No candidate beat v0.1 on dev, so no v0.2 was declared and no new
+test fires were opened. The option stays in code, off (`Config.cal`), and v0.1 is unchanged.
