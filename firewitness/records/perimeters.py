@@ -144,3 +144,63 @@ def create_missing(n=100, out_dir: Path | None = None, seed=0, years=range(2016,
             pd.DataFrame(rows).to_csv(out_dir / "created_perimeters.csv", index=False)
             (out_dir / "created_perimeters.geojson").write_text(json.dumps({"type": "FeatureCollection", "features": feats}))
     return pd.DataFrame(rows), {"large_fires_without_perimeter_in_years": int(len(gap))}
+
+
+# ---------------------------------------------------------------- v0.3: known-perimeter check by fuel type (protocol v0.3 section 4)
+FUEL_OF_WC = {10: "timber", 20: "shrub", 30: "grass"}
+
+
+def known_candidates(years=range(2016, 2024), min_acres=1000.0, seed=3):
+    """MTBS events (with a linked FPA FOD point) by WorldCover fuel type at the point, shuffled with a fixed seed;
+    the 40 v0.1 validation fires are excluded."""
+    from ..caught import landcover
+    from . import link_tasks as LT
+    T, pairs, X, dec, _ = LT.decide_all("fod_mtbs")
+    l = dec[dec.outcome == "link"]
+    fod, mt = T["left"], T["right"]
+    df = pd.DataFrame({"mid": mt.mid.to_numpy()[l.ri.to_numpy()], "fid": fod.fid.to_numpy()[l.li.to_numpy()], "f_lat": fod.lat.to_numpy()[l.li.to_numpy()],
+                       "f_lon": fod.lon.to_numpy()[l.li.to_numpy()]})
+    df = df.sort_values("fid").drop_duplicates("mid")
+    df = df.merge(mt[["mid", "day", "acres", "state", "year"]], on="mid")
+    df = df[df.year.isin(list(years)) & (df.acres >= min_acres)]
+    df = df[~df.mid.isin(set(pick_fires(40, 0).mid))]
+    df["fuel"] = [FUEL_OF_WC.get(int(landcover.lc_class(la, lo)), "other") for la, lo in zip(df.f_lat, df.f_lon)]
+    return {k: g.sample(frac=1.0, random_state=seed).reset_index(drop=True) for k, g in df.groupby("fuel")}
+
+
+def create_known(per_fuel=30, out_dir: Path | None = None, seed=3, fuels=("timber", "shrub", "grass"), cands=None):
+    """Run the scar module on MTBS fires (known perimeters) and keep the scar area, resumable; 30 looks per fuel type,
+    a fire that errors before a look is replaced by the next one in the shuffled list."""
+    from ..caught.scar import make_perimeter
+    cands = cands if cands is not None else known_candidates(seed=seed)
+    rows, done = [], set()
+    csv = out_dir / "known_perimeters.csv" if out_dir else None
+    if csv is not None and csv.exists():
+        prev = pd.read_csv(csv)
+        rows = prev.to_dict("records")
+        done = set(prev.mid)
+    for fuel in fuels:
+        pool = cands.get(fuel)
+        if pool is None:
+            continue
+        n_ok = sum(1 for r in rows if r["fuel"] == fuel and not str(r["status"]).startswith("error"))
+        for _, f in pool.iterrows():
+            if n_ok >= per_fuel:
+                break
+            if f.mid in done:
+                continue
+            d0 = (pd.Timestamp("1970-01-01") + pd.Timedelta(days=float(f.day))).date()
+            try:
+                r = make_perimeter(f.f_lon, f.f_lat, d0, d0 + timedelta(days=30), f.acres / 2.47105)
+                status, area = r.status, r.area_ha
+            except Exception as e:  # noqa: BLE001
+                status, area = f"error:{type(e).__name__}", None
+            rows.append({"mid": f.mid, "fid": int(f.fid), "state": f.state, "year": int(f.year), "fuel": fuel, "mtbs_acres": float(f.acres),
+                         "status": status, "scar_area_ha": area})
+            if not str(status).startswith("error"):
+                n_ok += 1
+            print(rows[-1], flush=True)
+            if out_dir:
+                out_dir.mkdir(parents=True, exist_ok=True)
+                pd.DataFrame(rows).to_csv(csv, index=False)
+    return pd.DataFrame(rows)
