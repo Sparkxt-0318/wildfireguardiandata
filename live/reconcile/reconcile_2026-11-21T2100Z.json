@@ -1,0 +1,41 @@
+{
+ "made": "2026-11-21T2100Z",
+ "window_h": [
+  24.0,
+  72.0
+ ],
+ "n": 3,
+ "wfigs_incidents_fetched": 247,
+ "firms_points": 24771,
+ "candidates": [
+  {
+   "id": "L20261120T2011Z-001",
+   "record": "20261120T2011Z.json",
+   "lat": 29.1754,
+   "lon": -113.2142,
+   "alert_scan": "2026-11-20T20:11:18Z",
+   "published_at": "2026-11-20T20:15:22Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2021Z-001",
+   "record": "20261120T2021Z.json",
+   "lat": 34.5066,
+   "lon": -89.3605,
+   "alert_scan": "2026-11-20T20:21:18Z",
+   "published_at": "2026-11-20T20:25:01Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2026Z-001",
+   "record": "20261120T2026Z.json",
+   "lat": 35.7606,
+   "lon": -90.7884,
+   "alert_scan": "2026-11-20T20:26:18Z",
+   "published_at": "2026-11-20T20:30:21Z",
+   "outcome": "polar detection only",
+   "first_polar_utc": "2026-11-20T20:08:00Z",
+   "lead_vs_polar_min": -18.3
+  }
+ ]
+}
