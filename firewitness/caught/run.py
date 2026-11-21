@@ -186,11 +186,14 @@ def _scar_chunk(chunk, threads):
         return list(ex.map(_scar_one, chunk))
 
 
-def scar_stage(name: str, w: pd.DataFrame, threads: int = 40, params=None, log_every=200, procs: int = 4,
+def scar_stage(name: str, w: pd.DataFrame, threads: int = 40, params=None, log_every=200, procs: int | None = None,
                heat_rids: set | None = None) -> dict:
     """Run find_scar on every searched window (procs processes x threads); JSON lines checkpoint."""
     import multiprocessing as mp
+    import os
     from concurrent.futures import ProcessPoolExecutor
+
+    procs = procs or int(os.environ.get("FIREWITNESS_PROCS", "4"))
 
     ck = run_dir(name) / "scar.jsonl"
     done = {}
