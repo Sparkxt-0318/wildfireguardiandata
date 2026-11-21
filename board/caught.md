@@ -5,3 +5,8 @@
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQiyh93zKanxaWeyYP
+- handover (if this session is replaced):
+  - done: protocol + A1; v1 pipeline; dev fixes D1-D2; rounds 1-3 (rules frozen 530a3d5); sealed C2 (results/caught/C2_sealed_*.csv); S1 complete (results/caught/S1_*, verified_S1.csv, states_S1.parquet, scar_pairs_S1); downstream check (results/caught/downstream); all merged via PRs #3, #15, #23.
+  - running: S2 = `FIREWITNESS_PROCS=6 python <scratchpad>/final_slice.py S2 final` (resumes from runs/S2_final/*/scar.jsonl under firewitness_raw/derived_caught; writes results/caught/S2_*).
+  - next: S3 = seed runs/S3_final/{records,placebo}/scar.jsonl with S2's, then `final_slice.py S3 final`; write S2/S3 sections in results/CAUGHT_RESULTS.md (headline table by class and slice, C1); export release/caught-v0.1/ (`firewitness caught export --tag final --slices S3`, split files under 100 MB, states table, scar pairs, DATA_CARD, SHA256SUMS); PR; outbox "TO orchestrator: release caught-v0.1 ready"; DONE <hash>.
+  - branch track/caught; scripts in session scratchpad are copies of firewitness.caught.pipeline calls (run_slice, report.write_slice, summarize).
