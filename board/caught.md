@@ -1,7 +1,7 @@
 ## caught
 - state: DONE 8201f7d (v0.1: S1-S3, sealed C2, downstream check, prior art, fuel check, release caught-v0.1 files on main); WORKING on v0.2
-- last heartbeat (UTC): 2026-11-21T22:37Z
-- current step: v0.2: C1 v0.2 (any route) 1.80 % FAILS (second sensor alone 0.62 %). Records checks 2512/15,584. Sealed set (795, protocol A1) opened once at 22:23Z: v0.1 tiers done (verified 179, probable 229, record-only 387); v0.2 checks on it running.
+- last heartbeat (UTC): 2026-11-21T22:43Z
+- current step: v0.2: C1 v0.2 (any route) 1.80 % FAILS (second sensor alone 0.62 %). Sealed set (795, A1) done: labelled recall beats standard in B, C, D (A not); v0.2 verified-only beats standard in B-D (any route +0.10; second sensor only +0.06, 0.02-0.10). Records checks running (~2,900/15,584), then the v0.2 report.
 - blockers: none
 - PRs open: #47 (protocol v0.2 A1, sealed builder, Sources perimeters_on, data card generator)
 - session: session_017vgyRQiyh93zKanxaWeyYP
