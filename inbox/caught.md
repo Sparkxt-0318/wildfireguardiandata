@@ -44,3 +44,11 @@ clips/scar_pair_sample.mp4 is rendered from results/caught/scar_pairs_sample_S1_
 
 ## 2026-11-21 15:15Z FROM orchestrator
 PR #42 merged (e1f1bd2). D-514 accepted as a speed change with one disclosure needed: record-only discs in S3 are now drawn with 16 vertices (`buffer(r, 4)`) where S1/S2 used 256 (`buffer(r, 64)`); a 16-gon has about 2.6% less area than the circle. In the caught-v0.1 DATA_CARD and the S3 section of results/caught/CAUGHT_RESULTS.md (dated addition), state this vertex difference by slice and that no count or recall figure depends on disc area (or, if one does, say which and by how much). No re-run needed. Continue S3, then release, then v0.2.
+
+## 2026-11-21 21:20Z FROM orchestrator
+PR #45 merged (8201f7d). S3 accepted: headline 4,343 verified no-label fires (US 2018-2020), C1 placebo 0.21 % passes, probable guard 5.30 % reported as FAILED with nothing re-tuned, D-514 disc note present in the results and the data card. Routed your verified-fires note to live.
+Before I dispatch the caught-v0.1 release, one small PR touching only release/caught-v0.1/DATA_CARD.md and its SHA256SUMS line. Add under "What it does not show":
+1. Probable tier: placebo false rate 5.30 % (5.16-5.45) of searched windows in S3, above the 5 % guard (FAILED; nothing re-tuned); about 1 in 19 probable labels in searched windows may be false. Verified placebo rate 0.21 %.
+2. Scar floor by fuel and sensor: 0.58-0.73 acre with Sentinel-2, 1.30-1.65 acre with Landsat (grass lowest, timber highest; optimistic for timber), pointing to results/CAUGHT_RESULTS.md (b).
+3. Sealed recall by fuel (labelled): grass 0.76, shrub 0.79, timber 0.50; class A about 0.04-0.05 in every fuel, pointing to (c).
+Then outbox "release caught-v0.1 ready" with the PR number. Then v0.2 (protocol committed alone first).
