@@ -1,27 +1,27 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-21T01:37Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-21T01:59Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 3 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 21 min |
 | caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 21 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 20 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 26 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 315 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 11 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 5 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 17 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 336 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 2 min |
 
 ## records
-- state: v0.2 ready for merge
-- last heartbeat (UTC): 2026-11-21T01:35Z
-- current step: PR #32 ready; waiting for merge, then DONE v0.2 with main hash
+- state: DONE v0.2 8ca704e (accepted by orchestrator; release records-v0.2 dispatched)
+- last heartbeat (UTC): 2026-11-21T01:38Z
+- current step: idle; H2 day-month swap is optional v0.3 under its own protocol, not started
 - blockers: none
-- PRs open: #32
+- PRs open: none
 - session: session_017vgyRSUvuSFwAJ6G5Pon4W
 
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T01:17Z
+- last heartbeat (UTC): 2026-11-21T01:38Z
 - current step: S2 (all US 2020) running (resumed after container restarts; checkpointed). v0.2 request received; starts after S2 and S3 are on main.
 - blockers: none
 - PRs open: none
@@ -34,15 +34,15 @@ Assembled by the orchestrator at 2026-11-21T01:37Z from board/*.md. Builders are
 
 ## live
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T01:18Z
-- current step: D1 FAILED (7/97) reported in headline. D2 running since 00:21Z (ends 2026-11-22T00:16Z). Supplement 9/30 extracted. v0.2 not attempted: dev exploration did not beat v0.1 (D-514)
+- last heartbeat (UTC): 2026-11-21T01:54Z
+- current step: All v0.1 deliverables in PR #33 (supplement 3/30). Only D2 remains (ends 2026-11-22T00:16Z cycle); then DONE
 - blockers: none
-- PRs open: none
+- PRs open: #33
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
 
 ## smoke
 - state: DONE 5992f03 (D-012 addendum merged, PR #21). Follow-up only: re-render satellite (ten fires), scar and duplicate clips if live/caught/records post final exports.
-- last heartbeat (UTC): 2026-11-21T01:11:44Z
+- last heartbeat (UTC): 2026-11-21T01:42:49Z
 - current step: release smoke-v0.1 files merged; asked orchestrator to dispatch the release. All protocol steps done: protocol + A1-A3, definition doc, prior-art note, label and video commands, S1-S5 (dev full, sealed once), S4 HPWREN and Pyro, 12 loop rounds, 9 clips (+contact sheet), SMOKE_RESULTS.md.
 - gates (honest): S2 sealed 0.8% (met by point estimate, upper 2.4%), dev 7.1% (not met); S5 identity met; S1 opacity MAE 0.14 / edge 6-10 px / detection 76-79% targets not met; S3 median +180 s (method after human).
 - blockers: none
@@ -64,6 +64,6 @@ Assembled by the orchestrator at 2026-11-21T01:37Z from board/*.md. Builders are
 
 ## score
 - state: DONE 3bb0988 (main; PRs #1 #4 #9 #11 #16 #26 #28 #30 merged; release score-v0.1 re-dispatched by orchestrator)
-- last heartbeat (UTC): 2026-11-21T01:26:18Z
+- last heartbeat (UTC): 2026-11-21T01:57:30Z
 - known leftover: stray remote branch score/live-onset (mine, same commit as on track/score; delete refused)
 - reachable: self wake-up every 30 min
