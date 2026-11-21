@@ -80,7 +80,56 @@ def run_gates(a):
     return gates.main(a)
 
 
+def add_sample_args(s):
+    s.add_argument("--dataset", required=True)
+    s.add_argument("--split", required=True)
+    s.add_argument("--fold", default="train")
+    s.add_argument("--k", type=int, default=3)
+    s.add_argument("--seed", type=int, default=54)
+    s.add_argument("--buffer-cells", type=int, default=1)
+    s.add_argument("--hard-share", type=float, default=0.25)
+    s.add_argument("--random", action="store_true", help="naive random negatives (for comparison only)")
+    s.add_argument("--out", required=True)
+    s.set_defaults(func=run_neg)
+
+
+def add_make_args(m):
+    m.add_argument("--dataset", required=True)
+    m.add_argument("--scheme", default="space_time", choices=["space_time", "space", "time", "random_fire", "random_rows"])
+    m.add_argument("--seed", type=int, default=54)
+    m.add_argument("--test-frac", type=float, default=0.2)
+    m.add_argument("--val-frac", type=float, default=0.15)
+    m.add_argument("--block-km", type=float, default=100.0)
+    m.add_argument("--buffer-km", type=float, default=50.0)
+    m.add_argument("--buffer-days", type=int, default=30)
+    m.add_argument("--out", required=True)
+    m.set_defaults(func=run_splits)
+
+
+def add_card_args(cd, required=True):
+    cd.add_argument("--dataset", required=required)
+    cd.add_argument("--split", required=required)
+    cd.add_argument("--contract", required=required)
+    cd.add_argument("--predictions", required=required, help=".npz (dense) or .csv (fire_id,date,y,x,score[,info_until])")
+    cd.add_argument("--model-name", default="model")
+    cd.add_argument("--fold", default="test")
+    cd.add_argument("--info-lag", type=int, default=0, help="csv only: declare inputs end this many days before the valid day")
+    cd.add_argument("--out-dir", default="results/cards")
+    cd.set_defaults(func=run_card)
+
+
+def run_default(a):
+    """`firewitness score` with card arguments scores a prediction file (the brief's `firewitness score`)."""
+    if not (a.dataset and a.split and a.contract and a.predictions):
+        print("usage: firewitness score --dataset D --split S.json --contract C.json --predictions P [--model-name N]\n"
+              "       or a subcommand: build, negatives sample, splits make, card, contract-template, gates")
+        return 2
+    return run_card(a)
+
+
 def register(parser):
+    add_card_args(parser, required=False)
+    parser.set_defaults(func=run_default)
     sub = parser.add_subparsers(dest="cmd")
     sp = sub.add_parser("build", help="build a scene dataset from a benchmark's own masks")
     sp.add_argument("--adapter", choices=["wildfirespreadts", "synthetic", "caught", "live"], default="wildfirespreadts")
@@ -95,46 +144,17 @@ def register(parser):
 
     ng = sub.add_parser("negatives", help="matched negative sampling")
     ngs = ng.add_subparsers(dest="ncmd")
-    s = ngs.add_parser("sample", help="sample negatives matched to positives from verified no-fire cells")
-    s.add_argument("--dataset", required=True)
-    s.add_argument("--split", required=True)
-    s.add_argument("--fold", default="train")
-    s.add_argument("--k", type=int, default=3)
-    s.add_argument("--seed", type=int, default=54)
-    s.add_argument("--buffer-cells", type=int, default=1)
-    s.add_argument("--hard-share", type=float, default=0.25)
-    s.add_argument("--random", action="store_true", help="naive random negatives (for comparison only)")
-    s.add_argument("--out", required=True)
-    s.set_defaults(func=run_neg)
+    add_sample_args(ngs.add_parser("sample", help="sample negatives matched to positives from verified no-fire cells"))
 
     sg = sub.add_parser("splits", help="blocked splits")
     sgs = sg.add_subparsers(dest="scmd")
-    m = sgs.add_parser("make", help="make a published split file (blocked in space/time, by fire, with a buffer)")
-    m.add_argument("--dataset", required=True)
-    m.add_argument("--scheme", default="space", choices=["space_time", "space", "time", "random_fire", "random_rows"])
-    m.add_argument("--seed", type=int, default=54)
-    m.add_argument("--test-frac", type=float, default=0.2)
-    m.add_argument("--val-frac", type=float, default=0.15)
-    m.add_argument("--block-km", type=float, default=100.0)
-    m.add_argument("--buffer-km", type=float, default=50.0)
-    m.add_argument("--buffer-days", type=int, default=30)
-    m.add_argument("--out", required=True)
-    m.set_defaults(func=run_splits)
+    add_make_args(sgs.add_parser("make", help="make a published split file (blocked in space/time, by fire, with a buffer)"))
 
     ct = sub.add_parser("contract-template", help="write a contract template")
     ct.add_argument("--out", required=True)
     ct.set_defaults(func=run_contract)
 
-    cd = sub.add_parser("card", help="score a prediction file against a split and a contract")
-    cd.add_argument("--dataset", required=True)
-    cd.add_argument("--split", required=True)
-    cd.add_argument("--contract", required=True)
-    cd.add_argument("--predictions", required=True, help=".npz (dense) or .csv (fire_id,date,y,x,score[,info_until])")
-    cd.add_argument("--model-name", default="model")
-    cd.add_argument("--fold", default="test")
-    cd.add_argument("--info-lag", type=int, default=0, help="csv only: declare inputs end this many days before the valid day")
-    cd.add_argument("--out-dir", default="results/cards")
-    cd.set_defaults(func=run_card)
+    add_card_args(sub.add_parser("card", help="score a prediction file against a split and a contract"))
 
     g = sub.add_parser("gates", help="run gates N1-N5 and write results")
     g.add_argument("--dataset", required=True)

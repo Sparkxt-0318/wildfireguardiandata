@@ -217,3 +217,28 @@ def abstain_cheat(ds, fires) -> Predictions:
         sc[fid] = a
         info[fid] = (s.dates - 1).astype(np.int32)
     return Predictions(sc, info, {"model": "abstain", "info_until_lag_days": 1})
+
+
+def unseen_leak(ds, fires, honest: Predictions, kind: str) -> Predictions:
+    """Pre-registered unseen cheats for the N3 generalisation test (specs in results/SCORE_RESULTS.md, 2026-11-21).
+    L1 'weak_scar': honest + 0.2 * (cells within 2 cells that ever burn in the scene) / 25.
+    L2 'two_day': honest + 0.5 * 1[fire on day t+2 within 5 cells]."""
+    from .ops import box_count, dilate_space
+    sc, info = {}, {}
+    for fid in fires:
+        s = ds.scenes[fid]
+        base = honest.scores[fid]
+        a = np.full(s.state.shape, np.nan, np.float32)
+        F = s.state == FIRE
+        ever = F.any(0)
+        scar = box_count(ever, 2).astype(np.float32) / 25.0
+        T = len(s.dates)
+        for t in s.valid_targets():
+            if kind == "weak_scar":
+                a[t] = base[t] + 0.2 * scar
+            else:
+                fut = dilate_space(F[t + 2], 5) if t + 2 < T else np.zeros(F.shape[1:], bool)
+                a[t] = base[t] + 0.5 * fut.astype(np.float32)
+        sc[fid] = a
+        info[fid] = (s.dates - 1).astype(np.int32)
+    return Predictions(sc, info, {"model": f"unseen-{kind}", "info_until_lag_days": 1})
