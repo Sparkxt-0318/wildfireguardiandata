@@ -74,6 +74,63 @@ many of the verified labels (PERIM in 1,126 of the 4,795 verified records), so t
 much a state maps; the probable tier carries a false rate near 5 % of searched windows (about 1,600 of the 8,344
 probable labels can be expected to be false).
 
+## Slice S3: all US 2018-2020 (complete; addition 2026-11-21T20:45Z, frozen v0.1 rules)
+
+220,975 FPA FOD records; 94,330 searched with imagery; 209,000 matched placebos (94.6 % of records; 91,224
+searched). DNB night look only inside California 2020 (protocol A1). S3 reused the S2 checkpoints for 2020, and its
+2020 rows equal S2 exactly (records, tiers, placebo counts). Source: `results/caught/S3_headline.csv`,
+`S3_placebo.csv`, `S3_record_only_reasons.csv`, `S3_witnesses.csv`, `S3_summary.json`, `verified_S3_<year>.csv`
+(13,793 verified records, with and without a standard label, one file per year; geometry simplified to 0.00005 degree and 5 decimals, the same format as `verified_S2.csv`, which `verified_S3_2020.csv` equals row for row; full-detail geometry is in the release label files). Wall time of the last resume 6.7 h; about 14 h in all,
+across container restarts (DECISIONS D-512 to D-514).
+
+| class | records | standard label | no standard label | of these, now verified (95 % CI of share) | now probable | record-only |
+|---|---|---|---|---|---|---|
+| A | 108,034 | 1,058 | 106,976 | **16** (0.01-0.02 % of no-label) | 1,579 | 105,381 |
+| B | 88,914 | 4,274 | 84,640 | **1,522** (1.71-1.89 % of no-label) | 13,380 | 69,738 |
+| C | 17,988 | 4,329 | 13,659 | **2,104** (14.80-16.02 % of no-label) | 5,205 | 6,350 |
+| D | 2,881 | 1,395 | 1,486 | **449** (27.89-32.62 % of no-label) | 507 | 530 |
+| E | 1,619 | 1,020 | 599 | **232** (34.81-42.76 % of no-label) | 178 | 189 |
+| F | 999 | 866 | 133 | **19** (8.83-21.41 % of no-label) | 54 | 60 |
+| G | 540 | 525 | 15 | **1** (0.17-31.95 % of no-label) | 10 | 4 |
+| all | 220,975 | 13,467 | 207,508 | **4,343** (2.03-2.16 % of no-label) | 20,913 | 182,252 |
+
+By year (no standard label; verified, probable and record-only kept in separate columns):
+
+| year | records | standard label | no standard label | now verified | now probable | record-only | searched |
+|---|---|---|---|---|---|---|---|
+| 2018 | 81,733 | 5,161 | 76,572 | **1,680** (A 9, B 556, C 844, D 178, E 84, F 9) | 7,908 | 66,984 | 34,526 |
+| 2019 | 64,712 | 3,943 | 60,769 | **1,015** (A 2, B 354, C 495, D 102, E 58, F 4) | 5,877 | 53,877 | 27,464 |
+| 2020 | 74,530 | 4,363 | 70,167 | **1,648** (A 5, B 612, C 765, D 169, E 90, F 6, G 1) | 7,128 | 61,391 | 32,340 |
+
+**Headline S3: 4,343 recorded US fires of 2018-2020 with no standard label now carry a verified label** (A 16,
+B 1,522, C 2,104, D 449, E 232, F 19, G 1). Of these, 4,001 rest on a Sentinel-2 scar, 2,113 on an agency
+perimeter, 1,212 on an HMS analyst point and 1,039 on a GOES point (one fire can have several; `S3_witnesses.csv`).
+
+**C1 placebo (S3):** verified 191 / 91,224 = 0.21 % (0.18-0.24) of searched placebos and 205 / 209,000 = 0.10 %
+(0.09-0.11) of all matched placebos: **passes** (<= 1 %). By year, searched: 2018 0.30 % (0.25-0.37), 2019 0.14 %
+(0.10-0.20), 2020 0.16 % (0.12-0.22).
+
+**Probable guard (this track's own, protocol section 8): fails.** Probable 4,837 / 91,224 = 5.30 % (5.16-5.45) of
+searched placebos, above the 5 % guard with an interval that excludes it. By year: 2018 5.67 % (5.43-5.93), 2019
+5.28 % (5.02-5.56), 2020 4.92 % (4.68-5.16). The rules were frozen on 2020 dev data (dev rate 4.44 %); the probable
+tier is less reliable in 2018 and 2019 than on dev. Nothing was re-tuned. Read the probable tier as about one false
+label per 19 searched windows: on the order of 5,000 of the 24,930 probable S3 labels (5.3 % of 94,330 searched
+windows) can be expected to be false. The verified tier is not affected by this.
+
+**Disc vertices (orchestrator note 2026-11-21T15:15Z; DECISIONS D-514).** A label without pixel geometry (182,252
+record-only labels and 410 probable labels from smoke alone) carries the search disc as its geometry. In S3 that disc
+is drawn with 16 vertices, 2.55 % less area than the circle of radius `r_m`. S1 and S2 drew it with 256 vertices
+(0.01 % less). No tier, count, recall or three-state area depends on this polygon. Matching and the three-state
+table use their own 256-vertex discs, and truth recall (C2) uses pixel labels only (`pipeline.py`, line 143). The
+release is built from S3 and simplified to 2 % of the radius, so every released disc has 16 vertices; `r_m` is the
+value to use.
+
+What S3 does not show: outside California 2020 there is no night look; agency perimeters carry many verified labels
+(PERIM in 5,169 of the 13,793 verified records), so the share verified depends on how much a state maps; class A
+is almost entirely below the scar floor (105,065 of 105,381 class-A record-only labels), so a small-fire catch rests
+on heat or perimeter evidence; record-only with a clear look and nothing found (56,469 in classes B-G) means no scar
+above the floor between the scar dates, not that the record is false.
+
 ## C2: recall on the sealed small fires (opened once: run 21:48-22:53Z on 2026-11-20, rules frozen at 530a3d5)
 
 Truth: mapped fires and prescribed burns 2018-2020 below 300 acres (CAL FIRE FRAP wildfire and Rx perimeters, NIFC
