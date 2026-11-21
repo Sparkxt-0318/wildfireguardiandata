@@ -1,19 +1,19 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-21T06:04Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-21T07:05Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 10 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 12 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 18 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 15 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 10 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 17 min |
 | smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 43 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 582 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 68 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 643 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 129 min |
 
 ## records
 - state: DONE v0.4 23192e6 (accepted by orchestrator; D-019 notes the sealed years were v0.2 dev years; records finished)
-- last heartbeat (UTC): 2026-11-21T05:55Z
+- last heartbeat (UTC): 2026-11-21T06:51Z
 - current step: idle; reachable for audit fixes only, heartbeat at most every 60 min
 - blockers: none
 - PRs open: none
@@ -21,10 +21,10 @@ Assembled by the orchestrator at 2026-11-21T06:04Z from board/*.md. Builders are
 
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T05:53Z
-- current step: S2 placebos running (~2 h; container restarted 3 times, run resumes from checkpoints). Fuel-type scar check done (addition 2026-11-21T05:00Z). Next: S2 report, S3, release, v0.2.
+- last heartbeat (UTC): 2026-11-21T06:56Z
+- current step: S2 (all US 2020) complete: 1,648 no-label fires now verified; placebo verified 0.16 %, probable 4.92 %. PR #39 (S2 + fuel check + downstream). S3 (US 2018-2020) running (~12 h). Then release caught-v0.1, then v0.2.
 - blockers: none
-- PRs open: none
+- PRs open: #39
 - session: session_017vgyRQiyh93zKanxaWeyYP
 - handover (if this session is replaced):
   - done: protocol + A1; v1 pipeline; dev fixes D1-D2; rounds 1-3 (rules frozen 530a3d5); sealed C2 (results/caught/C2_sealed_*.csv); S1 complete (results/caught/S1_*, verified_S1.csv, states_S1.parquet, scar_pairs_S1); downstream check (results/caught/downstream); all merged via PRs #3, #15, #23.
@@ -34,15 +34,15 @@ Assembled by the orchestrator at 2026-11-21T06:04Z from board/*.md. Builders are
 
 ## live
 - state: working (v0.2 trace-back; D2 running)
-- last heartbeat (UTC): 2026-11-21T05:47Z
-- current step: D2: 66 records 00:16Z-05:41Z, no gaps, all signed; v0.2: smoke witness as committed failed on dev (p*=1175) -> protocol amendment 1 (dev only, 07031ff); freezing config; test fires 31/100 extracted
+- last heartbeat (UTC): 2026-11-21T06:49Z
+- current step: D2: 78 records 00:16Z-06:41Z, no gaps, all signed; v0.2: settings frozen (89361ee); test fires 93/100 extracted; test runs once when extraction ends
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
 
 ## smoke
 - state: DONE 5992f03 (D-012 addendum merged, PR #21). Follow-up only: re-render satellite (ten fires), scar and duplicate clips if live/caught/records post final exports.
-- last heartbeat (UTC): 2026-11-21T05:21:19Z
+- last heartbeat (UTC): 2026-11-21T06:23:15Z
 - current step: release smoke-v0.1 files merged; asked orchestrator to dispatch the release. All protocol steps done: protocol + A1-A3, definition doc, prior-art note, label and video commands, S1-S5 (dev full, sealed once), S4 HPWREN and Pyro, 12 loop rounds, 9 clips (+contact sheet), SMOKE_RESULTS.md.
 - gates (honest): S2 sealed 0.8% (met by point estimate, upper 2.4%), dev 7.1% (not met); S5 identity met; S1 opacity MAE 0.14 / edge 6-10 px / detection 76-79% targets not met; S3 median +180 s (method after human).
 - blockers: none
