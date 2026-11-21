@@ -3,7 +3,7 @@
 - last heartbeat (UTC): 2026-11-21T22:43Z
 - current step: v0.2: C1 v0.2 (any route) 1.80 % FAILS (second sensor alone 0.62 %). Sealed set (795, A1) done: labelled recall beats standard in B, C, D (A not); v0.2 verified-only beats standard in B-D (any route +0.10; second sensor only +0.06, 0.02-0.10). Records checks running (~2,900/15,584), then the v0.2 report.
 - blockers: none
-- PRs open: #47 (protocol v0.2 A1, sealed builder, Sources perimeters_on, data card generator)
+- PRs open: none (#47 merged)
 - session: session_017vgyRQiyh93zKanxaWeyYP
 - handover (if this session is replaced):
   - done: protocol + A1; v1 pipeline; dev fixes D1-D2; rounds 1-3 (rules frozen 530a3d5); sealed C2 (results/caught/C2_sealed_*.csv); S1 complete (results/caught/S1_*, verified_S1.csv, states_S1.parquet, scar_pairs_S1); downstream check (results/caught/downstream); all merged via PRs #3, #15, #23.
