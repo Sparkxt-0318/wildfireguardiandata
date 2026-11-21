@@ -113,6 +113,13 @@ filling or interpolation. Inputs: see results/CAUGHT_RESULTS.md (hashes) and the
 ## What it does not show
 - The label geometry marks where a fire was found, not its burned area. Scars under-measure timber fires
   (median scar/mapped area 0.46 on dev, 0.82 in grass; results/CAUGHT_RESULTS.md, addition 2026-11-21T05:00Z).
+- Search discs without a pixel label (record-only, and the few probable labels with smoke only) are drawn as
+  16-vertex polygons, about 2.6 % smaller in area than the circle of radius `r_m`; use `r_m` for the disc. In this
+  release (built from the S3 run, all of 2018-2020) every such disc has 16 vertices. The S1 and S2 runs, which are
+  not part of this release, drew them with 256 vertices (0.01 % smaller); export simplification to 2 % of the
+  radius would bring those to 16 vertices as well. No tier, count, recall or three-state area depends on these
+  polygons: matching and the three states use their own 256-vertex discs, and recall uses pixel labels only
+  (DECISIONS D-514).
 - FireCCI51 was not checked (host unreachable from the build network); a fire labelled only by FireCCI51 counts
   here as "no standard label".
 - "Verified no fire" holds only above the stated floor and only for the scar look's interval.
