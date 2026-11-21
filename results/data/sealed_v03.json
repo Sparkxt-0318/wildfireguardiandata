@@ -1,0 +1,57 @@
+{
+ "frozen_rules_commit": "7ad17a705f5cbc2c4ce2ec13272e33b989181e8a",
+ "tracked_changes_at_open": "",
+ "swap_year_groups": 46,
+ "swap_year_outcomes": {
+  "insufficient fires": 30,
+  "no swap": 16
+ },
+ "swap_pooled_groups": 19,
+ "swap_pooled_outcomes": {
+  "insufficient fires": 12,
+  "no swap": 7
+ },
+ "gazetteer": {
+  "incidents": 62,
+  "classes": {
+   "matched": 40,
+   "unmatched": 22
+  },
+  "coverage": {
+   "matched": 40,
+   "inside": 35,
+   "coverage": 0.875,
+   "ci": [
+    0.7388757932976185,
+    0.9454058022645871
+   ],
+   "median_radius_km": 34.0,
+   "by_cell": {
+    "named feature|no offset": {
+     "n": 1,
+     "inside": 1,
+     "ci": [
+      0.20654329147389294,
+      1.0
+     ]
+    },
+    "populated place|no offset": {
+     "n": 11,
+     "inside": 10,
+     "ci": [
+      0.6226353745137962,
+      0.9837682477371741
+     ]
+    },
+    "populated place|offset": {
+     "n": 28,
+     "inside": 24,
+     "ci": [
+      0.6850982695512267,
+      0.9430108706929821
+     ]
+    }
+   }
+  }
+ }
+}
