@@ -1,9 +1,9 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T20:43Z
-- current step: S3 COMPLETE (PR #45 open, CI green). Building release caught-v0.1: labels done; three-state table (simplified to 3 m, repaired) and scar pairs running. Then release PR, then v0.2.
+- last heartbeat (UTC): 2026-11-21T21:02Z
+- current step: S3 COMPLETE and caught-v0.1 release files built (release/caught-v0.1, 210 files, 313 MB, checksums verified); both in PR #45. After merge: outbox "release caught-v0.1 ready", then v0.2 (protocol committed alone first).
 - blockers: none
-- PRs open: #45 (S3 results)
+- PRs open: #45 (S3 results + caught-v0.1 release files)
 - session: session_017vgyRQiyh93zKanxaWeyYP
 - handover (if this session is replaced):
   - done: protocol + A1; v1 pipeline; dev fixes D1-D2; rounds 1-3 (rules frozen 530a3d5); sealed C2 (results/caught/C2_sealed_*.csv); S1 complete (results/caught/S1_*, verified_S1.csv, states_S1.parquet, scar_pairs_S1); downstream check (results/caught/downstream); all merged via PRs #3, #15, #23.
