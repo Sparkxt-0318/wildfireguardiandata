@@ -111,6 +111,15 @@ protocol/CAUGHT_PROTOCOL.md (fixed before results). No trained model writes a la
 filling or interpolation. Inputs: see results/CAUGHT_RESULTS.md (hashes) and the raw index.
 
 ## What it does not show
+- Probable tier: the placebo false rate was 5.30 % (5.16-5.45) of searched windows in S3, above this track's
+  5 % guard (FAILED; nothing re-tuned). About 1 in 19 probable labels in searched windows may be false. The
+  verified placebo rate was 0.21 % (0.18-0.24).
+- Scar floor by fuel and sensor: 0.58-0.73 acre with Sentinel-2 and 1.30-1.65 acres with Landsat (grass lowest,
+  timber highest; optimistic for timber, since the floors use the brighter scars that were found). See
+  results/CAUGHT_RESULTS.md, addition 2026-11-21T05:00Z, (b).
+- Sealed recall by fuel (labelled, primary small fires): grass 0.76, shrub 0.79, timber 0.50. Class A is about
+  0.04-0.05 in grass (n = 73) and timber (n = 88); shrub has only 3 class-A fires (0 caught). See the same
+  addition, (c).
 - The label geometry marks where a fire was found, not its burned area. Scars under-measure timber fires
   (median scar/mapped area 0.46 on dev, 0.82 in grass; results/CAUGHT_RESULTS.md, addition 2026-11-21T05:00Z).
 - Search discs without a pixel label (record-only, and the few probable labels with smoke only) are drawn as
