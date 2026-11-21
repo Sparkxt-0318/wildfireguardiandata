@@ -1,0 +1,22 @@
+{
+ "quantile": 0.9,
+ "min_cell": 30,
+ "pooled_radius_km": 57.0,
+ "n_dev_matched": 287,
+ "cells": {
+  "populated place|no offset": {
+   "n_dev": 80,
+   "radius_km": 72.5,
+   "pooled": false
+  },
+  "populated place|offset": {
+   "n_dev": 178,
+   "radius_km": 34.0,
+   "pooled": false
+  }
+ },
+ "cells_below_min_use_pooled": [
+  "county|no offset",
+  "named feature|no offset"
+ ]
+}

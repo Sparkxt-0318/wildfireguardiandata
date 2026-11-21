@@ -1,0 +1,36 @@
+{
+ "matched": 39,
+ "inside": 35,
+ "coverage": 0.8974358974358975,
+ "ci": [
+  0.7642084129775517,
+  0.9593873444171301
+ ],
+ "median_radius_km": 34.0,
+ "by_cell": {
+  "named feature|no offset": {
+   "n": 1,
+   "inside": 1,
+   "ci": [
+    0.20654329147389294,
+    1.0
+   ]
+  },
+  "populated place|no offset": {
+   "n": 10,
+   "inside": 10,
+   "ci": [
+    0.7224598312333834,
+    1.0
+   ]
+  },
+  "populated place|offset": {
+   "n": 28,
+   "inside": 24,
+   "ci": [
+    0.6850982695512267,
+    0.9430108706929821
+   ]
+  }
+ }
+}
