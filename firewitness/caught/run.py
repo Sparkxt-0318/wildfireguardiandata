@@ -197,14 +197,25 @@ def scar_stage(name: str, w: pd.DataFrame, threads: int = 40, params=None, log_e
 
     ck = run_dir(name) / "scar.jsonl"
     done = {}
+    def _lean(j):
+        # labels need status, geometry, components, hotspots, dates, threshold, floor and the state areas only;
+        # the full record (looks, input hashes, state shapes) stays in the checkpoint file
+        j.pop("looks", None)
+        j.pop("inputs", None)
+        st = j.get("states") or {}
+        st.pop("unknown", None)
+        st.pop("fire", None)
+        return j
+
     if ck.exists():
-        for line in ck.read_text().splitlines():
-            try:
-                j = json.loads(line)
-                if j.get("status") != "error":
-                    done[j["rid"]] = j
-            except json.JSONDecodeError:
-                continue
+        with open(ck) as fh:
+            for line in fh:
+                try:
+                    j = json.loads(line)
+                    if j.get("status") != "error":
+                        done[j["rid"]] = _lean(j)
+                except json.JSONDecodeError:
+                    continue
     todo = w[w.searched & ~w.rid.isin(done)]
     p0 = dict(params or {})
     lh = p0.pop("landsat_if_heat", True)   # round 3 (kept)
@@ -228,7 +239,7 @@ def scar_stage(name: str, w: pd.DataFrame, threads: int = 40, params=None, log_e
         for fu in as_completed(futs):
             for d in fu.result():
                 f.write(json.dumps(d, default=str) + "\n")
-                done[d["rid"]] = d
+                done[d["rid"]] = _lean(d)
                 n += 1
             f.flush()
             if n // log_every != (n - 24) // log_every:
@@ -307,7 +318,7 @@ def label_row(w, items, scar, perimeter_on=True) -> dict:
             geom = unary_union([g.buffer(0) for g in pix]).intersection(disc)
         pixel_label = True
     else:
-        geom = disc
+        geom = Point(0, 0).buffer(w.r_m, 4)   # the honest radius; 16 vertices are enough to carry it
         pixel_label = False
     reason = None
     st = (scar or {}).get("status")
@@ -396,22 +407,55 @@ def evaluate(name: str, w: pd.DataFrame, src: Sources, fod_big: PointIndex | Non
     heat_rids = {rid for rid, v in pts.items() if any(q["witness"] in heat for q in v["pts"])}
     heat_rids |= {rid for rid, v in (extra_points or {}).items() if v}
     scars = scar_stage(name, w[w.LATITUDE.notna()], threads=threads, params=params, heat_rids=heat_rids)
-    rows = []
-    for r in w.itertuples():
-        if pd.isna(r.LATITUDE):
-            rows.append({"rid": r.rid, "tier": "record-only", "reason": "no placebo location", "pixel_label": False,
-                         "std_label": False})
-            continue
-        sc = scars.get(r.rid)
-        if sc is None and not r.searched:
-            sc = None
-        items = build_items(r, pts[r.rid]["pts"] + list((extra_points or {}).get(r.rid, [])), pts[r.rid]["polys"], sc,
-                            src)
-        rows.append(label_row(r, items, sc, perimeter_on))
-    lab = pd.DataFrame(rows)
+    for sc in scars.values():   # the label stage needs neither the look list nor the input hashes nor state shapes
+        sc.pop("looks", None)
+        sc.pop("inputs", None)
+        st = sc.get("states") or {}
+        st.pop("unknown", None)
+        st.pop("fire", None)
+    import pyarrow as pa
+    import pyarrow.parquet as pq
     keep = [c for c in ["rid", "of_rid", "LATITUDE", "LONGITUDE", "r_m", "r_loc_m", "t0", "t1", "t1_source", "area_m2",
                         "FIRE_SIZE", "FIRE_SIZE_CLASS", "STATE", "FIRE_YEAR", "split", "searched", "unsearched_reason",
                         "MTBS_ID", "truth_id", "truth_source", "truth_kind"] if c in w]
-    out = w[keep].merge(lab, on="rid", how="left")
-    out.to_parquet(rd / "labels.parquet")
+    light_cols = keep + ["tier", "reason", "pixel_label", "std_label", "std_witnesses", "witnesses", "kinds",
+                         "scar_status", "scar_sensor", "scar_threshold", "scar_floor_m2", "scar_area_ha",
+                         "label_t0", "label_t1"] + (["geometry_wkt", "std_geometry_wkt", "pairs"] if "truth_id" in w else [])
+    writer, parts, schema = None, [], None
+    tmp = rd / "labels.parquet.part"
+    CH = 20_000
+    for i in range(0, len(w), CH):
+        rows = []
+        for r in w.iloc[i:i + CH].itertuples():
+            if pd.isna(r.LATITUDE):
+                rows.append({"rid": r.rid, "tier": "record-only", "reason": "no placebo location", "pixel_label": False,
+                             "std_label": False})
+                continue
+            sc = scars.get(r.rid)
+            items = build_items(r, pts[r.rid]["pts"] + list((extra_points or {}).get(r.rid, [])),
+                                pts[r.rid]["polys"], sc, src)
+            rows.append(label_row(r, items, sc, perimeter_on))
+        chunk = w.iloc[i:i + CH][keep].merge(pd.DataFrame(rows), on="rid", how="left")
+        for c in ("t0", "t1"):
+            if c in chunk:
+                chunk[c] = chunk[c].astype(str)
+        if schema is not None:
+            for f_ in schema:
+                if f_.name not in chunk:
+                    chunk[f_.name] = None
+            chunk = chunk[[f_.name for f_ in schema]]
+        tb = pa.Table.from_pandas(chunk, preserve_index=False)
+        if writer is None:
+            # columns empty in the first chunk are typed as strings (WKT, JSON, names)
+            schema = pa.schema([pa.field(f_.name, pa.string()) if pa.types.is_null(f_.type) else f_
+                                for f_ in tb.schema])
+            writer = pq.ParquetWriter(tmp, schema, compression="zstd")
+        writer.write_table(tb.cast(schema))
+        parts.append(chunk[[c for c in light_cols if c in chunk]].copy())
+        del rows, chunk, tb
+    if writer is not None:
+        writer.close()
+        import os
+        os.replace(tmp, rd / "labels.parquet")
+    out = pd.concat(parts, ignore_index=True) if parts else pd.DataFrame()
     return out
