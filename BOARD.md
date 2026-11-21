@@ -1,28 +1,28 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-21T01:16Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-21T01:37Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 23 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 3 min |
 | caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 21 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 25 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 5 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 294 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 21 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 20 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 26 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 315 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 11 min |
 
 ## records
-- state: DONE 6e4de95 (accepted); reachable
-- last heartbeat (UTC): 2026-11-21T00:54Z
-- current step: idle, heartbeat
+- state: v0.2 ready for merge
+- last heartbeat (UTC): 2026-11-21T01:35Z
+- current step: PR #32 ready; waiting for merge, then DONE v0.2 with main hash
 - blockers: none
-- PRs open: none
+- PRs open: #32
 - session: session_017vgyRSUvuSFwAJ6G5Pon4W
 
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T00:56Z
-- current step: S2 (all US 2020) resumed after a container restart (checkpoint kept, 6,780 windows done). S1, sealed test and downstream check done (PR #23 merged).
+- last heartbeat (UTC): 2026-11-21T01:17Z
+- current step: S2 (all US 2020) running (resumed after container restarts; checkpointed). v0.2 request received; starts after S2 and S3 are on main.
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQiyh93zKanxaWeyYP
@@ -34,8 +34,8 @@ Assembled by the orchestrator at 2026-11-21T01:16Z from board/*.md. Builders are
 
 ## live
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T00:52Z
-- current step: D2 STARTED: first frozen-detector live record 2026-11-21T00:21:18Z (ends 2026-11-22T00:21Z). Supplement (caught CA 2020) extracting. Release live-v0.1 dispatched by orchestrator
+- last heartbeat (UTC): 2026-11-21T01:18Z
+- current step: D1 FAILED (7/97) reported in headline. D2 running since 00:21Z (ends 2026-11-22T00:16Z). Supplement 9/30 extracted. v0.2 not attempted: dev exploration did not beat v0.1 (D-514)
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
@@ -64,6 +64,6 @@ Assembled by the orchestrator at 2026-11-21T01:16Z from board/*.md. Builders are
 
 ## score
 - state: DONE 3bb0988 (main; PRs #1 #4 #9 #11 #16 #26 #28 #30 merged; release score-v0.1 re-dispatched by orchestrator)
-- last heartbeat (UTC): 2026-11-21T00:55:40Z
+- last heartbeat (UTC): 2026-11-21T01:26:18Z
 - known leftover: stray remote branch score/live-onset (mine, same commit as on track/score; delete refused)
 - reachable: self wake-up every 30 min
