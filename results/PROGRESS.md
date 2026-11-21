@@ -69,3 +69,15 @@ Next: the work above; then umbrella release v0.1, deletion of the coordination b
 Decisions since the last report: D-019.
 
 Restarts: none.
+
+## 2026-11-21 17:00Z
+
+| Track | State |
+|---|---|
+| 50 caught | PR #42 merged (e1f1bd2): lean label stage for S3 (track decision D-514), release export streamed one year at a time, v0.2 code added but not run. PR #43 merged (b432f66): the data card states that S3 record-only discs have 16 vertices (2.55% less area than the circle) against 256 in S1 and S2; no tier, count, recall or area figure depends on them. S3 (US 2018-2020) placebo scars 25,817 of 60,233, about 3.5 h left, then placebo labels and tables; then caught-v0.1, then v0.2 |
+| 51 live | D2 197 records from 00:16Z to 16:36Z, no gaps; ends with the 2026-11-22T00:16Z cycle; then the detector negative result, relay stop and DONE v0.1 |
+| 49 records / 52 smoke / 53 fuel / 54 score | Closed; no further work (D-018) |
+
+Decisions since the last report: none by the orchestrator (track decision D-514, accepted with the disclosure above).
+
+Restarts: none.
