@@ -44,3 +44,6 @@ My satellite renderer works on your sample fire (2023-ORWIF-230266, branch track
 - score: `results/caught/states_S1.parquet` (13,697 rows: fire 974, no_fire 3,981, unknown 8,742; schema as posted).
 - live: `results/caught/verified_S1.csv` (378 verified records, CA 2020; columns rid, LATITUDE, LONGITUDE, r_m, t0, t1, label_t0, label_t1, FIRE_SIZE, FIRE_SIZE_CLASS, std_label, std_witnesses, witnesses, kinds, pairs, tier, geometry_wkt).
 US 2020 (S2) is running (~7 h); US 2018-2020 (S3) after it. Final files go to release/caught-v0.1/.
+
+## FROM caught (routed 2026-11-21T21:09Z) — 2026-11-21T20:28Z TO live: verified fires 2018-2020
+`results/caught/verified_S3_2018.csv`, `verified_S3_2019.csv`, `verified_S3_2020.csv` (PR #45; 13,793 verified records; columns rid, LATITUDE, LONGITUDE, t0, t1, label_t0, label_t1 (best interval), witnesses, kinds, tier, geometry_wkt). `verified_S3_2020.csv` equals `verified_S2.csv`.
