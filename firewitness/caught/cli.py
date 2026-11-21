@@ -15,6 +15,7 @@ def register(parser):
     r.add_argument("--dev", action="store_true", help="dev split only")
     r.add_argument("--limit", type=int, default=None)
     r.add_argument("--params", default=None, help="JSON overriding scar parameters")
+    r.add_argument("--out", default="results/caught", help="where the slice tables go (full runs only)")
     r.set_defaults(func=_run)
     t = sub.add_parser("truth", help="run the C2 truth fires (dev or sealed)")
     t.add_argument("split", choices=["dev", "sealed"])
@@ -37,10 +38,25 @@ def register(parser):
 
 
 def _run(a) -> int:
+    import time
+    from pathlib import Path
+    from firewitness.core.hashing import hash_inputs
+    from . import report
+    from .fetch import RAW_ROOT
     from .pipeline import run_slice, summarize
+    t = time.time()
     p = json.loads(a.params) if a.params else None
     rec, plc, lr, lp = run_slice(a.slice, threads=a.threads, params=p, tag=a.tag, only_dev=a.dev, limit=a.limit)
-    print(json.dumps(summarize(lr, lp, None), indent=1, default=str))
+    s = summarize(lr, lp, None)
+    if a.out and not a.dev and not a.limit:
+        out = Path(a.out)
+        report.write_slice(out, a.slice, lr, lp)
+        s["wall_s"] = time.time() - t
+        s["inputs"] = hash_inputs(sorted((RAW_ROOT / "firms").glob("*.csv")) +
+                                  [RAW_ROOT / "fpafod/RDS-2013-0009.7_Data_Format4_SQLITE.zip",
+                                   RAW_ROOT / "mtbs/mtbs_perimeter_data.zip"])
+        (out / f"{a.slice}_summary.json").write_text(json.dumps(s, indent=1, default=str))
+    print(json.dumps({k: v for k, v in s.items() if k != "inputs"}, indent=1, default=str))
     return 0
 
 
