@@ -140,6 +140,8 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 - Records: v0.4, time only (years of a source table pooled; AM/PM hypothesis on the -12 h shift).
 - No further work on scoring, smoke, fuel, missing coordinates or the Korea configs. What exists stays for the audit.
 
+**D-019 — Records v0.4 sealed years were v0.2 dev years (05:35Z).** Records v0.4 (pooling of years, AM/PM test) opened its "sealed" set once (59301ad), but those years had been dev years in v0.2. The instruction was new sealed data never opened, so the pooled sealed calls (3 of 12 clear; 2 of 6 dev calls repeat) are not an independent test. The track disclosed this in its protocol. The result is reported as is and not redone, because records is closed under D-018. The AM/PM test used 1,676 never-scored OK Forestry records: AM/PM loss or flip does not explain the -12 h shift, and the open finding stays open.
+
 **D-105 (records) — FIRMS_MAP_KEY.** The FIRMS key was copied from the git history of the old wildfireguardian repository (live/config/firms_map_key.txt, deleted in the commit "live: delete the temporary FIRMS key file") into keys.env outside the repo, as the brief says. It was not needed: the FIRMS country archives (MODIS 2000 to 2024, VIIRS S-NPP 2012 to 2024, United States) are public files on firms.modaps.eosdis.nasa.gov and were downloaded without a key. The key is unused and never appears in the repo (`scripts/check_keys.py` checks for it in CI and pre-commit).
 
 **D-106 (records) — Interval additions and append-only results.** Result files on main are append-only (orchestrator rule): later numbers, intervals and corrections are added as dated additions below earlier lines; earlier lines are never edited.
