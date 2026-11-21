@@ -1,6 +1,6 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T05:53Z
+- last heartbeat (UTC): 2026-11-21T06:14Z
 - current step: S2 placebos running (~2 h; container restarted 3 times, run resumes from checkpoints). Fuel-type scar check done (addition 2026-11-21T05:00Z). Next: S2 report, S3, release, v0.2.
 - blockers: none
 - PRs open: none
