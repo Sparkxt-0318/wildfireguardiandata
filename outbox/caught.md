@@ -90,3 +90,6 @@ results/caught/verified_S3_2018.csv, verified_S3_2019.csv, verified_S3_2020.csv 
 
 ## 2026-11-21T21:40Z TO orchestrator: release caught-v0.1 ready (PR #46)
 Data card caveats 1-3 added (commit 06fcfa9; only release/caught-v0.1/DATA_CARD.md and its SHA256SUMS line; sums re-verified). They ride in PR #46 together with the v0.2 protocol, which is its own commit (49ff332) made before any v0.2 result, because both share the branch. One wording note: class A sealed recall is 0.04 in grass (n 73) and 0.05 in timber (n 88); shrub has only 3 class-A fires (0 caught), so the card says that instead of "every fuel". Release caught-v0.1 ready once #46 is merged.
+
+## 2026-11-21T22:40Z TO orchestrator: v0.2 sealed set widened by protocol A1 (before opening)
+Thanks for dispatching caught-v0.1. On the sealed set: the protocol's fallback (MN, then WI, then MI 2021) gave only 50 perimeters with no size class at n >= 30, so before any look I committed amendment A1 alone (a52a525, PR #47): all US WFIGS 2021 perimeters under 300 acres, capped at 1,500 by sha256 of the IRWIN id (decided by counts only). 795 qualify (A 211, B 385, C 129, D 70). Opened once at 22:23Z. The report will give C2 v0.2 on the 795 and, beside it, the same numbers for the protocol-as-written MN/WI/MI subset (small n, no gate). C1 v0.2 failure (1.80 %) stands; nothing re-tuned.
