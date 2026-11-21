@@ -47,3 +47,41 @@ Dataset `wildfirespreadts-750m`: 168 fires, 68,872,831 cell-days, fire 115,550 (
 
 **Label adapters.** `adapters/caught.py` (schema `caught_states_v0.1.parquet`, rows -> scenes, floor_m2 rule in the negatives sampler) and `adapters/live.py` (track 51 onset labels from `protocol/live_fires.csv`) are written and tested on small fixtures (`tests/score/test_adapters_and_split.py`). Negatives from caught labels use only `no_fire` cells whose look floor is no larger than the cell; WildfireSpreadTS masks stay the fallback, shown in a test. On the 240 live fires: 760,144 fire cell-days, 190,036 matched negatives (matched on region and season only, danger class and land cover unavailable), space split 147/36/48 with 9 dropped (`results/score/live_adapter_stats.json`). These pre-ignition negatives are not satellite verified. No model predictions exist for either label set, so no card was run on them.
 **Not yet run:** the card on the real `caught_states_v0.1.parquet` (the file is not on main or in a release yet); it will be added here as a dated addition.
+
+---
+## Addition 2026-11-20 (caught dev sample; earlier lines unchanged): DEV SAMPLE, not results
+Input: `results/caught/states_S1_dev_sample.parquet` (track 50, California 2020, rules at development fix D1, merged in PR #15). Full numbers: `results/score/caught_dev_sample_card.json`. Adapter `adapters/caught.py`, negatives sampler with the `floor_m2` rule, space split.
+- 334 records (184 record-only, 140 probable, 10 verified); 9.78M cell-days: fire 1.95M, no_fire 1.21M, unknown 6.62M (68% unknown).
+- **Finding about the rule.** On extent-sized cells (about 20 m, no floor sizing), 0 of the 3.75M no_fire cell-days pass the floor rule: the looks' floors are 1,440 to about 3,400 m2, larger than a roughly 400 m2 cell, so such a grid cannot call any cell verified no fire. The adapter therefore sizes each scene's cell to the largest finite look floor (median cell 0.038 km); coarser cells cost spatial detail and that is the price of a verified negative.
+- Sampler on the train fires of the space split (124 train / 55 val / 72 test fires, 83 dropped by the buffer): 118,121 positives, 354,363 verified negatives from 623,360 eligible, all from `no_fire` cells whose look floor is no larger than the cell. Matching keys danger class and land cover do not exist in this table, so the match is on region and season: exact 9%, month +-1 4%, land-cover group and region 15%, same-danger fallback 73% (this is not a matched sample in the sense of the protocol; it is a verified-only sample).
+- **No precision/recall card:** there are no model predictions or weather/fuel layers for these scenes. A model card on caught labels needs a model fed features at these records; that is not part of this sample.
+- The full S1 file will replace this sample; numbers here must not be quoted as results.
+
+---
+## Addition 2026-11-21 (caught full S1; earlier lines unchanged)
+Input: `results/caught/states_S1.parquet` (track 50, PR #23, main daaad5e): 13,697 rows, 974 fire, 3,981 no_fire, 8,742 unknown. Full numbers: `results/score/caught_S1_full_card.json`. This replaces the DEV SAMPLE addition above for any quoted number.
+- 10,360 records (9,349 record-only, 633 probable, 378 verified); 235.2M cell-days on per-record grids: fire 57.1M, no_fire 18.1M, unknown 160.0M (68% unknown).
+- Floor rule: on extent-sized cells without floor sizing, only 46,592 of 72.0M no_fire cell-days pass; with each scene's cell sized to its largest finite look floor the no_fire count above (18.1M) all pass by construction. The median cell is 0.02 km because most records have no look and so no floor.
+- Space split: 2,292 train / 1,004 validation / 2,342 test records, 4,722 dropped by the buffer.
+- Sampler on the train records: 1,996,635 positives and 2,024,742 verified negatives (all eligible candidates were taken; k=3 would ask for 6.0M, so the ratio is about 1:1). Match levels: exact 16%, month +-1 18%, land-cover group and region 11%, same-danger fallback 55%; danger class and land cover do not exist in this table so matching is on region and season only. Hard negatives: 0.7% of the negatives (the catalogue's thermal sites rarely fall in these discs).
+- No precision/recall card: the table holds labels only, so there is no model to score; a model card needs predictions at these records.
+- Track 51's onset intervals: not available, live not merged. The live adapter (`adapters/live.py`) runs on record-only anchors (see the 2026-11-20 addition).
+
+---
+## Addition 2026-11-21 (orchestrator depth check, D-013; earlier lines unchanged)
+**N3 reclassified.** N3 passes only after its limit was set on the same cheat: `leak.auc` was lowered from 0.97 to 0.90 (17:49 UTC) after the first synthetic run failed N3 on the burn-scar cheat, and `leak.front_auc` 0.95 was added after the front-peek cheat won. The amendment list with times and the results each followed is in results/ROUNDS_score.md (addition of 2026-11-21). Read the N3 PASS above as "the contract catches the cheats it was tuned on".
+**Gate file location.** `results/gates_wildfirespreadts.json`, cited on line 3, was moved by another track's commit (82f1e13) into `results/fuel/`; the same file (identical hash) is now also at `results/score/gates_wildfirespreadts.json`, which is the path to use.
+**Pre-registered unseen-cheat test of N3 (specs written before the run, limits frozen at leak.auc 0.90 and front_auc 0.95).** Honest base model: the logistic model with weather, terrain, land cover and proximity features trained with the matched sampler (as in the gates). Dataset and split: WildfireSpreadTS 168 fires, `space` split, test fold. Each cheat declares `info_until` = issue day (a lie) and is scored by the unchanged card.
+- *L1 weak scar:* score = honest probability + 0.2 x (number of cells within 2 cells that burn on any day of the scene, divided by 25). Different from the tuned scar cheat: it is a weak additive leak on top of an honest model.
+- *L2 two-day-ahead neighbours:* score = honest probability + 0.5 x 1[a fire cell on day t+2 lies within 5 cells]. Different feature (labels two days ahead, spatially smoothed) and weaker spatial precision than any cheat used to set the limits.
+Outcome (reported either way) will follow in the next section.
+
+### Outcome of the pre-registered unseen-cheat test (run after the specs above were committed in 580c037; limits frozen at 0.90 / 0.95)
+Data: results/score/n3_unseen_cheats.json. WildfireSpreadTS, space split, 35 test fires.
+| model | leak check | far-from-fire AUC | strict F1 | persistence strict F1 | F1 lift vs persistence (95% CI) |
+|---|---|---|---|---|---|
+| honest base | pass | 0.6953 | 0.531473 | 0.546312 | -0.014839 (-0.037663, 0.004517) |
+| L1 weak scar | **FLAG: implausible foresight** | 0.9556 | 0.5437 | 0.546312 | -0.002612 (-0.023725, 0.03128) |
+| L2 two-day-ahead neighbours | **pass** | 0.8774 | 0.545188 | 0.546312 | -0.001124 (-0.024616, 0.012928) |
+Reading: the frozen screen caught one of the two unseen cheats (L1, AUC 0.956 over 0.90) and **missed the other** (L2, AUC 0.877 under 0.90, front AUC 0.789 under 0.95). Neither cheat improved strict F1 over persistence (both lifts are about zero with intervals spanning zero), so neither "won" under the contract, but L2 is a leak the screen did not flag. N3's claim therefore holds for strong leaks and for the cheats it was tuned on, not for a leak of L2's strength. The screen is a screen.
+**Command names.** `firewitness negatives sample`, `firewitness splits make` and `firewitness score --dataset ... --predictions ...` now work at top level (new packages `firewitness/negatives`, `firewitness/splits`; bare `firewitness score` with card arguments scores a file); the nested `firewitness score ...` forms remain. `splits make` now defaults to the `space_time` scheme. Test: tests/score/test_cli_aliases.py.
