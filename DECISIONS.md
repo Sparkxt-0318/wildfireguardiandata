@@ -128,3 +128,5 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 **D-510 (caught) — DNB night look only for California 2020** (protocol amendment A1). Streaming a 30-40 MB tile per day for the whole US over three years would move about 300 GB.
 
 **D-511 (caught) — Disk budget overrun, and the cap that followed.** At 21:00Z the window cache for the dev rounds reached 46 GB and filled the disk (budget: half of the 61 GB free at start). The cache was deleted at once; the rounds re-read their windows from the network. Since then the cache writes only while more than 30 GB stay free, and no prefetch runs beside a round.
+
+**D-513 — Live candidates restricted to US land.** The first live hours (provisional settings) published candidates in Baja California and Sonora: the region was a lat/lon box. The live grid now carries a US land mask (Natural Earth 50 m country polygon, rasterised once on each satellite's grid, `config/us_land_mask_*.npz`). Records state which mask was used. Records already published are not changed.

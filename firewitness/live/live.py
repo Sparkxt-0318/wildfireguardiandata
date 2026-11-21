@@ -96,6 +96,15 @@ class SatStream:
         RR, CC = np.mgrid[r0:r1, c0:c1]
         self.lon, self.lat = goes.rc_to_lonlat(RR, CC, self.g)
         self.inside = np.isfinite(self.lat) & (self.lon >= lon0) & (self.lon <= lon1) & (self.lat >= lat0) & (self.lat <= lat1)
+        # land of the region only (Natural Earth 50 m country polygon rasterised on this grid; config/us_land_mask_*.npz)
+        mf = HERE / "config" / f"us_land_mask_{self.name}.npz"
+        self.land_mask_used = False
+        if mf.is_file():
+            z = np.load(mf)
+            if tuple(z["box"]) == tuple(self.box):
+                land = np.unpackbits(z["bits"])[: int(np.prod(z["shape"]))].reshape(tuple(z["shape"])).astype(bool)
+                self.inside &= land
+                self.land_mask_used = True
         self.cfg = cfg
         self.ring = {}       # slot epoch (int, rounded to 60 s) -> residual float16
         self.S = np.zeros(self.lat.shape, np.float32)
@@ -379,6 +388,7 @@ class LiveService:
         rec["G_summary"] = {"max": round(float(G.max()), 2), "n_ge_half_h": int((G >= self.h / 2).sum()),
                             "n_ge_quarter_h": int((G >= self.h / 4).sum()), "n_in_episode": int((G > 0).sum())}
         rec["evaluated_pixels"] = int(self.E.inside.sum())
+        rec["land_mask"] = "US land (Natural Earth 50 m)" if self.E.land_mask_used else "lat/lon box only"
         rec["candidates"] = self._candidates(new, G, SE, SW, t)
         rec["processed_at"] = iso(time.time())
         rec["processing_s"] = round(time.time() - t_start, 1)
