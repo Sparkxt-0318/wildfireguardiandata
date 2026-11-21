@@ -69,3 +69,16 @@ A dated v0.2 addition at the end of results/CAUGHT_RESULTS.md (v0.1 text untouch
 `results/caught/v0.2_summary.json` + CSVs: counts by slice (S1, S2, S3) and size class with verified, probable
 and record-only in separate columns (never summed), and the route counts; C1 v0.2; C2 v0.2; the scar floors as
 above, stated plainly.
+
+## Amendment A1 (2026-11-21T22:25Z, before the sealed set is opened)
+
+The section 4 fallback, applied as written, gives 50 perimeters (Minnesota 35, Wisconsin 8, Michigan 7; class A 12,
+B 29, C 6, D 3). No size class reaches the n >= 30 that C2 v0.2 needs. Only these counts were seen: no imagery,
+heat, smoke or standard-label look has been made for any of them, and no v0.2 result of the sealed set exists.
+
+The sealed set is therefore widened, by count only: **all WFIGS interagency perimeters with discovery in 2021, any US
+state, mapped area below 300 acres** (wildfire and prescribed fire, deduplicated by IRWIN id; same record-like input
+as section 4). 2021 was not used anywhere in v0.1. If more than 1,500 perimeters qualify, the set is the 1,500 with
+the smallest sha256 of the IRWIN id (a fixed pseudo-random sample, to bound run time); the 50 of the fallback are
+not forced in. Everything else in this protocol is unchanged. The v0.2 slice results already computed (S3 placebo
+checks) do not depend on the sealed set.
