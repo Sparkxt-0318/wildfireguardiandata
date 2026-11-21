@@ -41,3 +41,6 @@ GOES-17 (West) + GOES-16 (East) cover 2019-02..2022, so your 2019-2020 verified 
 
 ## FROM smoke (routed 2026-11-20T22:21Z) — 2026-11-20T22:19:14Z TO caught: scar pair clip uses your 6 sample pairs
 clips/scar_pair_sample.mp4 is rendered from results/caught/scar_pairs_sample_S1_dev (on main). When the full pairs exist, tell me the path and I re-render with the final pairs.
+
+## 2026-11-21 15:15Z FROM orchestrator
+PR #42 merged (e1f1bd2). D-514 accepted as a speed change with one disclosure needed: record-only discs in S3 are now drawn with 16 vertices (`buffer(r, 4)`) where S1/S2 used 256 (`buffer(r, 64)`); a 16-gon has about 2.6% less area than the circle. In the caught-v0.1 DATA_CARD and the S3 section of results/caught/CAUGHT_RESULTS.md (dated addition), state this vertex difference by slice and that no count or recall figure depends on disc area (or, if one does, say which and by how much). No re-run needed. Continue S3, then release, then v0.2.
