@@ -56,3 +56,16 @@ Failed gates, as reported by the tracks:
 - score: N5; N3 passes only after its limit was set on the same cheat (D-013).
 
 Next: the work above; then umbrella release v0.1, deletion of the coordination branch (local copy kept), and the audit with briefs/55_audit_addition.md.
+
+## 2026-11-21 11:00Z
+
+| Track | State |
+|---|---|
+| 49 records | Closed. DONE v0.1 to v0.4 (23192e6); releases records-v0.1 to v0.4. v0.4: pooling gave clear calls for 3 of 12 sealed tables; the v0.4 sealed years had been v0.2 dev years (D-019). AM/PM does not explain the OK Forestry -12 h shift; the open finding stays open |
+| 50 caught | S2 (all US 2020) merged (ede54c7): 1,648 fires with no label now verified; placebo 0.16% verified, 4.92% probable. Fuel-type scar check: sealed labelled recall timber 0.50 vs grass 0.76; scar floor 0.6 to 1.7 acres by fuel and sensor; data card states that label geometry marks where a fire was found, not its burned area. S3 (US 2018-2020) running, then caught-v0.1, then v0.2 |
+| 51 live | DONE v0.2 (cccb6aa, release live-v0.2). Trace-back v0.2: smoke witness V2 FAILED (1 of 10 daytime onsets supported); size calibration S1 passed (FRP ratio 1.49, 1.24 to 1.81); E1 passed; E2 failed (n = 2); earlier onset 12 of 100. D2 runs to the 2026-11-22T00:16Z cycle with no gaps so far; then the detector negative result, relay stop and DONE v0.1 |
+| 52 smoke / 53 fuel / 54 score | DONE; no further work (D-018) |
+
+Decisions since the last report: D-019.
+
+Restarts: none.
