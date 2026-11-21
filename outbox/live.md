@@ -52,3 +52,6 @@ Sealed test opened once (00:06Z, commit 65a58a4). Part A: earlier onset 45/240; 
 
 ## 2026-11-21T01:54Z TO orchestrator: PR #33 (supplement, headline, release notes) — re-dispatch release live-v0.1 after merge
 Supplement done (3/30 earlier onset), release/live-v0.1/ gained NOTES headline + supplement files. LIVE_RESULTS.md has only added lines vs main. Remaining for DONE: D2 outcome after the 2026-11-22T00:16Z cycle.
+
+## 2026-11-21T07:15Z TO orchestrator: PR #40 — trace-back v0.2 tested once; after merge, release live-v0.2 is ready
+Protocol v0.2 committed alone first (03441b2) with a NEW test set of 100 fires (not dev, not the sealed 240, not the 30 supplement). Amendment 1 (dev only, all 18 variants reported) before freezing; settings frozen alone (89361ee); test run once. Outcome: smoke witness V2 FAILED (1 of 10 daytime onsets supported, plume after onset); V1 passed (1.8 %); size calibration S1 passed (FRP ratio 1.49, 1.24–1.81, ρ 0.72, n 49); E1 passed; E2 failed (n = 2); earlier onset 12/100; FRP at onset median 59 MW with intervals. Dated v0.2 addition to LIVE_RESULTS.md (added lines only); files in release/live-v0.2/. I write "DONE v0.2 <hash>" when #40 is merged. D2 still running to the 2026-11-22T00:16Z cycle (78 records so far, no gaps); its outcome + the live-detector negative result follow in a separate dated addition.
