@@ -6,6 +6,10 @@ name: live — firewitness detector (every 5-min GOES cycle, relay)
 # missed cycle (data stay on NOAA S3), so the log has one record per cycle. The 2-hourly cron is only a restart backup:
 # with the concurrency group, at most one run is active and one pending. Same pattern as the wildfireguardian live
 # relay (its PR #213). To stop: disable this workflow in the Actions tab.
+#
+# STOPPED after gate D2 (2026-11-22, DECISIONS D-516): the live detector is closed as a negative result (gate D1 failed
+# on the sealed test). The cron is removed and the job runs only when the repository variable LIVE_RELAY_ENABLED is
+# 'true' (not set), so a dispatched successor is skipped and the chain ends. The signed log stays on branch live-log.
 
 on:
   workflow_dispatch:
@@ -13,8 +17,6 @@ on:
       trigger:
         description: 'who started the run (relay | manual | schedule)'
         default: manual
-  schedule:
-    - cron: '23 */2 * * *'
 
 permissions:
   contents: write     # commit records to live-log
@@ -27,7 +29,7 @@ concurrency:
 
 jobs:
   run:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && vars.LIVE_RELAY_ENABLED == 'true'
     runs-on: ubuntu-latest
     timeout-minutes: 355
     steps:
