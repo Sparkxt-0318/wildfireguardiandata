@@ -31,6 +31,9 @@ class Config:
     m: float = 1.0
     vis_weight: float = 0.0
     decay: float = 1.0        # S multiplier on a frame with no value
+    site_r: int = 1           # a fire counts as caught by an alert at any pixel within site_r pixels of its site
+    recur: float = 0.0        # round candidate: no alert at a pixel whose G reached `recur` (within 1 px) on any of
+                              # the 7 previous days (recurring non-fire heat); 0 = off
 
     def to_json(self):
         d = asdict(self)
@@ -40,6 +43,8 @@ class Config:
     @staticmethod
     def from_json(d):
         d = dict(d)
+        d.setdefault("site_r", 1)
+        d.setdefault("recur", 0.0)
         if d.get("rho") is None:
             d["rho"] = math.inf
         return Config(**d)
@@ -63,6 +68,10 @@ def parse_ukey_full(ukey):
             opts["hot_keep"] = float(p[1:])
         elif p == "h":
             opts["history_fallback"] = True
+        elif p.startswith("w"):
+            opts["wide_fallback"] = int(p[1:])
+        elif p.startswith("o"):
+            opts["scene_hole"] = int(p[1:])
     return feat, compact, opts
 
 
@@ -72,12 +81,14 @@ def compute_u(series: dict, ukey: str) -> np.ndarray:
         from .replay import vis_u
         return vis_u(series)
     base = "dT" if feat == "dTd" else feat
-    f = sg.feature(series, base, **opts)
+    fopts = {k: v for k, v in opts.items() if k in ("hot_keep", "history_fallback")}
+    f = sg.feature(series, base, **fopts)
     r = sg.residual(f)
     if feat == "dTd":
         from .replay import sameday_ref
         r = r - sameday_ref(r)
-    z = sg.scene_filter(sg.zscore_all(r, NDAYS))
+    z = sg.scene_filter(sg.zscore_all(r, NDAYS, wide_fallback=opts.get("wide_fallback", 0)),
+                        hole=opts.get("scene_hole", 0))
     if compact is not None:
         z = sg.compact_filter(z, compact)
     return sg.site_u(z, cap=99.0)
@@ -99,10 +110,13 @@ def ensure_base(fid: str, firms: FirmsClean) -> dict | None:
     d = fire_dir(fid)
     f = d / "base.npz"
     if f.is_file():
-        z = np.load(f, allow_pickle=True)
-        out = {k: z[k] for k in z.files}
-        out["info"] = json.loads(str(out["info"]))
-        return out
+        try:
+            z = np.load(f, allow_pickle=True)
+            out = {k: z[k] for k in z.files}
+            out["info"] = json.loads(str(out["info"]))
+            return out
+        except Exception:  # noqa: BLE001 — truncated by a container restart: rebuild
+            f.unlink(missing_ok=True)
     meta = series_meta(fid)
     if meta is None:
         return None
@@ -126,7 +140,8 @@ def ensure_base(fid: str, firms: FirmsClean) -> dict | None:
             "discovery_t": meta["discovery_t"], "polar_first_t": meta["polar_first_t"]}
     out["info"] = np.array(json.dumps(info))
     d.mkdir(parents=True, exist_ok=True)
-    np.savez_compressed(f, **out)
+    from .goes import atomic_savez
+    atomic_savez(f, **out)
     out["info"] = info
     return out
 
@@ -154,18 +169,23 @@ def ensure_u(fid: str, ukey: str, base: dict) -> tuple[np.ndarray, np.ndarray | 
     fe, fw = d / f"uE_{ukey}.npy", d / f"uW_{ukey}.npy"
     info = base["info"]
     if fe.is_file() and (info["other"] is None or fw.is_file() or ukey.startswith("vis")):
-        uE = np.load(fe)
-        uW = np.load(fw) if fw.is_file() else None
-        return uE, uW
+        try:
+            uE = np.load(fe)
+            uW = np.load(fw) if fw.is_file() else None
+            return uE, uW
+        except (ValueError, OSError, EOFError):
+            fe.unlink(missing_ok=True)
+            fw.unlink(missing_ok=True)
     sR = load_series(fid, info["ref"])
     uE = compute_u(sR, ukey).astype(np.float16)
-    np.save(fe, uE)
+    from .goes import atomic_np_save
+    atomic_np_save(fe, uE)
     uW = None
     if info["other"] and not ukey.startswith("vis"):
         sO = load_series(fid, info["other"])
         uo = compute_u(sO, ukey)
         uW = uo[:, :, base["mapW_i"], base["mapW_j"]].astype(np.float16)
-        np.save(fw, uW)
+        atomic_np_save(fw, uW)
     return uE, uW
 
 
@@ -213,6 +233,23 @@ def run_maxima(G):
     return np.concatenate(out) if out else np.zeros(0, np.float32)
 
 
+def recur_masks(uE, uW, cfg: Config):
+    """[D, H, W] bool: pixel suppressed on day d because G reached cfg.recur within 1 px on one of the 7 days before."""
+    from scipy.ndimage import maximum_filter
+    D, T, H, W = uE.shape
+    gmax = np.zeros((D, H, W), np.float32)
+    for d in range(D):
+        G = g_series(uE[d].reshape(T, -1), uW[d].reshape(T, -1) if uW is not None else None, cfg)
+        gmax[d] = G.max(0).reshape(H, W)
+    hit = maximum_filter(gmax >= cfg.recur, size=(1, 3, 3))
+    out = np.zeros((D, H, W), bool)
+    for d in range(D):
+        prev = list(range(d + 1, min(d + 8, D)))
+        if prev:
+            out[d] = hit[prev].any(0)
+    return out
+
+
 def fire_eval(fid: str, cfg: Config, firms: FirmsClean, need_placebo=True, post_h=2.0):
     """Per fire: placebo run maxima and site-days; the fire site's running max of G with alert times."""
     base = ensure_base(fid, firms)
@@ -227,11 +264,15 @@ def fire_eval(fid: str, cfg: Config, firms: FirmsClean, need_placebo=True, post_
     aW = base.get("availW")
     out = {"fid": fid, "info": info}
     # fire site: 9 site centres around the site pixel, day 0
-    cen = [(HALF + i, HALF + j) for i in (-1, 0, 1) for j in (-1, 0, 1)]
+    rr = range(-cfg.site_r, cfg.site_r + 1)
+    cen = [(HALF + i, HALF + j) for i in rr for j in rr]
     ci = np.array([c[0] for c in cen])
     cj = np.array([c[1] for c in cen])
     G = g_series(uE[0][:, ci, cj], uW[0][:, ci, cj] if uW is not None else None, cfg,
                  vE[0][:, ci, cj] if vE is not None else None)
+    if cfg.recur:
+        rm0 = recur_masks(uE, uW, cfg)[0]
+        G = np.where(rm0[ci, cj][None, :], 0, G)
     g = G.max(1)
     tav = aE[0].copy()
     if aW is not None:
@@ -352,8 +393,10 @@ def placebo_episodes(fid, cfg, firms, base=None, floor=None):
     vE = ensure_u(fid, "vis", base)[0] if cfg.vis_weight else None
     floor = 2.0 if floor is None else floor
     days, sd = [], 0.0
+    rmask = recur_masks(uE, uW, cfg) if cfg.recur else None
     for d in range(NDAYS):
-        idx = np.argwhere(base["clean"][d])
+        ok = base["clean"][d] if rmask is None else (base["clean"][d] & ~rmask[d])
+        idx = np.argwhere(ok)
         if not len(idx):
             continue
         Gp = g_series(uE[d][:, idx[:, 0], idx[:, 1]], uW[d][:, idx[:, 0], idx[:, 1]] if uW is not None else None,

@@ -191,3 +191,47 @@ def build(cfg: dict, out_dir: Path, n_per_class: int = 60, seed: int = 51, match
                                for s in ("dev", "test") for k in range(4)}}
     (out_dir / "fires_summary.json").write_text(json.dumps(summ, indent=1))
     return summ
+
+
+def build_supplement(verified_csv: Path, out_csv: Path, n_per_group: int = 10, seed: int = 51, match_km: float = 3.0):
+    """Supplementary list from track 50's verified fires (never in the sealed test). Groups by FPA FOD size class:
+    small A-C, medium D-E, large F-G. Site = first polar detection within 3 km in [label_t0 - 1 d, label_t0 + 3 d]."""
+    rows = list(csv.DictReader(open(verified_csv)))
+    years = sorted({int(r["label_t0"][:4]) for r in rows})
+    firms = load_firms(years=tuple(years))
+    idx = GridIndex(firms)
+    groups = {"small": "ABC", "medium": "DE", "large": "FG"}
+    rng = random.Random(seed)
+    out = []
+    for g, cls in groups.items():
+        cand = sorted([r for r in rows if r["FIRE_SIZE_CLASS"] in cls], key=lambda r: r["rid"])
+        rng.shuffle(cand)
+        got = 0
+        for r in cand:
+            if got >= n_per_group:
+                break
+            lat, lon = float(r["LATITUDE"]), float(r["LONGITUDE"])
+            t0 = datetime.fromisoformat(r["label_t0"]).replace(tzinfo=timezone.utc).timestamp()
+            pre = idx.near(lat, lon, 5.0, t0 - 9 * 86400, t0 - 86400)
+            if len(pre):
+                continue
+            m = idx.near(lat, lon, match_km, t0 - 86400, t0 + 3 * 86400)
+            if not len(m):
+                continue
+            j = m[np.argmin(firms["t"][m])]
+            acres = float(r["FIRE_SIZE"])
+            out.append({"fire_id": "CAUGHT-" + r["rid"], "split": "supplement",
+                        "size_class": size_class(acres, [10, 100, 1000, 10000]) if acres >= 10 else 0, "acres": acres,
+                        "name": "", "state": "CA", "lat": lat, "lon": lon, "discovery_t": t0,
+                        "polar_first_t": float(firms["t"][j]),
+                        "polar_first_sensor": "VIIRS-SNPP" if firms["sensor"][j] == 0 else "MODIS",
+                        "polar_first_lat": float(firms["lat"][j]), "polar_first_lon": float(firms["lon"][j]),
+                        "n_polar_72h": int(len(m)), "cause": "", "fuel": "", "irwin": "", "caught_tier": r["tier"],
+                        "caught_kinds": r["kinds"], "size_group": g})
+            got += 1
+    cols = list(out[0].keys())
+    with open(out_csv, "w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=cols)
+        w.writeheader()
+        w.writerows(out)
+    return len(out)

@@ -27,13 +27,21 @@ CURVE = [1e-6, 3e-6, 1e-5, 3e-5, 1e-4, 3e-4, 1e-3, 3e-3, 1e-2]
 
 
 def cfg_hash(cfg: dt.Config) -> str:
-    return hashlib.sha1(json.dumps(cfg.to_json(), sort_keys=True).encode()).hexdigest()[:12]
+    d = cfg.to_json()
+    if d.get("site_r", 1) == 1:
+        d.pop("site_r", None)          # keep the hashes of caches made before site_r existed
+    if not d.get("recur"):
+        d.pop("recur", None)
+    return hashlib.sha1(json.dumps(d, sort_keys=True).encode()).hexdigest()[:12]
 
 
 def fire_cached(fid, cfg, firms):
     p = CACHE / cfg_hash(cfg) / f"{fid}.pkl"
     if p.is_file():
-        return pickle.loads(p.read_bytes())
+        try:
+            return pickle.loads(p.read_bytes())
+        except Exception:  # noqa: BLE001
+            p.unlink(missing_ok=True)
     e = dt.fire_eval(fid, cfg, firms, need_placebo=False)
     if e is None:
         return None
@@ -42,7 +50,8 @@ def fire_cached(fid, cfg, firms):
     e["site_days"] = sd
     e["placebo_runmax"] = np.concatenate([d[3] for d in days]) if days else np.zeros(0, np.float32)
     p.parent.mkdir(parents=True, exist_ok=True)
-    p.write_bytes(pickle.dumps(e))
+    from .goes import atomic_write_bytes
+    atomic_write_bytes(p, pickle.dumps(e))
     return e
 
 
@@ -203,10 +212,11 @@ def paired_stats(leadmap, seed=0):
             "D1_pass": bool(n and med[1] > 0)}
 
 
-def curve(evals, fids=None):
+def curve(evals, fids=None, h_source=None):
+    """Lead statistics over budgets. Thresholds come from h_source's placebo series (dev) when given."""
     rows = []
     for b in CURVE:
-        h = h_for_budget(evals, b)
+        h = h_for_budget(h_source if h_source is not None else evals, b)
         L = leads(evals, h)
         if fids:
             L = {f: L[f] for f in fids if f in L}
@@ -242,42 +252,53 @@ def k_from_labels(labels_csv: Path):
     return (0.5 * float(np.median(vals)) if vals else 0.5), len(vals)
 
 
+def by_class(L, fires):
+    out = {}
+    for k in sorted({int(f["size_class"]) for f in fires.values()}):
+        sub = {f: v for f, v in L.items() if int(fires[f]["size_class"]) == k}
+        st = paired_stats(sub)
+        out[str(k)] = {"n": st["n"], "earlier": st["earlier"], "share_earlier": st["share_earlier"],
+                       "median_lead_min": st["median_lead_min"], "no_alert": st["no_alert"]}
+    return out
+
+
 def replay_cmd(a):
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
-    fires = load_fires("protocol/live_fires.csv")
+    fires = {f["fire_id"]: f for f in load_fires("protocol/live_fires.csv")}
     if a.split == "test" and not a.open_test:
         print("refusing: the sealed test is opened once, with --i-am-opening-the-sealed-test")
         return 2
-    fids = [f["fire_id"] for f in fires if f["split"] == a.split and series_meta(f["fire_id"]) is not None]
+    fids = [f for f, r in fires.items() if r["split"] == a.split and series_meta(f) is not None]
+    dev = [f for f, r in fires.items() if r["split"] == "dev" and series_meta(f) is not None]
     det_file = Path(a.detector) if a.detector else Path(__file__).parent / "config" / "detector_us.json"
     doc = json.loads(det_file.read_text())
     cfg = dt.Config.from_json(doc["config"])
     firms = FirmsClean()
-    if a.split == "test":
-        # thresholds for the frozen budget come from dev placebo series only
-        dev = [f["fire_id"] for f in fires if f["split"] == "dev"]
-        h = doc["h"]
-        ev = evals_for(fids, cfg, firms)
-    else:
-        ev = evals_for(fids, cfg, firms)
-        h = h_for_budget(ev, BUDGET)
+    ev = evals_for(fids, cfg, firms)
+    ev_dev = evals_for(dev, cfg, firms)
+    h = float(doc["h"])                     # frozen: from dev placebo series at the budget
     L = leads(ev, h)
     st = paired_stats(L)
-    res = {"split": a.split, "detector_sha256": hashlib.sha256(det_file.read_bytes()).hexdigest(), "h": h,
-           "budget": BUDGET, "stats": st, "curve": curve(ev),
-           "false_rate_at_h_this_split": clustered_rate(ev, h)}
+    res = {"split": a.split, "detector_file": str(det_file), "detector_sha256": hashlib.sha256(det_file.read_bytes()).hexdigest(),
+           "h": h, "budget": BUDGET, "n_fires": len(fids), "stats": st, "by_size_class": by_class(L, fires),
+           "curve_thresholds_from_dev": curve(ev, h_source=ev_dev),
+           "false_rate_at_h_this_split_clustered": clustered_rate(ev, h),
+           "false_rate_at_h_this_split_per_pixel": unclustered_rate(ev, h),
+           "made": _iso(__import__("time").time())}
     (out / f"replay_{a.split}.json").write_text(json.dumps(res, indent=1, default=str))
     rows = []
     for e in ev:
         i = e["info"]
         al = dt.alert_time(e, h)
-        rows.append({"fire_id": e["fid"], "alert_utc": _iso(al), "operational_utc": _iso(i["op"]),
-                     "lead_min": None if L[e["fid"]] is None else round(L[e["fid"]], 1) if math.isfinite(L[e["fid"]]) else L[e["fid"]],
+        v = L[e["fid"]]
+        rows.append({"fire_id": e["fid"], "size_class": fires[e["fid"]]["size_class"], "acres": fires[e["fid"]]["acres"],
+                     "alert_utc": _iso(al), "operational_utc": _iso(i["op"]),
+                     "lead_min": None if v is None else (round(v, 1) if math.isfinite(v) else ("+inf" if v > 0 else "-inf")),
                      "T0": _iso(i["T0"]), "polar_first": _iso(i["polar_first_t"]), "discovery": _iso(i["discovery_t"])})
     from .pipeline import write_csv
     write_csv(out / f"replay_{a.split}_by_fire.csv", rows)
-    print(json.dumps({k: res[k] for k in ("h", "stats")}, indent=1, default=str))
+    print(json.dumps({k: res[k] for k in ("h", "stats", "by_size_class")}, indent=1, default=str))
     return 0
 
 

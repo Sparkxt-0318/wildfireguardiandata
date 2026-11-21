@@ -195,3 +195,11 @@ history-based reference (the pixel's own clear BT14 at the same clock time) gave
 also recovers frames where ACM is missing, but cannot be reproduced exactly in the live service, so the spatial rule is
 used everywhere. Disclosure: chosen after looking at dev fires' outcomes; dev results are therefore development results,
 and the sealed test, untouched, carries the confirmatory numbers. Part A thresholds and all Part B fits are recomputed.
+
+**Amendment 6 — 2026-11-20T22:44Z, improvement loop after a failing first version.** The first version
+(forward selection, cross-validated on dev: feature BT7 with the compactness filter, cap 40, k 4, ρ 1.5, cloud decay
+0.9, h = 64.4 at the budget) does not pass D1 on dev: held-out, it alerts before the operational product on 6 of 92
+fires, and 52 fires get no alert within 2 h after the anchor. §9 starts the rounds "after the first version passes";
+since it does not, the rounds are run anyway (same rules: dev only, one named cause and one change per round, kept only
+if the dev score improves at the same budget, at most 12), and the sealed test is opened once at the end with the last
+kept version, whatever its dev result. The first version's dev results are reported unchanged.

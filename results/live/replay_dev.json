@@ -1,0 +1,217 @@
+{
+ "split": "dev",
+ "detector_file": "/home/user/wildfireguardiandata/firewitness/live/config/detector_us.json",
+ "detector_sha256": "63bea29baa9d74d0abc155674df1d3ace9906f5802f0e6fb1f715a189cc05b3b",
+ "h": 67.05959375,
+ "budget": 0.0001,
+ "n_fires": 120,
+ "stats": {
+  "n": 96,
+  "earlier": 16,
+  "share_earlier": [
+   0.16666666666666666,
+   0.10527292644504675,
+   0.25371170521149716
+  ],
+  "median_lead_min": [
+   -75.04166666666666,
+   -1000000.0,
+   -34.78333333333333
+  ],
+  "no_alert": 47,
+  "no_operational": 4,
+  "D1_pass": false
+ },
+ "by_size_class": {
+  "0": {
+   "n": 16,
+   "earlier": 1,
+   "share_earlier": [
+    0.0625,
+    0.01111905730833121,
+    0.2832926836802987
+   ],
+   "median_lead_min": [
+    -47.41666666666667,
+    -1000000.0,
+    -14.683333333333334
+   ],
+   "no_alert": 6
+  },
+  "1": {
+   "n": 23,
+   "earlier": 3,
+   "share_earlier": [
+    0.13043478260869565,
+    0.04537576514344702,
+    0.32127897973018194
+   ],
+   "median_lead_min": [
+    -1000000.0,
+    -1000000.0,
+    -34.516666666666666
+   ],
+   "no_alert": 12
+  },
+  "2": {
+   "n": 28,
+   "earlier": 7,
+   "share_earlier": [
+    0.25,
+    0.12676334942200781,
+    0.433560252407046
+   ],
+   "median_lead_min": [
+    -500035.0416666667,
+    -1000000.0,
+    -11.175
+   ],
+   "no_alert": 14
+  },
+  "3": {
+   "n": 29,
+   "earlier": 5,
+   "share_earlier": [
+    0.1724137931034483,
+    0.07597745271479928,
+    0.34548800572815114
+   ],
+   "median_lead_min": [
+    -1000000.0,
+    -1000000.0,
+    -14.933333333333334
+   ],
+   "no_alert": 15
+  }
+ },
+ "curve_thresholds_from_dev": [
+  {
+   "budget": 1e-06,
+   "h": 419.15,
+   "false_clustered_per_site_day": 0.0,
+   "n_false_clustered": 0,
+   "false_per_pixel_per_site_day": 0.0,
+   "site_days": 495709.1,
+   "n": 93,
+   "share_earlier": 0.022,
+   "median_lead_min": -1000000.0,
+   "median_lo": -1000000.0,
+   "median_hi": -1000000.0
+  },
+  {
+   "budget": 3e-06,
+   "h": 401.97,
+   "false_clustered_per_site_day": 2.017311968925551e-06,
+   "n_false_clustered": 1,
+   "false_per_pixel_per_site_day": 6.051935906776654e-06,
+   "site_days": 495709.1,
+   "n": 93,
+   "share_earlier": 0.022,
+   "median_lead_min": -1000000.0,
+   "median_lo": -1000000.0,
+   "median_hi": -1000000.0
+  },
+  {
+   "budget": 1e-05,
+   "h": 157.7,
+   "false_clustered_per_site_day": 8.069247875702205e-06,
+   "n_false_clustered": 4,
+   "false_per_pixel_per_site_day": 1.613849575140441e-05,
+   "site_days": 495709.1,
+   "n": 93,
+   "share_earlier": 0.075,
+   "median_lead_min": -1000000.0,
+   "median_lo": -1000000.0,
+   "median_hi": -1000000.0
+  },
+  {
+   "budget": 3e-05,
+   "h": 106.21,
+   "false_clustered_per_site_day": 2.8242367564957717e-05,
+   "n_false_clustered": 14,
+   "false_per_pixel_per_site_day": 0.00018155807720329962,
+   "site_days": 495709.1,
+   "n": 95,
+   "share_earlier": 0.126,
+   "median_lead_min": -1000000.0,
+   "median_lo": -1000000.0,
+   "median_hi": -74.98333333333333
+  },
+  {
+   "budget": 0.0001,
+   "h": 67.06,
+   "false_clustered_per_site_day": 9.884828647735201e-05,
+   "n_false_clustered": 49,
+   "false_per_pixel_per_site_day": 0.0006415052061183253,
+   "site_days": 495709.1,
+   "n": 96,
+   "share_earlier": 0.167,
+   "median_lead_min": -75.04166666666666,
+   "median_lo": -1000000.0,
+   "median_hi": -34.78333333333333
+  },
+  {
+   "budget": 0.0003,
+   "h": 44.26,
+   "false_clustered_per_site_day": 0.00029856217140098156,
+   "n_false_clustered": 148,
+   "false_per_pixel_per_site_day": 0.0019507406739510081,
+   "site_days": 495709.1,
+   "n": 97,
+   "share_earlier": 0.216,
+   "median_lead_min": -54.55,
+   "median_lo": -1000000.0,
+   "median_hi": -14.866666666666667
+  },
+  {
+   "budget": 0.001,
+   "h": 24.06,
+   "false_clustered_per_site_day": 0.0009985694246181479,
+   "n_false_clustered": 495,
+   "false_per_pixel_per_site_day": 0.007732356776891638,
+   "site_days": 495709.1,
+   "n": 98,
+   "share_earlier": 0.367,
+   "median_lead_min": -9.933333333333334,
+   "median_lo": -92.425,
+   "median_hi": -4.7
+  },
+  {
+   "budget": 0.003,
+   "h": 11.68,
+   "false_clustered_per_site_day": 0.0029997428977922946,
+   "n_false_clustered": 1487,
+   "false_per_pixel_per_site_day": 0.026077791822300602,
+   "site_days": 495709.1,
+   "n": 104,
+   "share_earlier": 0.577,
+   "median_lead_min": 0.13333333333333333,
+   "median_lo": -2.4585416666666666,
+   "median_hi": 1.8
+  },
+  {
+   "budget": 0.01,
+   "h": 3.63,
+   "false_clustered_per_site_day": 0.009999815429963957,
+   "n_false_clustered": 4957,
+   "false_per_pixel_per_site_day": 0.10845472607337549,
+   "site_days": 495709.1,
+   "n": 106,
+   "share_earlier": 0.717,
+   "median_lead_min": 32.650000000000006,
+   "median_lo": 5.183333333333334,
+   "median_hi": 190.23333333333332
+  }
+ ],
+ "false_rate_at_h_this_split_clustered": [
+  9.884828647735201e-05,
+  49,
+  495709.1493055554
+ ],
+ "false_rate_at_h_this_split_per_pixel": [
+  0.0006415052061183253,
+  318,
+  495709.1493055554
+ ],
+ "made": "2026-11-21T00:02:11Z"
+}
