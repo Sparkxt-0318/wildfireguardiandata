@@ -104,7 +104,7 @@ location_too_uncertain, clear_look_nothing_found). `evidence`: JSON list of ever
 dates, details). `pairs`: agreeing independent kinds. `std_label`, `std_witnesses`: standard products (MODIS,
 VIIRS S-NPP, VIIRS NOAA-20 active fire; MCD64A1; MTBS) in the window. Three states in the searched disc:
 `fire_m2_disc`, `no_fire_m2_disc` (verified no fire above `scar_floor_m2` between `scar_pre` and `scar_post`),
-`unknown_m2_disc`. `heat_floors_m2.json`: edge-of-scan flaming-area floors per heat sensor, day and night (the same for every record).
+`unknown_m2_disc`. `caught_states_v0.1_<year>[_partKofN].parquet`: the three states as shapes, one row per state and record, with its interval (`t0`, `t1`) and, for no fire, its floor (`floor_m2`); shapes simplified to about 3 m (0.00003 degree, topology kept) and repaired where cutting the disc left slivers, so their areas can differ slightly from the `*_m2_disc` fields, which are exact. `heat_floors_m2.json`: edge-of-scan flaming-area floors per heat sensor, day and night (the same for every record).
 
 ## How it was made
 protocol/CAUGHT_PROTOCOL.md (fixed before results). No trained model writes a label. No smoothing, dilation,
@@ -263,6 +263,24 @@ def _write_split(g, outd: Path, stem: str, max_mb: float) -> list:
         n_parts += 1
 
 
+STATES_SIMPLIFY_DEG = 0.00003   # about 3 m, as for the label geometry
+
+
+def _clean(geoms, tol: float):
+    """Simplify (topology kept) and repair: cutting the disc into fire / no fire / unknown and projecting back leaves
+    slivers and self-touching rings; make_valid fixes them and only polygonal parts are kept."""
+    import shapely
+    g = shapely.make_valid(shapely.simplify(geoms, tol, preserve_topology=True))
+    out = []
+    for x in g:
+        if x.geom_type in ("Polygon", "MultiPolygon"):
+            out.append(x)
+            continue
+        parts = [p for p in shapely.get_parts(x) if p.geom_type in ("Polygon", "MultiPolygon")]
+        out.append(shapely.union_all(parts) if parts else shapely.Polygon())
+    return out
+
+
 def states_export(run: str, out: str, max_mb: float = 90.0) -> list:
     """Three-state table for a whole slice, one year at a time (the scar checkpoint is streamed once per year)."""
     import pyarrow.parquet as pq
@@ -276,6 +294,8 @@ def states_export(run: str, out: str, max_mb: float = 90.0) -> list:
     for y in years:
         lab = pd.read_parquet(rd / "labels.parquet", columns=cols, filters=[("FIRE_YEAR", "==", y)])
         g = states_table(run, lab, _unknowns(rd / "scar.jsonl", set(lab.rid)))
+        g["geometry"] = _clean(g.geometry.values, STATES_SIMPLIFY_DEG)
+        g = g[~g.geometry.is_empty].copy()
         for c in ("t0", "t1"):
             g[c] = g[c].astype(str)
         files += _write_split(g, outd, f"caught_states_v0.1_{y}", max_mb)
