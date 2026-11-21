@@ -367,6 +367,13 @@ def read_job(job: dict) -> dict:
                     v = np.full((n, m), -1, np.int16)
                     v[a0 - r0:a1 - r0, b0 - c0:b1 - c0] = raw[a0 - r0:a1 - r0, b0 - c0:b1 - c0]
                     res.append(v)
+            elif kind == "fdcp":
+                # fire product Mask and Power (MW, float32, _FillValue -9): returns a 2 x n x m float array
+                for (r0, c0, n, m) in job["boxes"]:
+                    mk, _ = _box(h["Mask"], r0, c0, n, m)
+                    pw, _ = _box(h["Power"], r0, c0, n, m)
+                    pw = np.where(np.isfinite(pw) & (pw >= 0), pw, np.nan)
+                    res.append(np.stack([mk.astype(np.float32), pw.astype(np.float32)]))
             else:
                 raise ValueError(kind)
             return {"ok": True, "boxes": res, "nreq": rf.nreq, "nbytes": rf.nbytes}
