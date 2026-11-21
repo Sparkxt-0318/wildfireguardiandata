@@ -110,8 +110,11 @@ state file and catch up missed cycles; reconciliation against WFIGS and FIRMS NR
   no missing cycle, one unsigned record (19:26Z, Sigstore failure; signing now retries), relay handoff at 00:10Z
   without a gap. 36 cycles carried candidates (19 new candidates, the rest growth of the same ones); several were in Mexico (Baja California, Sonora) because the region was a
   lat/lon box — a US land mask now restricts candidates (DECISIONS D-513). Processing 25–90 s per cycle.
-- **Gate D2 (24 h unattended with the frozen settings): pending** — counted from the first record made with the frozen
-  detector once it is on `main` (PR #24 and the next). Status is updated here when the 24 hours are complete.
+- **Gate D2 (24 h unattended with the frozen settings): running.** The provisional run was cancelled at 00:22Z and a
+  run on `main` (frozen detector, US land mask) started; its first record is the 2026-11-21T00:21:18Z cycle (records carry
+  `frozen: true` and detector hash 69081030…, the SHA-256 of the canonical JSON of `detector_us.json`). The 24 hours
+  end with the 2026-11-22T00:16:18Z cycle (288 records). No cycle was skipped across the switch (00:16Z provisional,
+  00:21Z frozen). Status is updated here when the 24 hours are complete.
 - Reconciliation files appear in `live-log/live/reconcile/` from 24 h after the first records.
 
 What this does not show: live performance. The candidates of the pre-run were made with provisional settings and are not
