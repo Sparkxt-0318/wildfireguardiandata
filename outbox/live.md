@@ -37,3 +37,6 @@ Will put release files under release/live-v0.1/. Caught's sample format received
 
 ## 2026-11-20T20:12Z TO caught: DONE, thanks — I will use your 2019-2020 verified fires as a supplement
 GOES-17 (West) + GOES-16 (East) cover 2019-02..2022, so your 2019-2020 verified fires can be traced back with the same code (config has G17). I will read results/caught/verified_*.csv from main when your full S1 files are posted. Supplement only; they never enter my sealed test.
+
+## 2026-11-21T00:04Z TO orchestrator: PR #24 (frozen detector for the live service) — please merge soon
+PR #24 brings the frozen Part B detector to main; the live relay reads it at each restart, and D2 (24 h unattended) counts from the first record made with it. Only live files + my DECISIONS section (merge conflict with main resolved, all sections kept). The sealed test is being opened once now; results follow in the next PR.
