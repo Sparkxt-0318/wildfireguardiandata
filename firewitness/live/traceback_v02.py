@@ -252,11 +252,17 @@ from .traceback import DERIVED  # noqa: E402
 DERIVED_V02 = DERIVED / "v02"
 
 
-def plume_record(fid: str, sat: str, force=False):
-    """P, daytime flag and scan times for one fire-satellite (cached under derived/v02/plume)."""
+def smoke_key(cfg=None) -> str:
+    c = (cfg or {}).get("smoke", {})
+    return (f"{c.get('cloud_mode', 'override')}_b{int(c.get('cloud_buf', 0))}_z{float(c.get('z_bright', 3.0)):g}"
+            f"_r{int(c.get('radius_km', 3))}_c{c.get('cap')}")
+
+
+def plume_record(fid: str, sat: str, cfg=None, force=False):
+    """P, daytime flag and scan times for one fire-satellite with the smoke settings of cfg (cached per settings)."""
     from .goes import atomic_savez
     from .traceback import series_meta
-    f = DERIVED_V02 / "plume" / f"{fid}_{sat}.npz"
+    f = DERIVED_V02 / f"plume_{smoke_key(cfg)}" / f"{fid}_{sat}.npz"
     if f.is_file() and not force:
         try:
             z = np.load(f)
@@ -265,7 +271,7 @@ def plume_record(fid: str, sat: str, force=False):
             f.unlink(missing_ok=True)
     meta = series_meta(fid)
     s = load_series(fid, sat)
-    P, day = plume_series(s, meta["lat"], meta["lon"])
+    P, day = plume_series(s, meta["lat"], meta["lon"], cfg)
     f.parent.mkdir(parents=True, exist_ok=True)
     rec = {"P": P, "day": day, "tscan": s["tscan"], "T0": np.array(meta["T0"])}
     atomic_savez(f, **rec)
@@ -274,14 +280,15 @@ def plume_record(fid: str, sat: str, force=False):
 
 def _plume_job(args):
     try:
-        plume_record(*args)
+        plume_record(args[0], args[1], _plume_job.cfg)
         return args, None
     except Exception as e:  # noqa: BLE001
         return args, repr(e)
 
 
-def plume_records(pairs, procs=3):
+def plume_records(pairs, procs=3, cfg=None):
     from multiprocessing import get_context
+    _plume_job.cfg = cfg
     with get_context("fork").Pool(procs) as pool:
         return [r for r in pool.imap_unordered(_plume_job, pairs) if r[1]]
 
@@ -305,12 +312,13 @@ def choose_p_star(curve, max_share=0.02):
 
 
 # ---------------------------------------------------------------- frozen settings and the one test run
-def freeze(p_star: dict, h_A: dict, code_commit: str, dev_summary: dict) -> dict:
+def freeze(p_star: dict, h_A: dict, code_commit: str, dev_summary: dict, smoke_settings: dict) -> dict:
     cfg = {"protocol": "protocol/LIVE_PROTOCOL_v0.2.md", "frozen_utc": None, "code_commit": code_commit,
            "thermal": {"variant": "A2", "h_A": h_A, "k": 0.5},
            "smoke": {"band": 1, "z_bright": 3.0, "radius_km": 3, "scale_floor": 0.005, "sza_max_deg": 80,
                      "window_min": [-60, 15], "min_day_frames": 6, "placebo_clock_offset_min": -30,
-                     "p_star": p_star["p"], "p_star_dev_windows": [p_star["k"], p_star["n"]], "max_dev_share": 0.02},
+                     "p_star": p_star["p"], "p_star_dev_windows": [p_star["k"], p_star["n"]], "max_dev_share": 0.02,
+                     **smoke_settings},
            "size": {"a_band7": {s: band7_a(s) for s in ("G16", "G17", "G18")}, "a_fit_K": [650, 1350],
                     "Tf_K": [600, 800, 1200], "approx_pct": 10, "site": "3x3"},
            "dev_summary": dev_summary}
@@ -418,9 +426,10 @@ def run_test(out=Path("results/live/v02"), procs=3):
     e2 = pl.e2_stats(labels)
     # smoke witness
     pairs = [(r["fire_id"], r["sat"]) for r in recs]
-    perr = plume_records(pairs, procs=procs)
+    perr = plume_records(pairs, procs=procs, cfg=fz)
     p = int(fz["smoke"]["p_star"])
-    prec = {(f, s): plume_record(f, s) for f, s in pairs if (f, s) not in {e[0] for e in perr}}
+    bad = {e[0] for e in perr}
+    prec = {(f, s): plume_record(f, s, fz) for f, s in pairs if (f, s) not in bad}
     win = [x for pr in prec.values() for x in placebo_windows(pr["P"], pr["day"], pr["tscan"], float(pr["T0"]), p)]
     v1p = pl.wilson(sum(win), len(win))
     v1 = {"placebo_windows": [sum(win), len(win), *v1p], "pass": bool(len(win) and v1p[2] <= 0.05)}

@@ -82,4 +82,46 @@ Before any test computation: p\*, the band-7 coefficient a per satellite, and th
 
 ## Amendments
 
-(none)
+### Amendment 1 — 2026-11-21T05:45Z — smoke witness cloud mask and plume size cap (results seen: dev only)
+
+State when written: the v0.2 code was run on the 240 dev fires only. The 100 test fires' satellite series were being
+extracted (no v0.2 or thermal computation on them, nothing looked at). Nothing in §4 (size) or §5 (gates) changes.
+
+Why: with §3 as committed, 32 % of the dev temporal-placebo windows had a "plume" at p = 1, the p\* rule gave
+p\* = 1175 pixels (45/2263 placebo windows), and 2 of 32 dev daytime onsets were supported, both by bright runs
+starting 340–435 min before the onset (cloud, not smoke). Large bright components next to cloud were the main source.
+
+Dev exploration (one round, 18 variants, all reported): cloud mask {v0.1 effective cloud with the 11 µm override, no
+buffer; ACM ≥ 2 or missing without the override, no buffer; the same with a 2-pixel (2 km grid) buffer} × bright
+threshold z ≥ {3, 5} × component size cap {none, 150, 50 pixels}; for each, p\* by the §3 rule and the dev support.
+
+| variant | placebo share at p = 1 | p\* | placebo windows at p\* | dev daytime onsets supported |
+|---|---|---|---|---|
+| acm_b0_z3_c150 | 0.24 | 97 | 45/2263 | 0/32 |
+| acm_b0_z3_c50 | 0.225 | 30 | 45/2263 | 0/32 |
+| acm_b0_z3_cNone | 0.301 | 1167 | 45/2263 | 2/32 |
+| acm_b0_z5_c150 | 0.185 | 80 | 45/2263 | 0/32 |
+| acm_b0_z5_c50 | 0.176 | 28 | 43/2263 | 0/32 |
+| acm_b0_z5_cNone | 0.216 | 791 | 45/2263 | 1/32 |
+| acm_b2_z3_c150 | 0.094 | 44 | 45/2263 | 1/32 |
+| **acm_b2_z3_c50 (chosen)** | 0.084 | 15 | 43/2263 | 4/32 |
+| acm_b2_z3_cNone | 0.14 | 1129 | 45/2263 | 2/32 |
+| acm_b2_z5_c150 | 0.073 | 23 | 45/2263 | 1/32 |
+| acm_b2_z5_c50 | 0.067 | 10 | 42/2263 | 0/32 |
+| acm_b2_z5_cNone | 0.096 | 715 | 45/2263 | 1/32 |
+| override_b0_z3_c150 | 0.254 | 100 | 43/2263 | 0/32 |
+| override_b0_z3_c50 | 0.237 | 33 | 42/2263 | 1/32 |
+| override_b0_z3_cNone (as committed) | 0.321 | 1175 | 45/2263 | 2/32 |
+| override_b0_z5_c150 | 0.203 | 77 | 45/2263 | 0/32 |
+| override_b0_z5_c50 | 0.195 | 30 | 43/2263 | 0/32 |
+| override_b0_z5_cNone | 0.238 | 899 | 44/2263 | 1/32 |
+
+Change (replaces the corresponding §3 items):
+- Cloud: ACM probably-cloudy/cloudy or missing, **without** the 11 µm override, with a 2-pixel (2 km grid) buffer,
+  repeated onto the 1 km grid. (A thick plume flagged as cloud is lost; the witness targets thin early plumes.)
+- Plume score P(t): bright pixels (z ≥ 3) in the 8-connected bright components that come within 3 km of the site
+  **and have at most 50 pixels** (larger components are treated as cloud or scene change, not an early plume).
+- p\* by the unchanged §3 rule on the dev placebos with these settings (expected 15).
+
+Caveat recorded before the test: the chosen variant is the best of 18 on dev support (4/32), so its dev support is
+optimistic; the test (new fires, once) is the estimate. All other §3–§6 items are unchanged.
