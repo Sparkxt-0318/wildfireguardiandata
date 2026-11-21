@@ -1,9 +1,9 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T06:14Z
-- current step: S2 placebos running (~2 h; container restarted 3 times, run resumes from checkpoints). Fuel-type scar check done (addition 2026-11-21T05:00Z). Next: S2 report, S3, release, v0.2.
+- last heartbeat (UTC): 2026-11-21T06:39Z
+- current step: S2 (all US 2020) complete: 1,648 no-label fires now verified; placebo verified 0.16 %, probable 4.92 %. PR #39 (S2 + fuel check + downstream). S3 (US 2018-2020) running (~12 h). Then release caught-v0.1, then v0.2.
 - blockers: none
-- PRs open: none
+- PRs open: #39
 - session: session_017vgyRQiyh93zKanxaWeyYP
 - handover (if this session is replaced):
   - done: protocol + A1; v1 pipeline; dev fixes D1-D2; rounds 1-3 (rules frozen 530a3d5); sealed C2 (results/caught/C2_sealed_*.csv); S1 complete (results/caught/S1_*, verified_S1.csv, states_S1.parquet, scar_pairs_S1); downstream check (results/caught/downstream); all merged via PRs #3, #15, #23.
