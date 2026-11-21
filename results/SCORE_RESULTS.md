@@ -56,3 +56,13 @@ Input: `results/caught/states_S1_dev_sample.parquet` (track 50, California 2020,
 - Sampler on the train fires of the space split (124 train / 55 val / 72 test fires, 83 dropped by the buffer): 118,121 positives, 354,363 verified negatives from 623,360 eligible, all from `no_fire` cells whose look floor is no larger than the cell. Matching keys danger class and land cover do not exist in this table, so the match is on region and season: exact 9%, month +-1 4%, land-cover group and region 15%, same-danger fallback 73% (this is not a matched sample in the sense of the protocol; it is a verified-only sample).
 - **No precision/recall card:** there are no model predictions or weather/fuel layers for these scenes. A model card on caught labels needs a model fed features at these records; that is not part of this sample.
 - The full S1 file will replace this sample; numbers here must not be quoted as results.
+
+---
+## Addition 2026-11-21 (caught full S1; earlier lines unchanged)
+Input: `results/caught/states_S1.parquet` (track 50, PR #23, main daaad5e): 13,697 rows, 974 fire, 3,981 no_fire, 8,742 unknown. Full numbers: `results/score/caught_S1_full_card.json`. This replaces the DEV SAMPLE addition above for any quoted number.
+- 10,360 records (9,349 record-only, 633 probable, 378 verified); 235.2M cell-days on per-record grids: fire 57.1M, no_fire 18.1M, unknown 160.0M (68% unknown).
+- Floor rule: on extent-sized cells without floor sizing, only 46,592 of 72.0M no_fire cell-days pass; with each scene's cell sized to its largest finite look floor the no_fire count above (18.1M) all pass by construction. The median cell is 0.02 km because most records have no look and so no floor.
+- Space split: 2,292 train / 1,004 validation / 2,342 test records, 4,722 dropped by the buffer.
+- Sampler on the train records: 1,996,635 positives and 2,024,742 verified negatives (all eligible candidates were taken; k=3 would ask for 6.0M, so the ratio is about 1:1). Match levels: exact 16%, month +-1 18%, land-cover group and region 11%, same-danger fallback 55%; danger class and land cover do not exist in this table so matching is on region and season only. Hard negatives: 0.7% of the negatives (the catalogue's thermal sites rarely fall in these discs).
+- No precision/recall card: the table holds labels only, so there is no model to score; a model card needs predictions at these records.
+- Track 51's onset intervals: not available, live not merged. The live adapter (`adapters/live.py`) runs on record-only anchors (see the 2026-11-20 addition).
