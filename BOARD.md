@@ -1,27 +1,27 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-21T05:32Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-21T06:04Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 3 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 22 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 28 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 12 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 550 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 36 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 10 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 12 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 18 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 43 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 582 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 68 min |
 
 ## records
-- state: v0.4 ready for merge
-- last heartbeat (UTC): 2026-11-21T05:30Z
-- current step: PR #37 ready; waiting for merge, then DONE v0.4 with main hash
+- state: DONE v0.4 23192e6 (accepted by orchestrator; D-019 notes the sealed years were v0.2 dev years; records finished)
+- last heartbeat (UTC): 2026-11-21T05:55Z
+- current step: idle; reachable for audit fixes only, heartbeat at most every 60 min
 - blockers: none
-- PRs open: #37
+- PRs open: none
 - session: session_017vgyRSUvuSFwAJ6G5Pon4W
 
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T05:11Z
+- last heartbeat (UTC): 2026-11-21T05:53Z
 - current step: S2 placebos running (~2 h; container restarted 3 times, run resumes from checkpoints). Fuel-type scar check done (addition 2026-11-21T05:00Z). Next: S2 report, S3, release, v0.2.
 - blockers: none
 - PRs open: none
@@ -34,8 +34,8 @@ Assembled by the orchestrator at 2026-11-21T05:32Z from board/*.md. Builders are
 
 ## live
 - state: working (v0.2 trace-back; D2 running)
-- last heartbeat (UTC): 2026-11-21T05:05Z
-- current step: D2: 57 records 00:16Z-04:56Z, no gaps, all signed; v0.2: protocol committed alone (03441b2); test fires extracting; dev p* calibration running
+- last heartbeat (UTC): 2026-11-21T05:47Z
+- current step: D2: 66 records 00:16Z-05:41Z, no gaps, all signed; v0.2: smoke witness as committed failed on dev (p*=1175) -> protocol amendment 1 (dev only, 07031ff); freezing config; test fires 31/100 extracted
 - blockers: none
 - PRs open: none
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
