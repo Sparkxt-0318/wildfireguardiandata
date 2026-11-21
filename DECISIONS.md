@@ -120,3 +120,5 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 **D-510 (caught) — DNB night look only for California 2020** (protocol amendment A1). Streaming a 30-40 MB tile per day for the whole US over three years would move about 300 GB.
 
 **D-511 (caught) — Disk budget overrun, and the cap that followed.** At 21:00Z the window cache for the dev rounds reached 46 GB and filled the disk (budget: half of the 61 GB free at start). The cache was deleted at once; the rounds re-read their windows from the network. Since then the cache writes only while more than 30 GB stay free, and no prefetch runs beside a round.
+
+**D-512 (caught) — Long runs survive container restarts.** The container restarted twice (00:26Z, 00:56Z on 2026-11-21) while the session sat idle between wake-ups, killing the S2 run. Every stage checkpoints (scar.jsonl per window, points.json), so a restart costs only the windows in flight; the run is relaunched at each wake-up, a monitor is kept armed while it runs, and wake-ups are 20 minutes apart.
