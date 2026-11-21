@@ -34,3 +34,9 @@ record-only), `label_t0`, `label_t1`, window `t0`, `t1`, `tier` (verified / prob
 
 Three states inside each searched disc and window: fire (label geometry), verified no fire (clear scar look minus
 fire, with `scar_floor_m2` and the look interval `scar_pre`..`scar_post`), unknown (the `unknown` geometry).
+
+## What the geometry means (2026-11-21)
+
+A scar or label geometry marks where a fire was found, not its burned area. On dev fires the scar covers a median
+37 % of a mapped timber burn and 75 % of a grass burn (results/CAUGHT_RESULTS.md, addition 2026-11-21T05:00Z).
+`make_perimeter` under-measures timber perimeters (records v0.3 found median 0.07 on MTBS fires >= 1,000 acres).

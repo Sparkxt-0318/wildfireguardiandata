@@ -110,3 +110,83 @@ fires add burned area that 500 m products miss. What this track adds is per-reco
 with an evidence tier, a placebo-measured false-label rate, three states with a detection floor, and the
 record-only reason for every fire it cannot label; it makes no claim to be first. (Citations from memory, not
 re-verified.)
+
+## Addition 2026-11-21T05:00Z: scar area against mapped perimeters by fuel type (v0.1 rules and results unchanged)
+
+Asked by the orchestrator after records v0.3 found that the scar module under-measures timber. **Records ran this
+track's module**: `firewitness.caught.scar.make_perimeter`; at records' frozen commit 7ad17a7 the file
+`firewitness/caught/scar.py` is identical to the frozen v0.1 rules here (530a3d5; last change a1f74ce, a disk guard
+only).
+
+Check here: dev truth fires only (dev split, sha256 of source id mod 10 in 0-2; the sealed fires are not used),
+frozen-rule dev run (`truth_dev_r3`, small-fire scar finder `find_scar`, Sentinel-2 then Landsat), fires with a clear
+look. Fuel = ESA WorldCover 2020 class at the polygon's representative point. Ratio = accepted scar area / mapped
+area, among fires where a scar was found; "inside" = share of the mapped polygon covered by the scar. Verdict rule
+borrowed as published by records v0.3 (applied as is, after seeing it): under-measures if the Wilson lower bound of
+the share below 0.2 exceeds 0.25; not clear otherwise (n >= 10).
+
+| stratum | fuel | clear looks | scars found | ratio median (quartiles) | below 0.2 (share; Wilson 95 %) | inside median | verdict |
+|---|---|---|---|---|---|---|---|
+| all | grass | 822 | 703 | 0.82 (0.56-0.96) | 65 (9.2 %; 7.3-11.6) | 0.75 | not clear |
+| all | shrub | 76 | 59 | 0.68 (0.38-0.91) | 5 (8.5 %; 3.7-18.4) | 0.60 | not clear |
+| all | timber | 628 | 360 | 0.46 (0.15-0.74) | 105 (29.2 %; 24.7-34.1) | 0.37 | not clear |
+| primary small | grass | 616 | 503 | 0.85 (0.61-0.99) | 40 (8.0 %; 5.9-10.6) | 0.77 | not clear |
+| primary small | shrub | 61 | 46 | 0.71 (0.40-0.95) | 3 (6.5 %; 2.2-17.5) | 0.63 | not clear |
+| primary small | timber | 522 | 265 | 0.54 (0.20-0.86) | 66 (24.9 %; 20.1-30.4) | 0.43 | not clear |
+| reference large | grass | 206 | 200 | 0.70 (0.43-0.88) | 25 (12.5 %; 8.6-17.8) | 0.69 | not clear |
+| reference large | shrub | 15 | 13 | 0.51 (0.28-0.74) | 2 (15.4 %; 4.3-42.2) | 0.46 | not clear |
+| reference large | timber | 106 | 95 | 0.32 (0.06-0.49) | 39 (41.1 %; 31.7-51.1) | 0.29 | under-measures |
+
+**Verdict:** grass and shrub are measured reasonably (medians 0.82 and 0.68; fewer than one in ten scars below 0.2),
+"not clear" only in the borrowed rule's sense. **Timber is under-measured**: median 0.46, 29 % below 0.2 (lower
+bound 24.7 %, a hair under the borrowed rule's 25 %), 41 % below 0.2 for timber fires of 300 acres or more (lower
+bound 31.7 %: under-measures), the scar covers a median 37 % of the mapped polygon, and a scar is found in only 57 %
+of clear timber looks against 86 % in grass. Understory burns under an unchanged canopy change little in the
+satellite's view. Files: `results/caught/fuel_check/dev_scar_ratios.csv`, `dev_ratio_summary.csv`.
+
+**(a) What the label geometry means.** The label geometry marks where a fire was found, not its burned area. In
+timber it covers about a third of the mapped burn (median); in grass about three quarters. Do not sum label areas
+as burned area. (Also in the data card and docs/CAUGHT_SCAR_API.md.)
+
+**(b) Scar floor by fuel type** (protocol section 7 formula, N_min 8, with T the median threshold of that fuel's dev
+looks and dNBR_ref the median dNBR of the scars found in that fuel instead of the fixed 0.25; scars found are the
+brighter ones, so these floors are optimistic for timber):
+
+| fuel | sensor | median T | median scar dNBR | floor |
+|---|---|---|---|---|
+| grass | Sentinel-2 | 0.100 | 0.251 | 2,335 m2 (0.58 acre) |
+| grass | Landsat | 0.100 | 0.251 | 5,253 m2 (1.30 acre) |
+| shrub | Sentinel-2 | 0.100 | 0.228 | 2,569 m2 (0.63 acre) |
+| shrub | Landsat | 0.100 | 0.228 | 5,781 m2 (1.43 acre) |
+| timber | Sentinel-2 | 0.118 | 0.233 | 2,968 m2 (0.73 acre) |
+| timber | Landsat | 0.118 | 0.233 | 6,679 m2 (1.65 acre) |
+
+**(c) Sealed recall by fuel type**, re-tabulated from the existing sealed run of 2026-11-20 (nothing re-opened,
+re-run or re-tuned; primary small stratum):
+
+| fuel | class | n | recall labelled | recall standard | recall verified |
+|---|---|---|---|---|---|
+| grass | all | 1650 | 0.762 | 0.292 | 0.316 |
+| grass | A | 73 | 0.041 | 0.041 | 0.000 |
+| grass | B | 460 | 0.622 | 0.096 | 0.096 |
+| grass | C | 824 | 0.863 | 0.336 | 0.363 |
+| grass | D | 292 | 0.880 | 0.538 | 0.610 |
+| shrub | all | 172 | 0.785 | 0.337 | 0.384 |
+| shrub | A | 3 | 0.000 | 0.000 | 0.000 |
+| shrub | B | 45 | 0.644 | 0.178 | 0.156 |
+| shrub | C | 97 | 0.814 | 0.320 | 0.392 |
+| shrub | D | 27 | 1.000 | 0.704 | 0.778 |
+| timber | all | 1581 | 0.503 | 0.328 | 0.283 |
+| timber | A | 88 | 0.045 | 0.034 | 0.011 |
+| timber | B | 431 | 0.346 | 0.130 | 0.095 |
+| timber | C | 809 | 0.582 | 0.387 | 0.337 |
+| timber | D | 253 | 0.680 | 0.581 | 0.526 |
+| other | all | 308 | 0.591 | 0.256 | 0.237 |
+| other | A | 42 | 0.048 | 0.024 | 0.024 |
+| other | B | 93 | 0.430 | 0.097 | 0.075 |
+| other | C | 127 | 0.795 | 0.331 | 0.307 |
+| other | D | 46 | 0.848 | 0.587 | 0.565 |
+
+Labelled recall is lowest in timber (0.50 against 0.76 in grass; class B 0.35 against 0.62), as the dev check
+predicts. File: `results/caught/fuel_check/sealed_recall_by_fuel.csv` (with Wilson intervals). A fix to the scar
+finder for timber belongs to v0.2 and is tested on the v0.2 sealed set.

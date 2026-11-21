@@ -107,6 +107,8 @@ protocol/CAUGHT_PROTOCOL.md (fixed before results). No trained model writes a la
 filling or interpolation. Inputs: see results/CAUGHT_RESULTS.md (hashes) and the raw index.
 
 ## What it does not show
+- The label geometry marks where a fire was found, not its burned area. Scars under-measure timber fires
+  (median scar/mapped area 0.46 on dev, 0.82 in grass; results/CAUGHT_RESULTS.md, addition 2026-11-21T05:00Z).
 - FireCCI51 was not checked (host unreachable from the build network); a fire labelled only by FireCCI51 counts
   here as "no standard label".
 - "Verified no fire" holds only above the stated floor and only for the scar look's interval.
