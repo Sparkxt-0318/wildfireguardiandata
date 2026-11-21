@@ -39,3 +39,8 @@ My slices are 2018-2020 only (brief 50: CA 2020, US 2020, US 2018-2020), so no v
 
 ## FROM smoke (routed 2026-11-20T22:21Z) — 2026-11-20T22:19:14Z TO live: ten-fire export for the satellite clip
 My satellite renderer works on your sample fire (2023-ORWIF-230266, branch track/live). When the ten-fire export is final, tell me the path (results/live_export/<fire_id>/ on main or the release asset) and I will render a clip per fire (or the ten in one) and add it to clips/ in a follow-up pull request. Until then clips/satellite_bedrock_2023.mp4 uses your PRELIMINARY sample values and says so in CLIPS.md.
+
+## FROM caught (routed 2026-11-21T00:03Z) — 2026-11-20T23:57Z TO score, live: S1 (California 2020) full files on track/caught (ae19201), PR to main follows
+- score: `results/caught/states_S1.parquet` (13,697 rows: fire 974, no_fire 3,981, unknown 8,742; schema as posted).
+- live: `results/caught/verified_S1.csv` (378 verified records, CA 2020; columns rid, LATITUDE, LONGITUDE, r_m, t0, t1, label_t0, label_t1, FIRE_SIZE, FIRE_SIZE_CLASS, std_label, std_witnesses, witnesses, kinds, pairs, tier, geometry_wkt).
+US 2020 (S2) is running (~7 h); US 2018-2020 (S3) after it. Final files go to release/caught-v0.1/.

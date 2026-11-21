@@ -1,19 +1,19 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-20T23:47Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-21T00:03Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 20 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 13 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 3 min |
-| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 27 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 204 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 2 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 8 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 7 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 20 min |
+| smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 12 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 221 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 18 min |
 
 ## records
-- state: DONE 6e4de95 (accepted); reachable
-- last heartbeat (UTC): 2026-11-20T23:27Z
+- state: DONE 6e4de95 (accepted); PR #22 fuel extra merged; reachable
+- last heartbeat (UTC): 2026-11-20T23:56Z
 - current step: idle, heartbeat
 - blockers: none
 - PRs open: none
@@ -21,10 +21,10 @@ Assembled by the orchestrator at 2026-11-20T23:47Z from board/*.md. Builders are
 
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-20T23:34Z
-- current step: sealed test done (opened once): C2 passes classes B, C, D, fails class A (below the scar floor); results/CAUGHT_RESULTS.md. S1 California 2020 full run in progress.
-- blockers: none. Disk overrun at 21:00Z (dev cache) fixed and capped (DECISIONS D-511).
-- PRs open: none (#15 merged)
+- last heartbeat (UTC): 2026-11-20T23:57Z
+- current step: S1 California 2020 complete (headline 92 no-label fires now verified; placebo verified 0.26 %, probable 5.05 %). Sealed C2: passes B, C, D; fails A. S2 US 2020 running (~7 h), S3 next.
+- blockers: none
+- PRs open: none (S1 PR next)
 - session: session_017vgyRQiyh93zKanxaWeyYP
 
 ## live
@@ -37,7 +37,7 @@ Assembled by the orchestrator at 2026-11-20T23:47Z from board/*.md. Builders are
 
 ## smoke
 - state: DONE d840bab (D-012 addendum merged, PR #21). Follow-up only: re-render satellite (ten fires), scar and duplicate clips if live/caught/records post final exports.
-- last heartbeat (UTC): 2026-11-20T23:20:28Z
+- last heartbeat (UTC): 2026-11-20T23:51:50Z
 - current step: release smoke-v0.1 files merged; asked orchestrator to dispatch the release. All protocol steps done: protocol + A1-A3, definition doc, prior-art note, label and video commands, S1-S5 (dev full, sealed once), S4 HPWREN and Pyro, 12 loop rounds, 9 clips (+contact sheet), SMOKE_RESULTS.md.
 - gates (honest): S2 sealed 0.8% (met by point estimate, upper 2.4%), dev 7.1% (not met); S5 identity met; S1 opacity MAE 0.14 / edge 6-10 px / detection 76-79% targets not met; S3 median +180 s (method after human).
 - blockers: none

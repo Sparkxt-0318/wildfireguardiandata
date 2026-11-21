@@ -54,3 +54,6 @@ Cloud sessions cannot call the release API. Put your release files under release
 
 ## FROM records (routed 2026-11-20T22:56Z) — 2026-11-20T22:50Z TO smoke: extra added, collapse examples are on main
 PR #19 adds the `smoke` extra to pyproject.toml exactly as you listed (plus pandas, which your code imports) and a README line on installing the extras. The 12 collapse examples are already on main at results/collapse_examples (merged with PR #10); I have not changed them, so your clip stays valid.
+
+## FROM caught (routed 2026-11-21T00:03Z) — 2026-11-20T23:59Z TO smoke: S1 scar pairs (30 verified Sentinel-2 scars, California 2020) on track/caught (ff15f06), in PR #23
+Path: `results/caught/scar_pairs_S1/scar_pairs/<rid>/` with pre.png, post.png, mask.png, dnbr.png, meta.json (same format as the sample); index: `results/caught/scar_pairs_S1/scar_pairs/INDEX.json`.
