@@ -1,0 +1,205 @@
+number,year,suggested_lat,suggested_lon,suggested_radius_km,location_status,place,place_type,offset_applied
+AL-ALF-00009,2000,34.2023243,-87.30411350091882,34.0,"suggested location, unverified",Addison,populated place,True
+AL-ALF-99009,1999,33.3800616,-86.1659037,57.0,"suggested location, unverified",Talladega County,county,False
+AL-ALF-99024,1999,33.00379412162162,-87.4422252,34.0,"suggested location, unverified",Duncanville,populated place,True
+AL-ALS-0004,2000,31.1551748,-87.99305752293026,34.0,"suggested location, unverified",Calvert,populated place,True
+AL-ALS-0006,2000,31.09620524388374,-88.23662389180872,34.0,"suggested location, unverified",mobile,populated place,True
+AL-ALS-0007,2000,33.26435943611219,-86.4950587412196,34.0,"suggested location, unverified",Birmingham,populated place,True
+AL-ALS-0009,2000,34.21057386366654,-85.7985330201354,34.0,"suggested location, unverified",Leesburg,populated place,True
+AR-ARS-99002,1999,35.332309727027024,-92.8168331,34.0,"suggested location, unverified",Jerusalem,populated place,True
+AR-OUF-00047,2000,34.39925827297297,-93.5507428,34.0,"suggested location, unverified",Glenwood,populated place,True
+AR-OZF-00033,2000,35.90226093783784,-92.9748932,34.0,"suggested location, unverified",Hector,populated place,True
+AZ-PNF-660,2000,34.0708665,-112.1507149,72.5,"suggested location, unverified",black canyon city,populated place,False
+CA-BDF-3559,2000,33.7475203,-116.9719684,72.5,"suggested location, unverified",Hemet,populated place,False
+CA-BDF-5153,2000,34.3258363,-117.4283818,57.0,"suggested location, unverified",cajon pass,named feature,False
+CA-INF-0291,2000,37.9574254,-119.1218156,72.5,"suggested location, unverified",Lee Vining,populated place,False
+CA-LPF-0703,1999,34.51439748188859,-119.14225782647117,34.0,"suggested location, unverified",Ojai,populated place,True
+CA-NOD-2768,1999,41.5290606,-120.1732781,72.5,"suggested location, unverified",Cedarville,populated place,False
+CA-RSS-33999,2000,35.34966671891892,-118.4489739,34.0,"suggested location, unverified",Tehachapi,populated place,True
+CA-RSS-34319,2000,35.1321878,-118.714896932494,34.0,"suggested location, unverified",Tehachapi,populated place,True
+CA-RSS-39922,1999,33.8752935,-117.5664384,72.5,"suggested location, unverified",Corona,populated place,False
+CA-STF-1872,1999,38.137871918332685,-120.18702975849206,34.0,"suggested location, unverified",SONORA,populated place,True
+CO-ARF-047,2002,40.5852602,-105.084423,72.5,"suggested location, unverified",Fort Collins,populated place,False
+CO-CRD-Q258,1999,40.5177463,-108.46846768789104,34.0,"suggested location, unverified",Maybell,populated place,True
+CO-CRD-V-126,1999,39.7914239906677,-108.23450089854984,34.0,"suggested location, unverified",Meeker,populated place,True
+CO-PBX-001,2000,38.3361148,-103.3432665,72.5,"suggested location, unverified",Arlington,populated place,False
+FL-FLS-00016,2000,26.9563872,-81.1889852,57.0,"suggested location, unverified",Glades County,county,False
+FL-FLS-10011,2000,27.8916508,-82.3702003,57.0,"suggested location, unverified",Hillsborough County,county,False
+FL-FLS-268,2000,26.1521315,-80.4604569,57.0,"suggested location, unverified",Broward County,county,False
+FL-FLS-274,1999,26.647556,-80.4365175,57.0,"suggested location, unverified",Palm Beach  County,county,False
+FL-FLS-400026,2000,27.9488715,-81.6976854,57.0,"suggested location, unverified",Polk County,county,False
+FL-FLS-60029,2000,27.186302,-81.8094436,57.0,"suggested location, unverified",Desoto County,county,False
+FL-FLS-721,1999,28.3055967,-82.5050968,57.0,"suggested location, unverified",Pasco County,county,False
+FL-FLS-99480,1999,26.1003679,-81.4445472,57.0,"suggested location, unverified",Collier County,county,False
+FL-FNF-00041,2000,29.2102031,-82.056676,57.0,"suggested location, unverified",Marion County,county,False
+FL-MIR-00002,2000,28.3003179,-80.7012088,57.0,"suggested location, unverified",Brevard County,county,False
+ID-BOD-F342,1999,42.596076990557066,-114.81063637400656,34.0,"suggested location, unverified",Glenns Ferry,populated place,True
+ID-BOD-F344,1999,42.3765659,-115.86296694992063,34.0,"suggested location, unverified",Grasmere,populated place,True
+ID-BOD-F346,1999,42.67541050888976,-116.07712258755836,34.0,"suggested location, unverified",Bruneau,populated place,True
+ID-BOD-Z260,1999,42.38159248108108,-114.7594946,34.0,"suggested location, unverified",BUHL,populated place,True
+ID-IFD-F634,1999,42.6193625,-112.0110712,72.5,"suggested location, unverified",Lava Hot Springs,populated place,False
+ID-IFD-F820,2000,42.54686952702703,-112.0110712,34.0,"suggested location, unverified",Lava Hot springs,populated place,True
+ID-IFD-F827,2000,43.1904709,-112.04668605216987,34.0,"suggested location, unverified",Blackfoot,populated place,True
+ID-IFD-F835,2000,43.1904709,-112.06657213535854,34.0,"suggested location, unverified",Blackfoot,populated place,True
+ID-IFD-F837,2000,42.83728297277756,-112.78459088075944,34.0,"suggested location, unverified",American Falls,populated place,True
+ID-IFD-F840,2000,42.57853802702703,-111.7091171,34.0,"suggested location, unverified",Alexander,populated place,True
+ID-IFD-F842,2000,43.46491725405405,-113.2441709,34.0,"suggested location, unverified",Butte City,populated place,True
+ID-IFD-F843,2000,43.156834091891895,-111.9019032,34.0,"suggested location, unverified",Chesterfield,populated place,True
+ID-IFD-F848,2000,42.7860227,-112.59761407044756,34.0,"suggested location, unverified",American Falls,populated place,True
+ID-IFD-F911,2000,44.13280261621622,-112.2308197,34.0,"suggested location, unverified",Dubois,populated place,True
+ID-SAD-G129,1999,44.607707527027024,-113.358091,34.0,"suggested location, unverified",Leadore,populated place,True
+ID-SCF-46428,1999,43.6365693,-113.84117839318522,34.0,"suggested location, unverified",Arco,populated place,True
+ID-SID-F509,1999,42.90526033633346,-114.36386517421111,34.0,"suggested location, unverified",SHOSHONE,populated place,True
+ID-SID-G447,2002,42.9360165,-114.4058752,72.5,"suggested location, unverified",Shoshone,populated place,False
+IN-IDP-0004,2000,41.590674,-87.3470277,57.0,"suggested location, unverified",City of Gary,named feature,False
+IN-IDP-66,1999,41.5933696,-87.3464271,72.5,"suggested location, unverified",Gary,populated place,False
+KS-KSS-0012,2002,39.350833,-99.83521969905016,34.0,"suggested location, unverified",Goodland,populated place,True
+KY-DBF-01054,2000,37.64784291891892,-83.9979834,34.0,"suggested location, unverified",MCKEE,populated place,True
+LA-CPR-99003,1999,29.864130035135133,-93.2173759,34.0,"suggested location, unverified",Lake Charles,populated place,True
+LA-KIF-00010,2000,31.1051869,-92.6365318,72.5,"suggested location, unverified",MELDER,populated place,False
+LA-KIF-00013,2000,31.615733554054053,-93.0862749,34.0,"suggested location, unverified",NATCHITOCHES,populated place,True
+MD-MDS-1020,2002,39.72535837297298,-78.7625185,34.0,"suggested location, unverified",Cumberland,populated place,True
+MI-MIS-002,1999,46.0924965,-85.4475966,72.5,"suggested location, unverified",Naubinway,populated place,False
+MN-MNS-,1999,48.8460926,-95.7627661,72.5,"suggested location, unverified",Roseau,populated place,False
+MN-MNS-116-050,1999,47.5216231,-95.3983491,72.5,"suggested location, unverified",Bagley,populated place,False
+MN-MNS-123-133,2000,48.7005324,-96.1816816,72.5,"suggested location, unverified",Greenbush,populated place,False
+MN-MNS-123-46,2000,48.8460926,-95.7627661,72.5,"suggested location, unverified",Roseau,populated place,False
+MN-MNS-123-68,2000,45.5649647,-94.3183284,72.5,"suggested location, unverified",ST. Joseph,populated place,False
+MN-MNS-123-84,2000,48.7766693,-96.782796,57.0,"suggested location, unverified",Kittson County,county,False
+MN-MNS-123-85,2000,48.7766693,-96.782796,57.0,"suggested location, unverified",Kittson County,county,False
+MN-MNS-16,1999,48.8583146,-96.8042148,72.5,"suggested location, unverified",Lancaster,populated place,False
+MN-MNS-162-07,2000,45.9724628,-95.2922574,72.5,"suggested location, unverified",Carlos,populated place,False
+MN-MNS-17,1999,48.8583146,-96.8042148,72.5,"suggested location, unverified",Lancaster,populated place,False
+MN-MNS-18,1999,48.8583146,-96.8042148,72.5,"suggested location, unverified",Lancaster,populated place,False
+MN-MNS-532-004,1999,43.6346913,-91.4968076,72.5,"suggested location, unverified",Caledonia,populated place,False
+MN-R3R-,2000,45.2827301,-95.6814793,57.0,"suggested location, unverified",Swift County,county,False
+MN-RLA-121,2000,48.1573936,-95.1014404,57.0,"suggested location, unverified",Red Lake Reservation,named feature,False
+MN-RLA-122,2000,47.9737722,-94.9376157,57.0,"suggested location, unverified",Beltrami County,county,False
+MN-SUF-P97371,1999,47.955487991110246,-90.639229532418,34.0,"suggested location, unverified",Grand Marais,populated place,True
+MO-MTF-005,2000,37.53927802162162,-90.6273444,34.0,"suggested location, unverified",IRONTON,populated place,True
+MO-MTF-025,2000,36.81851172733308,-90.469665194444,34.0,"suggested location, unverified",POPLAR BLUFF,populated place,True
+MO-MTF-039,2000,36.83063594555512,-91.98028477560312,34.0,"suggested location, unverified",WEST PLAINS,populated place,True
+MO-MTF-040,2000,36.978955054054055,-92.1012678,34.0,"suggested location, unverified",CABOOL,populated place,True
+MO-MTF-P90511,2000,37.04104107255628,-93.07939390845785,34.0,"suggested location, unverified",Springfield,populated place,True
+MO-MTF-P90512,2000,37.74638930888975,-92.03129785705964,34.0,"suggested location, unverified",Rolla,populated place,True
+MS-GBR-005,2000,30.385755,-88.6116855,72.5,"suggested location, unverified",Gautier,populated place,False
+MS-MNF-015,2000,30.3674198,-89.0928155,72.5,"suggested location, unverified",Gulfport,populated place,False
+MT-CRA-111,1999,45.6016413,-107.4611944,72.5,"suggested location, unverified",CROW AGENCY,populated place,False
+MT-KNF-,2000,47.94478202722244,-115.70496070072186,34.0,"suggested location, unverified",Noxon,populated place,True
+MT-NCA-037,1999,45.333075708108105,-106.6666984,34.0,"suggested location, unverified",Lame Deer,populated place,True
+MT-S2S-121,2000,46.872146,-113.1456666125306,34.0,"suggested location, unverified",MISSOULA,populated place,True
+MT-SOS-89009,1999,45.8349395,-109.9554647,72.5,"suggested location, unverified",Big Timber,populated place,False
+NC-NCS-,1999,35.8580358,-82.7057583,57.0,"suggested location, unverified",Madison County,county,False
+NJ-NJS-,1999,39.8777514,-74.6681417,57.0,"suggested location, unverified",Burlington County,county,False
+NM-N4S-,1999,35.5939325,-105.2238969,72.5,"suggested location, unverified",LAS VEGAS,populated place,False
+NM-ROD-L794,2000,33.3942655,-104.5230242,72.5,"suggested location, unverified",Roswell,populated place,False
+NM-SNF-117,1999,35.7686356,-106.692258,72.5,"suggested location, unverified",JEMEZ SPRINGS,populated place,False
+NM-SNF-132,2000,36.207241,-106.49832556153866,34.0,"suggested location, unverified",ABIQUIU,populated place,True
+NM-SPA-036,1999,35.7686356,-106.692258,72.5,"suggested location, unverified",Jemez Springs,populated place,False
+NV-CCD-1554,2000,39.5349112,-119.7526886,72.5,"suggested location, unverified",Sparks,populated place,False
+NV-EKD-640,1999,41.00377859189189,-116.1039663,34.0,"suggested location, unverified",Carlin,populated place,True
+NV-ELD-K210,1999,37.321465516216215,-115.1644614,34.0,"suggested location, unverified",Alamo,populated place,True
+NV-NNS-1043,2000,40.7138067,-116.27611838504836,34.0,"suggested location, unverified",Carlin,populated place,True
+NV-NNS-701,1999,40.72990055444488,-115.62762606551875,34.0,"suggested location, unverified",Elko,populated place,True
+NV-TNF-,1999,39.1574594,-119.75747985,72.5,"suggested location, unverified",Carson City,populated place,False
+OH-WAF-001,1999,38.69623164054054,-82.6829406,34.0,"suggested location, unverified",Ironton,populated place,True
+OK-OKA-02007,2002,36.9071232891892,-96.1199889,34.0,"suggested location, unverified",Bowring,populated place,True
+OK-OKS-,1999,34.6628785,-95.36436927671866,34.0,"suggested location, unverified",Albion,populated place,True
+OK-OKS-00003,2000,36.4211914,-94.70680606300034,34.0,"suggested location, unverified",JAY,populated place,True
+OK-OKS-00005,2000,34.3859257,-96.1283252,72.5,"suggested location, unverified",Atoka,populated place,False
+OK-OKS-00118,2000,36.31848268918919,-97.2880983,34.0,"suggested location, unverified",PERRY,populated place,True
+OK-OKS-00121,2000,34.7400809,-97.2222451,72.5,"suggested location, unverified",PAULS VALLEY,populated place,False
+OK-OKS-00127,2000,36.45732222702703,-95.7013701,34.0,"suggested location, unverified",TALALA,populated place,True
+OK-OKS-00128,2000,36.51956314544449,-95.68861160332806,34.0,"suggested location, unverified",TALALA,populated place,True
+OK-OKS-00129,2000,36.38347953633346,-96.35707784226624,34.0,"suggested location, unverified",HOMINY,populated place,True
+OR-SIF-008,1999,42.1942798,-123.71044393225206,34.0,"suggested location, unverified",KERBY,populated place,True
+OR-VAD-020,1999,44.3512726,-117.2665686,72.5,"suggested location, unverified",Huntington,populated place,False
+SD-WCP-050,2000,43.518637567567566,-103.4743625,34.0,"suggested location, unverified",Hot Springs,populated place,True
+TX-MCR-,2000,29.7632836,-94.61168876507284,34.0,"suggested location, unverified",Houston,populated place,True
+TX-RGR-,2000,26.5645074,-98.1211185,72.5,"suggested location, unverified",San Manuel,populated place,False
+TX-TXS-00004,1999,30.9823928,-98.7075397,72.5,"suggested location, unverified",CHEROKEE,populated place,False
+TX-TXS-00019,2000,35.2219971,-101.8312969,72.5,"suggested location, unverified",Amarillo,populated place,False
+TX-TXS-00042,1999,32.581693664864865,-98.9022898,34.0,"suggested location, unverified",BRECKENRIDGE,populated place,True
+TX-TXS-99049,1999,30.06702497277756,-100.26455787101204,34.0,"suggested location, unverified",ROCKSPRINGS,populated place,True
+UT-NWS-204,1999,40.452722,-112.4179428753975,34.0,"suggested location, unverified",Stockton,populated place,True
+UT-NWS-325,1999,41.521018,-113.0820227,57.0,"suggested location, unverified",Box Elder County,county,False
+UT-SCS-075,1999,39.0988507,-112.2707709,72.5,"suggested location, unverified",Holden,populated place,False
+UT-SLD-429,2000,40.55423107027027,-113.002757,34.0,"suggested location, unverified",Aragonite,populated place,True
+VA-SHP-0015,2000,38.9181671,-78.1944446,72.5,"suggested location, unverified",Front Royal,populated place,False
+VA-VAS-003,2000,37.422874545945945,-82.0990223,34.0,"suggested location, unverified",Grundy,populated place,True
+WA-COA-110,2000,48.13810321081081,-118.9747476,34.0,"suggested location, unverified",Nespelem,populated place,True
+WA-SES-347,1999,48.037622,-120.3551713,57.0,"suggested location, unverified",Lake Chelan,named feature,False
+WA-SPA-035,2000,47.78541935444488,-118.14090805868491,34.0,"suggested location, unverified",Wellpinit,populated place,True
+WA-WFS-,2000,45.8738054,-120.7892073,57.0,"suggested location, unverified",Klickitat County,county,False
+WI-WIS-001,2000,44.08950948177795,-91.05532956354786,34.0,"suggested location, unverified",Melrose,populated place,True
+WI-WIS-002,2000,44.23303824555512,-91.14103050886963,34.0,"suggested location, unverified",Melrose,populated place,True
+WI-WIS-052400,2000,46.2468856,-91.71466064198732,34.0,"suggested location, unverified",Gordon,populated place,True
+WV-WVS-001,2000,39.0075029,-78.8579227,57.0,"suggested location, unverified",Hardy County,county,False
+AR-ARS-D3 BRADFORD,2005,35.4231381,-91.4559649,72.5,"suggested location, unverified",Bradford,populated place,False
+AZ-ASF-081,2003,33.0508966,-109.2961826,72.5,"suggested location, unverified",Clifton,populated place,False
+AZ-TCA-019BV42,2005,35.78546026388781,-113.74042722786474,34.0,"suggested location, unverified",PEACH SPRINGS,populated place,True
+CA-BDC-18657,2005,34.0605944808155,-116.40542873307147,34.0,"suggested location, unverified",YUCCA VALLEY,populated place,True
+CA-BDU-007707,2006,34.1141743,-116.432235,72.5,"suggested location, unverified",YUCCA VALLEY,populated place,False
+CA-BTU-012814,2003,39.6462733,-121.93178241450414,34.0,"suggested location, unverified",Durham,populated place,True
+CA-CZU-7213,2006,37.4189302,-122.3188738,57.0,"suggested location, unverified",Kings Mountain,named feature,False
+CA-FKU-0010383,2002,36.7477272,-119.04859218862984,34.0,"suggested location, unverified",FRESNO,populated place,True
+CA-HUU-0001596,2002,41.88643545135135,-124.2017474,34.0,"suggested location, unverified",Crescent City,populated place,True
+CA-LMU-3707,2006,40.2965645,-120.5241117,72.5,"suggested location, unverified",JANESVILLE,populated place,False
+CA-LNU-004149,2005,38.5249065,-122.15612574554214,34.0,"suggested location, unverified",Winters,populated place,True
+CA-SCU-001791,2003,37.7396513,-123.84532152455095,34.0,"suggested location, unverified",TRACY,populated place,True
+CA-SCU-003035,2003,37.6818745,-121.7680088,72.5,"suggested location, unverified",Livermore,populated place,False
+CA-SCU-2264,2003,37.8682583,-121.855512,57.0,"suggested location, unverified",MORGAN TERRITORY,named feature,False
+CA-SCU-3081,2004,38.0049214,-121.805789,72.5,"suggested location, unverified",Antioch,populated place,False
+CA-SKU-003583,2006,41.5285893,-122.3647255,72.5,"suggested location, unverified",Lake Shastina,populated place,False
+CA-SQF-1423,2002,36.18148677277756,-118.75468334995922,34.0,"suggested location, unverified",Springville,populated place,True
+CA-TGU-004575,2003,39.6051574,-122.5391598,72.5,"suggested location, unverified",ELK CREEK,populated place,False
+ID-BOF-P41519,2002,44.14115427277756,-115.88069541609954,34.0,"suggested location, unverified",Garden Valley,populated place,True
+ID-SCF-4199,2004,44.57988786486486,-114.938582,34.0,"suggested location, unverified",Stanley,populated place,True
+ID-SCF-4278,2004,44.463472309332296,-115.28189133267918,34.0,"suggested location, unverified",Stanley,populated place,True
+KS-KSS-0293,2004,39.3938853,-96.4136138,72.5,"suggested location, unverified",WESTMORELAND,populated place,False
+KS-KSX-1331,2004,37.1886376,-99.83848123198544,34.0,"suggested location, unverified",Ashland,populated place,True
+KY-KYS-2014,2006,37.35019178188858,-83.20026532991747,34.0,"suggested location, unverified",Busy,populated place,True
+KY-KYS-2015,2006,37.4139774,-83.71678116955373,34.0,"suggested location, unverified",Major,populated place,True
+MN-DNR-1210220,2004,48.42382235466614,-95.43339379064172,34.0,"suggested location, unverified",Grygla,populated place,True
+MN-MNS-31110035,2004,47.812064483783786,-95.6227947,34.0,"suggested location, unverified",Gully,populated place,True
+MO-MOS-000022,2004,37.8497583,-92.91752053916038,34.0,"suggested location, unverified",Tunas,populated place,True
+MS-GBR-00H,2005,30.3657552,-88.38808911070893,34.0,"suggested location, unverified",PASCAGOULA,populated place,True
+MS-MSS-00203,2006,34.3114982,-90.03202216355811,34.0,"suggested location, unverified",BATESVILLE,populated place,True
+MS-MSS-00261,2006,34.70348569459459,-89.3584093,34.0,"suggested location, unverified",LAKE CENTER,populated place,True
+MS-MSS-00262,2006,34.75309810540541,-89.4486894,34.0,"suggested location, unverified",HOLLY SPRINGS,populated place,True
+MS-MSS-00264,2006,34.7675967,-89.34279220040838,34.0,"suggested location, unverified",HOLLY SPRINGS,populated place,True
+MS-MSS-00266,2006,30.7076913,-89.1383803,72.5,"suggested location, unverified",MCHENRY,populated place,False
+MS-MSS-00271,2006,34.97785794594595,-89.1759026,34.0,"suggested location, unverified",ASHLAND,populated place,True
+MS-MSS-00362,2006,30.4090829,-89.5191082105837,34.0,"suggested location, unverified",Kiln,populated place,True
+MS-MSS-00363,2006,30.6168569,-89.63571757065587,34.0,"suggested location, unverified",Carriere,populated place,True
+MS-MSS-0057,2004,31.68157934555512,-90.3203097942213,34.0,"suggested location, unverified",Brookhaven,populated place,True
+MS-MSS-0058,2006,30.7335226,-89.32874431001356,34.0,"suggested location, unverified",SILVER RUN,populated place,True
+MS-MSS-0060,2006,34.8117565,-88.13706454032395,34.0,"suggested location, unverified",IUKA,populated place,True
+MS-MSS-0062,2006,33.423181427027025,-88.4272627,34.0,"suggested location, unverified",COLUMBUS,populated place,True
+MS-MSS-0063,2006,34.3076058,-89.14302054202129,34.0,"suggested location, unverified",THAXTON,populated place,True
+MS-MSS-0064,2006,34.67744502733308,-89.1136604527149,34.0,"suggested location, unverified",HICKORY FLAT,populated place,True
+MS-MSS-0065,2006,34.52254740911102,-88.49381862726437,34.0,"suggested location, unverified",MARIETTA,populated place,True
+MS-MSS-0066,2006,34.6367608,-88.30219688362179,34.0,"suggested location, unverified",TISHOMINGO,populated place,True
+MS-MSS-0067,2006,31.237345305405405,-89.83758,34.0,"suggested location, unverified",COLUMBIA,populated place,True
+MS-MSS-0070,2006,31.6610752364441,-90.34437795537704,34.0,"suggested location, unverified",BROOKHAVEN,populated place,True
+MS-MSS-0071,2006,34.5284373,-89.77528428590637,34.0,"suggested location, unverified",GLENVILLE,populated place,True
+MS-MSS-0072,2006,33.855721490888975,-89.92733570370267,34.0,"suggested location, unverified",ROSEBLOOM,populated place,True
+MS-MSS-0073,2006,33.00412738918919,-89.3800708,34.0,"suggested location, unverified",ZAMA,populated place,True
+MS-MSS-0078,2006,31.12498113633346,-88.59373939819442,34.0,"suggested location, unverified",LEAKESVILLE,populated place,True
+MS-MSS-0081,2006,31.399618,-90.58196071472484,34.0,"suggested location, unverified",CENTER POINT,populated place,True
+MT-BRF-5083,2006,45.66387629055706,-114.69489935788916,34.0,"suggested location, unverified",Darby,populated place,True
+MT-BRF-5085,2006,45.66387629055706,-114.69489935788916,34.0,"suggested location, unverified",Darby,populated place,True
+MT-BRF-5134,2006,45.551103690446425,-114.8573085303686,34.0,"suggested location, unverified",Darby,populated place,True
+MT-BRF-5162,2006,45.74589272700116,-114.57678359608592,34.0,"suggested location, unverified",Darby,populated place,True
+ND-NDS-002,2003,46.9367229364441,-99.7960048627801,34.0,"suggested location, unverified",Steele,populated place,True
+OK-OKS-06-50008,2006,35.98932288183327,-97.01463962170784,34.0,"suggested location, unverified",Perkins,populated place,True
+OK-OKS-06-50009,2006,36.6386937,-95.1541339,72.5,"suggested location, unverified",Vinita,populated place,False
+OK-OKS-30076,2003,35.50567635,-94.67740675,72.5,"suggested location, unverified",Akins,populated place,False
+OK-OKS-30538,2006,35.482118991891895,-94.7874463,34.0,"suggested location, unverified",Sallisaw,populated place,True
+TN-TNS-D2S-003,2004,36.498006172777565,-84.00370028856204,34.0,"suggested location, unverified",Duff,populated place,True
+TX-TXS-00004,2003,35.2219971,-101.8312969,72.5,"suggested location, unverified",AMARILLO,populated place,False
+TX-TXS-990045,2009,31.8456816,-102.62365959754332,34.0,"suggested location, unverified",Odessa,populated place,True
+UT-DIF-000063,2005,37.48902047277756,-112.41814931407384,34.0,"suggested location, unverified",Alton,populated place,True
+VA-EIC-000002,2003,37.6768101,-78.6633466,72.5,"suggested location, unverified",Manteo,populated place,False
+WY-BTF-005,2003,43.684970191110246,-110.47985278286728,34.0,"suggested location, unverified",JACKSON,populated place,True
+WY-BTF-010,2004,43.36715649988936,-110.607011720577,34.0,"suggested location, unverified",JACKSON,populated place,True

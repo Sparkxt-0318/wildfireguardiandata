@@ -1,0 +1,204 @@
+{
+ "patch_file": "/tmp/claude-0/gaz_sugg.jsonl",
+ "gpkg": "/home/user/wildfire 3 (1)/work/fpafod/Data/FPA_FOD_20260615.gpkg",
+ "years": null,
+ "full": false,
+ "header": {
+  "_header": true,
+  "chain": "15136662270d03e7cc3e696881a9f1727f619e2c15be981df43c23dc3dabc481",
+  "input_sha256": null,
+  "meta": {
+   "protocol": "v0.3"
+  },
+  "n": 816,
+  "tool": "records.gazetteer_suggestions"
+ },
+ "n_patches_in_file": 816,
+ "n_patches_checked": 816,
+ "rows_loaded": 0,
+ "checks": {
+  "1_schema": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {}
+  },
+  "2_strict_old": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {}
+  },
+  "3_cells_ids": {
+   "violations": 816,
+   "by_type": {
+    "unknown_record_id": 816
+   },
+   "examples": {
+    "unknown_record_id": [
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "offset_applied": true,
+        "place": "Addison",
+        "place_type": "populated place"
+       },
+       "field": "suggested_lat",
+       "new": 34.2023243,
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "ics:AL-ALF-00009|2000",
+       "rule": "loc:gazetteer_suggestion"
+      }
+     },
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "offset_applied": true,
+        "place": "Addison",
+        "place_type": "populated place"
+       },
+       "field": "suggested_lon",
+       "new": -87.30411350091882,
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "ics:AL-ALF-00009|2000",
+       "rule": "loc:gazetteer_suggestion"
+      }
+     },
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "offset_applied": true,
+        "place": "Addison",
+        "place_type": "populated place"
+       },
+       "field": "suggested_radius_km",
+       "new": 34.0,
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "ics:AL-ALF-00009|2000",
+       "rule": "loc:gazetteer_suggestion"
+      }
+     },
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "offset_applied": true,
+        "place": "Addison",
+        "place_type": "populated place"
+       },
+       "field": "location_status",
+       "new": "suggested location, unverified",
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "ics:AL-ALF-00009|2000",
+       "rule": "loc:gazetteer_suggestion"
+      }
+     },
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "offset_applied": false,
+        "place": "Talladega County",
+        "place_type": "county"
+       },
+       "field": "suggested_lat",
+       "new": 33.3800616,
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "ics:AL-ALF-99009|1999",
+       "rule": "loc:gazetteer_suggestion"
+      }
+     }
+    ]
+   },
+   "info": {
+    "rule_field_counts": {
+     "loc:gazetteer_suggestion|location_status": 204,
+     "loc:gazetteer_suggestion|suggested_lat": 204,
+     "loc:gazetteer_suggestion|suggested_lon": 204,
+     "loc:gazetteer_suggestion|suggested_radius_km": 204
+    },
+    "patches_checked": 816
+   }
+  },
+  "4_value_sanity": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {
+    "placeholder_old_tokens": {},
+    "loc_records": 0,
+    "dup_patches": 0
+   }
+  },
+  "5_alteration_budget": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {
+    "patched_cells": 0,
+    "altered_cells": 0,
+    "mode": "subset (rows named by patches + dup targets)",
+    "rows_loaded": 0,
+    "note": "apply is this checker's own last-write-wins application; a violation means a patch is a no-op, repeats a cell or reverts another patch",
+    "shares": {
+     "universe_rows": 2661383,
+     "records_value_level": 204,
+     "share_value_level": 7.665187611102949e-05,
+     "records_cosmetic": 0,
+     "share_cosmetic": 0.0,
+     "records_any": 204,
+     "share_any": 7.665187611102949e-05,
+     "records_both": 0
+    }
+   }
+  },
+  "6_reversibility": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {
+    "cells_checked": 0
+   }
+  },
+  "7_confidence": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {
+    "by_rule": {
+     "loc:gazetteer_suggestion": {
+      "n": 816,
+      "min": 0.5,
+      "p05": 0.5,
+      "median": 0.5,
+      "mean": 0.5,
+      "p95": 0.5,
+      "max": 0.5,
+      "n_lt_0.5": 0
+     }
+    }
+   }
+  }
+ },
+ "hard_violations": {
+  "1_schema": 0,
+  "2_strict_old": 0,
+  "3_cells_ids": 816,
+  "5_alteration_budget": 0,
+  "6_reversibility": 0
+ },
+ "pass": false
+}

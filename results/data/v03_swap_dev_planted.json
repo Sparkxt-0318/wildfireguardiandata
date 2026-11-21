@@ -1,0 +1,44 @@
+{
+ "100": {
+  "trials": 480,
+  "planted_swap_called": 480,
+  "planted_ci": [
+   0.9920602114410997,
+   1.0
+  ],
+  "unplanted_called_swap": 0,
+  "unplanted_ci": [
+   -8.604750691846953e-19,
+   0.00793978855890027
+  ],
+  "minority_30_called_swap": 0
+ },
+ "300": {
+  "trials": 360,
+  "planted_swap_called": 360,
+  "planted_ci": [
+   0.9894415591839966,
+   1.0000000000000002
+  ],
+  "unplanted_called_swap": 0,
+  "unplanted_ci": [
+   0.0,
+   0.010558440816003448
+  ],
+  "minority_30_called_swap": 0
+ },
+ "1000": {
+  "trials": 60,
+  "planted_swap_called": 60,
+  "planted_ci": [
+   0.939826069522067,
+   0.9999999999999998
+  ],
+  "unplanted_called_swap": 0,
+  "unplanted_ci": [
+   -6.521353384539763e-18,
+   0.060173930477932895
+  ],
+  "minority_30_called_swap": 0
+ }
+}

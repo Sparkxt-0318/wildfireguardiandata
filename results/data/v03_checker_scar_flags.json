@@ -1,0 +1,301 @@
+{
+ "patch_file": "/tmp/claude-0/scar_size_flags.jsonl",
+ "gpkg": "/home/user/wildfire 3 (1)/work/fpafod/Data/FPA_FOD_20260615.gpkg",
+ "years": null,
+ "full": false,
+ "header": {
+  "_header": true,
+  "chain": "65f1896e0deaadaa475f7118020cb866dd6c3b11e8b6fd0c019d5260455fe83f",
+  "input_sha256": null,
+  "meta": {
+   "protocol": "v0.3"
+  },
+  "n": 121,
+  "tool": "records.scar_flags"
+ },
+ "n_patches_in_file": 121,
+ "n_patches_checked": 121,
+ "rows_loaded": 121,
+ "checks": {
+  "1_schema": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {}
+  },
+  "2_strict_old": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {}
+  },
+  "3_cells_ids": {
+   "violations": 121,
+   "by_type": {
+    "unknown_field": 121
+   },
+   "examples": {
+    "unknown_field": [
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "fuel_type": "timber",
+        "module_verdict_for_fuel_type": "module under-measures",
+        "sample": "prereg200_seed1",
+        "scar_over_recorded_area": 0.00602
+       },
+       "field": "flag_scar_size",
+       "new": "scar much smaller than recorded size",
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "fod:400011398",
+       "rule": "val:scar_size_flag"
+      }
+     },
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "fuel_type": "grass",
+        "module_verdict_for_fuel_type": "not clear",
+        "sample": "prereg200_seed1",
+        "scar_over_recorded_area": 0.00018
+       },
+       "field": "flag_scar_size",
+       "new": "scar much smaller than recorded size",
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "fod:400520496",
+       "rule": "val:scar_size_flag"
+      }
+     },
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "fuel_type": "grass",
+        "module_verdict_for_fuel_type": "not clear",
+        "sample": "prereg200_seed1",
+        "scar_over_recorded_area": 0.0002
+       },
+       "field": "flag_scar_size",
+       "new": "scar much smaller than recorded size",
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "fod:400327690",
+       "rule": "val:scar_size_flag"
+      }
+     },
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "fuel_type": "grass",
+        "module_verdict_for_fuel_type": "not clear",
+        "sample": "prereg200_seed1",
+        "scar_over_recorded_area": 7e-05
+       },
+       "field": "flag_scar_size",
+       "new": "scar much smaller than recorded size",
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "fod:400317977",
+       "rule": "val:scar_size_flag"
+      }
+     },
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "fuel_type": "grass",
+        "module_verdict_for_fuel_type": "not clear",
+        "sample": "prereg200_seed1",
+        "scar_over_recorded_area": 0.00549
+       },
+       "field": "flag_scar_size",
+       "new": "scar much smaller than recorded size",
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "fod:400036534",
+       "rule": "val:scar_size_flag"
+      }
+     }
+    ]
+   },
+   "info": {
+    "rule_field_counts": {
+     "val:scar_size_flag|flag_scar_size": 121
+    },
+    "patches_checked": 121
+   }
+  },
+  "4_value_sanity": {
+   "violations": 121,
+   "by_type": {
+    "unknown_rule_name": 121
+   },
+   "examples": {
+    "unknown_rule_name": [
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "fuel_type": "timber",
+        "module_verdict_for_fuel_type": "module under-measures",
+        "sample": "prereg200_seed1",
+        "scar_over_recorded_area": 0.00602
+       },
+       "field": "flag_scar_size",
+       "new": "scar much smaller than recorded size",
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "fod:400011398",
+       "rule": "val:scar_size_flag"
+      }
+     },
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "fuel_type": "grass",
+        "module_verdict_for_fuel_type": "not clear",
+        "sample": "prereg200_seed1",
+        "scar_over_recorded_area": 0.00018
+       },
+       "field": "flag_scar_size",
+       "new": "scar much smaller than recorded size",
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "fod:400520496",
+       "rule": "val:scar_size_flag"
+      }
+     },
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "fuel_type": "grass",
+        "module_verdict_for_fuel_type": "not clear",
+        "sample": "prereg200_seed1",
+        "scar_over_recorded_area": 0.0002
+       },
+       "field": "flag_scar_size",
+       "new": "scar much smaller than recorded size",
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "fod:400327690",
+       "rule": "val:scar_size_flag"
+      }
+     },
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "fuel_type": "grass",
+        "module_verdict_for_fuel_type": "not clear",
+        "sample": "prereg200_seed1",
+        "scar_over_recorded_area": 7e-05
+       },
+       "field": "flag_scar_size",
+       "new": "scar much smaller than recorded size",
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "fod:400317977",
+       "rule": "val:scar_size_flag"
+      }
+     },
+     {
+      "patch": {
+       "confidence": 0.5,
+       "evidence": {
+        "fuel_type": "grass",
+        "module_verdict_for_fuel_type": "not clear",
+        "sample": "prereg200_seed1",
+        "scar_over_recorded_area": 0.00549
+       },
+       "field": "flag_scar_size",
+       "new": "scar much smaller than recorded size",
+       "old": {
+        "__missing__": true
+       },
+       "record_id": "fod:400036534",
+       "rule": "val:scar_size_flag"
+      }
+     }
+    ]
+   },
+   "info": {
+    "placeholder_old_tokens": {},
+    "loc_records": 0,
+    "dup_patches": 0
+   }
+  },
+  "5_alteration_budget": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {
+    "patched_cells": 121,
+    "altered_cells": 121,
+    "mode": "subset (rows named by patches + dup targets)",
+    "rows_loaded": 121,
+    "note": "apply is this checker's own last-write-wins application; a violation means a patch is a no-op, repeats a cell or reverts another patch",
+    "shares": {
+     "universe_rows": 2661383,
+     "records_value_level": 121,
+     "share_value_level": 4.546508337958122e-05,
+     "records_cosmetic": 0,
+     "share_cosmetic": 0.0,
+     "records_any": 121,
+     "share_any": 4.546508337958122e-05,
+     "records_both": 0
+    }
+   }
+  },
+  "6_reversibility": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {
+    "cells_checked": 121
+   }
+  },
+  "7_confidence": {
+   "violations": 0,
+   "by_type": {},
+   "examples": {},
+   "info": {
+    "by_rule": {
+     "val:scar_size_flag": {
+      "n": 121,
+      "min": 0.5,
+      "p05": 0.5,
+      "median": 0.5,
+      "mean": 0.5,
+      "p95": 0.5,
+      "max": 0.5,
+      "n_lt_0.5": 0
+     }
+    }
+   }
+  }
+ },
+ "hard_violations": {
+  "1_schema": 0,
+  "2_strict_old": 0,
+  "3_cells_ids": 121,
+  "5_alteration_budget": 0,
+  "6_reversibility": 0
+ },
+ "pass": false
+}

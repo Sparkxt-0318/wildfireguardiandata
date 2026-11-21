@@ -1,0 +1,302 @@
+[
+ {
+  "system":"DOI-WFMI",
+  "table":"fpafod",
+  "year":2006,
+  "n":365,
+  "outcome":"no offset found (local clock time fits)",
+  "gain_H1_over_H0":-0.0575342466,
+  "final":"no offset found (local clock time fits)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"DOI-WFMI",
+  "table":"fpafod",
+  "year":2011,
+  "n":292,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":-0.0445205479,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"DOI-WFMI",
+  "table":"fpafod",
+  "year":2015,
+  "n":358,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":0.0474860335,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"DOI-WFMI",
+  "table":"fpafod",
+  "year":2020,
+  "n":7,
+  "outcome":"insufficient fires",
+  "gain_H1_over_H0":null,
+  "final":"insufficient fires",
+  "decided_by_pool":false
+ },
+ {
+  "system":"FS-FIRESTAT",
+  "table":"fpafod",
+  "year":2006,
+  "n":202,
+  "outcome":"no offset found (local clock time fits)",
+  "gain_H1_over_H0":-0.0495049505,
+  "final":"no offset found (local clock time fits)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"FS-FIRESTAT",
+  "table":"fpafod",
+  "year":2011,
+  "n":141,
+  "outcome":"no offset found (local clock time fits)",
+  "gain_H1_over_H0":-0.085106383,
+  "final":"no offset found (local clock time fits)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"FS-FIRESTAT",
+  "table":"fpafod",
+  "year":2015,
+  "n":195,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":-0.0256410256,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"FWS-FMIS",
+  "table":"fpafod",
+  "year":2006,
+  "n":30,
+  "outcome":"no offset found (local clock time fits)",
+  "gain_H1_over_H0":-0.0666666667,
+  "final":"no offset found (local clock time fits)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"FWS-FMIS",
+  "table":"fpafod",
+  "year":2011,
+  "n":48,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":0.0208333333,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"FWS-FMIS",
+  "table":"fpafod",
+  "year":2015,
+  "n":70,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":0.0285714286,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"FWS-FMIS",
+  "table":"fpafod",
+  "year":2020,
+  "n":35,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":0.1142857143,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"IA-ICS209",
+  "table":"fpafod",
+  "year":2006,
+  "n":77,
+  "outcome":"no offset found (local clock time fits)",
+  "gain_H1_over_H0":-0.0779220779,
+  "final":"no offset found (local clock time fits)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"IA-ICS209",
+  "table":"fpafod",
+  "year":2011,
+  "n":81,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":0.0740740741,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"IA-ICS209",
+  "table":"fpafod",
+  "year":2015,
+  "n":49,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":0.0612244898,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"IA-ICS209",
+  "table":"fpafod",
+  "year":2020,
+  "n":5,
+  "outcome":"insufficient fires",
+  "gain_H1_over_H0":null,
+  "final":"insufficient fires",
+  "decided_by_pool":false
+ },
+ {
+  "system":"IA-ICS209",
+  "table":"fpafod",
+  "year":2024,
+  "n":5,
+  "outcome":"insufficient fires",
+  "gain_H1_over_H0":null,
+  "final":"insufficient fires",
+  "decided_by_pool":false
+ },
+ {
+  "system":"IA-INFORM",
+  "table":"fpafod",
+  "year":2024,
+  "n":931,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":0.0214822771,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"IA-IRWIN",
+  "table":"fpafod",
+  "year":2020,
+  "n":157,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":0.0063694268,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"ST-ALALS",
+  "table":"fpafod",
+  "year":2006,
+  "n":9,
+  "outcome":"insufficient fires",
+  "gain_H1_over_H0":null,
+  "final":"insufficient fires",
+  "decided_by_pool":false
+ },
+ {
+  "system":"ST-CACDF",
+  "table":"fpafod",
+  "year":2006,
+  "n":14,
+  "outcome":"insufficient fires",
+  "gain_H1_over_H0":null,
+  "final":"insufficient fires",
+  "decided_by_pool":false
+ },
+ {
+  "system":"ST-CACDF",
+  "table":"fpafod",
+  "year":2015,
+  "n":10,
+  "outcome":"insufficient fires",
+  "gain_H1_over_H0":null,
+  "final":"insufficient fires",
+  "decided_by_pool":false
+ },
+ {
+  "system":"ST-NASF",
+  "table":"fpafod",
+  "year":2006,
+  "n":154,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":0.038961039,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"ST-NASF",
+  "table":"fpafod",
+  "year":2011,
+  "n":226,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":0.0221238938,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"ST-NASF",
+  "table":"fpafod",
+  "year":2015,
+  "n":190,
+  "outcome":"offset: recorded in UTC",
+  "gain_H1_over_H0":0.0736842105,
+  "final":"offset: recorded in UTC",
+  "decided_by_pool":false
+ },
+ {
+  "system":"ST-NASF",
+  "table":"fpafod",
+  "year":2020,
+  "n":128,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":0.0546875,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"ST-TXTXS",
+  "table":"fpafod",
+  "year":2011,
+  "n":228,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":0.0438596491,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"ics209_2014",
+  "table":"ics209_2014",
+  "year":2015,
+  "n":62,
+  "outcome":"no offset found (not clear)",
+  "gain_H1_over_H0":0.0161290323,
+  "final":"no offset found (not clear)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"ics209_2014",
+  "table":"ics209_2014",
+  "year":2020,
+  "n":790,
+  "outcome":"offset: recorded in UTC",
+  "gain_H1_over_H0":0.0493670886,
+  "final":"offset: recorded in UTC",
+  "decided_by_pool":false
+ },
+ {
+  "system":"ics209_imsr",
+  "table":"ics209_imsr",
+  "year":2006,
+  "n":708,
+  "outcome":"no offset found (local clock time fits)",
+  "gain_H1_over_H0":-0.0536723164,
+  "final":"no offset found (local clock time fits)",
+  "decided_by_pool":false
+ },
+ {
+  "system":"ics209_imsr",
+  "table":"ics209_imsr",
+  "year":2011,
+  "n":833,
+  "outcome":"no offset found (local clock time fits)",
+  "gain_H1_over_H0":-0.0096038415,
+  "final":"no offset found (local clock time fits)",
+  "decided_by_pool":false
+ }
+]
