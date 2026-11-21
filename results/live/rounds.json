@@ -316,6 +316,194 @@
     "sites_per_day_median": 3.5
    },
    "time": "2026-11-20T23:51Z"
+  },
+  {
+   "round": 8,
+   "cause": "daytime false alerts from solar heating of bare surfaces raise BT7 alone; BT7-BT14 cancels part of it",
+   "change": "feature BT7 -> BT7-BT14 (same filters)",
+   "before": {
+    "ukey": "bt7_c4_w6",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2,
+    "recur": 0.0
+   },
+   "after": {
+    "ukey": "dT_c4_w6",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2,
+    "recur": 0.0
+   },
+   "score_before": -39.59826388888889,
+   "score_after": -49.56666666666666,
+   "h_before": 67.05959375,
+   "h_after": 79.81734521484375,
+   "earlier_before": 16,
+   "earlier_after": 11,
+   "n": 95,
+   "no_alert_before": 47,
+   "no_alert_after": 48,
+   "false_rate_after": 9.884828647735201e-05,
+   "kept": false,
+   "false_alerts_after": {
+    "n_days_with_false": 40,
+    "kinds": {
+     "previous days": 38,
+     "day0 (fire day, far sites)": 2
+    },
+    "sites_per_day_median": 4.5
+   },
+   "time": "2026-11-20T23:59Z"
+  },
+  {
+   "round": 9,
+   "cause": "late fires with moderate, persistent signal accumulate too slowly",
+   "change": "reference value k 4 -> 3",
+   "before": {
+    "ukey": "bt7_c4_w6",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2,
+    "recur": 0.0
+   },
+   "after": {
+    "ukey": "bt7_c4_w6",
+    "cap": 40.0,
+    "k": 3.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2,
+    "recur": 0.0
+   },
+   "score_before": -39.59826388888889,
+   "score_after": -47.479513888888896,
+   "h_before": 67.05959375,
+   "h_after": 105.59410150146485,
+   "earlier_before": 16,
+   "earlier_after": 14,
+   "n": 96,
+   "no_alert_before": 47,
+   "no_alert_after": 50,
+   "false_rate_after": 9.884828647735201e-05,
+   "kept": false,
+   "false_alerts_after": {
+    "n_days_with_false": 43,
+    "kinds": {
+     "previous days": 39,
+     "day0 (fire day, far sites)": 4
+    },
+    "sites_per_day_median": 3.0
+   },
+   "time": "2026-11-21T00:00Z"
+  },
+  {
+   "round": 10,
+   "cause": "single-frame spikes (glint, transient hot surfaces) jump straight to the threshold",
+   "change": "cap 40 -> 20",
+   "before": {
+    "ukey": "bt7_c4_w6",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2,
+    "recur": 0.0
+   },
+   "after": {
+    "ukey": "bt7_c4_w6",
+    "cap": 20.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2,
+    "recur": 0.0
+   },
+   "score_before": -39.59826388888889,
+   "score_after": -43.145833333333336,
+   "h_before": 67.05959375,
+   "h_after": 66.4642797241211,
+   "earlier_before": 16,
+   "earlier_after": 16,
+   "n": 96,
+   "no_alert_before": 47,
+   "no_alert_after": 49,
+   "false_rate_after": 9.884828647735201e-05,
+   "kept": false,
+   "false_alerts_after": {
+    "n_days_with_false": 42,
+    "kinds": {
+     "previous days": 36,
+     "day0 (fire day, far sites)": 6
+    },
+    "sites_per_day_median": 3.5
+   },
+   "time": "2026-11-21T00:00Z"
+  },
+  {
+   "round": 11,
+   "cause": "both satellites see weak early signal that neither alone carries over the threshold",
+   "change": "two-witness divisor rho 1.5 -> 1.25",
+   "before": {
+    "ukey": "bt7_c4_w6",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.5,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2,
+    "recur": 0.0
+   },
+   "after": {
+    "ukey": "bt7_c4_w6",
+    "cap": 40.0,
+    "k": 4.0,
+    "rho": 1.25,
+    "m": 1.0,
+    "vis_weight": 0.0,
+    "decay": 0.9,
+    "site_r": 2,
+    "recur": 0.0
+   },
+   "score_before": -39.59826388888889,
+   "score_after": -40.16961805555555,
+   "h_before": 67.05959375,
+   "h_after": 70.260765625,
+   "earlier_before": 16,
+   "earlier_after": 16,
+   "n": 96,
+   "no_alert_before": 47,
+   "no_alert_after": 48,
+   "false_rate_after": 9.884828647735201e-05,
+   "kept": false,
+   "false_alerts_after": {
+    "n_days_with_false": 43,
+    "kinds": {
+     "previous days": 38,
+     "day0 (fire day, far sites)": 5
+    },
+    "sites_per_day_median": 3.0
+   },
+   "time": "2026-11-21T00:00Z"
   }
  ],
  "final_config": {
