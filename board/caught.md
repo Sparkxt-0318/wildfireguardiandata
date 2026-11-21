@@ -3,7 +3,7 @@
 - last heartbeat (UTC): 2026-11-21T16:02Z
 - current step: S3 (US 2018-2020): placebo scars 17009/60,233 (~4.38 h left), then placebo labels and tables. Then release caught-v0.1 (script ready), then v0.2.
 - blockers: none
-- PRs open: #43 (data card: disc vertex disclosure, D-514)
+- PRs open: none (#43 merged)
 - session: session_017vgyRQiyh93zKanxaWeyYP
 - handover (if this session is replaced):
   - done: protocol + A1; v1 pipeline; dev fixes D1-D2; rounds 1-3 (rules frozen 530a3d5); sealed C2 (results/caught/C2_sealed_*.csv); S1 complete (results/caught/S1_*, verified_S1.csv, states_S1.parquet, scar_pairs_S1); downstream check (results/caught/downstream); all merged via PRs #3, #15, #23.
