@@ -47,7 +47,14 @@ def cmd_traceback(a):
 
 
 def cmd_replay(a):
-    from .pipeline import replay_main
+    from .pipeline import replay_main, open_sealed_test
+    if a.split == "test" and a.open_test:
+        import subprocess
+        head = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
+        s = open_sealed_test(Path(a.out))
+        print(json.dumps({k: s[k] for k in ("n_fires_processed", "E1_test", "E2_test")}, default=str))
+        Path(a.out, "SEALED_TEST_OPENED.md").write_text(
+            f"Sealed test opened once at {time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())} from commit {head}.\n")
     return replay_main(a)
 
 
