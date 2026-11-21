@@ -1,5 +1,10 @@
 # LIVE_RESULTS — track 51 (live): early onset of known fires and a live detector
 
+**Headline (v0.1): gate D1 FAILED — the frozen live detector alerted before the operational GOES fire product on 7 of
+97 sealed-test fires (7.2 %, 95 % CI 3.5–14.2 %) at the frozen false-alert budget.** Part A (trace-back) moved the first
+label earlier for 45 of 240 fires (E1 passed, E2 passed on small n). D2 (24 h live) is running. The v0.1 detector stays
+frozen (a629622); nothing is retuned on the opened sealed fires.
+
 Protocol: `protocol/LIVE_PROTOCOL.md` (committed alone in 58958d1 before any result; amendments 1–6 dated inside).
 Fires: 240 US wildfires 2023-01 to 2025-04, 60 per final-size class, 120 dev / 120 sealed test (`protocol/live_fires.csv`).
 Satellites: GOES-16 (East) for all fires, GOES-18 (West) where it sees the site (138 fires). The sealed test was opened
