@@ -235,3 +235,27 @@ def build_supplement(verified_csv: Path, out_csv: Path, n_per_group: int = 10, s
         w.writeheader()
         w.writerows(out)
     return len(out)
+
+
+def build_v02_test(cfg: dict, out_csv: Path, exclude_ids: set, n_per_class: int = 25, seed: int = 52) -> dict:
+    """Trace-back v0.2 test set: fires from the v0.1 confirmed pool (same source, period and exclusions) never used
+    before (not the 240, not the supplement), n_per_class per final-size class, random with the given seed."""
+    import tempfile
+    tmp = Path(tempfile.mkdtemp())
+    summ = build(cfg, tmp, n_per_class=10 ** 6, seed=seed)          # whole pool, every class
+    pool = list(csv.DictReader(open(tmp / "fires.csv")))
+    pool = [r for r in pool if r["fire_id"] not in exclude_ids]
+    rng = random.Random(seed)
+    out = []
+    for k in range(4):
+        cls = sorted([r for r in pool if int(r["size_class"]) == k], key=lambda r: r["fire_id"])
+        out += cls if len(cls) <= n_per_class else rng.sample(cls, n_per_class)
+    for r in out:
+        r["split"] = "test_v02"
+    out.sort(key=lambda r: (int(r["size_class"]), r["fire_id"]))
+    with open(out_csv, "w", newline="") as fh:
+        w = csv.DictWriter(fh, fieldnames=list(out[0].keys()))
+        w.writeheader()
+        w.writerows(out)
+    return {"pool_after_exclusion": len(pool), "n": len(out), "seed": seed,
+            "by_class": {str(k): sum(1 for r in out if int(r["size_class"]) == k) for k in range(4)}}
