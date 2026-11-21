@@ -141,3 +141,21 @@ Gate D2 (24 h unattended with the frozen settings) is running. The provisional r
 `frozen: true` and detector hash 69081030…, the SHA-256 of the canonical JSON of `detector_us.json`). The 24 hours end
 with the 2026-11-22T00:16:18Z cycle (288 records). No cycle was skipped across the switch (00:16Z provisional, 00:21Z
 frozen). The outcome follows in a later dated addition.
+
+## Addition 2026-11-21T02:00Z — supplement: prompt 50's verified fires (California 2020)
+
+30 of track 50's 378 verified California 2020 records (`results/caught/verified_S1.csv`), 10 per size group (FPA FOD
+classes A–C, D–E, F–G), sampled with seed 51 after the same exclusions as the main list (polar detection within 3 km in
+[discovery day − 1 d, + 3 d]; no heat within 5 km in the 9 days before). GOES-16 + GOES-17 (2020; older ACMC files carry
+only the binary mask, read as clear/cloudy). Variant A2, thresholds h_A from the main 240 fires' placebos (nothing fitted
+on these 30). Never part of the sealed test. Sources: `protocol/live_fires_supplement_caught.csv`,
+`results/live/supplement_caught_onset_labels.csv`, `results/live/supplement_caught_traceback_by_satellite.csv`,
+`results/live/supplement_caught_summary.json`.
+
+- Earlier onset: 3 of 30 fires (10 %, 95 % CI 3.5–25.6 %); median lead over the first standard detection 56 min
+  (bootstrap 44–107 min, n = 3). Labels: one "two witnesses", one "witnesses disagree", one "one witness".
+- Two satellites (E2 on these 30): 1 of 2 agree.
+
+What this does not show: these records carry only a discovery date, so no lead against the agency time is reported; with
+n = 3 onsets the lead is anecdotal. The verified records were selected by track 50 for evidence of a fire, not for
+being visible to GOES, so a low onset rate is expected for small fires.
