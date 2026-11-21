@@ -1,6 +1,6 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T21:02Z
+- last heartbeat (UTC): 2026-11-21T21:10Z
 - current step: S3 COMPLETE and caught-v0.1 release files built (release/caught-v0.1, 210 files, 313 MB, checksums verified); both in PR #45. After merge: outbox "release caught-v0.1 ready", then v0.2 (protocol committed alone first).
 - blockers: none
 - PRs open: #45 (S3 results + caught-v0.1 release files)
