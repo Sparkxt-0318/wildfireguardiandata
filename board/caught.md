@@ -1,7 +1,7 @@
 ## caught
 - state: WORKING
-- last heartbeat (UTC): 2026-11-21T20:00Z
-- current step: S3 (US 2018-2020): placebo scars 57401/60,233 (~0.28 h left), then placebo labels and tables. Then release caught-v0.1 (script ready), then v0.2.
+- last heartbeat (UTC): 2026-11-21T20:21Z
+- current step: S3 (US 2018-2020): placebo scars done (60,233); placebo labels and tables being written. Then S3 section, release caught-v0.1 (script ready), then v0.2.
 - blockers: none
 - PRs open: none (#43 merged)
 - session: session_017vgyRQiyh93zKanxaWeyYP
