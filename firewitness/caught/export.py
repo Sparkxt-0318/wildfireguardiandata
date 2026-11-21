@@ -23,7 +23,15 @@ def load_labels(tag: str, slice_name: str) -> pd.DataFrame:
     return pd.read_parquet(run_dir(f"{slice_name}_{tag}") / "records" / "labels.parquet")
 
 
-def export(tag: str, slices, out: str) -> Path:
+def _slim_geom(g, tier, r_m):
+    """Pixel labels: simplified to 3 m. Record-only discs: simplified to 2 % of the radius (they are the honest
+    radius, not a shape)."""
+    if tier == "record-only" or g.geom_type == "Polygon" and len(g.exterior.coords) > 60 and tier is None:
+        return g.simplify(max(r_m, 250.0) / 111_000.0 * 0.02)
+    return g.simplify(0.00003)
+
+
+def export(tag: str, slices, out: str, max_mb: float = 90.0) -> Path:
     import geopandas as gpd
     from shapely import wkt
 
@@ -37,18 +45,31 @@ def export(tag: str, slices, out: str) -> Path:
     lab = pd.concat(frames, ignore_index=True).drop_duplicates("rid", keep="last")
     lab["FOD_ID"] = lab.rid.str[3:].astype("int64")
     hf = heat_floors(0)
-    lab["heat_floors_m2"] = json.dumps(hf)
-    cols = [c for c in COLUMNS if c in lab] + ["heat_floors_m2", "slice"]
+    cols = [c for c in COLUMNS if c in lab] + ["slice"]
     lab = lab[cols].copy()
     for c in ("t0", "t1"):
         lab[c] = lab[c].astype(str)
-    g = gpd.GeoDataFrame(lab.drop(columns=["geometry_wkt"]), geometry=lab.geometry_wkt.map(wkt.loads), crs="EPSG:4326")
-    pq = outd / "caught_labels_v0.1.parquet"
-    g.to_parquet(pq)
-    gj = outd / "caught_labels_v0.1.geojsonl.gz"
-    with gzip.open(gj, "wt") as f:
-        for feat in json.loads(g.to_json(drop_id=True))["features"]:
-            f.write(json.dumps(feat) + "\n")
+    geoms = [_slim_geom(wkt.loads(g), t, r) for g, t, r in zip(lab.geometry_wkt, lab.tier, lab.r_m)]
+    g = gpd.GeoDataFrame(lab.drop(columns=["geometry_wkt"]), geometry=geoms, crs="EPSG:4326")
+    (outd / "heat_floors_m2.json").write_text(json.dumps(hf, indent=1))
+    parts = []
+    for y, gy in g.groupby("FIRE_YEAR"):
+        n_parts = 1
+        while True:
+            files = []
+            size = 0
+            for k in range(n_parts):
+                part = gy.iloc[k::n_parts]
+                f = outd / (f"caught_labels_v0.1_{y}.parquet" if n_parts == 1 else f"caught_labels_v0.1_{y}_part{k + 1}of{n_parts}.parquet")
+                part.to_parquet(f, compression="zstd")
+                files.append(f)
+                size = max(size, f.stat().st_size)
+            if size <= max_mb * 1e6:
+                break
+            for f in files:
+                f.unlink()
+            n_parts += 1
+        parts += files
     card = outd / "DATA_CARD.md"
     card.write_text(data_card(g, tag, slices))
     sums = outd / "SHA256SUMS"
@@ -79,13 +100,15 @@ location_too_uncertain, clear_look_nothing_found). `evidence`: JSON list of ever
 dates, details). `pairs`: agreeing independent kinds. `std_label`, `std_witnesses`: standard products (MODIS,
 VIIRS S-NPP, VIIRS NOAA-20 active fire; MCD64A1; MTBS) in the window. Three states in the searched disc:
 `fire_m2_disc`, `no_fire_m2_disc` (verified no fire above `scar_floor_m2` between `scar_pre` and `scar_post`),
-`unknown_m2_disc`. `heat_floors_m2`: edge-of-scan flaming-area floors per heat sensor, day and night.
+`unknown_m2_disc`. `heat_floors_m2.json`: edge-of-scan flaming-area floors per heat sensor, day and night (the same for every record).
 
 ## How it was made
 protocol/CAUGHT_PROTOCOL.md (fixed before results). No trained model writes a label. No smoothing, dilation,
 filling or interpolation. Inputs: see results/CAUGHT_RESULTS.md (hashes) and the raw index.
 
 ## What it does not show
+- The label geometry marks where a fire was found, not its burned area. Scars under-measure timber fires
+  (median scar/mapped area 0.46 on dev, 0.82 in grass; results/CAUGHT_RESULTS.md, addition 2026-11-21T05:00Z).
 - FireCCI51 was not checked (host unreachable from the build network); a fire labelled only by FireCCI51 counts
   here as "no standard label".
 - "Verified no fire" holds only above the stated floor and only for the scar look's interval.
