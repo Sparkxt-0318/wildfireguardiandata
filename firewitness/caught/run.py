@@ -197,14 +197,25 @@ def scar_stage(name: str, w: pd.DataFrame, threads: int = 40, params=None, log_e
 
     ck = run_dir(name) / "scar.jsonl"
     done = {}
+    def _lean(j):
+        # labels need status, geometry, components, hotspots, dates, threshold, floor and the state areas only;
+        # the full record (looks, input hashes, state shapes) stays in the checkpoint file
+        j.pop("looks", None)
+        j.pop("inputs", None)
+        st = j.get("states") or {}
+        st.pop("unknown", None)
+        st.pop("fire", None)
+        return j
+
     if ck.exists():
-        for line in ck.read_text().splitlines():
-            try:
-                j = json.loads(line)
-                if j.get("status") != "error":
-                    done[j["rid"]] = j
-            except json.JSONDecodeError:
-                continue
+        with open(ck) as fh:
+            for line in fh:
+                try:
+                    j = json.loads(line)
+                    if j.get("status") != "error":
+                        done[j["rid"]] = _lean(j)
+                except json.JSONDecodeError:
+                    continue
     todo = w[w.searched & ~w.rid.isin(done)]
     p0 = dict(params or {})
     lh = p0.pop("landsat_if_heat", True)   # round 3 (kept)
@@ -228,7 +239,7 @@ def scar_stage(name: str, w: pd.DataFrame, threads: int = 40, params=None, log_e
         for fu in as_completed(futs):
             for d in fu.result():
                 f.write(json.dumps(d, default=str) + "\n")
-                done[d["rid"]] = d
+                done[d["rid"]] = _lean(d)
                 n += 1
             f.flush()
             if n // log_every != (n - 24) // log_every:
