@@ -198,3 +198,26 @@ FRP at onset has no independent check; S1 checks our FRP only at the product's f
 already larger, and says nothing about the onset frame itself. The thermal onset rate (12 %, 7.0–19.8 %) is lower than in v0.1
 (18.8 %, 14.3–24.2 %; same size balance, 60 per class); the intervals overlap, and no smallest-class fire had an onset. Release:
 `release/live-v0.2/`.
+
+## Addition 2026-11-22T00:25Z — D2 PASSED; the live detector is closed as a negative result
+
+**Gate D2 passed.** 24 hours unattended with the frozen settings, cycles 2026-11-21T00:21:18Z to 2026-11-22T00:16:18Z on
+branch `live-log`: 288 of 288 cycle records present, no gap records needed, 288 of 288 Sigstore bundles verified against
+the relay workflow identity (`live-relay.yml@refs/heads/main`, GitHub OIDC issuer), every record with the frozen detector
+(`frozen: true`, hash 69081030…), no record changed after its commit (one commit per record file), no record with an
+error. Publication latency from scan start: median 4.0 min, 95th percentile 4.2 min, maximum 8.7 min. Runs: started once
+by hand (run 5, 00:22Z); afterwards only relay successors (runs 6, 8, 10, 12, dispatched by the workflow itself); the
+backup cron runs (7, 9, 11) were superseded and cancelled by the concurrency group. 203 candidate entries in 143 of the
+288 cycles (91 distinct candidate ids). Source: `results/live/d2_summary.json` (made by `python3 firewitness/live/d2eval.py results/live/d2_summary.json` from the
+branch; `python3 -m sigstore verify identity` for the bundles).
+
+What D2 does not show: that the candidates are fires. Reconciliation needs records at least 24 h old; the four
+reconciliation files written so far cover only the provisional run before D2 (17 candidates, 2026-11-20T20:11Z to
+23:06Z, before the US land mask: 13 unmatched, 4 with a polar detection only, none matched to an agency incident). No
+D2 candidate has been reconciled.
+
+**Negative result, final.** The live detector does not detect fires earlier than the operational GOES fire product at
+the frozen false-alert budget: gate D1 failed on the sealed test (7 of 97 fires earlier, 7.2 %, 95 % CI 3.5–14.2 %).
+The service around it works (D2 passed). No further attempts: the optional v0.2 detector was dropped (D-514), the relay
+is stopped after D2 (D-516), and no live-detector work continues. Part A (trace-back of known fires) is reported in
+the v0.1 sections and the 2026-11-21T07:30Z v0.2 addition.

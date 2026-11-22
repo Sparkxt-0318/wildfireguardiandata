@@ -169,6 +169,12 @@ rather than a separate MAD in radiance. (4) For S1, a satellite whose first oper
 extracted day-0 window (T0 − 12 h to T0 + 2 h) has no FRP estimate and is left out; the count is reported. (5) The
 live detector stays closed (D1 failed); v0.2 touches Part A only.
 
+**D-516 — Relay stopped after D2.** D2 passed (288/288 signed records, 2026-11-21T00:21Z–2026-11-22T00:16Z). Per the
+user's instruction (stop all live-detector work after D2), `.github/workflows/live-relay.yml` loses its cron and its job
+runs only if the repository variable `LIVE_RELAY_ENABLED` is `'true'` (not set): the loop running at merge time finishes
+its 5.5 h and its dispatched successor is skipped. The log stays on branch `live-log`; candidates from D2 are not
+reconciled (that would be live-detector work).
+
 **D-107 (records v0.2) — Time estimator replaced, margins and window fixed on dev only.** The first lower-tail estimator was unusable on dev data, so it was replaced by the share of first detections in a -2 to +24 hour lag window under local time versus UTC; margins and the window were set from dev negative controls. All three changes are in the amendment log of `protocol/RECORDS_PROTOCOL_v0.2.md`, each marked "results seen: dev only", and were made before the sealed set was opened.
 
 **D-108 (records v0.2) — Sealed v0.2 set opened once, at eafeb99.** `firewitness/records/sealed_v02.py` ran once; results are in `results/data/sealed_v02*`. Sealed offsets are reported and not applied; the unexplained -12 hour calls on OK Forestry 2016, 2020 and 2022 are reported as unexplained. The day-month hypothesis (H2) was not built in v0.2 and that part of gate T3 is reported as not met. No rule was changed after the opening.
