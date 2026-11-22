@@ -1,7 +1,7 @@
 ## caught
 - state: DONE 8201f7d (v0.1: S1-S3, sealed C2, downstream check, prior art, fuel check, release caught-v0.1 files on main); WORKING on v0.2
-- last heartbeat (UTC): 2026-11-22T00:01Z
-- current step: v0.2: C1 v0.2 (any route) 1.80 % FAILS (second sensor alone 0.62 %). Sealed C2 v0.2 done (795, A1). Records checks 9120/15,584, then the v0.2 report and PR.
+- last heartbeat (UTC): 2026-11-22T00:32Z
+- current step: v0.2: C1 v0.2 (any route) 1.80 % FAILS (second sensor alone 0.62 %). Sealed C2 v0.2 done (795, A1). Records checks 11456/15,584, then the v0.2 report and PR.
 - blockers: none
 - PRs open: none (#47 merged)
 - session: session_017vgyRQiyh93zKanxaWeyYP
