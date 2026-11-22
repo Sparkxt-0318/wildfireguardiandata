@@ -1,9 +1,9 @@
 ## caught
-- state: DONE 8201f7d (v0.1); DONE v0.2 6e7f48e (C1 v0.2 FAILS 1.80 %, reported; sealed C2 v0.2 on 795 passes B-D, fails A; deviation D-518)
-- last heartbeat (UTC): 2026-11-22T03:16Z
-- current step: release caught-v0.2 (flags only, D-021) in PR #55; then reachable for audit fixes only.
+- state: DONE 8201f7d (v0.1); DONE v0.2 6e7f48e; release caught-v0.2 files merged (PR #55, main 65b5f60). Reachable for audit fixes only.
+- last heartbeat (UTC): 2026-11-22T04:05Z
+- current step: idle; all items delivered (v0.1, v0.2, release files caught-v0.1 and caught-v0.2).
 - blockers: none
-- PRs open: #55 (release caught-v0.2 files)
+- PRs open: none (#55 merged)
 - session: session_017vgyRQiyh93zKanxaWeyYP
 - handover (if this session is replaced):
   - done: protocol + A1; v1 pipeline; dev fixes D1-D2; rounds 1-3 (rules frozen 530a3d5); sealed C2 (results/caught/C2_sealed_*.csv); S1 complete (results/caught/S1_*, verified_S1.csv, states_S1.parquet, scar_pairs_S1); downstream check (results/caught/downstream); all merged via PRs #3, #15, #23.
