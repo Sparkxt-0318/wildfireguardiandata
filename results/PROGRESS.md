@@ -94,3 +94,15 @@ Restarts: none.
 Decisions since the last report: D-020 (release workflow keeps subfolders). Track decisions D-515, D-516.
 
 Restarts: none.
+
+## 2026-11-22 04:20Z (final)
+
+| Item | State |
+|---|---|
+| Tracks 49-54 | All DONE. caught v0.2 merged (#52) and released as flags only (caught-v0.2, D-021); live D2 passed 288/288, detector closed as a negative result, relay stopped (#50) |
+| Releases | caught-v0.2 and umbrella v0.1 (main 3fc6ab0, six track zips, headline page as notes) |
+| Audit (55) | Started from GitHub only, no keys; AUDIT.md and HEADLINE_NUMBERS.md merged (#57). 15 numbers do not recompute; most gate numbers cannot be recomputed from release v0.1; four clean-clone commands fail; no key or token in history |
+| coord branch | Deletion refused by the session proxy (D-022); left for the owner |
+| Final report | results/FINAL_REPORT.md |
+
+Decisions since the last report: D-020 addendum, D-021, D-022. Restarts: none.
