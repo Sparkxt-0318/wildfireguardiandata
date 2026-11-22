@@ -1,6 +1,6 @@
 ## caught
 - state: DONE 8201f7d (v0.1: S1-S3, sealed C2, downstream check, prior art, fuel check, release caught-v0.1 files on main); WORKING on v0.2
-- last heartbeat (UTC): 2026-11-22T01:50Z
+- last heartbeat (UTC): 2026-11-22T01:29Z
 - current step: v0.2 complete, results in PR #52 (C1 v0.2 FAILS 1.80 %; second sensor alone 0.62 %; sealed C2 v0.2 passes B-D, fails A; deviation D-518). DONE v0.2 after merge.
 - blockers: none
 - PRs open: #52 (v0.2 results)
