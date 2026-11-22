@@ -1,7 +1,7 @@
 ## live
-- state: DONE v0.2 cccb6aad73471d900d2e376ccffb130cde2d0637; v0.1 pending D2
-- last heartbeat (UTC): 2026-11-22T00:24Z
-- current step: D2: 289 records 00:16Z-22T00:16Z, gaps none; reconcile files 4; ends with the 2026-11-22T00:16Z cycle
+- state: DONE v0.2 cccb6aad73471d900d2e376ccffb130cde2d0637; D2 PASSED; v0.1 DONE pending merge of #50
+- last heartbeat (UTC): 2026-11-22T00:28Z
+- current step: D2 passed (288/288 signed); negative-result addition + relay stop in PR #50
 - blockers: none
-- PRs open: none
+- PRs open: #50
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
