@@ -170,7 +170,9 @@ def build_sealed_v02(state: str | None = "US-MN", year: int = 2021, cap: int | N
                "OBJECTID,poly_IncidentName,poly_GISAcres,attr_FireDiscoveryDateTime,attr_ContainmentDateTime,"
                "attr_FireOutDateTime,attr_IncidentTypeCategory,attr_IrwinID,attr_POOState")
     g = g[g.geometry.notna() & (g.poly_GISAcres > 0)].copy()
-    g = g.drop_duplicates("attr_IrwinID", keep="first")
+    # deduplicate by IRWIN id where there is one; perimeters without an id are kept (D-518: the v0.2 sealed run of
+    # 2026-11-21 used the earlier code, which collapsed them into one row)
+    g = pd.concat([g[g.attr_IrwinID.notna()].drop_duplicates("attr_IrwinID", keep="first"), g[g.attr_IrwinID.isna()]])
     if cap is not None and len(g) > cap:
         key = [hashlib.sha256(str(i).upper().encode()).hexdigest() for i in g.attr_IrwinID]
         g = g.assign(_k=key).sort_values("_k").head(cap).drop(columns="_k")

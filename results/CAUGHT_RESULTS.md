@@ -278,3 +278,99 @@ re-run or re-tuned; primary small stratum):
 Labelled recall is lowest in timber (0.50 against 0.76 in grass; class B 0.35 against 0.62), as the dev check
 predicts. File: `results/caught/fuel_check/sealed_recall_by_fuel.csv` (with Wilson intervals). A fix to the scar
 finder for timber belongs to v0.2 and is tested on the v0.2 sealed set.
+
+## Addition 2026-11-22T01:25Z: v0.2, a second scar sensor and scar persistence (v0.1 rules, labels and results unchanged)
+
+Protocol: `protocol/CAUGHT_PROTOCOL_v0.2.md`, committed alone before any v0.2 result (49ff332), with amendment A1
+committed alone before the sealed set was opened (a52a525). Code: `firewitness/caught/v02.py`. Nothing was tuned.
+Files: `results/caught/v0.2/` (`counts_by_slice_v02.csv`, `C1_v02_by_slice_route.csv`, `C2_v02_sealed.csv`,
+`C2_v02_sealed_variants.csv`, `sealed_v02_records.csv`) and `results/caught/v0.2_summary.json`.
+
+What v0.2 does. Every probable label (v0.1) whose evidence holds a scar gets two more looks: (a) the other scar sensor
+(Landsat 30 m beside Sentinel-2 20 m, or the reverse), which confirms when its scar meets the first and the dates
+overlap; (b) persistence, the same sensor's next clear scene 10-60 days later, which confirms when at least half the
+first scar's pixels still pass. Either one lifts the label to verified (the v0.2 tier as the protocol defines it). On
+S3 this looked at 15,584 record windows and 3,698 placebo windows; no first look was lost and no check failed.
+
+### C1 v0.2 (placebo verified, at most 1 %): FAILS
+
+| slice | searched placebos | v0.1 verified | v0.2 tier (any route) | second sensor only | persistence only counted | both routes |
+|---|---|---|---|---|---|---|
+| S1 California 2020 | 3,526 | 0.26 % (0.12-0.48) | **2.47 % (1.98-3.03)** | 0.96 % (0.67-1.34) | 2.27 % (1.80-2.82) | 0.77 % (0.51-1.11) |
+| S2 US 2020 | 30,992 | 0.16 % (0.12-0.22) | **1.72 % (1.58-1.87)** | 0.53 % (0.45-0.62) | 1.55 % (1.41-1.69) | 0.35 % (0.29-0.43) |
+| S3 US 2018-2020 | 91,224 | 0.21 % (0.18-0.24) | **1.80 % (1.71-1.88)** | 0.62 % (0.57-0.68) | 1.57 % (1.49-1.66) | 0.40 % (0.36-0.45) |
+
+Each column counts the v0.1 verified placebos plus the probable ones that route would lift (Clopper-Pearson 95 %).
+**The v0.2 tier fails C1 in every slice.** Persistence is the cause: it confirms 47 % of record scars but also 34 % of
+placebo scars, because any lasting change of the land (harvest, clearing, construction, a drained field) persists as
+well as a burn does. The second sensor separates better (it confirms 33 % of record scars and 10 % of placebo scars)
+and stays under 1 % in S2 and S3; in S1 its point estimate is 0.96 % with an interval that reaches 1.34 %. The
+second-sensor-only figures are reported per route, as the protocol asks; they are not a re-tuned rule and not the
+v0.2 tier.
+
+### Counts by slice (no standard label; verified, probable and record-only kept apart, never summed)
+
+| slice | records | no standard label | v0.1 verified | v0.2 verified (any route) | v0.2 verified (second sensor only) | v0.2 probable | record-only |
+|---|---|---|---|---|---|---|---|
+| S1 California 2020 | 10,360 | 9,963 | 92 | 275 | 176 | 339 | 9,349 |
+| S2 US 2020 | 74,530 | 70,167 | 1,648 | 4,486 | 3,155 | 4,290 | 61,391 |
+| S3 US 2018-2020 | 220,975 | 207,508 | 4,343 | 13,538 | 9,419 | 11,718 | 182,252 |
+
+By class for S3 (no standard label): v0.2 verified A 16, B 7,648, C 4,820, D 680, E 323, F 43, G 8; second sensor
+only A 16, B 4,390, C 4,042, D 630, E 302, F 33, G 6. Class A gains nothing: its probable labels rest on heat, not on a
+scar (most class-A fires are below the scar floor). Record-only labels are untouched by v0.2. All classes and both
+tiers: `counts_by_slice_v02.csv`.
+
+Read these counts with C1: at the S3 placebo rate, about 1.80 % of the 94,330 searched record windows (about 1,700)
+can be expected to carry a false verified label under the v0.2 tier, against about 200 under v0.1; under the
+second-sensor route alone about 585.
+
+### C2 v0.2 on the new sealed set (opened once, 2026-11-21T22:23Z)
+
+The protocol's fallback (Minnesota, then Wisconsin, then Michigan 2021) gave 50 perimeters, no size class at n >= 30.
+Amendment A1, made on counts alone before any look, widened the set to all US WFIGS 2021 perimeters under 300 acres:
+795 (A 211, B 385, C 129, D 70; 736 wildfire, 59 prescribed). **Deviation, found after the run:** the builder
+deduplicated by IRWIN id and so collapsed every perimeter without one into a single row. Of the 3,855 qualifying
+perimeters, 3,061 have no IRWIN id; the set that ran is the 794 with an id plus one without. A1 as written meant up to
+1,500 of the 3,855 (and did not say how to rank perimeters without an id). Which fires got in depended only on whether
+WFIGS carries an IRWIN id, never on any outcome, and every class still has n >= 30; the results below are for these
+795 and are not re-run or widened after the fact (DECISIONS D-518). v0.1 tiers on it: verified 179, probable 229,
+record-only 387; v0.2 lifted 121 of the probable to verified (routes: persistence 35, second sensor 18, both 68; no
+route 27). Recall = a verified or probable pixel label (or a standard footprint, for the standard column) meets the
+mapped polygon (+30 m); paired cluster bootstrap, 0.5-degree cell x year, 2,000 resamples.
+
+| class | n | labelled recall | standard | labelled - standard (95 % CI) | verified v0.1 - standard | verified v0.2 (any route) - standard | verified, second sensor only - standard |
+|---|---|---|---|---|---|---|---|
+| all | 795 | 0.499 | 0.272 | +0.228 (0.197-0.261) | -0.047 (-0.071 to -0.023) | +0.099 (0.059-0.141) | +0.058 (0.022-0.096) |
+| A | 211 | 0.142 | 0.137 | +0.005 (0.000-0.016) **fail** | -0.090 | -0.090 (-0.143 to -0.047) | -0.090 |
+| B | 385 | 0.483 | 0.187 | +0.296 (0.249-0.342) pass | -0.047 | +0.140 (0.082-0.198) | +0.068 (0.019-0.117) |
+| C | 129 | 0.884 | 0.496 | +0.388 (0.300-0.477) pass | 0.000 | +0.271 (0.176-0.371) | +0.233 (0.138-0.331) |
+| D | 70 | 0.957 | 0.729 | +0.229 (0.134-0.333) pass | 0.000 | +0.129 (0.014-0.254) | +0.129 (0.014-0.254) |
+
+**C2 v0.2 (labelled recall above the standard label by class): passes in B, C and D, fails in A**, as in v0.1 (v0.2
+does not change which fires get a label, only their tier). **Verified-only recall:** v0.1's verified tier was below
+the standard label (-0.047 overall); v0.2's verified tier is above it in B, C and D, with both the any-route tier and
+the second-sensor route alone, and still below it in class A. The any-route gain is partly bought with false labels
+(C1 above); the second-sensor gain is smaller and comes with a placebo rate under 1 % in S2 and S3.
+
+The protocol-as-written subset (Minnesota, Wisconsin, Michigan; 47 of its 50, the 3 without an IRWIN id dropped by the same bug): labelled recall
+0.319 against standard 0.064; verified v0.1 0.085, second sensor only 0.149, any route 0.234; too small to gate
+(`C2_v02_sealed_variants.csv`).
+
+### Scar floor, stated plainly
+
+A scar smaller than the floor cannot be found, whatever the route: Sentinel-2 2,345 m2 (0.58 acre), Landsat 5,277 m2
+(1.30 acres), at the threshold T = 0.10 (higher T, higher floor; by fuel 0.58-0.73 acre with Sentinel-2 and 1.30-1.65
+acres with Landsat, addition 2026-11-21T05:00Z (b)). Route (a) can only confirm a fire whose scar is above the Landsat
+floor; route (b) works down to the Sentinel-2 floor. Class A (under 0.25 acre) is below both.
+
+### What v0.2 does not show
+
+The sealed set is the 795 WFIGS 2021 perimeters that carry an IRWIN id (see the deviation above); the 3,061 without
+one are untested and still unopened.
+
+Persistence does not tell a burn from other lasting change, so it cannot by itself lift a label (this is the C1
+failure). A second sensor agreeing is two looks at the same scar, independent in satellite and scene choice but not in
+kind: both are reflectance change. The sealed set mixes 2021 states with very different mapping habits (California
+107 perimeters, Maine 27). Run note: the sealed run went beside the S3 record checks at low concurrency (DECISIONS
+D-517).
