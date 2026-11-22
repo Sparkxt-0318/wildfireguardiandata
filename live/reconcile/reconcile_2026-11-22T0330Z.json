@@ -1,0 +1,265 @@
+{
+ "made": "2026-11-22T0330Z",
+ "window_h": [
+  24.0,
+  72.0
+ ],
+ "n": 27,
+ "wfigs_incidents_fetched": 288,
+ "firms_points": 25650,
+ "candidates": [
+  {
+   "id": "L20261120T2011Z-001",
+   "record": "20261120T2011Z.json",
+   "lat": 29.1754,
+   "lon": -113.2142,
+   "alert_scan": "2026-11-20T20:11:18Z",
+   "published_at": "2026-11-20T20:15:22Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2021Z-001",
+   "record": "20261120T2021Z.json",
+   "lat": 34.5066,
+   "lon": -89.3605,
+   "alert_scan": "2026-11-20T20:21:18Z",
+   "published_at": "2026-11-20T20:25:01Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2026Z-001",
+   "record": "20261120T2026Z.json",
+   "lat": 35.7606,
+   "lon": -90.7884,
+   "alert_scan": "2026-11-20T20:26:18Z",
+   "published_at": "2026-11-20T20:30:21Z",
+   "outcome": "polar detection only",
+   "first_polar_utc": "2026-11-20T20:08:00Z",
+   "lead_vs_polar_min": -18.3
+  },
+  {
+   "id": "L20261120T2106Z-001",
+   "record": "20261120T2106Z.json",
+   "lat": 34.3112,
+   "lon": -90.292,
+   "alert_scan": "2026-11-20T21:06:18Z",
+   "published_at": "2026-11-20T21:10:01Z",
+   "outcome": "polar detection only",
+   "first_polar_utc": "2026-11-20T19:10:00Z",
+   "lead_vs_polar_min": -116.3
+  },
+  {
+   "id": "L20261120T2111Z-001",
+   "record": "20261120T2111Z.json",
+   "lat": 32.3862,
+   "lon": -97.6432,
+   "alert_scan": "2026-11-20T21:11:18Z",
+   "published_at": "2026-11-20T21:15:01Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2121Z-003",
+   "record": "20261120T2121Z.json",
+   "lat": 29.2708,
+   "lon": -113.7208,
+   "alert_scan": "2026-11-20T21:21:18Z",
+   "published_at": "2026-11-20T21:25:22Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2131Z-002",
+   "record": "20261120T2131Z.json",
+   "lat": 30.923,
+   "lon": -115.1172,
+   "alert_scan": "2026-11-20T21:31:18Z",
+   "published_at": "2026-11-20T21:35:21Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2151Z-001",
+   "record": "20261120T2151Z.json",
+   "lat": 34.8683,
+   "lon": -91.7392,
+   "alert_scan": "2026-11-20T21:51:18Z",
+   "published_at": "2026-11-20T21:55:03Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2206Z-001",
+   "record": "20261120T2206Z.json",
+   "lat": 35.8936,
+   "lon": -91.0396,
+   "alert_scan": "2026-11-20T22:06:18Z",
+   "published_at": "2026-11-20T22:10:22Z",
+   "outcome": "polar detection only",
+   "first_polar_utc": "2026-11-20T20:08:00Z",
+   "lead_vs_polar_min": -118.3
+  },
+  {
+   "id": "L20261120T2206Z-002",
+   "record": "20261120T2206Z.json",
+   "lat": 36.4905,
+   "lon": -117.8525,
+   "alert_scan": "2026-11-20T22:06:18Z",
+   "published_at": "2026-11-20T22:10:22Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2216Z-001",
+   "record": "20261120T2216Z.json",
+   "lat": 32.1418,
+   "lon": -98.0616,
+   "alert_scan": "2026-11-20T22:16:18Z",
+   "published_at": "2026-11-20T22:20:21Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2221Z-001",
+   "record": "20261120T2221Z.json",
+   "lat": 37.5288,
+   "lon": -104.8414,
+   "alert_scan": "2026-11-20T22:21:18Z",
+   "published_at": "2026-11-20T22:25:01Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2231Z-002",
+   "record": "20261120T2231Z.json",
+   "lat": 33.1853,
+   "lon": -89.7744,
+   "alert_scan": "2026-11-20T22:31:18Z",
+   "published_at": "2026-11-20T22:35:02Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2231Z-003",
+   "record": "20261120T2231Z.json",
+   "lat": 33.4,
+   "lon": -118.4268,
+   "alert_scan": "2026-11-20T22:31:18Z",
+   "published_at": "2026-11-20T22:35:02Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2241Z-004",
+   "record": "20261120T2241Z.json",
+   "lat": 30.9269,
+   "lon": -115.1835,
+   "alert_scan": "2026-11-20T22:41:18Z",
+   "published_at": "2026-11-20T22:45:21Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2301Z-001",
+   "record": "20261120T2301Z.json",
+   "lat": 33.3285,
+   "lon": -94.612,
+   "alert_scan": "2026-11-20T23:01:18Z",
+   "published_at": "2026-11-20T23:05:22Z",
+   "outcome": "polar detection only",
+   "first_polar_utc": "2026-11-20T21:25:00Z",
+   "lead_vs_polar_min": -96.3
+  },
+  {
+   "id": "L20261120T2306Z-003",
+   "record": "20261120T2306Z.json",
+   "lat": 31.9177,
+   "lon": -113.5428,
+   "alert_scan": "2026-11-20T23:06:18Z",
+   "published_at": "2026-11-20T23:10:22Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2346Z-001",
+   "record": "20261120T2346Z.json",
+   "lat": 35.8943,
+   "lon": -91.0642,
+   "alert_scan": "2026-11-20T23:46:18Z",
+   "published_at": "2026-11-20T23:50:21Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261120T2356Z-001",
+   "record": "20261120T2356Z.json",
+   "lat": 35.8551,
+   "lon": -97.1113,
+   "alert_scan": "2026-11-20T23:56:18Z",
+   "published_at": "2026-11-21T00:00:24Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261121T0031Z-001",
+   "record": "20261121T0031Z.json",
+   "lat": 42.8029,
+   "lon": -121.7474,
+   "alert_scan": "2026-11-21T00:31:18Z",
+   "published_at": "2026-11-21T00:35:30Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261121T0121Z-001",
+   "record": "20261121T0121Z.json",
+   "lat": 44.7533,
+   "lon": -75.335,
+   "alert_scan": "2026-11-21T01:21:18Z",
+   "published_at": "2026-11-21T01:25:08Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261121T0131Z-001",
+   "record": "20261121T0131Z.json",
+   "lat": 40.9009,
+   "lon": -72.8396,
+   "alert_scan": "2026-11-21T01:31:18Z",
+   "published_at": "2026-11-21T01:35:10Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261121T0156Z-001",
+   "record": "20261121T0156Z.json",
+   "lat": 45.5142,
+   "lon": -122.1772,
+   "alert_scan": "2026-11-21T01:56:18Z",
+   "published_at": "2026-11-21T02:00:27Z",
+   "outcome": "polar detection only",
+   "first_polar_utc": "2026-11-21T04:14:00Z",
+   "lead_vs_polar_min": 137.7
+  },
+  {
+   "id": "L20261121T0211Z-001",
+   "record": "20261121T0211Z.json",
+   "lat": 45.4278,
+   "lon": -122.2477,
+   "alert_scan": "2026-11-21T02:11:18Z",
+   "published_at": "2026-11-21T02:15:07Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261121T0226Z-001",
+   "record": "20261121T0226Z.json",
+   "lat": 40.9007,
+   "lon": -72.8896,
+   "alert_scan": "2026-11-21T02:26:18Z",
+   "published_at": "2026-11-21T02:30:27Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261121T0241Z-001",
+   "record": "20261121T0241Z.json",
+   "lat": 39.0196,
+   "lon": -120.6991,
+   "alert_scan": "2026-11-21T02:41:18Z",
+   "published_at": "2026-11-21T02:45:27Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  },
+  {
+   "id": "L20261121T0321Z-001",
+   "record": "20261121T0321Z.json",
+   "lat": 37.334,
+   "lon": -118.0556,
+   "alert_scan": "2026-11-21T03:21:18Z",
+   "published_at": "2026-11-21T03:25:28Z",
+   "outcome": "unmatched (false alert or unrecorded heat)"
+  }
+ ]
+}
