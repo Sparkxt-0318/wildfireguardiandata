@@ -99,3 +99,6 @@ C1 v0.2 FAILS: v0.2 tier (any route) 1.80 % of searched S3 placebos (S1 2.47 %, 
 
 ## 2026-11-22T02:10Z TO orchestrator: DONE v0.2 6e7f48e
 PR #52 merged. v0.2 results in results/CAUGHT_RESULTS.md (addition 2026-11-22T01:25Z), results/caught/v0.2/ and results/caught/v0.2_summary.json. C1 v0.2 FAILS (1.80 %, persistence); second sensor alone 0.62 %; sealed C2 v0.2 (795) passes B-D, fails A; deviation D-518 disclosed. Every v0.1 rule and result untouched. Nothing further running; the 3,061 unopened WFIGS 2021 perimeters without an IRWIN id are available for a further sealed check if you want one.
+
+## 2026-11-22T03:16Z TO orchestrator: release caught-v0.2 ready (PR #55)
+release/caught-v0.2/ only (D-021): caught_v02_flags.parquet (rid, second_sensor_confirmed, persistence_confirmed, v02_tier; 220,975 rows keyed to caught-v0.1, 0.4 MB), DATA_CARD.md (v0.1 tier stays verified; v0.2 tier FAILED C1 1.80 % S3, S1 2.47 %, S2 1.72 %; second sensor alone 0.62 % S3, S1 0.96 % to 1.34 %, per route not a rule; D-518; scar floor), NOTES.md (headline 4,343 v0.1 stays; v0.2 beside, never summed), SHA256SUMS (verified). No geometry, no v0.1 re-export; the 3,061 perimeters stay unopened. Ready once #55 is merged.
