@@ -1,19 +1,19 @@
 # BOARD
 
-Assembled by the orchestrator at 2026-11-22T01:07Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
+Assembled by the orchestrator at 2026-11-22T02:08Z from board/*.md. Builders are cloud sessions (no local PID; see DECISIONS.md D-003).
 
 | track | brief | session | started | restarts | heartbeat age |
 |---|---|---|---|---|---|
-| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 27 min |
-| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 4 min |
-| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 39 min |
+| records | 49 | session_017vgyRSUvuSFwAJ6G5Pon4W | 2026-11-20T17:09:54Z | 0 | 33 min |
+| caught | 50 | session_017vgyRQiyh93zKanxaWeyYP | 2026-11-20T17:30Z | 0 | 40 min |
+| live | 51 | session_017vgyRQzfX2N1HcUNCGpVsa | 2026-11-20T17:30Z | 0 | 49 min |
 | smoke | 52 | session_017vgyRS4MJGvQMeckTVLECC | 2026-11-20T17:30Z | 0 | 16 min |
-| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 1724 min |
-| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 1210 min |
+| fuel | 53 | session_017vgyRQhTfipPYGoPHoDeW5 | 2026-11-20T17:30Z | 0 | 1786 min |
+| score | 54 | session_017vgyRTfDoM2Ja3HBKAxZEr | 2026-11-20T17:30Z | 0 | 1272 min |
 
 ## records
 - state: DONE v0.4 23192e6 (accepted by orchestrator; D-019 notes the sealed years were v0.2 dev years; records finished)
-- last heartbeat (UTC): 2026-11-22T00:40Z
+- last heartbeat (UTC): 2026-11-22T01:36Z
 - current step: idle; reachable for audit fixes only, heartbeat at most every 60 min
 - blockers: none
 - PRs open: none
@@ -21,10 +21,10 @@ Assembled by the orchestrator at 2026-11-22T01:07Z from board/*.md. Builders are
 
 ## caught
 - state: DONE 8201f7d (v0.1: S1-S3, sealed C2, downstream check, prior art, fuel check, release caught-v0.1 files on main); WORKING on v0.2
-- last heartbeat (UTC): 2026-11-22T01:03Z
-- current step: v0.2: C1 v0.2 (any route) 1.80 % FAILS (second sensor alone 0.62 %). Sealed C2 v0.2 done (795, A1). Records checks 13792/15,584, then the v0.2 report and PR.
+- last heartbeat (UTC): 2026-11-22T01:29Z
+- current step: v0.2 complete, results in PR #52 (C1 v0.2 FAILS 1.80 %; second sensor alone 0.62 %; sealed C2 v0.2 passes B-D, fails A; deviation D-518). DONE v0.2 after merge.
 - blockers: none
-- PRs open: none (#47 merged)
+- PRs open: #52 (v0.2 results)
 - session: session_017vgyRQiyh93zKanxaWeyYP
 - handover (if this session is replaced):
   - done: protocol + A1; v1 pipeline; dev fixes D1-D2; rounds 1-3 (rules frozen 530a3d5); sealed C2 (results/caught/C2_sealed_*.csv); S1 complete (results/caught/S1_*, verified_S1.csv, states_S1.parquet, scar_pairs_S1); downstream check (results/caught/downstream); all merged via PRs #3, #15, #23.
@@ -33,16 +33,16 @@ Assembled by the orchestrator at 2026-11-22T01:07Z from board/*.md. Builders are
   - branch track/caught; scripts in session scratchpad are copies of firewitness.caught.pipeline calls (run_slice, report.write_slice, summarize).
 
 ## live
-- state: DONE v0.2 cccb6aad73471d900d2e376ccffb130cde2d0637; D2 PASSED; v0.1 DONE pending merge of #50
-- last heartbeat (UTC): 2026-11-22T00:28Z
-- current step: D2 passed (288/288 signed); negative-result addition + relay stop in PR #50
+- state: DONE v0.1 9bbf42a926319caff41a7bb839cdaeb67793b184; DONE v0.2 cccb6aad73471d900d2e376ccffb130cde2d0637
+- last heartbeat (UTC): 2026-11-22T01:20Z
+- current step: track 51 complete: D2 passed, live detector closed (negative result), relay stopped (D-516 (live)); audit fixes only
 - blockers: none
-- PRs open: #50
+- PRs open: none
 - session: session_017vgyRQzfX2N1HcUNCGpVsa
 
 ## smoke
 - state: DONE 5992f03 (D-012 addendum merged, PR #21). Follow-up only: re-render satellite (ten fires), scar and duplicate clips if live/caught/records post final exports.
-- last heartbeat (UTC): 2026-11-22T00:51:05Z
+- last heartbeat (UTC): 2026-11-22T01:52:51Z
 - current step: release smoke-v0.1 files merged; asked orchestrator to dispatch the release. All protocol steps done: protocol + A1-A3, definition doc, prior-art note, label and video commands, S1-S5 (dev full, sealed once), S4 HPWREN and Pyro, 12 loop rounds, 9 clips (+contact sheet), SMOKE_RESULTS.md.
 - gates (honest): S2 sealed 0.8% (met by point estimate, upper 2.4%), dev 7.1% (not met); S5 identity met; S1 opacity MAE 0.14 / edge 6-10 px / detection 76-79% targets not met; S3 median +180 s (method after human).
 - blockers: none
