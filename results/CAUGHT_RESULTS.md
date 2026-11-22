@@ -279,7 +279,7 @@ Labelled recall is lowest in timber (0.50 against 0.76 in grass; class B 0.35 ag
 predicts. File: `results/caught/fuel_check/sealed_recall_by_fuel.csv` (with Wilson intervals). A fix to the scar
 finder for timber belongs to v0.2 and is tested on the v0.2 sealed set.
 
-## Addition 2026-11-22T01:45Z: v0.2, a second scar sensor and scar persistence (v0.1 rules, labels and results unchanged)
+## Addition 2026-11-22T01:25Z: v0.2, a second scar sensor and scar persistence (v0.1 rules, labels and results unchanged)
 
 Protocol: `protocol/CAUGHT_PROTOCOL_v0.2.md`, committed alone before any v0.2 result (49ff332), with amendment A1
 committed alone before the sealed set was opened (a52a525). Code: `firewitness/caught/v02.py`. Nothing was tuned.
