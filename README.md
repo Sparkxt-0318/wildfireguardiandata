@@ -17,6 +17,22 @@ firewitness records report --out out/           # coverage flags per state, year
 
 Region: every country-specific value is in `firewitness/records/config/<region>.json` (the run so far is `us`; a Korea run changes only that file).
 
+What runs from a clean clone, and what needs local data:
+
+- `records clean` and `records revert` run on any CSV you give them. Revert is byte for byte only when the table has its
+  own id column and you name it with `--id-col` (default `rid`); without one, `clean` adds a `rid` column of row numbers
+  and `revert` returns the table with that column added.
+- `records link`, `records ids`, `records report` and `records clean --national` read raw inputs from a work folder
+  set by the environment variable `FIREWITNESS_ROOT` (default `/home/user/wildfire 3 (1)`), e.g.
+  `$FIREWITNESS_ROOT/work/fpafod/Data/FPA_FOD_20260615.gpkg`. FPA FOD is public (USDA Forest Service Research Data
+  Archive, RDS-2013-0009.7, file `RDS-2013-0009.7_Data_Format3_GPKG.zip`); the other inputs are listed in
+  `results/DATA_PULLS.md`. Without them these commands stop with a missing-file error.
+- The score track has no extra of its own: install `.[dev]` or `.[records]` for it.
+- `firewitness live replay` runs from the repository root (it reads `protocol/live_fires.csv` by a relative path) and
+  needs the GOES series first (`firewitness live traceback --extract`, network, about 3 minutes per fire).
+- A fuel area given as a lon/lat box starting with a minus sign needs `--` before it:
+  `firewitness fuel check --map M16 -- "-115.2,40.4,-114.8,40.7"`.
+
 ## Results
 
 See `results/RECORDS_RESULTS.md` (headline numbers with n, interval, source file and what each does not show), `results/ROUNDS_records.md` (improvement rounds), `protocol/RECORDS_PROTOCOL.md` (gates, baselines, splits, amendment log), `results/DATA_PULLS.md` (what was and was not obtained) and `docs/PRIOR_ART.md`.
