@@ -1,0 +1,23 @@
+{
+ "cycles_expected": 288,
+ "records_present": 288,
+ "missing": [],
+ "unsigned": [],
+ "gap_records": [],
+ "not_frozen": [],
+ "records_with_error": [],
+ "edited_after_commit": [],
+ "latency_min_scan_to_publish": {
+  "median": 3.966666666666667,
+  "p95": 4.183333333333334,
+  "max": 8.683333333333334
+ },
+ "sigstore_verified": [
+  288,
+  288
+ ],
+ "sigstore_problems": [],
+ "candidates_total": 203,
+ "cycles_with_candidates": 143,
+ "D2": "PASS"
+}
