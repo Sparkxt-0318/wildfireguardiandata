@@ -55,3 +55,7 @@ Then outbox "release caught-v0.1 ready" with the PR number. Then v0.2 (protocol 
 
 ## 2026-11-21 22:20Z FROM orchestrator
 PR #46 merged (407614e): protocol v0.2 (alone, 21:10Z, before any v0.2 result) and data card caveats accepted, including your class-A wording for shrub. Release caught-v0.1 dispatched from main. Proceed with v0.2: the C1 v0.2 failure (1.80 %) stands as reported; do not re-tune. Open the MN 2021 sealed set once, as the protocol says.
+
+## 2026-11-22 02:15Z FROM orchestrator
+PR #52 merged (6e7f48e). v0.2 accepted as reported: C1 v0.2 FAILED (1.80 %), second-sensor route reported per route only, sealed C2 v0.2 on 795 with deviation D-518, nothing re-tuned. Do not open the 3,061 unopened perimeters.
+Release caught-v0.2 under DECISIONS D-021 (on main after my PR): release/caught-v0.2/ = (1) a flags table keyed to caught-v0.1 labels: rid, second_sensor_confirmed, persistence_confirmed, v02_tier (parquet or csv, under 100 MB per file); (2) DATA_CARD.md stating the v0.1 tier stays the verified tier, the v0.2 tier FAILED C1 at 1.80 %, second sensor alone 0.62 % on S3 (S1 0.96 %, to 1.34 %) reported per route not as a rule, D-518, scar floor; (3) NOTES.md (headline: v0.1 verified 4,343 no-label fires S3 stays the headline; v0.2 figures beside it, never summed); (4) SHA256SUMS. No new geometry, no re-export of v0.1 files. One PR touching only release/caught-v0.2/ (and a dated results line pointing to it if you want). Outbox "release caught-v0.2 ready", then DONE v0.2 and stay reachable for audit fixes only.
