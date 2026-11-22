@@ -144,6 +144,8 @@ Orchestrator decisions (D-0xx). Each track records its own decisions in this fil
 
 **D-020 (orchestrator) — Release workflow keeps subfolders.** The caught-v0.1 release (dispatched 2026-11-21T22:12Z) uploaded every file flat, so the 40 scar-pair folders (same five file names each) collapsed to one set of five assets. The workflow now uploads top-level files as they are and each subfolder as one zip that keeps its paths (`scar_pairs.zip`), and a re-release deletes assets the folder no longer produces. No release file changed; caught-v0.1 was re-dispatched from main after the fix. Earlier releases have no subfolders and are unaffected.
 
+**D-020 addendum (orchestrator, 2026-11-22T00:35Z).** A re-release also rewrites the release notes from NOTES.md, so a changed headline reaches the release page (needed for the live-v0.1 D2 headline).
+
 **D-105 (records) — FIRMS_MAP_KEY.** The FIRMS key was copied from the git history of the old wildfireguardian repository (live/config/firms_map_key.txt, deleted in the commit "live: delete the temporary FIRMS key file") into keys.env outside the repo, as the brief says. It was not needed: the FIRMS country archives (MODIS 2000 to 2024, VIIRS S-NPP 2012 to 2024, United States) are public files on firms.modaps.eosdis.nasa.gov and were downloaded without a key. The key is unused and never appears in the repo (`scripts/check_keys.py` checks for it in CI and pre-commit).
 
 **D-106 (records) — Interval additions and append-only results.** Result files on main are append-only (orchestrator rule): later numbers, intervals and corrections are added as dated additions below earlier lines; earlier lines are never edited.

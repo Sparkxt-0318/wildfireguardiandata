@@ -58,6 +58,7 @@ jobs:
           sha=$(git rev-parse HEAD)
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" _assets/* --clobber
+            gh release edit "$TAG" --notes-file "$notes"
             # a re-release mirrors the folder: drop assets no longer produced
             for a in $(gh release view "$TAG" --json assets -q '.assets[].name'); do
               [ -f "_assets/$a" ] || gh release delete-asset "$TAG" "$a" -y
