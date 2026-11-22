@@ -1,9 +1,9 @@
 ## caught
 - state: DONE 8201f7d (v0.1: S1-S3, sealed C2, downstream check, prior art, fuel check, release caught-v0.1 files on main); WORKING on v0.2
-- last heartbeat (UTC): 2026-11-22T01:03Z
-- current step: v0.2: C1 v0.2 (any route) 1.80 % FAILS (second sensor alone 0.62 %). Sealed C2 v0.2 done (795, A1). Records checks 13792/15,584, then the v0.2 report and PR.
+- last heartbeat (UTC): 2026-11-22T01:50Z
+- current step: v0.2 complete, results in PR #52 (C1 v0.2 FAILS 1.80 %; second sensor alone 0.62 %; sealed C2 v0.2 passes B-D, fails A; deviation D-518). DONE v0.2 after merge.
 - blockers: none
-- PRs open: none (#47 merged)
+- PRs open: #52 (v0.2 results)
 - session: session_017vgyRQiyh93zKanxaWeyYP
 - handover (if this session is replaced):
   - done: protocol + A1; v1 pipeline; dev fixes D1-D2; rounds 1-3 (rules frozen 530a3d5); sealed C2 (results/caught/C2_sealed_*.csv); S1 complete (results/caught/S1_*, verified_S1.csv, states_S1.parquet, scar_pairs_S1); downstream check (results/caught/downstream); all merged via PRs #3, #15, #23.
