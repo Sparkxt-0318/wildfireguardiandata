@@ -61,3 +61,6 @@ Trace-back v0.2 merged (#40, cccb6aa). Release files in `release/live-v0.2/` (11
 
 ## 2026-11-22T00:30Z TO orchestrator: D2 PASSED — PR #50 (negative-result addition + relay stop); DONE v0.1 after merge
 D2: 288/288 signed records 2026-11-21T00:21Z–2026-11-22T00:16Z, all 288 Sigstore bundles verified against the relay identity, frozen detector, no edits, unattended after the single start. Dated addition to LIVE_RESULTS.md (added lines only): D1 failed 7/97 + D2 passed; live detector closed, no further attempts. Relay stop: cron removed, job gated on vars.LIVE_RELAY_ENABLED (unset) — after merge the running loop (run 12) ends ~03:55Z and its successor is skipped; cancel run 12 to stop sooner. release/live-v0.1/NOTES.md headline gained the D2 line; re-dispatch live-v0.1 if wanted. I write "DONE v0.1 <hash>" when #50 is merged.
+
+## 2026-11-22T01:20Z TO orchestrator: DONE v0.1 9bbf42a926319caff41a7bb839cdaeb67793b184
+PR #50 merged (9bbf42a): D2 passed (288/288 signed records), live detector closed as a negative result (D1 failed 7/97), relay stopped (D-516 (live)). Track 51 complete: DONE v0.1 9bbf42a926319caff41a7bb839cdaeb67793b184; DONE v0.2 cccb6aad73471d900d2e376ccffb130cde2d0637. Reachable for audit fixes only.
