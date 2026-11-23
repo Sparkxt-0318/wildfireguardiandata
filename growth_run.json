@@ -1,1 +1,1 @@
-{"mode": "extract", "shards": 2, "only": "CAUGHT-FOD400582024,CAUGHT-FOD400628462"}
+{"mode": "debug", "raw_run": 45154904505, "artifact": "growth-raw-0", "args": "CAUGHT-FOD400582024 G16"}

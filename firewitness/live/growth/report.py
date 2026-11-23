@@ -176,36 +176,45 @@ def write_outputs(res: dict, out: Path):
 
 
 def figure(cv: pd.DataFrame, path: Path, part: str = "sealed"):
+    """Slide figure: median fire power and the middle half (quartiles) for fires that ended large vs stayed small.
+    Colours: categorical slots 1-2 of the reference palette (#2a78d6, #eb6834), checked for colour-blind separation;
+    identity is also carried by line style (solid / dashed) and direct labels."""
     import matplotlib
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
-    col = {"large": "#0072B2", "small": "#D55E00"}
-    ls = {"large": "-", "small": "--"}
-    lab = {"large": "ended large (≥ 1,000 acres)", "small": "stayed small (10 to 1,000 acres)"}
+    col = {"large": "#2a78d6", "small": "#eb6834"}
+    ls = {"large": "-", "small": (0, (6, 3))}
+    lab = {"large": "ended large (≥ 1,000 acres)", "small": "stayed small (< 1,000 acres)"}
     plt.rcParams.update({"font.size": 20, "font.family": "DejaVu Sans"})
     fig, ax = plt.subplots(figsize=(13.33, 7.5), dpi=150)
+    fig.patch.set_facecolor("#fcfcfb")
+    ax.set_facecolor("#fcfcfb")
     for g in ("large", "small"):
         c = cv[cv.group == g].sort_values("tau_min")
         if not len(c):
             continue
-        x = c.tau_min / 60.0
+        x = c.tau_min.to_numpy() / 60.0
         n = int(c.n.max())
-        ax.fill_between(x, np.maximum(c.q25, 0.5), np.maximum(c.q75, 0.5), color=col[g], alpha=0.18, lw=0)
-        ax.plot(x, np.maximum(c["median"], 0.5), color=col[g], ls=ls[g], lw=4, label=f"{lab[g]}, n = {n} fires")
+        ax.fill_between(x, np.maximum(c.q25, 0.5), np.maximum(c.q75, 0.5), color=col[g], alpha=0.16, lw=0)
+        y = np.maximum(c["median"].to_numpy(), 0.5)
+        ax.plot(x, y, color=col[g], ls=ls[g], lw=3.5, label=f"{lab[g]}, n = {n} fires")
+        ax.annotate(f"{g}\n{y[-1]:.0f} MW", (x[-1], y[-1]), xytext=(10, 0), textcoords="offset points",
+                    va="center", fontsize=18, color="#222222")
     ax.set_yscale("log")
     ax.set_xlim(0, 6)
     ax.set_xticks(range(7))
     ax.set_xlabel("hours after the start time t0")
-    ax.set_ylabel("fire radiative power (MW)")
-    ax.grid(True, which="major", color="#cccccc", lw=1)
+    ax.set_ylabel("fire radiative power (MW, log scale)")
+    ax.grid(True, which="major", color="#dddddd", lw=1)
     ax.spines[["top", "right"]].set_visible(False)
+    ax.spines[["left", "bottom"]].set_color("#888888")
     ax.legend(loc="upper left", frameon=False, fontsize=18)
-    who = "sealed fires" if part == "sealed" else "dev fires (draft)"
+    who = "sealed new fires" if part == "sealed" else "dev fires (draft)"
     ax.set_title(f"Fire power in the first 6 hours, {who}: median and middle half", fontsize=22, loc="left")
-    fig.text(0.01, 0.01, "GOES 5-minute frames, 2 km pixels; cloudy frames left out. Past fires: an association, "
-             "not a forecast.", fontsize=14, color="#444444")
-    fig.tight_layout(rect=(0, 0.04, 1, 1))
-    fig.savefig(path)
+    fig.text(0.01, 0.01, "GOES 5-minute frames, 2 km pixels; cloudy frames left out, never filled. Past fires: an "
+             "association, not a forecast.", fontsize=14, color="#444444")
+    fig.tight_layout(rect=(0, 0.04, 0.95, 1))
+    fig.savefig(path, facecolor=fig.get_facecolor())
     plt.close(fig)
 
 
@@ -265,7 +274,7 @@ def render(n: dict, prov: dict) -> str:
     g1, g2, g3, g4 = S.get("G1", {}), S.get("G2", {}), S.get("G3", {}), S.get("G4", {})
     w("# GROWTH_RESULTS — early growth rate of fire power in the first hours (track growth)")
     w("")
-    if hs:
+    if hs and hs["fires_tried"] and g4:
         w(f"**Headline: on the {hs['fires_tried']} sealed new fires, {hs['measured_3h']} have a measured 3-hour growth "
           f"rate ({_sh(hs['share_3h'])}); {hs['flat_3h']} are flat (not distinguishable from the placebo) and "
           f"{hs['unknown_3h']} unknown (too few clear frames). Gates: G1 placebo {_verdict(g1.get('pass'))}, "
@@ -283,7 +292,7 @@ def render(n: dict, prov: dict) -> str:
       f"fire-satellite series (GOES-16/17/18/19). Thresholds frozen at {prov.get('thresholds_commit', '–')} "
       f"(`firewitness/live/config/growth_thresholds_us.json`, SHA-256 {prov.get('thresholds_sha256', '–')[:12]}…) "
       f"from {n['n_placebo_anchors']['A'] + n['n_placebo_anchors']['dev']:,} placebo anchors of Set A and dev; "
-      f"recomputed from the released placebo series: {'identical' if n['thresholds_recomputed_match_frozen'] else 'DIFFERENT'}. "
+      f"recomputed from the released placebo series: {'identical' if n['thresholds_recomputed_match_frozen'] else ('DIFFERENT' if prov.get('thresholds_sha256') else 'not yet frozen')}. "
       f"{prov.get('opening', 'Sealed half: not opened.')}")
     w("")
     w("Every number below is recomputed from the release files alone by `growth_recompute.py` (release growth-v0.1). "
@@ -296,7 +305,7 @@ def render(n: dict, prov: dict) -> str:
     src_t = "`early_growth_v0.1.csv` (from `growth_series_fire.parquet`)"
     for part, label in (("sealed", "sealed new fires"), ("dev", "dev new fires (descriptive)"), ("A", "Set A (used before; descriptive)")):
         h = H.get(part)
-        if not h:
+        if not h or not h["fires_tried"]:
             continue
         w(f"| fires with a measured 3 h growth rate, {label} | {h['fires_tried']} tried | {h['measured_3h']} "
           f"({h['flat_3h']} flat, {h['unknown_3h']} unknown) | {_iv([h['share_3h'][1] * 100, h['share_3h'][2] * 100], 1)} % | {src_t} | "

@@ -102,6 +102,21 @@ jobs:
         if: always()
         with: {name: 'growth-raw-${{ matrix.shard }}', path: _raw/live/series, retention-days: 30, compression-level: 0}
 
+  debug:
+    needs: plan
+    if: needs.plan.outputs.mode == 'debug'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install -q -e . numpy scipy h5py requests pandas pyarrow
+      - id: c
+        run: python3 -c "import json; c=json.load(open('growth_run.json')); print('run='+str(c['raw_run'])); print('art='+c['artifact']); print('args='+c['args'])" >> "$GITHUB_OUTPUT"
+      - uses: actions/download-artifact@v4
+        with: {name: '${{ steps.c.outputs.art }}', path: _rawdbg, run-id: '${{ steps.c.outputs.run }}', github-token: '${{ github.token }}'}
+      - run: python scripts/growth_debug.py _rawdbg ${{ steps.c.outputs.args }}
+
   collect:
     needs: [plan, extract]
     if: always() && needs.plan.outputs.mode == 'extract'
