@@ -30,6 +30,7 @@ What runs from a clean clone, and what needs local data:
 - The score track has no extra of its own: install `.[dev]` or `.[records]` for it.
 - `firewitness live replay` runs from the repository root (it reads `protocol/live_fires.csv` by a relative path) and
   needs the GOES series first (`firewitness live traceback --extract`, network, about 3 minutes per fire).
+- `firewitness live growth` (early growth rate of fire power, release growth-v0.1, `results/GROWTH_RESULTS.md`) runs from the released series in `release/growth-v0.1/` with no network or key; `firewitness live growth extract` says what new fires need.
 - A fuel area given as a lon/lat box starting with a minus sign needs `--` before it:
   `firewitness fuel check --map M16 -- "-115.2,40.4,-114.8,40.7"`.
 

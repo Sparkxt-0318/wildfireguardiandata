@@ -390,4 +390,6 @@ def curves(tab_s: pd.DataFrame, series: pd.DataFrame, cfg, step=5, max_min=360) 
     d = pd.DataFrame(rows)
     out = d.dropna().groupby(["group", "tau_min"]).P.agg(
         median="median", q25=lambda s: s.quantile(0.25), q75=lambda s: s.quantile(0.75), n="count").reset_index()
+    nf = d.dropna().groupby("group").fire_id.nunique()
+    out["n_fires"] = out.group.map(nf)
     return out

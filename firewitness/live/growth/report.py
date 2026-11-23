@@ -196,10 +196,10 @@ def figure(cv: pd.DataFrame, path: Path, part: str = "sealed"):
         if not len(c):
             continue
         x = c.tau_min.to_numpy() / 60.0
-        n = int(c.n.max())
+        n = int(c.n_fires.iloc[0]) if "n_fires" in c else int(c.n.max())
         ax.fill_between(x, np.maximum(c.q25, 0.5), np.maximum(c.q75, 0.5), color=col[g], alpha=0.16, lw=0)
         y = np.maximum(c["median"].to_numpy(), 0.5)
-        ax.plot(x, y, color=col[g], ls=ls[g], lw=3.5, label=f"{lab[g]}, n = {n} fires")
+        ax.plot(x, y, color=col[g], ls=ls[g], lw=3.5, label=f"{lab[g]}: {n} fires (clear frames only)")
         ax.annotate(f"{g}\n{y[-1]:.0f} MW", (x[-1], y[-1]), xytext=(10, 0), textcoords="offset points",
                     va="center", fontsize=18, color="#222222")
     ax.set_yscale("log")

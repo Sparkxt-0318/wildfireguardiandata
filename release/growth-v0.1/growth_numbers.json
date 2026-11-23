@@ -1,0 +1,750 @@
+{
+ "gates": {
+  "A": {
+   "G1": {
+    "by_attribute": {
+     "logslope_3h": {
+      "by_sat": {
+       "G16": [
+        106,
+        10629
+       ],
+       "G17": [
+        10,
+        929
+       ],
+       "G18": [
+        71,
+        6670
+       ]
+      },
+      "called_measured": 187,
+      "n_anchors": 18228,
+      "share": [
+       0.010259,
+       0.008896,
+       0.011828
+      ]
+     },
+     "npix_slope_1h": {
+      "by_sat": {
+       "G16": [
+        113,
+        11077
+       ],
+       "G17": [
+        9,
+        952
+       ],
+       "G18": [
+        53,
+        6897
+       ]
+      },
+      "called_measured": 175,
+      "n_anchors": 18926,
+      "share": [
+       0.009247,
+       0.007979,
+       0.010713
+      ]
+     },
+     "npix_slope_3h": {
+      "by_sat": {
+       "G16": [
+        118,
+        10629
+       ],
+       "G17": [
+        10,
+        929
+       ],
+       "G18": [
+        64,
+        6670
+       ]
+      },
+      "called_measured": 192,
+      "n_anchors": 18228,
+      "share": [
+       0.010533,
+       0.009151,
+       0.012122
+      ]
+     },
+     "npix_slope_6h": {
+      "by_sat": {
+       "G16": [
+        121,
+        10778
+       ],
+       "G17": [
+        10,
+        950
+       ],
+       "G18": [
+        71,
+        6657
+       ]
+      },
+      "called_measured": 202,
+      "n_anchors": 18385,
+      "share": [
+       0.010987,
+       0.009579,
+       0.0126
+      ]
+     },
+     "slope_1h": {
+      "by_sat": {
+       "G16": [
+        117,
+        11077
+       ],
+       "G17": [
+        10,
+        952
+       ],
+       "G18": [
+        56,
+        6897
+       ]
+      },
+      "called_measured": 183,
+      "n_anchors": 18926,
+      "share": [
+       0.009669,
+       0.008371,
+       0.011166
+      ]
+     },
+     "slope_3h": {
+      "by_sat": {
+       "G16": [
+        121,
+        10629
+       ],
+       "G17": [
+        10,
+        929
+       ],
+       "G18": [
+        63,
+        6670
+       ]
+      },
+      "called_measured": 194,
+      "n_anchors": 18228,
+      "share": [
+       0.010643,
+       0.009253,
+       0.012239
+      ]
+     },
+     "slope_6h": {
+      "by_sat": {
+       "G16": [
+        114,
+        10778
+       ],
+       "G17": [
+        10,
+        950
+       ],
+       "G18": [
+        68,
+        6657
+       ]
+      },
+      "called_measured": 192,
+      "n_anchors": 18385,
+      "share": [
+       0.010443,
+       0.009073,
+       0.012018
+      ]
+     }
+    },
+    "n_sealed_anchors": 41157,
+    "pass": true
+   },
+   "G2": {
+    "ci": [
+     0.71465,
+     0.921788
+    ],
+    "median_common_frames": 18.0,
+    "n_fire_satellites": 142,
+    "n_fires": 106,
+    "pass": true,
+    "spearman": 0.836288,
+    "verdict": "PASS"
+   },
+   "G3": {
+    "ci": [
+     0.728293,
+     0.934731
+    ],
+    "n_fires_both_known": 79,
+    "n_fires_both_measured": 28,
+    "pass": true,
+    "sign_agree": 27,
+    "sign_share": [
+     0.964286,
+     0.822874,
+     0.993668
+    ],
+    "spearman": 0.853384,
+    "verdict": "PASS"
+   },
+   "G4": {
+    "auc_fdc_first_power": {
+     "ci": [
+      0.614105,
+      0.772334
+     ],
+     "value": 0.689366
+    },
+    "auc_growth_3h": {
+     "ci": [
+      0.585112,
+      0.772149
+     ],
+     "value": 0.678949
+    },
+    "auc_power_t0": {
+     "ci": [
+      0.534114,
+      0.70709
+     ],
+     "value": 0.620491
+    },
+    "better_than_fdc_first_power": false,
+    "better_than_power_t0": false,
+    "diff_vs_fdc_first_power": {
+     "ci": [
+      -0.140285,
+      0.117267
+     ],
+     "value": -0.010417
+    },
+    "diff_vs_power_t0": {
+     "ci": [
+      -0.07993,
+      0.193264
+     ],
+     "value": 0.058458
+    },
+    "n_fires": 163,
+    "n_large": 67,
+    "n_sealed_fires": 370,
+    "n_small": 96
+   },
+   "afternoon": {
+    "t0_10_18h": {
+     "measured": 48,
+     "median_slope_3h": -2.36595,
+     "n": 123
+    },
+    "t0_other": {
+     "measured": 7,
+     "median_slope_3h": -0.280718,
+     "n": 51
+    }
+   },
+   "measured_slopes": {
+    "median_doubling_time_h": [
+     0.529145,
+     0.50422,
+     0.55407
+    ],
+    "median_slope_3h": [
+     80.255904,
+     -41.744279,
+     112.576751
+    ],
+    "n": 55,
+    "n_doubling": 2,
+    "n_rising": 33
+   }
+  },
+  "dev": {
+   "G1": {
+    "by_attribute": {
+     "logslope_3h": {
+      "by_sat": {
+       "G16": [
+        27,
+        2605
+       ],
+       "G18": [
+        25,
+        2873
+       ],
+       "G19": [
+        14,
+        1378
+       ]
+      },
+      "called_measured": 66,
+      "n_anchors": 6856,
+      "share": [
+       0.009627,
+       0.007574,
+       0.012228
+      ]
+     },
+     "npix_slope_1h": {
+      "by_sat": {
+       "G16": [
+        22,
+        2694
+       ],
+       "G18": [
+        47,
+        3072
+       ],
+       "G19": [
+        15,
+        1452
+       ]
+      },
+      "called_measured": 84,
+      "n_anchors": 7218,
+      "share": [
+       0.011638,
+       0.00941,
+       0.014385
+      ]
+     },
+     "npix_slope_3h": {
+      "by_sat": {
+       "G16": [
+        14,
+        2605
+       ],
+       "G18": [
+        32,
+        2873
+       ],
+       "G19": [
+        14,
+        1378
+       ]
+      },
+      "called_measured": 60,
+      "n_anchors": 6856,
+      "share": [
+       0.008751,
+       0.006805,
+       0.011248
+      ]
+     },
+     "npix_slope_6h": {
+      "by_sat": {
+       "G16": [
+        13,
+        2717
+       ],
+       "G18": [
+        25,
+        2936
+       ],
+       "G19": [
+        14,
+        1356
+       ]
+      },
+      "called_measured": 52,
+      "n_anchors": 7009,
+      "share": [
+       0.007419,
+       0.005662,
+       0.009715
+      ]
+     },
+     "slope_1h": {
+      "by_sat": {
+       "G16": [
+        21,
+        2694
+       ],
+       "G18": [
+        44,
+        3072
+       ],
+       "G19": [
+        15,
+        1452
+       ]
+      },
+      "called_measured": 80,
+      "n_anchors": 7218,
+      "share": [
+       0.011083,
+       0.008915,
+       0.013772
+      ]
+     },
+     "slope_3h": {
+      "by_sat": {
+       "G16": [
+        12,
+        2605
+       ],
+       "G18": [
+        33,
+        2873
+       ],
+       "G19": [
+        14,
+        1378
+       ]
+      },
+      "called_measured": 59,
+      "n_anchors": 6856,
+      "share": [
+       0.008606,
+       0.006678,
+       0.011084
+      ]
+     },
+     "slope_6h": {
+      "by_sat": {
+       "G16": [
+        21,
+        2717
+       ],
+       "G18": [
+        28,
+        2936
+       ],
+       "G19": [
+        14,
+        1356
+       ]
+      },
+      "called_measured": 63,
+      "n_anchors": 7009,
+      "share": [
+       0.008988,
+       0.007032,
+       0.011483
+      ]
+     }
+    },
+    "n_sealed_anchors": 17360,
+    "pass": true
+   },
+   "G2": {
+    "ci": [
+     0.655262,
+     0.938904
+    ],
+    "median_common_frames": 15.0,
+    "n_fire_satellites": 61,
+    "n_fires": 42,
+    "pass": true,
+    "spearman": 0.819038,
+    "verdict": "PASS"
+   },
+   "G3": {
+    "ci": [
+     0.635617,
+     0.985689
+    ],
+    "n_fires_both_known": 30,
+    "n_fires_both_measured": 11,
+    "pass": true,
+    "sign_agree": 11,
+    "sign_share": [
+     1.0,
+     0.74116,
+     1.0
+    ],
+    "spearman": 0.874082,
+    "verdict": "PASS"
+   },
+   "G4": {
+    "auc_fdc_first_power": {
+     "ci": [
+      0.660506,
+      0.892416
+     ],
+     "value": 0.786667
+    },
+    "auc_growth_3h": {
+     "ci": [
+      0.583529,
+      0.872031
+     ],
+     "value": 0.739487
+    },
+    "auc_power_t0": {
+     "ci": [
+      0.418712,
+      0.72357
+     ],
+     "value": 0.569231
+    },
+    "better_than_fdc_first_power": false,
+    "better_than_power_t0": false,
+    "diff_vs_fdc_first_power": {
+     "ci": [
+      -0.240409,
+      0.138538
+     ],
+     "value": -0.047179
+    },
+    "diff_vs_power_t0": {
+     "ci": [
+      -0.067922,
+      0.382214
+     ],
+     "value": 0.170256
+    },
+    "n_fires": 64,
+    "n_large": 25,
+    "n_sealed_fires": 155,
+    "n_small": 39
+   },
+   "afternoon": {
+    "t0_10_18h": {
+     "measured": 16,
+     "median_slope_3h": -1.52731,
+     "n": 43
+    },
+    "t0_other": {
+     "measured": 5,
+     "median_slope_3h": 2.436913,
+     "n": 25
+    }
+   },
+   "measured_slopes": {
+    "median_doubling_time_h": [
+     0.315098,
+     0.254876,
+     0.37532
+    ],
+    "median_slope_3h": [
+     72.256254,
+     -36.347092,
+     244.855915
+    ],
+    "n": 21,
+    "n_doubling": 2,
+    "n_rising": 14
+   }
+  }
+ },
+ "headline": {
+  "A": {
+   "fires_tried": 370,
+   "fires_with_series": 370,
+   "flat_3h": 119,
+   "measured_1h": 42,
+   "measured_3h": 55,
+   "measured_6h": 61,
+   "share_3h": [
+    0.148649,
+    0.116017,
+    0.188501
+   ],
+   "unknown_3h": 196
+  },
+  "dev": {
+   "fires_tried": 155,
+   "fires_with_series": 155,
+   "flat_3h": 47,
+   "measured_1h": 24,
+   "measured_3h": 21,
+   "measured_6h": 22,
+   "share_3h": [
+    0.135484,
+    0.090351,
+    0.198249
+   ],
+   "unknown_3h": 87
+  },
+  "sealed": {
+   "fires_tried": 0,
+   "fires_with_series": 0,
+   "flat_3h": 0,
+   "measured_1h": 0,
+   "measured_3h": 0,
+   "measured_6h": 0,
+   "share_3h": [
+    null,
+    null,
+    null
+   ],
+   "unknown_3h": 0
+  }
+ },
+ "n_fire_satellites": 840,
+ "n_fires": 525,
+ "n_placebo_anchors": {
+  "A": 41157,
+  "dev": 17360,
+  "sealed": 0
+ },
+ "onset_repro_set_a": {
+  "n": 370,
+  "n_frozen_onsets": 60,
+  "same": 370,
+  "same_no_onset": 310,
+  "same_onset_within_5min": 60
+ },
+ "t0_kind": {
+  "A": {
+   "first_detection_fdc": 168,
+   "first_detection_polar": 142,
+   "onset_traceback": 60
+  },
+  "dev": {
+   "first_detection_fdc": 64,
+   "first_detection_polar": 61,
+   "onset_traceback": 30
+  },
+  "sealed": {}
+ },
+ "thresholds": {
+  "G16": {
+   "logslope_3h": {
+    "n": 13234,
+    "thr": 1.312667
+   },
+   "npix_slope_1h": {
+    "n": 13771,
+    "thr": 4.0
+   },
+   "npix_slope_3h": {
+    "n": 13234,
+    "thr": 1.333333
+   },
+   "npix_slope_6h": {
+    "n": 13495,
+    "thr": 0.571429
+   },
+   "p0_mw": {
+    "n": 15821,
+    "thr": 141.948752
+   },
+   "slope_1h": {
+    "n": 13771,
+    "thr": 95.967541
+   },
+   "slope_3h": {
+    "n": 13234,
+    "thr": 35.567932
+   },
+   "slope_6h": {
+    "n": 13495,
+    "thr": 18.317747
+   }
+  },
+  "G17": {
+   "logslope_3h": {
+    "n": 929,
+    "thr": 1.332849
+   },
+   "npix_slope_1h": {
+    "n": 952,
+    "thr": 6.0
+   },
+   "npix_slope_3h": {
+    "n": 929,
+    "thr": 1.618956
+   },
+   "npix_slope_6h": {
+    "n": 950,
+    "thr": 0.929812
+   },
+   "p0_mw": {
+    "n": 1091,
+    "thr": 129.463727
+   },
+   "slope_1h": {
+    "n": 952,
+    "thr": 76.199863
+   },
+   "slope_3h": {
+    "n": 929,
+    "thr": 36.226244
+   },
+   "slope_6h": {
+    "n": 950,
+    "thr": 18.62473
+   }
+  },
+  "G18": {
+   "logslope_3h": {
+    "n": 9543,
+    "thr": 1.227216
+   },
+   "npix_slope_1h": {
+    "n": 9969,
+    "thr": 4.0
+   },
+   "npix_slope_3h": {
+    "n": 9543,
+    "thr": 1.592696
+   },
+   "npix_slope_6h": {
+    "n": 9593,
+    "thr": 0.774544
+   },
+   "p0_mw": {
+    "n": 11130,
+    "thr": 108.539614
+   },
+   "slope_1h": {
+    "n": 9969,
+    "thr": 66.79957
+   },
+   "slope_3h": {
+    "n": 9543,
+    "thr": 27.442524
+   },
+   "slope_6h": {
+    "n": 9593,
+    "thr": 12.762366
+   }
+  },
+  "G19": {
+   "logslope_3h": {
+    "n": 1378,
+    "thr": 1.387378
+   },
+   "npix_slope_1h": {
+    "n": 1452,
+    "thr": 4.0
+   },
+   "npix_slope_3h": {
+    "n": 1378,
+    "thr": 1.782889
+   },
+   "npix_slope_6h": {
+    "n": 1356,
+    "thr": 0.57
+   },
+   "p0_mw": {
+    "n": 1666,
+    "thr": 149.388828
+   },
+   "slope_1h": {
+    "n": 1452,
+    "thr": 88.330664
+   },
+   "slope_3h": {
+    "n": 1378,
+    "thr": 46.869173
+   },
+   "slope_6h": {
+    "n": 1356,
+    "thr": 18.198356
+   }
+  }
+ },
+ "thresholds_recomputed_match_frozen": true
+}
