@@ -210,3 +210,69 @@ reconciled (that would be live-detector work).
 **D-517 (caught) — v0.2 sealed run beside the record checks.** Against D-513, the 795-window sealed run (2 processes, 16 threads) ran beside the S3 v0.2 record checks to save about 3.5 h; memory stayed above 8 GB free and both runs checkpoint. The 2021 sources load without agency perimeters (`Sources(perimeters_on=False)`, perimeter evidence is off for the sealed set as the protocol says; a CAL FIRE 2021 service failed).
 
 **D-518 (caught) — v0.2 sealed set: perimeters without an IRWIN id were dropped.** Found after the sealed run: the builder's de-duplication by IRWIN id collapsed all 3,061 qualifying WFIGS 2021 perimeters without an id into one row, so the sealed set that ran is 795 (794 with an id). Amendment A1 meant up to 1,500 of 3,855. The selection depended only on whether an id exists, not on any outcome; every class has n >= 30. Reported as a deviation; not re-run or widened after seeing results. The builder now keeps perimeters without an id; the 3,061 remain unopened for any later check.
+
+## Track growth (early growth rate)
+
+**D-601 — Satellite reads run on GitHub Actions.** The working machine's link measured about 70 KB/s, too slow for
+about 8,000 range reads per fire and satellite. `.github/workflows/growth.yml` runs the reads where NOAA S3 is fast
+(the live relay ran there before). A run starts when `growth_run.json` changes on `track/growth`. Logs print fire ids
+and progress only. Sealed series go to a separate artifact (`growth-sealed`) that is downloaded once, at the opening.
+
+**D-602 — Set B runs to the end of 2025, with GOES-19 as GOES-East after 2025-04-07.** The user asked for 2023 to
+2025. The v0.1 period (to 2025-04-05) has 114 confirmed fires of 10,000 acres or more, and 85 are already in Set A, so a
+size-stratified Set B needs the rest of 2025. The frozen onset threshold for the East role (h_A 35.52) is applied to
+GOES-19 as the live service applied it during D2; it was never calibrated on GOES-19 and this is stated with every
+GOES-19 number. Growth thresholds are per satellite, so GOES-19 gets its own from its dev placebo anchors. Fires
+discovered 2025-03-28 to 2025-04-09 are left out: their background days would mix GOES-16 and GOES-19.
+
+**D-603 — GOES-19 band-7 Planck constants read from a GOES-19 file.** `traceback_v02.PLANCK` carries the GOES-16
+constants under the key G19 (never used: v0.2 had no GOES-19 fire). The growth config holds the constants read from a
+GOES-19 L1b file (fk1 200248, fk2 3685.87, bc1 0.48985, bc2 0.99931). GOES-16/17/18 keep the frozen values.
+
+**D-604 — Set B has 310 fires, not 320.** After the exclusions only 70 fires of 10,000 acres or more are eligible;
+all 70 are taken (35 dev, 35 sealed), with 80 in each other class. Still at least 300, as asked.
+
+**D-605 — Fire power over a 7 x 7 region, ring pixels only when significant.** The v0.2 estimate (3 x 3 core,
+unmasked) is calibrated (S1) but a fire that spreads in six hours leaves the 3 x 3. Summing the positive background
+noise of 49 pixels would add tens of MW of bias, so ring pixels count only when z >= 4. The core stays exactly the
+frozen estimate. Chosen before any series existed.
+
+**D-606 — "Measured" uses |slope| against the 99th percentile of placebo |slope|.** A fire whose power falls in its
+first hours is as distinguishable from the placebo as one that rises; a one-sided rule would call it flat. The sign is
+kept in the value.
+
+**D-607 — Moving-block bootstrap (blocks of 4 frames).** Successive 5-minute frames are correlated (same background
+days, same cloud edge); resampling single frames would give intervals that are too narrow.
+
+**D-608 — Local mean solar time of t0.** Longitude / 15 h added to UTC. It needs no time-zone table and is the right
+clock for afternoon heating; civil time would add DST and zone boundaries.
+
+**D-609 — G4 "large" = final size class 2 or 3 (1,000 acres or more).** Gives two groups of about equal size in the
+sealed half (75 and 80). Fixed before any result.
+
+**D-610 — Placebo cleanliness widened to the 7 x 7 region and 10 km.** The frozen rule (5 x 5 window, 5 km) was made
+for a 3 x 3 site; the growth series reads a 7 x 7 region, so the clean zone is widened to match.
+
+**D-611 — Set A start times from the released labels.** t0 for Set A is the released onset (or T0) so that the frozen
+labels are not re-derived. The trace-back is re-run on the new extraction as a reproducibility check and reported.
+
+**D-612 — One satellite per fire for per-fire numbers.** The satellite with the most clear frames in the first 3 h
+(ties: GOES-East). Data quality only, no outcome.
+
+**D-613 — Operational power in the same 7 x 7 region.** S1 summed the product's power over a 5 x 5 window at one
+frame; G2 compares series, so both series cover the same pixels.
+
+**D-614 — A fire the operational product never detected scores 0 MW in G4.** Dropping such fires would leave out
+exactly the cases where the product reports nothing; 0 is what the product reported.
+
+**D-615 — Git runs outside the command sandbox here.** The sandbox blocks writes to `.git/config` in the working
+folder; clone, commit and push run with the sandbox off. Nothing else does.
+
+**D-616 — Placebo frames indexed by slot; every series recomputed from the stored raw arrays.** The first full run
+(Actions run 45173893167) processed 674 of 680 fires; 6 stopped because on some background days the scan start times
+drift, so the [t0, t0 + 6 h] window held a different number of frames on different days and the placebo arrays could
+not be stacked. Placebo frames are now taken at the same 73 slots on every day (the days are whole-day shifts of one
+window, protocol §3); frames whose scan start falls outside the window are dropped by the window rule as before. No
+definition changes. To keep one code version for all fires, the trace-back and every series are recomputed from the
+raw arrays saved by that run (no new satellite read). At the time of the fix no growth value had been looked at: only
+the per-part counts of processed fires and the error messages.

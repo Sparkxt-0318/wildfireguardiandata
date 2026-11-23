@@ -1,0 +1,65 @@
+{
+ "wfigs_snapshot": "wfigs_incidents_ge10ac_20230110_20251231.json",
+ "wfigs_sha256": "2df174dceb7261710fa2d768346e2ea79cc392f06d6c1b99c4577c977fb85d0b",
+ "wfigs_records": 13845,
+ "v01_rules_summary": {
+  "n_wfigs_in_scope": 13383,
+  "n_after_dedup": 12712,
+  "excluded": {
+   "no_polar_detection": 7781,
+   "pre_existing_heat_within_5km_9d": 1058
+  },
+  "n_pool": 3873,
+  "pool_by_class": {
+   "0": 1605,
+   "1": 1563,
+   "2": 550,
+   "3": 155
+  },
+  "n_sample": 3873,
+  "seed": 2026,
+  "n_per_class": 1000000,
+  "by_split_class": {
+   "dev:0": 803,
+   "dev:1": 782,
+   "dev:2": 275,
+   "dev:3": 78,
+   "test:0": 802,
+   "test:1": 781,
+   "test:2": 275,
+   "test:3": 77
+  }
+ },
+ "pool_after_v01_rules": 3873,
+ "excluded_after_pool": {
+  "in_set_a": 340,
+  "near_set_a": 0,
+  "satellite_switch": 19,
+  "not_visible": 0
+ },
+ "pool_eligible": 3514,
+ "pool_eligible_by_class": {
+  "0": 1508,
+  "1": 1475,
+  "2": 461,
+  "3": 70
+ },
+ "n": 310,
+ "by_split_class": {
+  "dev:0": 40,
+  "dev:1": 40,
+  "dev:2": 40,
+  "dev:3": 35,
+  "sealed:0": 40,
+  "sealed:1": 40,
+  "sealed:2": 40,
+  "sealed:3": 35
+ },
+ "by_east_satellite": {
+  "G16": 192,
+  "G19": 118
+ },
+ "file": "growth_fires_set_b.csv",
+ "sha256": "b4801738fec41a01f9eecfe82ccfa5eb084299d596367275895282e590038b82",
+ "made": "2026-11-23T09:40Z"
+}

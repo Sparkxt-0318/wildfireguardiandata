@@ -1,0 +1,1 @@
+Sealed half opened once at 2026-11-23T23:18:54Z from commit f659c18ae34d93fd0008a7a14d54c25ccbd7a7f3; thresholds file SHA-256 054b32ab4fbc79450adeb3e349964554b30083407fa581e78b266cbed741f4bc; sealed folder growth-sealed artifact of Actions run 45215058581.

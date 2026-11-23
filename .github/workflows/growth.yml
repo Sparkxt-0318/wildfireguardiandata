@@ -1,0 +1,145 @@
+name: growth — early growth rate (GOES series on Actions)
+
+# Track growth (protocol/GROWTH_PROTOCOL.md). The NOAA S3 buckets are read here, where they are fast; public data,
+# no key. A run starts when growth_run.json changes on branch track/growth; its "mode" picks the step:
+#   lists   - WFIGS snapshot + FIRMS archive -> Set A file, Set B sample, crosswalk ids (artifact growth-lists)
+#   extract - per-fire extraction, frozen trace-back, fire and placebo series in N shards; then two artifacts:
+#             growth-open (Set A + Set B dev) and growth-sealed (Set B sealed; downloaded once, at the opening)
+# Logs print fire ids and progress only, never a growth value.
+
+on:
+  push:
+    branches: [track/growth]
+    paths: [growth_run.json]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  FIREWITNESS_RAW: ${{ github.workspace }}/_raw
+  PYTHONUNBUFFERED: "1"
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      mode: ${{ steps.p.outputs.mode }}
+      shards: ${{ steps.p.outputs.shards }}
+      only: ${{ steps.p.outputs.only }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: p
+        run: |
+          python3 - <<'EOF' >> "$GITHUB_OUTPUT"
+          import json
+          c = json.load(open("growth_run.json"))
+          n = int(c.get("shards", 20))
+          print("mode=" + c["mode"])
+          print("shards=" + json.dumps(list(range(n))))
+          print("only=" + c.get("only", ""))
+          EOF
+
+  inputs:
+    needs: plan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install -q -e . numpy scipy h5py requests pandas pyarrow
+      - run: python scripts/growth_actions.py inputs --out _inputs
+      - run: mkdir -p _inputs/firms && cp _raw/live/firms/*.csv _inputs/firms/
+      - uses: actions/upload-artifact@v4
+        with: {name: growth-inputs, path: _inputs, retention-days: 30}
+
+  lists:
+    needs: [plan, inputs]
+    if: needs.plan.outputs.mode == 'lists'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install -q -e . numpy scipy h5py requests pandas pyarrow
+      - uses: actions/download-artifact@v4
+        with: {name: growth-inputs, path: _inputs}
+      - run: |
+          mkdir -p _raw/live/firms && cp _inputs/firms/*.csv _raw/live/firms/
+          curl -sSfL -o _crosswalk.parquet https://raw.githubusercontent.com/${{ github.repository }}/main/release/records-v0.1/crosswalk_us.parquet
+          python scripts/growth_actions.py lists --inputs _inputs --out _lists --crosswalk _crosswalk.parquet
+          cp _inputs/inputs.json _lists/
+      - uses: actions/upload-artifact@v4
+        with: {name: growth-lists, path: _lists, retention-days: 30}
+
+  extract:
+    needs: [plan, inputs]
+    if: needs.plan.outputs.mode == 'extract' || needs.plan.outputs.mode == 'series'
+    runs-on: ubuntu-latest
+    timeout-minutes: 355
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        shard: ${{ fromJSON(needs.plan.outputs.shards) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install -q -e . numpy scipy h5py requests pandas pyarrow
+      - uses: actions/download-artifact@v4
+        with: {name: growth-inputs, path: _inputs}
+      - run: mkdir -p _raw/live/firms && cp _inputs/firms/*.csv _raw/live/firms/
+      - id: rr
+        if: needs.plan.outputs.mode == 'series'
+        run: python3 -c "import json; print('run='+str(json.load(open('growth_run.json'))['raw_run']))" >> "$GITHUB_OUTPUT"
+      - uses: actions/download-artifact@v4
+        if: needs.plan.outputs.mode == 'series'
+        with: {name: 'growth-raw-${{ matrix.shard }}', path: _raw/live/series, run-id: '${{ steps.rr.outputs.run }}', github-token: '${{ github.token }}'}
+      - name: extract and compute series
+        run: |
+          N=$(python3 -c "import json; print(len(json.loads('${{ needs.plan.outputs.shards }}')))")
+          python scripts/growth_actions.py shard --i ${{ matrix.shard }} --n $N --out _out/shard${{ matrix.shard }} --procs 32 --only "${{ needs.plan.outputs.only }}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: 'growth-shard-${{ matrix.shard }}', path: _out, retention-days: 30}
+      - uses: actions/upload-artifact@v4
+        if: always() && needs.plan.outputs.mode == 'extract'
+        with: {name: 'growth-raw-${{ matrix.shard }}', path: _raw/live/series, retention-days: 30, compression-level: 0}
+
+  debug:
+    needs: plan
+    if: needs.plan.outputs.mode == 'debug'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install -q -e . numpy scipy h5py requests pandas pyarrow
+      - id: c
+        run: python3 -c "import json; c=json.load(open('growth_run.json')); print('run='+str(c['raw_run'])); print('art='+c['artifact']); print('args='+c['args'])" >> "$GITHUB_OUTPUT"
+      - uses: actions/download-artifact@v4
+        with: {name: '${{ steps.c.outputs.art }}', path: _rawdbg, run-id: '${{ steps.c.outputs.run }}', github-token: '${{ github.token }}'}
+      - run: python scripts/growth_debug.py _rawdbg ${{ steps.c.outputs.args }}
+
+  collect:
+    needs: [plan, extract]
+    if: always() && (needs.plan.outputs.mode == 'extract' || needs.plan.outputs.mode == 'series')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install -q -e . numpy scipy h5py requests pandas pyarrow
+      - uses: actions/download-artifact@v4
+        with: {pattern: 'growth-shard-*', path: _shards}
+      - run: |
+          python scripts/growth_actions.py collect --in _shards --part open --out _open
+          python scripts/growth_actions.py collect --in _shards --part sealed --out _sealed
+          python3 -c "import json,glob; e=[x for f in glob.glob('_shards/**/errors.json', recursive=True) for x in json.load(open(f))]; print(len(e), 'errors'); [print(x['fire_id'], x['error'][:300]) for x in e]"
+          find _shards -name errors.json -exec cat {} + > _open/errors_all.json || true
+      - uses: actions/upload-artifact@v4
+        with: {name: growth-open, path: _open, retention-days: 30}
+      - uses: actions/upload-artifact@v4
+        with: {name: growth-sealed, path: _sealed, retention-days: 30}

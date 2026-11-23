@@ -44,6 +44,9 @@ def register(parser):
     p.add_argument("--log-repo", default="live-log-wt")
     p.add_argument("--min-age-h", type=float, default=24)
     p.set_defaults(func=cmd_reconcile)
+    p = sub.add_parser("growth", help="early growth rate of fire power (protocol/GROWTH_PROTOCOL.md)")
+    from .growth.cli import register as reg_growth
+    reg_growth(p)
 
 
 def cmd_traceback(a):

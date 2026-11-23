@@ -21,3 +21,5 @@ jobs:
         run: python -m pytest -q
       - name: command line discovery
         run: firewitness --version && firewitness records --help
+      - name: growth-v0.1 recompute from the released files alone
+        run: python -I release/growth-v0.1/growth_recompute.py --dir release/growth-v0.1 --out "$RUNNER_TEMP/growth_recompute"
