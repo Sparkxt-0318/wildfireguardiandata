@@ -75,7 +75,7 @@ jobs:
 
   extract:
     needs: [plan, inputs]
-    if: needs.plan.outputs.mode == 'extract'
+    if: needs.plan.outputs.mode == 'extract' || needs.plan.outputs.mode == 'series'
     runs-on: ubuntu-latest
     timeout-minutes: 355
     strategy:
@@ -91,6 +91,12 @@ jobs:
       - uses: actions/download-artifact@v4
         with: {name: growth-inputs, path: _inputs}
       - run: mkdir -p _raw/live/firms && cp _inputs/firms/*.csv _raw/live/firms/
+      - id: rr
+        if: needs.plan.outputs.mode == 'series'
+        run: python3 -c "import json; print('run='+str(json.load(open('growth_run.json'))['raw_run']))" >> "$GITHUB_OUTPUT"
+      - uses: actions/download-artifact@v4
+        if: needs.plan.outputs.mode == 'series'
+        with: {name: 'growth-raw-${{ matrix.shard }}', path: _raw/live/series, run-id: '${{ steps.rr.outputs.run }}', github-token: '${{ github.token }}'}
       - name: extract and compute series
         run: |
           N=$(python3 -c "import json; print(len(json.loads('${{ needs.plan.outputs.shards }}')))")
@@ -99,7 +105,7 @@ jobs:
         if: always()
         with: {name: 'growth-shard-${{ matrix.shard }}', path: _out, retention-days: 30}
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && needs.plan.outputs.mode == 'extract'
         with: {name: 'growth-raw-${{ matrix.shard }}', path: _raw/live/series, retention-days: 30, compression-level: 0}
 
   debug:
@@ -119,7 +125,7 @@ jobs:
 
   collect:
     needs: [plan, extract]
-    if: always() && needs.plan.outputs.mode == 'extract'
+    if: always() && (needs.plan.outputs.mode == 'extract' || needs.plan.outputs.mode == 'series')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

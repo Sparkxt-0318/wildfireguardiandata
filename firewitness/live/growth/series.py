@@ -144,13 +144,20 @@ def placebo_series(series, meta, sat, t0, bg, sc, area, anchors):
     """For each anchor: P and N over the frames of [t0_d, t0_d + 6 h] on day d (t0_d = t0 - d days)."""
     ws = meta["T0"] - 12 * 3600
     out = []
+    # the same 73 slots on every day (days are whole-day shifts of one window): slot k0 = first nominal slot at or
+    # after t0 - 2.5 min. Frames whose scan start drifts outside [-2.5, 362.5] min are dropped by the window rule.
+    nt = S["keep_after_t0_h"] * 12 + 1
+    nominal = ws + 300.0 * np.arange(NSLOT)
+    k0 = int(np.searchsorted(nominal, t0 - 150.0))
+    sel = np.arange(k0, min(k0 + nt, NSLOT))
     for d, di, dj, kind in anchors:
         t, have = slot_times(series["tscan"][d], ws - d * 86400)
         tau = (t - (t0 - d * 86400)) / 60.0
-        sel = np.where((tau >= -2.5) & (tau <= S["keep_after_t0_h"] * 60 + 2.5))[0]
         P, lo, hi, N, clear = frame_stats(series, bg, sc, area, sat, d, HALF + di, HALF + dj, sel)
-        out.append({"day": d, "di": di, "dj": dj, "kind": kind, "slot": sel, "tau_min": tau[sel], "P": P, "N": N,
-                    "clear": clear})
+        pad = nt - len(sel)
+        f = lambda x: np.concatenate([x, np.full(pad, np.nan)]) if pad else x
+        out.append({"day": d, "di": di, "dj": dj, "kind": kind, "slot": sel, "tau_min": f(tau[sel]), "P": f(P),
+                    "N": f(N), "clear": f(clear.astype(float))})
     return out
 
 

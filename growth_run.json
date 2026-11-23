@@ -1,1 +1,1 @@
-{"mode": "extract", "shards": 20, "only": ""}
+{"mode": "series", "shards": 20, "only": "", "raw_run": 45173893167}

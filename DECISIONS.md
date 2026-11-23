@@ -267,3 +267,12 @@ exactly the cases where the product reports nothing; 0 is what the product repor
 
 **D-615 — Git runs outside the command sandbox here.** The sandbox blocks writes to `.git/config` in the working
 folder; clone, commit and push run with the sandbox off. Nothing else does.
+
+**D-616 — Placebo frames indexed by slot; every series recomputed from the stored raw arrays.** The first full run
+(Actions run 45173893167) processed 674 of 680 fires; 6 stopped because on some background days the scan start times
+drift, so the [t0, t0 + 6 h] window held a different number of frames on different days and the placebo arrays could
+not be stacked. Placebo frames are now taken at the same 73 slots on every day (the days are whole-day shifts of one
+window, protocol §3); frames whose scan start falls outside the window are dropped by the window rule as before. No
+definition changes. To keep one code version for all fires, the trace-back and every series are recomputed from the
+raw arrays saved by that run (no new satellite read). At the time of the fix no growth value had been looked at: only
+the per-part counts of processed fires and the error messages.
