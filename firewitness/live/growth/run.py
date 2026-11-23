@@ -98,13 +98,19 @@ def process(fire: dict, region_cfg: dict, pool, firms: Firms, out: Path) -> dict
                             "p_P": np.stack([p["P"] for p in ps]).astype(np.float32),
                             "p_N": np.stack([p["N"] for p in ps]).astype(np.float32)})
             np.savez_compressed(sub / f"{fid}_{sat}.npz", **npz)
+            acm = s["ACM"][0]
+            qc = {"acm_missing": float((acm == 255).mean()), "acm_clear": float((acm < 2).mean()),
+                  "bt7_valid": float(np.isfinite(s["BT7"][0]).mean()), "bt14_valid": float(np.isfinite(s["BT14"][0]).mean()),
+                  "frames_day0": int(np.isfinite(s["tscan"][0]).sum()),
+                  "fire_frames_clear": int(np.asarray(fs["clear"]).sum()), "fire_frames": int(len(fs["clear"]))}
             res["sats"][sat] = {
                 "role": sm["role"], "site_r": sm["r"], "site_c": sm["c"],
                 "site_lat": float(s["lat"][20, 20]), "site_lon": float(s["lon"][20, 20]),
                 "onset_recomputed": row["t_D"], "S_pre": row["S_pre"],
                 "fdc_first": iso(sm["fdc_first"][0]) if sm["fdc_first"] else None,
                 "fdc_first_power_mw": sm.get("fdc_first_power_mw"), "fdc_first_npix": sm.get("fdc_first_npix"),
-                "n_files": sm["n_jobs"], "n_files_failed": sm["n_fail"], "n_placebo_anchors": len(ps)}
+                "n_files": sm["n_jobs"], "n_files_failed": sm["n_fail"], "n_placebo_anchors": len(ps), "qc": qc}
+            print(f"  qc {fid} {sat} " + json.dumps(qc), flush=True)
         res["status"] = "ok"
     res["seconds"] = round(time.time() - t_start, 1)
     done.write_text(json.dumps(res, indent=1, default=str))

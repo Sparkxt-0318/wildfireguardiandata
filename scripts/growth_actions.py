@@ -102,7 +102,8 @@ def cmd_collect(a):
                           "fdc_first_power_mw": s["fdc_first_power_mw"], "fdc_first_npix": s["fdc_first_npix"],
                           "onset_recomputed": s["onset_recomputed"], "S_pre": s["S_pre"],
                           "n_files": s["n_files"], "n_files_failed": s["n_files_failed"],
-                          "n_placebo_anchors": s["n_placebo_anchors"]})
+                          "n_placebo_anchors": s["n_placebo_anchors"],
+                          **{f"qc_{k}": v for k, v in (s.get("qc") or {}).items()}})
             hits = glob.glob(str(src / "**" / a.part / f"{m['fire_id']}_{sat}.npz"), recursive=True)
             z = np.load(hits[0])
             n = len(z["f_tau_min"])
