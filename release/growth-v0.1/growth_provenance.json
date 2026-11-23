@@ -1,4 +1,6 @@
 {
+ "opening": "Sealed half opened once at 2026-11-23T23:18:54Z (commit 8e379a9, `results/growth/SEALED_OPENED.md`), after the thresholds were committed; no setting changed afterwards.",
+ "opening_commit": "8e379a9",
  "protocol_commit": "4ca49a4",
  "thresholds_commit": "ea1ff0b",
  "thresholds_sha256": "054b32ab4fbc79450adeb3e349964554b30083407fa581e78b266cbed741f4bc"

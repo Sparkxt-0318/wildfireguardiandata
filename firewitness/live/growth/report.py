@@ -259,14 +259,15 @@ def _verdict(p):
 
 
 PRIOR_ART = (
-    "Fire radiative power measured every 15 minutes from geostationary orbit has been used to follow individual fires "
-    "and their daily cycle since SEVIRI (Roberts and Wooster 2008, IEEE TGRS; Roberts et al. 2009, Biogeosciences), "
-    "and GOES-16 ABI fire-power retrievals at 5–15 minutes were evaluated over the Americas by Xu et al. (2021, "
-    "Science of Remote Sensing). Wiggins et al. (2020, GRL) used GOES-16 fire-power time series of single fires to "
-    "explain changes in their smoke, and Benali et al. (2023, ESSD) paired fire growth rates of 80 large Portuguese "
-    "fires with SEVIRI fire power. Luo et al. (2026, Science Advances) analysed hourly geostationary observations of "
-    "about 9,000 North American fires and report that about 60 % reached peak intensity within 24 hours of detection; "
-    "the attribute here is a per-fire, placebo-calibrated slope of the first six hours, not a new kind of measurement.")
+    "Fire radiative power from geostationary orbit has followed individual fires and their daily cycle every 15 minutes "
+    "since SEVIRI (Roberts and Wooster 2008, IEEE TGRS; Roberts et al. 2009, Biogeosciences), and GOES-16 ABI fire "
+    "power at 5–15 minutes was evaluated over the Americas by Xu et al. (2021, Science of Remote Sensing). "
+    "GOES-16 fire-power time series of single fires have been tied to their smoke (Wiggins et al. 2020, GRL), fire "
+    "growth rates of 80 large Portuguese fires were paired with SEVIRI fire power (Benali et al. 2023, ESSD), and "
+    "hourly geostationary data for about 9,000 North American fires show about 60 % reaching peak intensity within "
+    "24 hours of detection (Luo et al. 2026, Science Advances). "
+    "The attribute here is not a new kind of measurement but a per-fire, placebo-calibrated slope of the first six "
+    "hours with a stated state, released with the series it comes from.")
 
 
 def render(n: dict, prov: dict) -> str:
@@ -281,16 +282,18 @@ def render(n: dict, prov: dict) -> str:
     w("# GROWTH_RESULTS — early growth rate of fire power in the first hours (track growth)")
     w("")
     if hs and hs["fires_tried"] and g4:
-        w(f"**Headline: on the {hs['fires_tried']} sealed new fires, {hs['measured_3h']} have a measured 3-hour growth "
-          f"rate ({_sh(hs['share_3h'])}); {hs['flat_3h']} are flat (not distinguishable from the placebo) and "
-          f"{hs['unknown_3h']} unknown (too few clear frames). Gates: G1 placebo {_verdict(g1.get('pass'))}, "
-          f"G2 agreement with the operational product {g2.get('verdict', '–')} (Spearman {_v(g2.get('spearman'))}), "
-          f"G3 two satellites {g3.get('verdict', '–')}, G4: the 3-hour growth rate separates fires that ended large "
-          f"{'better' if g4.get('better_than_power_t0') else 'not better'} than fire power at t0 and "
-          f"{'better' if g4.get('better_than_fdc_first_power') else 'not better'} than the operational product's first "
-          f"power (AUC {_v(g4.get('auc_growth_3h', {}).get('value'))} vs {_v(g4.get('auc_power_t0', {}).get('value'))} "
-          f"and {_v(g4.get('auc_fdc_first_power', {}).get('value'))}). This is an association on past fires, not a "
-          f"forecast.**")
+        g4ok = g4.get('better_than_power_t0') and g4.get('better_than_fdc_first_power')
+        w(f"**Headline: of the {hs['fires_tried']} sealed new fires, {hs['measured_3h']} have a measured 3-hour growth "
+          f"rate ({100 * hs['share_3h'][0]:.1f} %, 95 % CI {100 * hs['share_3h'][1]:.1f}–{100 * hs['share_3h'][2]:.1f} %); "
+          f"{hs['flat_3h']} are flat (not distinguishable from the placebo) and {hs['unknown_3h']} unknown (too few "
+          f"clear frames). G1 placebo {_verdict(g1.get('pass'))}; G2 agreement with the operational product "
+          f"{g2.get('verdict', '–')} (Spearman {_v(g2.get('spearman'))}); G3 two satellites {g3.get('verdict', '–')} "
+          f"(small n); G4 {'MET' if g4ok else 'NOT MET'}: the 3-hour growth rate does "
+          f"{'' if g4.get('better_than_power_t0') else 'not '}separate fires that ended large better than fire power "
+          f"at t0, and does {'' if g4.get('better_than_fdc_first_power') else 'not '}separate them better than the "
+          f"operational product's first reported power (AUC {_v(g4.get('auc_growth_3h', {}).get('value'))} vs "
+          f"{_v(g4.get('auc_power_t0', {}).get('value'))} and {_v(g4.get('auc_fdc_first_power', {}).get('value'))}). "
+          f"An association on past fires, not a forecast.**")
         w("")
     w(f"Protocol: `protocol/GROWTH_PROTOCOL.md` (committed alone with the fire lists at {prov.get('protocol_commit', '–')}"
       f"; amendments inside). Fires: Set A = the 370 fires of the earlier live lists (used before, descriptive only); "
@@ -331,7 +334,7 @@ def render(n: dict, prov: dict) -> str:
     if g3:
         w(f"| G3: two satellites, rank of slope_3h, sealed | {g3['n_fires_both_known']} fires | Spearman "
           f"{_v(g3['spearman'])}; same sign {g3['sign_agree']} of {g3['n_fires_both_measured']} measured on both | "
-          f"{_iv(g3['ci'])}; sign {_sh(g3['sign_share'])} | `early_growth_v0.1.csv` | the two views share the "
+          f"{_iv(g3['ci'])}; sign {_sh(g3['sign_share'])} | `early_growth_v0.1.csv` | small n; the two views share the "
           f"ground truth but not the pixels; it is not a check against an independent measurement of the fire |")
     if g4:
         for k, lab in (("auc_growth_3h", "AUC, 3 h growth rate"), ("auc_power_t0", "AUC, fire power at t0"),
@@ -349,8 +352,9 @@ def render(n: dict, prov: dict) -> str:
           f"fire power, not area: our estimate runs about 1.5× the product (v0.2 S1), and 2 km pixels mix fire and "
           f"background |")
     if ms and ms["n_doubling"]:
-        w(f"| median doubling time, sealed fires with measured slope_3h and logslope_3h, rising | {ms['n_doubling']} fires | "
-          f"{_v(ms['median_doubling_time_h'][0], 2)} h | {_iv(ms['median_doubling_time_h'][1:], 2)} h | "
+        nd = ms["n_doubling"]
+        w(f"| median doubling time, sealed fires with measured slope_3h and logslope_3h, rising | {nd} fire{'s' if nd != 1 else ''} | "
+          f"{_v(ms['median_doubling_time_h'][0], 2)} h | {(_iv(ms['median_doubling_time_h'][1:], 2) + ' h') if nd > 1 else 'one fire: no interval'} | "
           f"`early_growth_v0.1.csv` | the log fit adds 1 MW to every frame; a slow start under a noise floor looks slower |")
     orp = n.get("onset_repro_set_a", {})
     if orp:
@@ -379,7 +383,7 @@ def render(n: dict, prov: dict) -> str:
     if g3:
         w(f"**G3 two satellites — {g3['verdict']}.** {g3['n_fires_both_known']} sealed fires have a usable 3 h window on "
           f"both satellites: Spearman {_v(g3['spearman'])} ({_iv(g3['ci'])}); of {g3['n_fires_both_measured']} measured "
-          f"on both, {g3['sign_agree']} agree in sign ({_sh(g3['sign_share'])}). Targets: ρ ≥ 0.6, sign ≥ 80 %, n ≥ 10.")
+          f"on both, {g3['sign_agree']} agree in sign ({_sh(g3['sign_share'])}). Targets: ρ ≥ 0.6, sign ≥ 80 %, n ≥ 10. The sign check rests on {g3['n_fires_both_measured']} fires; its interval is wide.")
         w("")
     if g4:
         w(f"**G4 is it informative.** {g4['n_fires']} of {g4['n_sealed_fires']} sealed fires have a usable slope_3h and a "
@@ -388,10 +392,13 @@ def render(n: dict, prov: dict) -> str:
           f"{_v(g4['auc_power_t0']['value'])} ({_iv(g4['auc_power_t0']['ci'])}), product's first power "
           f"{_v(g4['auc_fdc_first_power']['value'])} ({_iv(g4['auc_fdc_first_power']['ci'])}). Differences: growth − "
           f"power at t0 {_v(g4['diff_vs_power_t0']['value'])} ({_iv(g4['diff_vs_power_t0']['ci'])}); growth − product "
-          f"{_v(g4['diff_vs_fdc_first_power']['value'])} ({_iv(g4['diff_vs_fdc_first_power']['ci'])}). Growth separates "
-          f"{'better' if g4['better_than_power_t0'] else 'not better'} than power at t0 and "
-          f"{'better' if g4['better_than_fdc_first_power'] else 'not better'} than the product's first power (better = "
-          f"interval of the difference above 0). Association on past fires, not a forecast.")
+          f"{_v(g4['diff_vs_fdc_first_power']['value'])} ({_iv(g4['diff_vs_fdc_first_power']['ci'])}). The growth rate "
+          f"{'separates' if g4['better_than_power_t0'] else 'does not separate'} large from small fires better than power "
+          f"at t0, and {'separates' if g4['better_than_fdc_first_power'] else 'does not separate'} them better than the "
+          f"product's first power (better = interval of the difference above 0). "
+          f"{'G4 met.' if (g4['better_than_power_t0'] and g4['better_than_fdc_first_power']) else 'G4 not met; published as failed.'} "
+          f"Fires with an unknown slope_3h or no power at t0 ({g4['n_sealed_fires'] - g4['n_fires']}) are not in this "
+          f"comparison. Association on past fires, not a forecast.")
         w("")
     af = S.get("afternoon")
     if af:
@@ -439,6 +446,10 @@ def render(n: dict, prov: dict) -> str:
       "power to the background; their late slopes are underestimates.")
     w("- GOES-19 (GOES-East from 2025-04-07) uses the onset threshold calibrated on GOES-16; its growth thresholds come "
       "from its own dev placebo anchors.")
+    if hs and hs["fires_tried"]:
+        w(f"- Coverage: {hs['unknown_3h']} of {hs['fires_tried']} sealed fires are `unknown` for the 3 h slope. The clear-"
+          f"frame rule needs all 9 core pixels and a background with clear history on the previous days; cloud on the "
+          f"fire day or on the background days removes a fire.")
     w("")
     w("Files (release growth-v0.1, checksums in `SHA256SUMS.txt`): `early_growth_v0.1.csv` / `.parquet`, "
       "`growth_series_fire.parquet`, `growth_series_placebo.parquet`, `growth_fires.csv`, `growth_runs.csv`, "

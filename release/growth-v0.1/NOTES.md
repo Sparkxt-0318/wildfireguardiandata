@@ -6,7 +6,12 @@ It builds on the live track (frozen trace-back onset, per-pixel background, fire
 Protocol: `protocol/GROWTH_PROTOCOL.md` (committed alone with the fire lists before any result). Results and limits:
 `GROWTH_RESULTS.md`. Data card: `DATA_CARD.md`. Release v0.1 and its notes are unchanged.
 
-{{HEADLINE}}
+Headline (sealed half, 155 new fires, opened once): 20 fires have a measured 3-hour growth rate (12.9 %, 95 % CI
+8.5–19.1 %), 60 are flat and 75 unknown (too few clear frames). G1 placebo PASS (at most 0.85 % of 8,237 sealed placebo
+anchors called measured, limit 2 %); G2 agreement with the operational product PASS (Spearman 0.94, 0.87–0.97, 61
+fire-satellites); G3 two satellites PASS on small n (Spearman 0.68, 0.36–0.90, 39 fires; sign 8 of 9). G4 NOT MET: the
+3-hour growth rate does not separate fires that ended large (≥ 1,000 acres) better than fire power at t0 or the
+operational product's first power (AUC 0.68 vs 0.74 and 0.81, 76 fires). An association on past fires, not a forecast.
 
 Files:
 - `early_growth_v0.1.csv` / `.parquet`: one row per fire and satellite (fire id, permanent id where linked, t0 and its
@@ -23,7 +28,7 @@ Files:
 Recompute (no network, no key):
 
 ```
-pip install numpy pandas scipy pyarrow matplotlib
+pip install numpy pandas scipy pyarrow
 python growth_recompute.py --dir . --out recomputed
 ```
 

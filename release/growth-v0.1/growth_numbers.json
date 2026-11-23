@@ -535,6 +535,274 @@
     "n_doubling": 2,
     "n_rising": 14
    }
+  },
+  "sealed": {
+   "G1": {
+    "by_attribute": {
+     "logslope_3h": {
+      "by_sat": {
+       "G16": [
+        11,
+        2925
+       ],
+       "G18": [
+        24,
+        3447
+       ],
+       "G19": [
+        16,
+        1865
+       ]
+      },
+      "called_measured": 51,
+      "n_anchors": 8237,
+      "share": [
+       0.006192,
+       0.004713,
+       0.008131
+      ]
+     },
+     "npix_slope_1h": {
+      "by_sat": {
+       "G16": [
+        15,
+        3019
+       ],
+       "G18": [
+        19,
+        3480
+       ],
+       "G19": [
+        16,
+        1960
+       ]
+      },
+      "called_measured": 50,
+      "n_anchors": 8459,
+      "share": [
+       0.005911,
+       0.004487,
+       0.007784
+      ]
+     },
+     "npix_slope_3h": {
+      "by_sat": {
+       "G16": [
+        21,
+        2925
+       ],
+       "G18": [
+        30,
+        3447
+       ],
+       "G19": [
+        9,
+        1865
+       ]
+      },
+      "called_measured": 60,
+      "n_anchors": 8237,
+      "share": [
+       0.007284,
+       0.005664,
+       0.009364
+      ]
+     },
+     "npix_slope_6h": {
+      "by_sat": {
+       "G16": [
+        27,
+        2919
+       ],
+       "G18": [
+        21,
+        3476
+       ],
+       "G19": [
+        22,
+        1842
+       ]
+      },
+      "called_measured": 70,
+      "n_anchors": 8237,
+      "share": [
+       0.008498,
+       0.006732,
+       0.010722
+      ]
+     },
+     "slope_1h": {
+      "by_sat": {
+       "G16": [
+        10,
+        3019
+       ],
+       "G18": [
+        25,
+        3480
+       ],
+       "G19": [
+        28,
+        1960
+       ]
+      },
+      "called_measured": 63,
+      "n_anchors": 8459,
+      "share": [
+       0.007448,
+       0.005826,
+       0.009517
+      ]
+     },
+     "slope_3h": {
+      "by_sat": {
+       "G16": [
+        13,
+        2925
+       ],
+       "G18": [
+        20,
+        3447
+       ],
+       "G19": [
+        10,
+        1865
+       ]
+      },
+      "called_measured": 43,
+      "n_anchors": 8237,
+      "share": [
+       0.00522,
+       0.003878,
+       0.007024
+      ]
+     },
+     "slope_6h": {
+      "by_sat": {
+       "G16": [
+        13,
+        2919
+       ],
+       "G18": [
+        29,
+        3476
+       ],
+       "G19": [
+        26,
+        1842
+       ]
+      },
+      "called_measured": 68,
+      "n_anchors": 8237,
+      "share": [
+       0.008255,
+       0.006518,
+       0.010452
+      ]
+     }
+    },
+    "n_sealed_anchors": 17538,
+    "pass": true
+   },
+   "G2": {
+    "ci": [
+     0.865436,
+     0.971749
+    ],
+    "median_common_frames": 20.0,
+    "n_fire_satellites": 61,
+    "n_fires": 44,
+    "pass": true,
+    "spearman": 0.936489,
+    "verdict": "PASS"
+   },
+   "G3": {
+    "ci": [
+     0.362731,
+     0.904598
+    ],
+    "n_fires_both_known": 39,
+    "n_fires_both_measured": 9,
+    "pass": true,
+    "sign_agree": 8,
+    "sign_share": [
+     0.888889,
+     0.564994,
+     0.98011
+    ],
+    "spearman": 0.680769,
+    "verdict": "PASS"
+   },
+   "G4": {
+    "auc_fdc_first_power": {
+     "ci": [
+      0.708734,
+      0.907322
+     ],
+     "value": 0.81392
+    },
+    "auc_growth_3h": {
+     "ci": [
+      0.540513,
+      0.807432
+     ],
+     "value": 0.675426
+    },
+    "auc_power_t0": {
+     "ci": [
+      0.6181,
+      0.846957
+     ],
+     "value": 0.736506
+    },
+    "better_than_fdc_first_power": false,
+    "better_than_power_t0": false,
+    "diff_vs_fdc_first_power": {
+     "ci": [
+      -0.306036,
+      0.026817
+     ],
+     "value": -0.138494
+    },
+    "diff_vs_power_t0": {
+     "ci": [
+      -0.258413,
+      0.133188
+     ],
+     "value": -0.06108
+    },
+    "n_fires": 76,
+    "n_large": 32,
+    "n_sealed_fires": 155,
+    "n_small": 44
+   },
+   "afternoon": {
+    "t0_10_18h": {
+     "measured": 18,
+     "median_slope_3h": -2.855359,
+     "n": 56
+    },
+    "t0_other": {
+     "measured": 2,
+     "median_slope_3h": -0.731248,
+     "n": 24
+    }
+   },
+   "measured_slopes": {
+    "median_doubling_time_h": [
+     0.508193,
+     0.508193,
+     0.508193
+    ],
+    "median_slope_3h": [
+     91.003034,
+     -41.492111,
+     575.071763
+    ],
+    "n": 20,
+    "n_doubling": 1,
+    "n_rising": 12
+   }
   }
  },
  "headline": {
@@ -567,26 +835,26 @@
    "unknown_3h": 87
   },
   "sealed": {
-   "fires_tried": 0,
-   "fires_with_series": 0,
-   "flat_3h": 0,
-   "measured_1h": 0,
-   "measured_3h": 0,
-   "measured_6h": 0,
+   "fires_tried": 155,
+   "fires_with_series": 155,
+   "flat_3h": 60,
+   "measured_1h": 27,
+   "measured_3h": 20,
+   "measured_6h": 26,
    "share_3h": [
-    null,
-    null,
-    null
+    0.129032,
+    0.085103,
+    0.190905
    ],
-   "unknown_3h": 0
+   "unknown_3h": 75
   }
  },
- "n_fire_satellites": 840,
- "n_fires": 525,
+ "n_fire_satellites": 1085,
+ "n_fires": 680,
  "n_placebo_anchors": {
   "A": 41157,
   "dev": 17360,
-  "sealed": 0
+  "sealed": 17538
  },
  "onset_repro_set_a": {
   "n": 370,
@@ -606,7 +874,11 @@
    "first_detection_polar": 61,
    "onset_traceback": 30
   },
-  "sealed": {}
+  "sealed": {
+   "first_detection_fdc": 70,
+   "first_detection_polar": 57,
+   "onset_traceback": 28
+  }
  },
  "thresholds": {
   "G16": {

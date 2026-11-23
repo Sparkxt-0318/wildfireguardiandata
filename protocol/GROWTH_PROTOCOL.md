@@ -178,4 +178,10 @@ for correlations and areas under the curve.
 
 ## Amendments
 
-(none)
+**Amendment 1 — 2026-11-23T16:18Z (commit 3300683), implementation of §6, no definition change. Results seen: none** (only the
+count of fires processed per part and the error messages of the first full run). In the first full run 6 of 680
+fires stopped because on some background days the scan start times drift, so the frames of [t0, t0 + 6 h] differed in
+number between days. Placebo frames are now taken at the same 73 slots on every day (the days are whole-day shifts of
+one window, §3); a frame whose scan start falls outside [−2.5, 362.5] min is dropped by the window rule of §5, as
+before. Every fire's trace-back and series were recomputed from the stored raw arrays with this code, so all 680
+fires use one version (DECISIONS D-616).
