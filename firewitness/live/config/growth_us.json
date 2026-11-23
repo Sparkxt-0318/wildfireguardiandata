@@ -1,0 +1,76 @@
+{
+ "protocol": "protocol/GROWTH_PROTOCOL.md",
+ "version": "growth-v0.1",
+ "region": "us",
+ "onset": {
+  "frozen_config": "firewitness/live/config/traceback_v02_us.json",
+  "variant": "A2",
+  "h_A": {"east": 35.51684249877931, "west": 31.283151206970196},
+  "k": 0.5,
+  "nboot": 200
+ },
+ "extract": {
+  "box_px": 40,
+  "ndays": 9,
+  "pre_h": 12,
+  "post_h": 6,
+  "fdc_search_h": [-12, 48]
+ },
+ "series": {
+  "region_px": 7,
+  "core_px": 3,
+  "fire_pixel_z": 4.0,
+  "min_ring_valid": 30,
+  "keep_before_t0_h": 2,
+  "keep_after_t0_h": 6,
+  "fdc_region_px": 7,
+  "fire_codes": [10, 11, 12, 13, 14, 30, 31, 32, 33, 34]
+ },
+ "attributes": {
+  "windows_h": [1, 3, 6],
+  "log_window_h": 3,
+  "log_offset_mw": 1.0,
+  "min_frames": 6,
+  "min_frames_frac": 0.5,
+  "edge_frac": 0.25,
+  "p0_max_delay_min": 15
+ },
+ "bootstrap": {"B": 1000, "block": 4, "q": [2.5, 97.5]},
+ "placebo": {
+  "spatial_offsets_px": [[12, 0], [-12, 0], [0, 12], [0, -12], [12, 12], [12, -12], [-12, 12], [-12, -12]],
+  "temporal_days": [1, 2, 3, 4, 5, 6, 7, 8],
+  "fdc_unclean_codes": [10, 11, 12, 13, 14, 15, 30, 31, 32, 33, 34, 35],
+  "firms_clean_km": 10.0,
+  "firms_clean_pad_h": 24,
+  "quantile": 99.0,
+  "threshold_from": ["A", "dev"]
+ },
+ "gates": {
+  "G1_max_share": 0.02,
+  "G2_min_spearman": 0.6,
+  "G2_min_n": 20,
+  "G2_min_common_frames": 6,
+  "G3_min_spearman": 0.6,
+  "G3_min_sign_share": 0.8,
+  "G3_min_n": 10,
+  "G4_large_classes": [2, 3],
+  "boot_B": 2000,
+  "boot_seed": 0
+ },
+ "set_b": {
+  "source": "WFIGS Incident Locations (NIFC), IncidentTypeCategory = WF",
+  "period": ["2023-01-10T00:00:00Z", "2026-01-01T00:00:00Z"],
+  "exclude_discovery": ["2025-03-28T00:00:00Z", "2025-04-10T00:00:00Z"],
+  "n_per_class": 80,
+  "seed": 2026,
+  "split_salt": "growth-v0.1",
+  "exclude_near_set_a_km": 5.0,
+  "exclude_near_set_a_days": 2.0
+ },
+ "planck_band7": {
+  "G16": [202263.0, 3698.18994140625, 0.4336099922657013, 0.9993900060653687],
+  "G17": [203135.0, 3703.5, 0.44554001092910767, 0.9993799924850464],
+  "G18": [200441.0, 3687.050048828125, 0.44868001341819763, 0.9993699789047241],
+  "G19": null
+ }
+}
