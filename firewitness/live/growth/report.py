@@ -29,7 +29,8 @@ def load(rel: Path) -> dict:
          "series": pd.read_parquet(rel / FILES["series"]), "placebo": pd.read_parquet(rel / FILES["placebo"]),
          "cfg": json.loads((rel / FILES["cfg"]).read_text())}
     d["fires"]["perm_id"] = d["fires"]["perm_id"].fillna("")
-    d["thr_frozen"] = json.loads((rel / FILES["thr"]).read_text()) if (rel / FILES["thr"]).is_file() else None
+    t = json.loads((rel / FILES["thr"]).read_text()) if (rel / FILES["thr"]).is_file() else None
+    d["thr_frozen"] = t.get("thresholds", t) if t else None
     d["prov"] = json.loads((rel / FILES["prov"]).read_text()) if (rel / FILES["prov"]).is_file() else {}
     d["set_a"] = pd.read_csv(rel / FILES["set_a"], dtype=str, keep_default_na=False) if (rel / FILES["set_a"]).is_file() else None
     return d
@@ -53,7 +54,8 @@ def _same_thr(a, b, tol=1e-9) -> bool:
     for s in a:
         for k in a[s]:
             x, y = a[s][k]["thr"], b.get(s, {}).get(k, {}).get("thr", float("nan"))
-            if not (x == y or abs(x - y) <= tol * max(1.0, abs(x))) or a[s][k]["n"] != b[s][k]["n"]:
+            both_nan = x != x and y != y
+            if not (both_nan or x == y or abs(x - y) <= tol * max(1.0, abs(x))) or a[s][k]["n"] != b[s][k]["n"]:
                 return False
     return True
 
@@ -201,6 +203,10 @@ def figure(cv: pd.DataFrame, path: Path, part: str = "sealed"):
         ax.annotate(f"{g}\n{y[-1]:.0f} MW", (x[-1], y[-1]), xytext=(10, 0), textcoords="offset points",
                     va="center", fontsize=18, color="#222222")
     ax.set_yscale("log")
+    from matplotlib.ticker import FixedLocator, FuncFormatter, NullLocator
+    ax.yaxis.set_major_locator(FixedLocator([1, 3, 10, 30, 100, 300, 1000, 3000, 10000]))
+    ax.yaxis.set_minor_locator(NullLocator())
+    ax.yaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:,.0f}"))
     ax.set_xlim(0, 6)
     ax.set_xticks(range(7))
     ax.set_xlabel("hours after the start time t0")
