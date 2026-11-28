@@ -1,0 +1,11 @@
+quantity,released,rebuilt,released_source
+records searched with imagery,94330.0,94330,S3_summary.json / prepare_windows on release files
+matched placebos,209000.0,209024,S3_placebo.csv (all matched n)
+searched placebos,91224.0,91226,S3_placebo.csv (searched n)
+"verified, searched placebos, all years",191.0,188,S3_placebo.csv
+"verified, searched placebos, 2020",51.0,51,S2_placebo.csv (S3 2020 rows equal S2)
+"searched placebos, 2020",30992.0,30994,S2_placebo.csv
+"verified, searched placebos, 2018+2019",140.0,137,191 - 51
+"verified, searched placebos, 2018",,100,released only as a rate (0.30 %)
+"verified, searched placebos, 2019",,37,released only as a rate (0.14 %)
+searched placebos through the scar finder (gated),,1229,"audit gate, rubric s2 + A1"
