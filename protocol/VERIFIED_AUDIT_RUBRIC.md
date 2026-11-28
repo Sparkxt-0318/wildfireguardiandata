@@ -113,4 +113,10 @@ image, rebuild mismatches, raters unable to decide) are reported as failures, no
 
 ## Amendment log
 
-(none)
+**A1 (2026-11-28, before any placebo was rebuilt, any case image made or any case classified).** Section 2 step 3:
+the scar-finder gate drops "or an MCD64A1 pixel". Reason: the national MCD64A1 load (1,596 monthly tiles) runs at
+about 5 h on this connection. It is not needed for the gate: in `results/caught/S3_summary.json` every placebo
+witness set whose only gate item would be MCD64A1 (`MCD64A1` 42, `MCD64A1,S2_SCAR` 6) holds one kind, so cannot be
+verified. MCD64A1 stays an evidence source: for each gated candidate, the MCD64A1 pixels near the disc are read
+from the same Planetary Computer tiles (Dec 2017 to Jan 2021, the months overlapping the window +- 100 days) and
+reduced exactly as `standard.load_mcd64a1` does; the candidate's point matches are then recomputed with them.
